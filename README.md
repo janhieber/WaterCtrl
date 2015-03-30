@@ -17,12 +17,8 @@ Measure:
 The moisture measurement is done by a oscillating circuit that uses two big copper planes as capacitor in the soil. When the soil is wet the capacity is high and the frequency will be low.
 
 # Todo
-[x] - Done, but you can improve it
-[-] - Currently under development, needs testing or further work
-[ ] - Please help me!
-
-[] Frequency measurement (Code)
-[] Moisture measurement (PCB)
-[] Play with ESP8266 connectivity
-[] make PCB for controlling the water pumps
-[] make webinterface for observing the watering cycles
+- [ ] Frequency measurement (Code)
+- [x] Moisture measurement (PCB)
+- [ ] Play with ESP8266 connectivity
+- [ ] make PCB for controlling the water pumps
+- [ ] make webinterface for observing the watering cycles
