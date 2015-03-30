@@ -1,0 +1,4 @@
+
+volatile uint32_t msTicks = 0;
+
+void Delay(uint32_t msec);

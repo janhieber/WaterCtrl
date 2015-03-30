@@ -1,0 +1,22 @@
+/*
+ * helpers.c
+ *
+ *  Created on: 30.03.2015
+ *      Author: jan
+ */
+
+#include <helpers.h>
+
+void initSystem(void) {
+	SysTick_Config (SystemCoreClock / TIMER_FREQUENCY_HZ);
+}
+
+void Delay(uint32_t msec) {
+	uint32_t currentTicks = msTicks;
+	while ((msTicks - currentTicks) < msec);
+}
+
+void SysTick_Handler (void)
+{
+	msTicks++;
+}

@@ -1,0 +1,41 @@
+//
+// This file is part of the GNU ARM Eclipse distribution.
+// Copyright (c) 2014 Liviu Ionescu.
+//
+
+// ----------------------------------------------------------------------------
+
+#include <stdio.h>
+#include "diag/Trace.h"
+
+#include "Timer.h"
+#include "BlinkLed.h"
+#include <helpers.h>
+
+
+
+void main(void)
+{
+	SysTick_Config (SystemCoreClock / 1000u);
+
+	trace_puts("Hello ARM World!");
+	trace_printf("System clock: %uHz\n", SystemCoreClock);
+
+	while (1)
+	{
+		blink_led_on();
+		timer_sleep(BLINK_ON_TICKS);
+
+		blink_led_off();
+		timer_sleep(BLINK_OFF_TICKS);
+
+		++seconds;
+
+		// Count seconds on the trace device.
+		trace_printf("Second %u\n", seconds);
+	}
+	// Infinite loop, never return.
+}
+
+
+

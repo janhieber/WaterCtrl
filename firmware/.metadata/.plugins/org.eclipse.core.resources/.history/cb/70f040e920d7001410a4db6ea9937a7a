@@ -1,0 +1,30 @@
+
+#include <stdio.h>
+#include "diag/Trace.h"
+
+#include <helpers.h>
+
+
+
+void main(void)
+{
+	SysTick_Config (SystemCoreClock / 1000u);
+
+	trace_puts("Hello ARM World!");
+	trace_printf("System clock: %uHz\n", SystemCoreClock);
+
+	initGPIOs();
+
+	while (1)
+	{
+		GPIO_SetBits(GPIOC, GPIO_Pin_9);
+		Delay(500);
+
+		GPIO_ResetBits(GPIOC, GPIO_Pin_9);
+		Delay(500);
+	}
+
+}
+
+
+

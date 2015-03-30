@@ -1,0 +1,40 @@
+/*
+ * helpers.c
+ *
+ *  Created on: 30.03.2015
+ *      Author: jan
+ */
+
+#include <stm32f0xx_rcc.h>
+
+#include <helpers.h>
+
+volatile uint32_t msTicks = 0;
+
+void initSystem(void) {
+	SysTick_Config (SystemCoreClock / 1000u);
+}
+
+void initGPIOs(void) {
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+	GPIO_InitTypeDef gpioStructure;
+
+	// Blue LED
+	GPIO_StructInit(&gpioStructure);
+	gpioStructure.GPIO_Pin = GPIO_Pin_9;
+	gpioStructure.GPIO_Mode = GPIO_Mode_OUT;
+	gpioStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	gpioStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	gpioStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_Init(GPIOC, &gpioStructure);
+
+}
+
+void Delay(uint32_t msec) {
+	uint32_t currentTicks = msTicks;
+	while ((msTicks - currentTicks) < msec);
+}
+
+void SysTick_Handler(void) {
+	msTicks++;
+}
