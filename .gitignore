@@ -2,7 +2,7 @@
 *.o
 *.ko
 *.obj
-*.elf
+#*.elf
 
 # Precompiled Headers
 *.gch
@@ -26,7 +26,11 @@
 *.app
 *.i*86
 *.x86_64
-*.hex
+#*.hex
 
 # Debug files
 *.dSYM/
+
+# other
+**/Debug/system
+**/Debug/src
