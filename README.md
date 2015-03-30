@@ -16,9 +16,3 @@ The main board should use a STM32F0 CPU. Currently I'm using the Discovery board
 Measure:
 The moisture measurement is done by a oscillating circuit that uses two big copper planes as capacitor in the soil. When the soil is wet the capacity is high and the frequency will be low.
 
-# Todo
-- [ ] Frequency measurement (Code)
-- [x] Moisture measurement (PCB)
-- [ ] Play with ESP8266 connectivity
-- [ ] make PCB for controlling the water pumps
-- [ ] make webinterface for observing the watering cycles
