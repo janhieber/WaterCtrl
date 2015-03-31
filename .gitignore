@@ -62,9 +62,5 @@
 *.eps
 
 
-
-
-**/Debug/src
 # libreoffice
-**/Debug/src
 *.csv#
