@@ -1,0 +1,9 @@
+Part,Part Number,Part Name,Order ID,Shop,Qty,Link
+IC2,LM317EMP,"Spannungsregler, linear, SOT-223",LM 317 EMP,Reichelt,1,http://www.reichelt.de/LM-317-EMP/3/index.html?&ACTION=3&LA=446&ARTICLE=109390&artnr=LM+317+EMP&SEARCH=lm317
+R7,SPR-0805 240,"SMD-Chipwiderstand 0805, 240 Ohm, 0,1%",SPR-0805 240,Reichelt,1,http://www.reichelt.de/SPR-0805-240/3/index.html?&ACTION=3&LA=446&ARTICLE=123229&artnr=SPR-0805+240&SEARCH=240+Ohm
+R3,SPR-0805 300,"SMD-Chipwiderstand 0805, 300 Ohm, 0,1%",SPR-0805 300,Reichelt,1,http://www.reichelt.de/SMD-0-1-0805-47-0-Ohm-910-Ohm/SPR-0805-300/3/index.html?&ACTION=3&LA=2&ARTICLE=123232&GROUPID=5556&artnr=SPR-0805+300
+R5,64Y-200,"Präzisionspoti. 25 Gänge, stehend, 200 Ohm",64Y-200,Reichelt,1,http://www.reichelt.de/Praezisionstrimmer/64Y-200/3/index.html?&ACTION=3&LA=2&ARTICLE=2720&GROUPID=3129&artnr=64Y-200
+"C1, C11",VF 470/25 K-G,"Elko SMD-Bauform, 105°C, low ESR",VF 470/25 K-G,Reichelt,2,http://www.reichelt.de/Elkos-SMD-Low-ESR-105-C/VF-470-25-K-G/3/index.html?&ACTION=3&LA=2&ARTICLE=84778&GROUPID=4001&artnr=VF+470%2F25+K-G
+"C2, C9",X7R-G0805 100N,"SMD-Vielschicht-Keramikkondensator 100N, 10%",X7R-G0805 100N,Reichelt,2,http://www.reichelt.de/Vielschicht-SMD-G0805/X7R-G0805-100N/3/index.html?&ACTION=3&LA=2&ARTICLE=31879&GROUPID=3165&artnr=X7R-G0805+100N
+LED1,SMD-LED 0805 GN,"CHIP-Leuchtdioden, Bauform G0805, grün",SMD-LED 0805 GN,Reichelt,1,http://www.reichelt.de/SMD-LED-0603-0805-1206/SMD-LED-0805-GN/3/index.html?&ACTION=3&LA=2&ARTICLE=31436&GROUPID=3035&artnr=SMD-LED+0805+GN
+R1,"SMD-0805 47,0","SMD-Chip-Widerstand, Bauform 0805, 47 Ohm","SMD-0805 47,0",Reichelt,1,http://www.reichelt.de/SMD-0805-10-0-Ohm-82-0-Ohm/SMD-0805-47-0/3/index.html?&ACTION=3&LA=2&ARTICLE=32870&GROUPID=3095&artnr=SMD-0805+47%2C0
