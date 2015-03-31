@@ -33,3 +33,10 @@
 
 # eclipse device packs, is one lvl up the workspace
 /Packages/
+
+# eagle
+# EAGLE Autosave Files
+*.b#*
+*.s#*
+*.##*
+*.csv#
