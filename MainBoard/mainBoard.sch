@@ -19346,6 +19346,9 @@ wire to board 2.54 mm (.1 inch) pitch header</description>
 <part name="GND32" library="supply1" deviceset="GND" device=""/>
 <part name="GND33" library="supply1" deviceset="GND" device=""/>
 <part name="GND29" library="supply1" deviceset="GND" device=""/>
+<part name="C2" library="rcl" deviceset="C-EU" device="C0805" value="22p">
+<attribute name="R" value="SPR-0805 240"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -19379,6 +19382,9 @@ wire to board 2.54 mm (.1 inch) pitch header</description>
 <instance part="SV1" gate="G$1" x="104.14" y="35.56"/>
 <instance part="GND1" gate="1" x="124.46" y="35.56"/>
 <instance part="+3V1" gate="G$1" x="86.36" y="33.02"/>
+<instance part="C2" gate="G$1" x="35.56" y="101.6">
+<attribute name="R" x="35.56" y="101.6" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
