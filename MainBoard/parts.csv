@@ -29,7 +29,9 @@ C6, C7;NPO-G0805 22P;SMD-Vielschicht-Keramikkondensator 22P, 5%;NPO-G0805 22P;Re
 ;;;;;;
 ;;;;;;
 ;;;;;;
-IC3;SMD HC 138;HIGH-SPEED CMOS;SMD HC 138;Reichelt;1;https://www.reichelt.de/SMD-HC-138/3/index.html?&ACTION=3&LA=446&ARTICLE=18638&artnr=SMD+HC+138&SEARCH=74hc138
+IC3;SMD HC 238;HIGH-SPEED CMOS;SMD HC 238;Reichelt;1;https://www.reichelt.de/SMD-HC-238/3/index.html?&ACTION=3&LA=446&ARTICLE=18659&artnr=SMD+HC+238&SEARCH=SMD+HC+238
 IC1;SMD HC 151;HIGH-SPEED CMOS;SMD HC 151;Reichelt;1;https://www.reichelt.de/SMD-HC-151/3/index.html?&ACTION=3&LA=446&ARTICLE=18642&artnr=SMD+HC+151&SEARCH=74hc151
 ;PSS 254/3W;Printstecker, Einzelstecker, gewinkelt, 3-polig;PSS 254/3W;Reichelt;8;http://www.reichelt.de/Platinen-Steckverbinder/PSS-254-3W/3/index.html?&ACTION=3&LA=2&ARTICLE=14910&GROUPID=5216&artnr=PSS+254%2F3W
 ;PSK 254/3W;Kupplungs-Leergehäuse, Crimptechnik, 3-polig;PSK 254/3W;Reichelt;8;http://www.reichelt.de/Platinen-Steckverbinder/PSK-254-3W/3/index.html?&ACTION=3&LA=2&ARTICLE=14858&GROUPID=5216&artnr=PSK+254%2F3W
+;EA DOGM204W-A;LCD-Modul 4x 20, weiß;EA DOGM204W-A;Reichelt;1;http://www.reichelt.de/DOG-LCD-Module/EA-DOGM204W-A/3/index.html?&ACTION=3&LA=2&ARTICLE=140429&GROUPID=3007&artnr=EA+DOGM204W-A
+;SMD 1/4W 2,4;SMD-Chip-Widerstand, Bauform 1206, 2,4 Ohm;SMD 1/4W 2,4;Reichelt;2;http://www.reichelt.de/SMD-1206-0-0-Ohm-9-1-Ohm/SMD-1-4W-2-4/3/index.html?&ACTION=3&LA=2&ARTICLE=18276&GROUPID=3086&artnr=SMD+1%2F4W+2%2C4
