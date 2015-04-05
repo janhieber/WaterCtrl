@@ -6,36 +6,36 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="dots" multiple="2" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="no"/>
-<layer number="2" name="Route2" color="1" fill="3" visible="yes" active="no"/>
-<layer number="3" name="Route3" color="4" fill="3" visible="yes" active="no"/>
-<layer number="4" name="Route4" color="1" fill="4" visible="yes" active="no"/>
-<layer number="5" name="Route5" color="4" fill="4" visible="yes" active="no"/>
-<layer number="6" name="Route6" color="1" fill="8" visible="yes" active="no"/>
-<layer number="7" name="Route7" color="4" fill="8" visible="yes" active="no"/>
-<layer number="8" name="Route8" color="1" fill="2" visible="yes" active="no"/>
-<layer number="9" name="Route9" color="4" fill="2" visible="yes" active="no"/>
-<layer number="10" name="Route10" color="1" fill="7" visible="yes" active="no"/>
-<layer number="11" name="Route11" color="4" fill="7" visible="yes" active="no"/>
-<layer number="12" name="Route12" color="1" fill="5" visible="yes" active="no"/>
-<layer number="13" name="Route13" color="4" fill="5" visible="yes" active="no"/>
-<layer number="14" name="Route14" color="1" fill="6" visible="yes" active="no"/>
-<layer number="15" name="Route15" color="4" fill="6" visible="yes" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="no"/>
-<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="no"/>
-<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="no"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="no"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="no"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="no"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="no"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="no"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="no"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="no"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="no"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="no"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="no"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
+<layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
+<layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
+<layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
+<layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
+<layer number="6" name="Route6" color="1" fill="8" visible="no" active="no"/>
+<layer number="7" name="Route7" color="4" fill="8" visible="no" active="no"/>
+<layer number="8" name="Route8" color="1" fill="2" visible="no" active="no"/>
+<layer number="9" name="Route9" color="4" fill="2" visible="no" active="no"/>
+<layer number="10" name="Route10" color="1" fill="7" visible="no" active="no"/>
+<layer number="11" name="Route11" color="4" fill="7" visible="no" active="no"/>
+<layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
+<layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
+<layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
+<layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="no" active="no"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="no" active="no"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="no"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="no"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="no" active="no"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="no"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="no"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="no"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="no"/>
@@ -44,8 +44,8 @@
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="no"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="no"/>
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="no"/>
-<layer number="37" name="tTest" color="7" fill="1" visible="yes" active="no"/>
-<layer number="38" name="bTest" color="7" fill="1" visible="yes" active="no"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="no"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="no"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="no"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="no"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="no"/>
@@ -53,12 +53,12 @@
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="no"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="no"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="no"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="no"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="no"/>
-<layer number="48" name="Document" color="7" fill="1" visible="yes" active="no"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="no"/>
-<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="no"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="no"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="no"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="no"/>
+<layer number="48" name="Document" color="7" fill="1" visible="no" active="no"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="no" active="no"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="no"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
@@ -20081,7 +20081,7 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 </class>
 </classes>
 <parts>
-<part name="U$1" library="stm32F" deviceset="STM32F051" device=""/>
+<part name="U$1" library="stm32F" deviceset="STM32F051" device="" value="STM32 F051 R4T6"/>
 <part name="FRAME1" library="frames" deviceset="DINA4_L" device=""/>
 <part name="FRAME2" library="frames" deviceset="DINA4_L" device=""/>
 <part name="FRAME3" library="frames" deviceset="DINA4_L" device=""/>
@@ -20089,119 +20089,265 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <part name="FRAME5" library="frames" deviceset="DINA4_L" device=""/>
 <part name="P+2" library="supply1" deviceset="+12V" device=""/>
 <part name="+3V2" library="supply1" deviceset="+3V3" device=""/>
-<part name="C11" library="rcl" deviceset="CPOL-EU" device="G" value="47u/25V"/>
-<part name="C9" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
-<part name="R3" library="rcl" deviceset="R-EU_" device="R0805" value="300"/>
-<part name="IC2" library="v-reg" deviceset="LM317?*" device="MBSTT3" value="LM317"/>
-<part name="R5" library="pot" deviceset="TRIM_EU-" device="S64Y" value="200"/>
-<part name="R7" library="rcl" deviceset="R-EU_" device="R0805" value="240"/>
-<part name="C1" library="rcl" deviceset="CPOL-EU" device="G" value="47u/25V"/>
-<part name="R1" library="rcl" deviceset="R-EU_" device="R0805" value="100"/>
-<part name="LED1" library="led" deviceset="LED" device="CHIP-LED0805"/>
+<part name="C11" library="rcl" deviceset="CPOL-EU" device="G" value="47u/25V">
+<attribute name="R" value="VF 47/25 P-D"/>
+</part>
+<part name="C9" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
+<part name="R3" library="rcl" deviceset="R-EU_" device="R0805" value="300">
+<attribute name="R" value="SPR-0805 300"/>
+</part>
+<part name="IC2" library="v-reg" deviceset="LM317?*" device="MBSTT3" value="LM317">
+<attribute name="R" value="LM317EMP"/>
+</part>
+<part name="R5" library="pot" deviceset="TRIM_EU-" device="S64Y" value="200">
+<attribute name="R" value="64Y-200"/>
+</part>
+<part name="R7" library="rcl" deviceset="R-EU_" device="R0805" value="240">
+<attribute name="R" value="SPR-0805 240"/>
+</part>
+<part name="C1" library="rcl" deviceset="CPOL-EU" device="G" value="47u/25V">
+<attribute name="R" value="VF 47/25 P-D"/>
+</part>
+<part name="R1" library="rcl" deviceset="R-EU_" device="R0805" value="100">
+<attribute name="R" value="SMD-0805 100"/>
+</part>
+<part name="LED1" library="led" deviceset="LED" device="CHIP-LED0805">
+<attribute name="R" value="SMD-LED 0805 GN"/>
+</part>
 <part name="H1" library="holes" deviceset="MOUNT-PAD-ROUND" device="3.2" value="3.2"/>
 <part name="H2" library="holes" deviceset="MOUNT-PAD-ROUND" device="3.2" value="3.2"/>
 <part name="H3" library="holes" deviceset="MOUNT-PAD-ROUND" device="3.2" value="3.2"/>
 <part name="H4" library="holes" deviceset="MOUNT-PAD-ROUND" device="3.2" value="3.2"/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
 <part name="+3V3" library="supply1" deviceset="+3V3" device=""/>
-<part name="JP1" library="pinhead" deviceset="PINHD-1X6" device="" value="SWD"/>
-<part name="JP2" library="pinhead" deviceset="PINHD-1X2" device="" value="EXTPWR"/>
+<part name="JP1" library="pinhead" deviceset="PINHD-1X6" device="" value="SWD">
+<attribute name="R" value="MPE 087-1-006"/>
+</part>
+<part name="JP2" library="pinhead" deviceset="PINHD-1X2" device="" value="EXTPWR">
+<attribute name="R" value="MPE 087-1-002"/>
+</part>
 <part name="+3V4" library="supply1" deviceset="+3V3" device=""/>
-<part name="C3" library="rcl" deviceset="C-EU" device="C0603K" value="100n"/>
-<part name="C4" library="rcl" deviceset="C-EU" device="C0603K" value="100n"/>
-<part name="C5" library="rcl" deviceset="C-EU" device="C0603K" value="100n"/>
+<part name="C3" library="rcl" deviceset="C-EU" device="C0603K" value="100n">
+<attribute name="R" value="X7R-G0603 100N"/>
+</part>
+<part name="C4" library="rcl" deviceset="C-EU" device="C0603K" value="100n">
+<attribute name="R" value="X7R-G0603 100N"/>
+</part>
+<part name="C5" library="rcl" deviceset="C-EU" device="C0603K" value="100n">
+<attribute name="R" value="X7R-G0603 100N"/>
+</part>
 <part name="+3V5" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
-<part name="JP3" library="pinhead" deviceset="PINHD-1X4" device="" value="UART"/>
+<part name="JP3" library="pinhead" deviceset="PINHD-1X4" device="" value="UART">
+<attribute name="R" value="MPE 087-1-004"/>
+</part>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
-<part name="Q1" library="crystal" deviceset="CRYSTAL" device="HC49UP" value="8MHz"/>
-<part name="C6" library="rcl" deviceset="C-EU" device="C0805" value="22p"/>
-<part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="22p"/>
+<part name="Q1" library="crystal" deviceset="CRYSTAL" device="HC49UP" value="8MHz">
+<attribute name="R" value="8,0000-HC49-SMD"/>
+</part>
+<part name="C6" library="rcl" deviceset="C-EU" device="C0805" value="22p">
+<attribute name="R" value="NPO-G0805 22P"/>
+</part>
+<part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="22p">
+<attribute name="R" value="NPO-G0805 22P"/>
+</part>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
-<part name="C8" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
-<part name="C10" library="rcl" deviceset="C-EU" device="C0805" value="1u"/>
+<part name="C8" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
+<part name="C10" library="rcl" deviceset="C-EU" device="C0805" value="1u">
+<attribute name="R" value="X7R-G0805 1,0/25"/>
+</part>
 <part name="+3V6" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
-<part name="SV1" library="con-lstb" deviceset="MA04-2" device="" value="ESP8266"/>
-<part name="X1" library="con-ptr500" deviceset="AK500/2" device="" value="PWR12"/>
+<part name="SV1" library="con-lstb" deviceset="MA04-2" device="" value="ESP8266">
+<attribute name="R" value="MPE 094-2-008"/>
+</part>
+<part name="X1" library="con-ptr500" deviceset="AK500/2" device="" value="PWR12">
+<attribute name="R" value="AKL 101-02"/>
+</part>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="P+1" library="supply1" deviceset="+12V" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
-<part name="Q2" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD"/>
-<part name="R2" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
-<part name="R4" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R6" library="rcl" deviceset="R-EU_" device="R0805" value="1k2"/>
-<part name="R8" library="rcl" deviceset="R-EU_" device="R0805" value="560"/>
-<part name="Q3" library="transistor-power" deviceset="P-MOSFET-SO8" device=""/>
+<part name="Q2" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
+<attribute name="R" value="BC 547A"/>
+</part>
+<part name="R2" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
+<attribute name="R" value="SMD-0805 10,0K"/>
+</part>
+<part name="R4" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R6" library="rcl" deviceset="R-EU_" device="R0805" value="1k2">
+<attribute name="R" value="SMD-0805 1,20K"/>
+</part>
+<part name="R8" library="rcl" deviceset="R-EU_" device="R0805" value="560">
+<attribute name="R" value="SMD-0805 560"/>
+</part>
+<part name="Q3" library="transistor-power" deviceset="P-MOSFET-SO8" device="">
+<attribute name="R" value="IRF 9332"/>
+</part>
 <part name="P+4" library="supply1" deviceset="+12V" device=""/>
-<part name="C12" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
+<part name="C12" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
-<part name="Q4" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD"/>
-<part name="R9" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
-<part name="R10" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R11" library="rcl" deviceset="R-EU_" device="R0805" value="1k2"/>
-<part name="R12" library="rcl" deviceset="R-EU_" device="R0805" value="560"/>
-<part name="Q5" library="transistor-power" deviceset="P-MOSFET-SO8" device=""/>
+<part name="Q4" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
+<attribute name="R" value="BC 547A"/>
+</part>
+<part name="R9" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
+<attribute name="R" value="SMD-0805 10,0K"/>
+</part>
+<part name="R10" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R11" library="rcl" deviceset="R-EU_" device="R0805" value="1k2">
+<attribute name="R" value="SMD-0805 1,20K"/>
+</part>
+<part name="R12" library="rcl" deviceset="R-EU_" device="R0805" value="560">
+<attribute name="R" value="SMD-0805 560"/>
+</part>
+<part name="Q5" library="transistor-power" deviceset="P-MOSFET-SO8" device="">
+<attribute name="R" value="IRF 9332"/>
+</part>
 <part name="P+5" library="supply1" deviceset="+12V" device=""/>
-<part name="C13" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
+<part name="C13" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
-<part name="Q6" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD"/>
-<part name="R13" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
-<part name="R14" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R15" library="rcl" deviceset="R-EU_" device="R0805" value="1k2"/>
-<part name="R16" library="rcl" deviceset="R-EU_" device="R0805" value="560"/>
-<part name="Q7" library="transistor-power" deviceset="P-MOSFET-SO8" device=""/>
+<part name="Q6" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
+<attribute name="R" value="BC 547A"/>
+</part>
+<part name="R13" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
+<attribute name="R" value="SMD-0805 10,0K"/>
+</part>
+<part name="R14" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R15" library="rcl" deviceset="R-EU_" device="R0805" value="1k2">
+<attribute name="R" value="SMD-0805 1,20K"/>
+</part>
+<part name="R16" library="rcl" deviceset="R-EU_" device="R0805" value="560">
+<attribute name="R" value="SMD-0805 560"/>
+</part>
+<part name="Q7" library="transistor-power" deviceset="P-MOSFET-SO8" device="">
+<attribute name="R" value="IRF 9332"/>
+</part>
 <part name="P+6" library="supply1" deviceset="+12V" device=""/>
-<part name="C14" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
+<part name="C14" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
-<part name="Q8" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD"/>
-<part name="R17" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
-<part name="R18" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R19" library="rcl" deviceset="R-EU_" device="R0805" value="1k2"/>
-<part name="R20" library="rcl" deviceset="R-EU_" device="R0805" value="560"/>
-<part name="Q9" library="transistor-power" deviceset="P-MOSFET-SO8" device=""/>
+<part name="Q8" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
+<attribute name="R" value="BC 547A"/>
+</part>
+<part name="R17" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
+<attribute name="R" value="SMD-0805 10,0K"/>
+</part>
+<part name="R18" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R19" library="rcl" deviceset="R-EU_" device="R0805" value="1k2">
+<attribute name="R" value="SMD-0805 1,20K"/>
+</part>
+<part name="R20" library="rcl" deviceset="R-EU_" device="R0805" value="560">
+<attribute name="R" value="SMD-0805 560"/>
+</part>
+<part name="Q9" library="transistor-power" deviceset="P-MOSFET-SO8" device="">
+<attribute name="R" value="IRF 9332"/>
+</part>
 <part name="P+7" library="supply1" deviceset="+12V" device=""/>
-<part name="C15" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
+<part name="C15" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
-<part name="Q10" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD"/>
-<part name="R21" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
-<part name="R22" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R23" library="rcl" deviceset="R-EU_" device="R0805" value="1k2"/>
-<part name="R24" library="rcl" deviceset="R-EU_" device="R0805" value="560"/>
-<part name="Q11" library="transistor-power" deviceset="P-MOSFET-SO8" device=""/>
+<part name="Q10" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
+<attribute name="R" value="BC 547A"/>
+</part>
+<part name="R21" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
+<attribute name="R" value="SMD-0805 10,0K"/>
+</part>
+<part name="R22" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R23" library="rcl" deviceset="R-EU_" device="R0805" value="1k2">
+<attribute name="R" value="SMD-0805 1,20K"/>
+</part>
+<part name="R24" library="rcl" deviceset="R-EU_" device="R0805" value="560">
+<attribute name="R" value="SMD-0805 560"/>
+</part>
+<part name="Q11" library="transistor-power" deviceset="P-MOSFET-SO8" device="">
+<attribute name="R" value="IRF 9332"/>
+</part>
 <part name="P+8" library="supply1" deviceset="+12V" device=""/>
-<part name="C16" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
+<part name="C16" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
-<part name="X2" library="con-phoenix-508" deviceset="MSTBA2" device=""/>
-<part name="X3" library="con-phoenix-508" deviceset="MSTBA2" device=""/>
-<part name="X4" library="con-phoenix-508" deviceset="MSTBA2" device=""/>
-<part name="X5" library="con-phoenix-508" deviceset="MSTBA2" device=""/>
-<part name="X6" library="con-phoenix-508" deviceset="MSTBA2" device=""/>
+<part name="X2" library="con-phoenix-508" deviceset="MSTBA2" device="">
+<attribute name="R" value="AKL 230-02"/>
+</part>
+<part name="X3" library="con-phoenix-508" deviceset="MSTBA2" device="">
+<attribute name="R" value="AKL 230-02"/>
+</part>
+<part name="X4" library="con-phoenix-508" deviceset="MSTBA2" device="">
+<attribute name="R" value="AKL 230-02"/>
+</part>
+<part name="X5" library="con-phoenix-508" deviceset="MSTBA2" device="">
+<attribute name="R" value="AKL 230-02"/>
+</part>
+<part name="X6" library="con-phoenix-508" deviceset="MSTBA2" device="">
+<attribute name="R" value="AKL 230-02"/>
+</part>
 <part name="GND17" library="supply1" deviceset="GND" device=""/>
 <part name="GND18" library="supply1" deviceset="GND" device=""/>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
 <part name="GND20" library="supply1" deviceset="GND" device=""/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
-<part name="IC1" library="74xx-eu" deviceset="74*151" device="D" technology="HC"/>
-<part name="IC3" library="74xx-eu" deviceset="74*138" device="D" technology="HC" value="74HC238"/>
-<part name="R25" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
+<part name="IC1" library="74xx-eu" deviceset="74*151" device="D" technology="HC">
+<attribute name="R" value="SMD HC 151"/>
+</part>
+<part name="IC3" library="74xx-eu" deviceset="74*138" device="D" technology="HC" value="74HC238">
+<attribute name="R" value="SMD HC 238"/>
+</part>
+<part name="R25" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
 <part name="GND24" library="supply1" deviceset="GND" device=""/>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
 <part name="+3V8" library="supply1" deviceset="+3V3" device=""/>
 <part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
-<part name="J1" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J2" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J3" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J4" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J5" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J6" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J7" library="con-molex" deviceset="22-?-03" device="05-7038"/>
-<part name="J8" library="con-molex" deviceset="22-?-03" device="05-7038"/>
+<part name="J1" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J2" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J3" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J4" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J5" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J6" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J7" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
+<part name="J8" library="con-molex" deviceset="22-?-03" device="05-7038">
+<attribute name="R" value="PSS 254/3W"/>
+</part>
 <part name="GND26" library="supply1" deviceset="GND" device=""/>
 <part name="GND27" library="supply1" deviceset="GND" device=""/>
 <part name="GND28" library="supply1" deviceset="GND" device=""/>
@@ -20210,34 +20356,66 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <part name="GND32" library="supply1" deviceset="GND" device=""/>
 <part name="GND33" library="supply1" deviceset="GND" device=""/>
 <part name="GND29" library="supply1" deviceset="GND" device=""/>
-<part name="Q12" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD"/>
-<part name="R26" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
-<part name="R27" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R28" library="rcl" deviceset="R-EU_" device="R0805" value="1k2"/>
-<part name="R29" library="rcl" deviceset="R-EU_" device="R0805" value="560"/>
-<part name="Q13" library="transistor-power" deviceset="P-MOSFET-SO8" device=""/>
+<part name="Q12" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
+<attribute name="R" value="BC 547A"/>
+</part>
+<part name="R26" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
+<attribute name="R" value="SMD-0805 10,0K"/>
+</part>
+<part name="R27" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R28" library="rcl" deviceset="R-EU_" device="R0805" value="1k2">
+<attribute name="R" value="SMD-0805 1,20K"/>
+</part>
+<part name="R29" library="rcl" deviceset="R-EU_" device="R0805" value="560">
+<attribute name="R" value="SMD-0805 560"/>
+</part>
+<part name="Q13" library="transistor-power" deviceset="P-MOSFET-SO8" device="">
+<attribute name="R" value="IRF 9332"/>
+</part>
 <part name="P+3" library="supply1" deviceset="+12V" device=""/>
-<part name="C17" library="rcl" deviceset="C-EU" device="C0805" value="100n"/>
+<part name="C17" library="rcl" deviceset="C-EU" device="C0805" value="100n">
+<attribute name="R" value="X7R-G0805 100N"/>
+</part>
 <part name="GND34" library="supply1" deviceset="GND" device=""/>
-<part name="X7" library="con-phoenix-508" deviceset="MSTBA2" device=""/>
+<part name="X7" library="con-phoenix-508" deviceset="MSTBA2" device="">
+<attribute name="R" value="AKL 230-02"/>
+</part>
 <part name="GND35" library="supply1" deviceset="GND" device=""/>
 <part name="+3V10" library="supply1" deviceset="+3V3" device=""/>
 <part name="+3V11" library="supply1" deviceset="+3V3" device=""/>
-<part name="SV2" library="con-lstb" deviceset="MA03-1" device="" value="DISP_A"/>
+<part name="SV2" library="con-lstb" deviceset="MA03-1" device="" value="DISP_A">
+<attribute name="R" value="BL 1X20G7 2,54"/>
+</part>
 <part name="SV3" library="con-lstb" deviceset="MA03-1" device="" value="DISP_B"/>
 <part name="SV4" library="con-lstb" deviceset="MA04-1" device="" value="DISP_C"/>
 <part name="SV5" library="con-lstb" deviceset="MA07-1" device="" value="DISP_D"/>
 <part name="+3V12" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
-<part name="R30" library="rcl" deviceset="R-EU_" device="R1206" value="2R4 1/4W"/>
-<part name="R31" library="rcl" deviceset="R-EU_" device="R1206" value="2R4 1/4W"/>
+<part name="R30" library="rcl" deviceset="R-EU_" device="R1206" value="2R4 1/4W">
+<attribute name="R" value="SMD 1/4W 2,4"/>
+</part>
+<part name="R31" library="rcl" deviceset="R-EU_" device="R1206" value="2R4 1/4W">
+<attribute name="R" value="SMD 1/4W 2,4"/>
+</part>
 <part name="+3V13" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
-<part name="S1" library="switch-omron" deviceset="10-XX" device=""/>
-<part name="S2" library="switch-omron" deviceset="10-XX" device=""/>
-<part name="S3" library="switch-omron" deviceset="10-XX" device=""/>
-<part name="S4" library="switch-omron" deviceset="10-XX" device=""/>
-<part name="R32" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
+<part name="S1" library="switch-omron" deviceset="10-XX" device="">
+<attribute name="R" value="TASTER 9302"/>
+</part>
+<part name="S2" library="switch-omron" deviceset="10-XX" device="">
+<attribute name="R" value="TASTER 9302"/>
+</part>
+<part name="S3" library="switch-omron" deviceset="10-XX" device="">
+<attribute name="R" value="TASTER 9302"/>
+</part>
+<part name="S4" library="switch-omron" deviceset="10-XX" device="">
+<attribute name="R" value="TASTER 9302"/>
+</part>
+<part name="R32" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
 <part name="GND36" library="supply1" deviceset="GND" device=""/>
 <part name="+3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="+3V14" library="supply1" deviceset="+3V3" device=""/>
@@ -20246,17 +20424,37 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <part name="GND37" library="supply1" deviceset="GND" device=""/>
 <part name="GND38" library="supply1" deviceset="GND" device=""/>
 <part name="GND39" library="supply1" deviceset="GND" device=""/>
-<part name="R33" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R34" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R35" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
-<part name="R36" library="rcl" deviceset="R-EU_" device="R0805" value="18k"/>
+<part name="R33" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R34" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R35" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
+<part name="R36" library="rcl" deviceset="R-EU_" device="R0805" value="18k">
+<attribute name="R" value="SMD-0805 18,0K"/>
+</part>
 <part name="GND40" library="supply1" deviceset="GND" device=""/>
-<part name="D1" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD"/>
-<part name="D2" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD"/>
-<part name="D3" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD"/>
-<part name="D4" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD"/>
-<part name="D5" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD"/>
-<part name="D6" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD"/>
+<part name="D1" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<attribute name="R" value="B 340 F"/>
+</part>
+<part name="D2" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<attribute name="R" value="B 340 F"/>
+</part>
+<part name="D3" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<attribute name="R" value="B 340 F"/>
+</part>
+<part name="D4" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<attribute name="R" value="B 340 F"/>
+</part>
+<part name="D5" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<attribute name="R" value="B 340 F"/>
+</part>
+<part name="D6" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<attribute name="R" value="B 340 F"/>
+</part>
 <part name="GND41" library="supply1" deviceset="GND" device=""/>
 <part name="GND42" library="supply1" deviceset="GND" device=""/>
 <part name="GND43" library="supply1" deviceset="GND" device=""/>
@@ -20287,43 +20485,79 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <instance part="U$1" gate="G$1" x="58.42" y="86.36"/>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
 <instance part="FRAME1" gate="G$2" x="162.56" y="0"/>
-<instance part="JP1" gate="A" x="243.84" y="165.1"/>
-<instance part="JP2" gate="G$1" x="203.2" y="172.72" rot="R180"/>
+<instance part="JP1" gate="A" x="243.84" y="165.1">
+<attribute name="R" x="243.84" y="165.1" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="JP2" gate="G$1" x="203.2" y="172.72" rot="R180">
+<attribute name="R" x="203.2" y="172.72" size="1.778" layer="96" rot="R180" display="off"/>
+</instance>
 <instance part="+3V4" gate="G$1" x="215.9" y="170.18"/>
-<instance part="JP3" gate="A" x="243.84" y="139.7"/>
+<instance part="JP3" gate="A" x="243.84" y="139.7">
+<attribute name="R" x="243.84" y="139.7" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND4" gate="1" x="218.44" y="165.1"/>
 <instance part="GND5" gate="1" x="223.52" y="134.62"/>
-<instance part="Q1" gate="G$1" x="22.86" y="167.64"/>
-<instance part="C6" gate="G$1" x="15.24" y="160.02"/>
-<instance part="C7" gate="G$1" x="33.02" y="160.02"/>
+<instance part="Q1" gate="G$1" x="22.86" y="167.64">
+<attribute name="R" x="22.86" y="167.64" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C6" gate="G$1" x="15.24" y="160.02">
+<attribute name="R" x="15.24" y="160.02" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C7" gate="G$1" x="33.02" y="160.02">
+<attribute name="R" x="33.02" y="160.02" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND6" gate="1" x="15.24" y="152.4"/>
 <instance part="GND7" gate="1" x="33.02" y="152.4"/>
 <instance part="GND8" gate="1" x="12.7" y="63.5"/>
-<instance part="C3" gate="G$1" x="17.78" y="137.16"/>
-<instance part="C4" gate="G$1" x="27.94" y="137.16"/>
-<instance part="C5" gate="G$1" x="38.1" y="137.16"/>
+<instance part="C3" gate="G$1" x="17.78" y="137.16">
+<attribute name="R" x="17.78" y="137.16" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C4" gate="G$1" x="27.94" y="137.16">
+<attribute name="R" x="27.94" y="137.16" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C5" gate="G$1" x="38.1" y="137.16">
+<attribute name="R" x="38.1" y="137.16" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="+3V5" gate="G$1" x="12.7" y="144.78"/>
 <instance part="GND3" gate="1" x="12.7" y="127"/>
 <instance part="+3V6" gate="G$1" x="12.7" y="53.34"/>
 <instance part="GND9" gate="1" x="12.7" y="33.02"/>
-<instance part="SV1" gate="G$1" x="154.94" y="170.18"/>
+<instance part="SV1" gate="G$1" x="154.94" y="170.18">
+<attribute name="R" x="154.94" y="170.18" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND1" gate="1" x="175.26" y="170.18"/>
 <instance part="+3V1" gate="G$1" x="137.16" y="167.64"/>
-<instance part="SV2" gate="G$1" x="195.58" y="93.98"/>
+<instance part="SV2" gate="G$1" x="195.58" y="93.98">
+<attribute name="R" x="195.58" y="93.98" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="SV3" gate="G$1" x="195.58" y="63.5"/>
 <instance part="SV4" gate="1" x="228.6" y="93.98"/>
 <instance part="SV5" gate="1" x="228.6" y="68.58"/>
 <instance part="+3V12" gate="G$1" x="208.28" y="114.3"/>
 <instance part="GND22" gate="1" x="208.28" y="55.88"/>
-<instance part="R30" gate="G$1" x="208.28" y="104.14" rot="R90"/>
-<instance part="R31" gate="G$1" x="218.44" y="104.14" rot="R90"/>
+<instance part="R30" gate="G$1" x="208.28" y="104.14" rot="R90">
+<attribute name="R" x="208.28" y="104.14" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="R31" gate="G$1" x="218.44" y="104.14" rot="R90">
+<attribute name="R" x="218.44" y="104.14" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="+3V13" gate="G$1" x="254" y="96.52"/>
 <instance part="GND23" gate="1" x="254" y="86.36"/>
-<instance part="S1" gate="1" x="129.54" y="121.92"/>
-<instance part="S2" gate="1" x="142.24" y="121.92"/>
-<instance part="S3" gate="1" x="154.94" y="121.92"/>
-<instance part="S4" gate="1" x="167.64" y="121.92"/>
-<instance part="R32" gate="G$1" x="129.54" y="109.22" rot="R90"/>
+<instance part="S1" gate="1" x="129.54" y="121.92">
+<attribute name="R" x="129.54" y="121.92" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="S2" gate="1" x="142.24" y="121.92">
+<attribute name="R" x="142.24" y="121.92" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="S3" gate="1" x="154.94" y="121.92">
+<attribute name="R" x="154.94" y="121.92" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="S4" gate="1" x="167.64" y="121.92">
+<attribute name="R" x="167.64" y="121.92" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R32" gate="G$1" x="129.54" y="109.22" rot="R90">
+<attribute name="R" x="129.54" y="109.22" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="GND36" gate="1" x="129.54" y="101.6"/>
 <instance part="+3V7" gate="G$1" x="129.54" y="132.08"/>
 <instance part="+3V14" gate="G$1" x="142.24" y="132.08"/>
@@ -20332,10 +20566,18 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <instance part="GND37" gate="1" x="142.24" y="101.6"/>
 <instance part="GND38" gate="1" x="154.94" y="101.6"/>
 <instance part="GND39" gate="1" x="167.64" y="101.6"/>
-<instance part="R33" gate="G$1" x="142.24" y="109.22" rot="R90"/>
-<instance part="R34" gate="G$1" x="154.94" y="109.22" rot="R90"/>
-<instance part="R35" gate="G$1" x="167.64" y="109.22" rot="R90"/>
-<instance part="R36" gate="G$1" x="124.46" y="165.1" rot="R90"/>
+<instance part="R33" gate="G$1" x="142.24" y="109.22" rot="R90">
+<attribute name="R" x="142.24" y="109.22" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="R34" gate="G$1" x="154.94" y="109.22" rot="R90">
+<attribute name="R" x="154.94" y="109.22" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="R35" gate="G$1" x="167.64" y="109.22" rot="R90">
+<attribute name="R" x="167.64" y="109.22" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="R36" gate="G$1" x="124.46" y="165.1" rot="R90">
+<attribute name="R" x="124.46" y="165.1" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="GND40" gate="1" x="124.46" y="154.94"/>
 </instances>
 <busses>
@@ -20909,21 +21151,45 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <instance part="FRAME2" gate="G$2" x="162.56" y="0"/>
 <instance part="P+2" gate="1" x="30.48" y="157.48"/>
 <instance part="+3V2" gate="G$1" x="132.08" y="157.48"/>
-<instance part="C11" gate="G$1" x="38.1" y="142.24"/>
-<instance part="C9" gate="G$1" x="63.5" y="142.24"/>
-<instance part="R3" gate="G$1" x="78.74" y="129.54" rot="R270"/>
-<instance part="IC2" gate="G$1" x="86.36" y="154.94"/>
-<instance part="R5" gate="1" x="78.74" y="142.24" rot="R270"/>
-<instance part="R7" gate="G$1" x="99.06" y="147.32" rot="R90"/>
-<instance part="C1" gate="G$1" x="50.8" y="142.24"/>
-<instance part="R1" gate="G$1" x="187.96" y="137.16" rot="R90"/>
-<instance part="LED1" gate="G$1" x="187.96" y="149.86"/>
+<instance part="C11" gate="G$1" x="38.1" y="142.24">
+<attribute name="R" x="38.1" y="142.24" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C9" gate="G$1" x="63.5" y="142.24">
+<attribute name="R" x="63.5" y="142.24" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R3" gate="G$1" x="78.74" y="129.54" rot="R270">
+<attribute name="R" x="78.74" y="129.54" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="IC2" gate="G$1" x="86.36" y="154.94">
+<attribute name="R" x="86.36" y="154.94" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R5" gate="1" x="78.74" y="142.24" rot="R270">
+<attribute name="R" x="78.74" y="142.24" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R7" gate="G$1" x="99.06" y="147.32" rot="R90">
+<attribute name="R" x="99.06" y="147.32" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="C1" gate="G$1" x="50.8" y="142.24">
+<attribute name="R" x="50.8" y="142.24" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R1" gate="G$1" x="187.96" y="137.16" rot="R90">
+<attribute name="R" x="187.96" y="137.16" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="LED1" gate="G$1" x="187.96" y="149.86">
+<attribute name="R" x="187.96" y="149.86" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND2" gate="1" x="187.96" y="121.92"/>
 <instance part="+3V3" gate="G$1" x="187.96" y="157.48"/>
-<instance part="C8" gate="G$1" x="109.22" y="142.24"/>
-<instance part="C10" gate="G$1" x="119.38" y="142.24"/>
+<instance part="C8" gate="G$1" x="109.22" y="142.24">
+<attribute name="R" x="109.22" y="142.24" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C10" gate="G$1" x="119.38" y="142.24">
+<attribute name="R" x="119.38" y="142.24" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="X1" gate="-1" x="22.86" y="104.14"/>
-<instance part="X1" gate="-2" x="22.86" y="99.06"/>
+<instance part="X1" gate="-2" x="22.86" y="99.06">
+<attribute name="R" x="22.86" y="99.06" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND10" gate="1" x="33.02" y="96.52"/>
 <instance part="P+1" gate="1" x="33.02" y="106.68"/>
 <instance part="GND11" gate="1" x="88.9" y="121.92"/>
@@ -21056,41 +21322,65 @@ diameter 5 mm, horizontal, grid 15.24 mm</description>
 <plain>
 <text x="73.66" y="162.56" size="1.778" layer="91">Output not inverting.
 Wrong symbol</text>
+<text x="182.88" y="165.1" size="1.778" layer="91">Stecker:
+Reichelt 8x PSK 254/3W</text>
 </plain>
 <instances>
 <instance part="FRAME3" gate="G$1" x="0" y="0"/>
 <instance part="FRAME3" gate="G$2" x="162.56" y="0"/>
-<instance part="IC1" gate="A" x="66.04" y="99.06"/>
-<instance part="IC3" gate="A" x="66.04" y="149.86"/>
-<instance part="R25" gate="G$1" x="15.24" y="134.62" rot="R90"/>
+<instance part="IC1" gate="A" x="66.04" y="99.06">
+<attribute name="R" x="66.04" y="99.06" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="IC3" gate="A" x="66.04" y="149.86">
+<attribute name="R" x="66.04" y="149.86" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R25" gate="G$1" x="15.24" y="134.62" rot="R90">
+<attribute name="R" x="15.24" y="134.62" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="IC1" gate="P" x="81.28" y="93.98"/>
 <instance part="IC3" gate="P" x="111.76" y="149.86"/>
 <instance part="GND24" gate="1" x="111.76" y="139.7"/>
 <instance part="GND25" gate="1" x="81.28" y="83.82"/>
 <instance part="+3V8" gate="G$1" x="81.28" y="104.14"/>
 <instance part="+3V9" gate="G$1" x="111.76" y="160.02"/>
-<instance part="J1" gate="-1" x="144.78" y="154.94"/>
+<instance part="J1" gate="-1" x="144.78" y="154.94">
+<attribute name="R" x="144.78" y="154.94" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J1" gate="-2" x="144.78" y="149.86"/>
 <instance part="J1" gate="-3" x="144.78" y="144.78"/>
-<instance part="J2" gate="-1" x="144.78" y="134.62"/>
+<instance part="J2" gate="-1" x="144.78" y="134.62">
+<attribute name="R" x="144.78" y="134.62" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J2" gate="-2" x="144.78" y="129.54"/>
 <instance part="J2" gate="-3" x="144.78" y="124.46"/>
-<instance part="J3" gate="-1" x="144.78" y="114.3"/>
+<instance part="J3" gate="-1" x="144.78" y="114.3">
+<attribute name="R" x="144.78" y="114.3" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J3" gate="-2" x="144.78" y="109.22"/>
 <instance part="J3" gate="-3" x="144.78" y="104.14"/>
-<instance part="J4" gate="-1" x="144.78" y="93.98"/>
+<instance part="J4" gate="-1" x="144.78" y="93.98">
+<attribute name="R" x="144.78" y="93.98" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J4" gate="-2" x="144.78" y="88.9"/>
 <instance part="J4" gate="-3" x="144.78" y="83.82"/>
-<instance part="J5" gate="-1" x="205.74" y="154.94"/>
+<instance part="J5" gate="-1" x="205.74" y="154.94">
+<attribute name="R" x="205.74" y="154.94" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J5" gate="-2" x="205.74" y="149.86"/>
 <instance part="J5" gate="-3" x="205.74" y="144.78"/>
-<instance part="J6" gate="-1" x="205.74" y="134.62"/>
+<instance part="J6" gate="-1" x="205.74" y="134.62">
+<attribute name="R" x="205.74" y="134.62" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J6" gate="-2" x="205.74" y="129.54"/>
 <instance part="J6" gate="-3" x="205.74" y="124.46"/>
-<instance part="J7" gate="-1" x="205.74" y="114.3"/>
+<instance part="J7" gate="-1" x="205.74" y="114.3">
+<attribute name="R" x="205.74" y="114.3" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J7" gate="-2" x="205.74" y="109.22"/>
 <instance part="J7" gate="-3" x="205.74" y="104.14"/>
-<instance part="J8" gate="-1" x="205.74" y="93.98"/>
+<instance part="J8" gate="-1" x="205.74" y="93.98">
+<attribute name="R" x="205.74" y="93.98" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J8" gate="-2" x="205.74" y="88.9"/>
 <instance part="J8" gate="-3" x="205.74" y="83.82"/>
 <instance part="GND26" gate="1" x="132.08" y="142.24"/>
@@ -21514,84 +21804,192 @@ Wrong symbol</text>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
 <instance part="FRAME4" gate="G$2" x="162.56" y="0"/>
-<instance part="Q2" gate="G$1" x="43.18" y="127"/>
-<instance part="R2" gate="G$1" x="33.02" y="127"/>
-<instance part="R4" gate="G$1" x="38.1" y="119.38" rot="R90"/>
-<instance part="R6" gate="G$1" x="27.94" y="154.94" rot="R90"/>
-<instance part="R8" gate="G$1" x="45.72" y="139.7" rot="R90"/>
-<instance part="Q3" gate="G$1" x="48.26" y="157.48" rot="R90"/>
+<instance part="Q2" gate="G$1" x="43.18" y="127">
+<attribute name="R" x="43.18" y="127" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="R2" gate="G$1" x="33.02" y="127">
+<attribute name="R" x="33.02" y="127" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R4" gate="G$1" x="38.1" y="119.38" rot="R90">
+<attribute name="R" x="38.1" y="119.38" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R6" gate="G$1" x="27.94" y="154.94" rot="R90">
+<attribute name="R" x="27.94" y="154.94" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R8" gate="G$1" x="45.72" y="139.7" rot="R90">
+<attribute name="R" x="45.72" y="139.7" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="Q3" gate="G$1" x="48.26" y="157.48" rot="R90">
+<attribute name="R" x="48.26" y="157.48" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="P+4" gate="1" x="25.4" y="162.56"/>
-<instance part="C12" gate="G$1" x="35.56" y="157.48"/>
+<instance part="C12" gate="G$1" x="35.56" y="157.48">
+<attribute name="R" x="35.56" y="157.48" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND12" gate="1" x="25.4" y="109.22"/>
-<instance part="Q4" gate="G$1" x="88.9" y="127"/>
-<instance part="R9" gate="G$1" x="78.74" y="127"/>
-<instance part="R10" gate="G$1" x="83.82" y="119.38" rot="R90"/>
-<instance part="R11" gate="G$1" x="73.66" y="154.94" rot="R90"/>
-<instance part="R12" gate="G$1" x="91.44" y="139.7" rot="R90"/>
-<instance part="Q5" gate="G$1" x="93.98" y="157.48" rot="R90"/>
+<instance part="Q4" gate="G$1" x="88.9" y="127">
+<attribute name="R" x="88.9" y="127" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R9" gate="G$1" x="78.74" y="127">
+<attribute name="R" x="78.74" y="127" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R10" gate="G$1" x="83.82" y="119.38" rot="R90">
+<attribute name="R" x="83.82" y="119.38" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R11" gate="G$1" x="73.66" y="154.94" rot="R90">
+<attribute name="R" x="73.66" y="154.94" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R12" gate="G$1" x="91.44" y="139.7" rot="R90">
+<attribute name="R" x="91.44" y="139.7" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="Q5" gate="G$1" x="93.98" y="157.48" rot="R90">
+<attribute name="R" x="93.98" y="157.48" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="P+5" gate="1" x="71.12" y="162.56"/>
-<instance part="C13" gate="G$1" x="81.28" y="157.48"/>
+<instance part="C13" gate="G$1" x="81.28" y="157.48">
+<attribute name="R" x="81.28" y="157.48" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND13" gate="1" x="71.12" y="109.22"/>
-<instance part="Q6" gate="G$1" x="134.62" y="127"/>
-<instance part="R13" gate="G$1" x="124.46" y="127"/>
-<instance part="R14" gate="G$1" x="129.54" y="119.38" rot="R90"/>
-<instance part="R15" gate="G$1" x="119.38" y="154.94" rot="R90"/>
-<instance part="R16" gate="G$1" x="137.16" y="139.7" rot="R90"/>
-<instance part="Q7" gate="G$1" x="139.7" y="157.48" rot="R90"/>
+<instance part="Q6" gate="G$1" x="134.62" y="127">
+<attribute name="R" x="134.62" y="127" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R13" gate="G$1" x="124.46" y="127">
+<attribute name="R" x="124.46" y="127" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R14" gate="G$1" x="129.54" y="119.38" rot="R90">
+<attribute name="R" x="129.54" y="119.38" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R15" gate="G$1" x="119.38" y="154.94" rot="R90">
+<attribute name="R" x="119.38" y="154.94" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R16" gate="G$1" x="137.16" y="139.7" rot="R90">
+<attribute name="R" x="137.16" y="139.7" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="Q7" gate="G$1" x="139.7" y="157.48" rot="R90">
+<attribute name="R" x="139.7" y="157.48" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="P+6" gate="1" x="116.84" y="162.56"/>
-<instance part="C14" gate="G$1" x="127" y="157.48"/>
+<instance part="C14" gate="G$1" x="127" y="157.48">
+<attribute name="R" x="127" y="157.48" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND14" gate="1" x="116.84" y="109.22"/>
-<instance part="Q8" gate="G$1" x="43.18" y="45.72"/>
-<instance part="R17" gate="G$1" x="33.02" y="45.72"/>
-<instance part="R18" gate="G$1" x="38.1" y="38.1" rot="R90"/>
-<instance part="R19" gate="G$1" x="27.94" y="73.66" rot="R90"/>
-<instance part="R20" gate="G$1" x="45.72" y="58.42" rot="R90"/>
-<instance part="Q9" gate="G$1" x="48.26" y="76.2" rot="R90"/>
+<instance part="Q8" gate="G$1" x="43.18" y="45.72">
+<attribute name="R" x="43.18" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R17" gate="G$1" x="33.02" y="45.72">
+<attribute name="R" x="33.02" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R18" gate="G$1" x="38.1" y="38.1" rot="R90">
+<attribute name="R" x="38.1" y="38.1" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R19" gate="G$1" x="27.94" y="73.66" rot="R90">
+<attribute name="R" x="27.94" y="73.66" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R20" gate="G$1" x="45.72" y="58.42" rot="R90">
+<attribute name="R" x="45.72" y="58.42" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="Q9" gate="G$1" x="48.26" y="76.2" rot="R90">
+<attribute name="R" x="48.26" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="P+7" gate="1" x="25.4" y="81.28"/>
-<instance part="C15" gate="G$1" x="35.56" y="76.2"/>
+<instance part="C15" gate="G$1" x="35.56" y="76.2">
+<attribute name="R" x="35.56" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND15" gate="1" x="25.4" y="27.94"/>
-<instance part="Q10" gate="G$1" x="88.9" y="45.72"/>
-<instance part="R21" gate="G$1" x="78.74" y="45.72"/>
-<instance part="R22" gate="G$1" x="83.82" y="38.1" rot="R90"/>
-<instance part="R23" gate="G$1" x="73.66" y="73.66" rot="R90"/>
-<instance part="R24" gate="G$1" x="91.44" y="58.42" rot="R90"/>
-<instance part="Q11" gate="G$1" x="93.98" y="76.2" rot="R90"/>
+<instance part="Q10" gate="G$1" x="88.9" y="45.72">
+<attribute name="R" x="88.9" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R21" gate="G$1" x="78.74" y="45.72">
+<attribute name="R" x="78.74" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R22" gate="G$1" x="83.82" y="38.1" rot="R90">
+<attribute name="R" x="83.82" y="38.1" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R23" gate="G$1" x="73.66" y="73.66" rot="R90">
+<attribute name="R" x="73.66" y="73.66" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R24" gate="G$1" x="91.44" y="58.42" rot="R90">
+<attribute name="R" x="91.44" y="58.42" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="Q11" gate="G$1" x="93.98" y="76.2" rot="R90">
+<attribute name="R" x="93.98" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="P+8" gate="1" x="71.12" y="81.28"/>
-<instance part="C16" gate="G$1" x="81.28" y="76.2"/>
+<instance part="C16" gate="G$1" x="81.28" y="76.2">
+<attribute name="R" x="81.28" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND16" gate="1" x="71.12" y="27.94"/>
-<instance part="X2" gate="-1" x="218.44" y="152.4"/>
+<instance part="X2" gate="-1" x="218.44" y="152.4">
+<attribute name="R" x="218.44" y="152.4" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="X2" gate="-2" x="218.44" y="147.32"/>
-<instance part="X3" gate="-1" x="218.44" y="137.16"/>
+<instance part="X3" gate="-1" x="218.44" y="137.16">
+<attribute name="R" x="218.44" y="137.16" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="X3" gate="-2" x="218.44" y="132.08"/>
-<instance part="X4" gate="-1" x="218.44" y="121.92"/>
+<instance part="X4" gate="-1" x="218.44" y="121.92">
+<attribute name="R" x="218.44" y="121.92" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="X4" gate="-2" x="218.44" y="116.84"/>
-<instance part="X5" gate="-1" x="218.44" y="106.68"/>
+<instance part="X5" gate="-1" x="218.44" y="106.68">
+<attribute name="R" x="218.44" y="106.68" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="X5" gate="-2" x="218.44" y="101.6"/>
-<instance part="X6" gate="-1" x="218.44" y="91.44"/>
+<instance part="X6" gate="-1" x="218.44" y="91.44">
+<attribute name="R" x="218.44" y="91.44" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="X6" gate="-2" x="218.44" y="86.36"/>
 <instance part="GND17" gate="1" x="236.22" y="144.78"/>
 <instance part="GND18" gate="1" x="236.22" y="129.54"/>
 <instance part="GND19" gate="1" x="236.22" y="114.3"/>
 <instance part="GND20" gate="1" x="236.22" y="99.06"/>
 <instance part="GND21" gate="1" x="236.22" y="83.82"/>
-<instance part="Q12" gate="G$1" x="134.62" y="45.72"/>
-<instance part="R26" gate="G$1" x="124.46" y="45.72"/>
-<instance part="R27" gate="G$1" x="129.54" y="38.1" rot="R90"/>
-<instance part="R28" gate="G$1" x="119.38" y="73.66" rot="R90"/>
-<instance part="R29" gate="G$1" x="137.16" y="58.42" rot="R90"/>
-<instance part="Q13" gate="G$1" x="139.7" y="76.2" rot="R90"/>
+<instance part="Q12" gate="G$1" x="134.62" y="45.72">
+<attribute name="R" x="134.62" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R26" gate="G$1" x="124.46" y="45.72">
+<attribute name="R" x="124.46" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R27" gate="G$1" x="129.54" y="38.1" rot="R90">
+<attribute name="R" x="129.54" y="38.1" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R28" gate="G$1" x="119.38" y="73.66" rot="R90">
+<attribute name="R" x="119.38" y="73.66" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="R29" gate="G$1" x="137.16" y="58.42" rot="R90">
+<attribute name="R" x="137.16" y="58.42" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="Q13" gate="G$1" x="139.7" y="76.2" rot="R90">
+<attribute name="R" x="139.7" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="P+3" gate="1" x="116.84" y="81.28"/>
-<instance part="C17" gate="G$1" x="127" y="76.2"/>
+<instance part="C17" gate="G$1" x="127" y="76.2">
+<attribute name="R" x="127" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND34" gate="1" x="116.84" y="27.94"/>
-<instance part="X7" gate="-1" x="218.44" y="76.2"/>
+<instance part="X7" gate="-1" x="218.44" y="76.2">
+<attribute name="R" x="218.44" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="X7" gate="-2" x="218.44" y="71.12"/>
 <instance part="GND35" gate="1" x="236.22" y="68.58"/>
-<instance part="D1" gate="G$1" x="58.42" y="152.4" rot="R90"/>
-<instance part="D2" gate="G$1" x="104.14" y="152.4" rot="R90"/>
-<instance part="D3" gate="G$1" x="149.86" y="152.4" rot="R90"/>
-<instance part="D4" gate="G$1" x="58.42" y="71.12" rot="R90"/>
-<instance part="D5" gate="G$1" x="104.14" y="71.12" rot="R90"/>
-<instance part="D6" gate="G$1" x="149.86" y="71.12" rot="R90"/>
+<instance part="D1" gate="G$1" x="58.42" y="152.4" rot="R90">
+<attribute name="R" x="58.42" y="152.4" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="D2" gate="G$1" x="104.14" y="152.4" rot="R90">
+<attribute name="R" x="104.14" y="152.4" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="D3" gate="G$1" x="149.86" y="152.4" rot="R90">
+<attribute name="R" x="149.86" y="152.4" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="D4" gate="G$1" x="58.42" y="71.12" rot="R90">
+<attribute name="R" x="58.42" y="71.12" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="D5" gate="G$1" x="104.14" y="71.12" rot="R90">
+<attribute name="R" x="104.14" y="71.12" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
+<instance part="D6" gate="G$1" x="149.86" y="71.12" rot="R90">
+<attribute name="R" x="149.86" y="71.12" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="GND41" gate="1" x="58.42" y="147.32"/>
 <instance part="GND42" gate="1" x="104.14" y="147.32"/>
 <instance part="GND43" gate="1" x="149.86" y="147.32"/>
