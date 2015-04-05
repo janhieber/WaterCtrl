@@ -7,7 +7,7 @@ C1, C11;VF 47/25 P-D;Elko SMD-Bauform, 105°C, low ESR;VF 47/25 P-D;Reichelt;2;h
 C10;X7R-G0805 1,0/25;SMD-Vielschichtkondensator G0805 - 1,0µF 25V;X7R-G0805 1,0/25;Reichelt;1;http://www.reichelt.de/Vielschicht-SMD-G0805-High-Cap/X7R-G0805-1-0-25/3/index.html?&ACTION=3&LA=2&ARTICLE=89730&GROUPID=4339&artnr=X7R-G0805+1%2C0%2F25
 C9, C8;X7R-G0805 100N;SMD-Vielschicht-Keramikkondensator 100N, 10%;X7R-G0805 100N;Reichelt;2+5;http://www.reichelt.de/Vielschicht-SMD-G0805/X7R-G0805-100N/3/index.html?&ACTION=3&LA=2&ARTICLE=31879&GROUPID=3165&artnr=X7R-G0805+100N
 LED1;SMD-LED 0805 GN;CHIP-Leuchtdioden, Bauform G0805, grün;SMD-LED 0805 GN;Reichelt;1;http://www.reichelt.de/SMD-LED-0603-0805-1206/SMD-LED-0805-GN/3/index.html?&ACTION=3&LA=2&ARTICLE=31436&GROUPID=3035&artnr=SMD-LED+0805+GN
-R1;SMD-0805 47,0;SMD-Chip-Widerstand, Bauform 0805, 47 Ohm;SMD-0805 47,0;Reichelt;1;http://www.reichelt.de/SMD-0805-10-0-Ohm-82-0-Ohm/SMD-0805-47-0/3/index.html?&ACTION=3&LA=2&ARTICLE=32870&GROUPID=3095&artnr=SMD-0805+47%2C0
+R1;SMD-0805 100;SMD-Chip-Widerstand, Bauform 0805, 100 Ohm;SMD-0805 100;Reichelt;1;http://www.reichelt.de/SMD-0805-100-Ohm-820-Ohm/SMD-0805-100/3/index.html?&ACTION=3&LA=2&ARTICLE=32874&GROUPID=3096&artnr=SMD-0805+100
 X1;AKL 101-02;Anschlussklemme 2-polig, RM 5,08;AKL 101-02;Reichelt;1;http://www.reichelt.de/RIA-Stecksystem/AKL-101-02/3/index.html?&ACTION=3&LA=2&ARTICLE=36605&GROUPID=5691&artnr=AKL+101-02
 ;;;;;;
 ;;;;;;
@@ -26,7 +26,7 @@ C6, C7;NPO-G0805 22P;SMD-Vielschicht-Keramikkondensator 22P, 5%;NPO-G0805 22P;Re
 ;SMD-0805 1,20K;SMD-Chip-Widerstand, Bauform 0805, 1,2 K-Ohm;SMD-0805 1,20K;Reichelt;5;http://www.reichelt.de/SMD-0805-1-00-k-Ohm-8-20-k-Ohm/SMD-0805-1-20K/3/index.html?&ACTION=3&LA=2&ARTICLE=32887&GROUPID=3097&artnr=SMD-0805+1%2C20K
 ;AKL 230-02;Wannenstecker für AKL 249, 2-pol, RM5,08;AKL 230-02;Reichelt;5;http://www.reichelt.de/RIA-Stecksystem/AKL-230-02/3/index.html?&ACTION=3&LA=2&ARTICLE=36701&GROUPID=5691&artnr=AKL+230-02
 ;AKL 249-02;Anschlussklemmensystem 2-pol, RM5,08;AKL 249-02;Reichelt;5;http://www.reichelt.de/AKL-249-02/3/index.html?&ACTION=3&LA=446&ARTICLE=36686&artnr=AKL+249-02&SEARCH=AKL+249
-;;;;;;
+;B 340 F;SMD-Schottky-Dioden, DO214AB/SMC, 40V, 3A;B 340 F;Reichelt;5;http://www.reichelt.de/BA-BAY-BB-Dioden/B-340-F/3/index.html?&ACTION=3&LA=2&ARTICLE=95201&GROUPID=2988&artnr=B+340+F
 ;;;;;;
 ;;;;;;
 IC3;SMD HC 238;HIGH-SPEED CMOS;SMD HC 238;Reichelt;1;https://www.reichelt.de/SMD-HC-238/3/index.html?&ACTION=3&LA=446&ARTICLE=18659&artnr=SMD+HC+238&SEARCH=SMD+HC+238
@@ -35,3 +35,4 @@ IC1;SMD HC 151;HIGH-SPEED CMOS;SMD HC 151;Reichelt;1;https://www.reichelt.de/SMD
 ;PSK 254/3W;Kupplungs-Leergehäuse, Crimptechnik, 3-polig;PSK 254/3W;Reichelt;8;http://www.reichelt.de/Platinen-Steckverbinder/PSK-254-3W/3/index.html?&ACTION=3&LA=2&ARTICLE=14858&GROUPID=5216&artnr=PSK+254%2F3W
 ;EA DOGM204W-A;LCD-Modul 4x 20, weiß;EA DOGM204W-A;Reichelt;1;http://www.reichelt.de/DOG-LCD-Module/EA-DOGM204W-A/3/index.html?&ACTION=3&LA=2&ARTICLE=140429&GROUPID=3007&artnr=EA+DOGM204W-A
 ;SMD 1/4W 2,4;SMD-Chip-Widerstand, Bauform 1206, 2,4 Ohm;SMD 1/4W 2,4;Reichelt;2;http://www.reichelt.de/SMD-1206-0-0-Ohm-9-1-Ohm/SMD-1-4W-2-4/3/index.html?&ACTION=3&LA=2&ARTICLE=18276&GROUPID=3086&artnr=SMD+1%2F4W+2%2C4
+;TASTER 9302;Kurzhubtaster 6x6mm, Höhe: 5,0mm, 12V, vertikal;TASTER 9302;Reichelt;4;http://www.google.de/imgres?imgurl=https%3A%2F%2Fcdn-reichelt.de%2Fbilder%2Fweb%2Fxxl_ws%2FC200%2FTAST9320.png&imgrefurl=https%3A%2F%2Fwww.reichelt.de%2FKurzhubtaster%2FTASTER-9315%2F3%2Findex.html%3FACTION%3D3%26GROUPID%3D3278%26ARTICLE%3D44514%26OFFSET%3D16%26&h=1013&w=799&tbnid=v6zrd_dgyMlqcM%3A&zoom=1&docid=HFETStmVd2Cg7M&ei=Lb8fVaOPHoG3sAH524KACg&tbm=isch&iact=rc&uact=3&dur=0&page=1&start=0&ndsp=46&ved=0CDkQrQMwCA
