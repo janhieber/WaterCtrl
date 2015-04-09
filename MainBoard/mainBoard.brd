@@ -3216,7 +3216,7 @@ design rules under a new name.</description>
 <signal name="VBAT">
 <contactref element="U$1" pad="1"/>
 </signal>
-<signal name="GND">
+<signal name="GND123">
 <contactref element="C9" pad="2"/>
 <contactref element="C11" pad="-"/>
 <contactref element="R3" pad="2"/>
