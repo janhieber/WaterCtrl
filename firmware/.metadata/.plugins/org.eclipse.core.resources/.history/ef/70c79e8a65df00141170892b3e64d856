@@ -83,7 +83,7 @@ void USART_puts(USART_TypeDef* USARTx, volatile char *s) {
 void USART_putc(USART_TypeDef* USARTx, char s) {
 	while (USART_GetFlagStatus(USARTx, USART_FLAG_TC) == RESET)
 		;
-	USART_SendData(USARTx, s);
+	USART_SendData(USARTx, *s);
 }
 
 void Delay(uint32_t msec) {
@@ -97,8 +97,7 @@ void USART1_IRQHandler(void) {
 	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) {
 		data = USART_ReceiveData(USART1);
 
-		USART_puts(USART1, "Received character: ");
-		USART_putc(USART1, data);
+		USART_puts(USART1, "Received character: %c\r\n", data);
 	}
 }
 

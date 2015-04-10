@@ -21776,6 +21776,7 @@ Source: www.cypressindustries.com</description>
 <sheet>
 <description>CPU</description>
 <plain>
+<text x="162.56" y="20.32" size="2.54" layer="91">CPU / Main</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="71.12" y="91.44"/>
@@ -22377,6 +22378,7 @@ Source: www.cypressindustries.com</description>
 <sheet>
 <description>PowerSupply</description>
 <plain>
+<text x="162.56" y="20.32" size="2.54" layer="91">Power Supply</text>
 </plain>
 <instances>
 <instance part="P+2" gate="1" x="30.48" y="157.48"/>
@@ -22570,6 +22572,7 @@ Source: www.cypressindustries.com</description>
 Wrong symbol</text>
 <text x="182.88" y="165.1" size="1.778" layer="91">Stecker:
 Reichelt 8x PSK 254/3W</text>
+<text x="162.56" y="20.32" size="2.54" layer="91">Sensors</text>
 </plain>
 <instances>
 <instance part="IC1" gate="A" x="66.04" y="99.06">
@@ -23045,6 +23048,7 @@ Reichelt 8x PSK 254/3W</text>
 <sheet>
 <description>UserInterface</description>
 <plain>
+<text x="162.56" y="20.32" size="2.54" layer="91">User Interface</text>
 </plain>
 <instances>
 <instance part="S1" gate="1" x="45.72" y="101.6">
@@ -23324,6 +23328,7 @@ Reichelt 8x PSK 254/3W</text>
 <sheet>
 <description>Pumps</description>
 <plain>
+<text x="162.56" y="20.32" size="2.54" layer="91">Motor Control</text>
 </plain>
 <instances>
 <instance part="Q2" gate="G$1" x="43.18" y="127">
@@ -24030,6 +24035,7 @@ Reichelt 8x PSK 254/3W</text>
 <sheet>
 <description>OtherThings</description>
 <plain>
+<text x="162.56" y="20.32" size="2.54" layer="91">Other Things</text>
 </plain>
 <instances>
 <instance part="H1" gate="G$1" x="55.88" y="134.62"/>

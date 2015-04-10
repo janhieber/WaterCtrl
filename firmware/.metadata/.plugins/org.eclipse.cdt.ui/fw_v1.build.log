@@ -1,11 +1,11 @@
-23:25:08 **** Incremental Build of configuration Debug for project fw_v1 ****
+11:42:03 **** Incremental Build of configuration Debug for project fw_v1 ****
 make all 
 Invoking: Cross ARM GNU Print Size
 arm-none-eabi-size --format=berkeley "fw_v1.elf"
    text	   data	    bss	    dec	    hex	filename
-   4544	     52	    272	   4868	   1304	fw_v1.elf
+   5092	     52	    272	   5416	   1528	fw_v1.elf
 Finished building: fw_v1.siz
  
 
-23:25:08 Build Finished (took 59ms)
+11:42:03 Build Finished (took 62ms)
 
