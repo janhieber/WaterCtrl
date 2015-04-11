@@ -21330,6 +21330,29 @@ Source: www.cypressindustries.com</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="extra">
+<packages>
+</packages>
+<symbols>
+<symbol name="DUMMY">
+<text x="0" y="0" size="1.778" layer="95">&gt;VALUE</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="DUMMY_BOM">
+<gates>
+<gate name="G$1" symbol="DUMMY" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -21771,6 +21794,52 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND53" library="supply1" deviceset="GND" device=""/>
 <part name="GND50" library="supply1" deviceset="GND" device=""/>
+<part name="U$2" library="extra" deviceset="DUMMY_BOM" device="" value="stecker"/>
+<part name="U$3" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$4" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$5" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$6" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$7" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$8" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$9" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$10" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$11" library="extra" deviceset="DUMMY_BOM" device="" value="EA DOGM204W-A">
+<attribute name="R" value="EA DOGM204W-A"/>
+</part>
+<part name="U$12" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$13" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$14" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$15" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$16" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$17" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -21923,7 +21992,7 @@ Source: www.cypressindustries.com</description>
 <label x="104.14" y="43.18" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="PB3" class="0">
+<net name="SPI1_SCK" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="PB3"/>
 <wire x1="96.52" y1="106.68" x2="109.22" y2="106.68" width="0.1524" layer="91"/>
@@ -22155,14 +22224,7 @@ Source: www.cypressindustries.com</description>
 <label x="10.16" y="167.64" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="PF4" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="PF4"/>
-<wire x1="45.72" y1="33.02" x2="33.02" y2="33.02" width="0.1524" layer="91"/>
-<label x="33.02" y="33.02" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="PF5" class="0">
+<net name="D_IM2" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="PF5"/>
 <wire x1="33.02" y1="30.48" x2="45.72" y2="30.48" width="0.1524" layer="91"/>
@@ -22283,7 +22345,6 @@ Source: www.cypressindustries.com</description>
 <segment>
 <pinref part="U$1" gate="G$1" pin="PB0"/>
 <wire x1="96.52" y1="114.3" x2="109.22" y2="114.3" width="0.1524" layer="91"/>
-<label x="104.14" y="114.3" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB10" class="0">
@@ -22371,6 +22432,27 @@ Source: www.cypressindustries.com</description>
 <pinref part="X15" gate="G$1" pin="4"/>
 <wire x1="160.02" y1="106.68" x2="165.1" y2="106.68" width="0.1524" layer="91"/>
 <label x="162.56" y="106.68" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="D_IM1" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="PF4"/>
+<wire x1="45.72" y1="33.02" x2="33.02" y2="33.02" width="0.1524" layer="91"/>
+<label x="33.02" y="33.02" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPI1_MISO" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="PB4"/>
+<wire x1="96.52" y1="104.14" x2="109.22" y2="104.14" width="0.1524" layer="91"/>
+<label x="104.14" y="104.14" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPI1_MOSI" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="PB5"/>
+<wire x1="96.52" y1="101.6" x2="109.22" y2="101.6" width="0.1524" layer="91"/>
+<label x="104.14" y="101.6" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
@@ -22570,8 +22652,7 @@ Source: www.cypressindustries.com</description>
 <plain>
 <text x="73.66" y="162.56" size="1.778" layer="91">Output not inverting.
 Wrong symbol</text>
-<text x="182.88" y="165.1" size="1.778" layer="91">Stecker:
-Reichelt 8x PSK 254/3W</text>
+<text x="129.54" y="68.58" size="1.778" layer="91">connectors:</text>
 <text x="162.56" y="20.32" size="2.54" layer="91">Sensors</text>
 </plain>
 <instances>
@@ -22665,6 +22746,30 @@ Reichelt 8x PSK 254/3W</text>
 <instance part="J16" gate="-2" x="218.44" y="88.9"/>
 <instance part="J16" gate="-3" x="218.44" y="83.82"/>
 <instance part="FRAME3" gate="G$1" x="0" y="0"/>
+<instance part="U$3" gate="G$1" x="129.54" y="66.04">
+<attribute name="R" x="129.54" y="66.04" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$4" gate="G$1" x="129.54" y="63.5">
+<attribute name="R" x="129.54" y="63.5" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$5" gate="G$1" x="129.54" y="60.96">
+<attribute name="R" x="129.54" y="60.96" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$6" gate="G$1" x="129.54" y="58.42">
+<attribute name="R" x="129.54" y="58.42" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$7" gate="G$1" x="129.54" y="55.88">
+<attribute name="R" x="129.54" y="55.88" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$8" gate="G$1" x="129.54" y="53.34">
+<attribute name="R" x="129.54" y="53.34" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$9" gate="G$1" x="129.54" y="50.8">
+<attribute name="R" x="129.54" y="50.8" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$10" gate="G$1" x="129.54" y="48.26">
+<attribute name="R" x="129.54" y="48.26" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -23049,6 +23154,7 @@ Reichelt 8x PSK 254/3W</text>
 <description>UserInterface</description>
 <plain>
 <text x="162.56" y="20.32" size="2.54" layer="91">User Interface</text>
+<text x="144.78" y="144.78" size="1.778" layer="91">display:</text>
 </plain>
 <instances>
 <instance part="S1" gate="1" x="45.72" y="101.6">
@@ -23100,6 +23206,9 @@ Reichelt 8x PSK 254/3W</text>
 </instance>
 <instance part="+3V13" gate="G$1" x="205.74" y="116.84"/>
 <instance part="GND23" gate="1" x="205.74" y="106.68"/>
+<instance part="U$11" gate="G$1" x="144.78" y="142.24">
+<attribute name="R" x="144.78" y="142.24" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -23274,21 +23383,21 @@ Reichelt 8x PSK 254/3W</text>
 <label x="190.5" y="114.3" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="D_SOD_SDAOUT" class="0">
+<net name="SPI1_MISO" class="0">
 <segment>
 <pinref part="SV5" gate="1" pin="7"/>
 <wire x1="187.96" y1="96.52" x2="200.66" y2="96.52" width="0.1524" layer="91"/>
 <label x="193.04" y="96.52" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="D_SID_SDAIN" class="0">
+<net name="SPI1_MOSI" class="0">
 <segment>
 <pinref part="SV5" gate="1" pin="6"/>
 <wire x1="200.66" y1="93.98" x2="187.96" y2="93.98" width="0.1524" layer="91"/>
 <label x="193.04" y="93.98" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="D_SCLK_SCL" class="0">
+<net name="SPI1_SCK" class="0">
 <segment>
 <pinref part="SV5" gate="1" pin="5"/>
 <wire x1="187.96" y1="91.44" x2="200.66" y2="91.44" width="0.1524" layer="91"/>
@@ -23329,6 +23438,7 @@ Reichelt 8x PSK 254/3W</text>
 <description>Pumps</description>
 <plain>
 <text x="162.56" y="20.32" size="2.54" layer="91">Motor Control</text>
+<text x="180.34" y="63.5" size="1.778" layer="91">connectors:</text>
 </plain>
 <instances>
 <instance part="Q2" gate="G$1" x="43.18" y="127">
@@ -23446,31 +23556,31 @@ Reichelt 8x PSK 254/3W</text>
 <attribute name="R" x="81.28" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
 <instance part="GND16" gate="1" x="71.12" y="27.94"/>
-<instance part="X2" gate="-1" x="218.44" y="152.4">
-<attribute name="R" x="218.44" y="152.4" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="X2" gate="-1" x="210.82" y="160.02">
+<attribute name="R" x="210.82" y="160.02" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="X2" gate="-2" x="218.44" y="147.32"/>
-<instance part="X3" gate="-1" x="218.44" y="137.16">
-<attribute name="R" x="218.44" y="137.16" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="X2" gate="-2" x="210.82" y="154.94"/>
+<instance part="X3" gate="-1" x="210.82" y="144.78">
+<attribute name="R" x="210.82" y="144.78" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="X3" gate="-2" x="218.44" y="132.08"/>
-<instance part="X4" gate="-1" x="218.44" y="121.92">
-<attribute name="R" x="218.44" y="121.92" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="X3" gate="-2" x="210.82" y="139.7"/>
+<instance part="X4" gate="-1" x="210.82" y="129.54">
+<attribute name="R" x="210.82" y="129.54" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="X4" gate="-2" x="218.44" y="116.84"/>
-<instance part="X5" gate="-1" x="218.44" y="106.68">
-<attribute name="R" x="218.44" y="106.68" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="X4" gate="-2" x="210.82" y="124.46"/>
+<instance part="X5" gate="-1" x="210.82" y="114.3">
+<attribute name="R" x="210.82" y="114.3" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="X5" gate="-2" x="218.44" y="101.6"/>
-<instance part="X6" gate="-1" x="218.44" y="91.44">
-<attribute name="R" x="218.44" y="91.44" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="X5" gate="-2" x="210.82" y="109.22"/>
+<instance part="X6" gate="-1" x="210.82" y="99.06">
+<attribute name="R" x="210.82" y="99.06" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="X6" gate="-2" x="218.44" y="86.36"/>
-<instance part="GND17" gate="1" x="236.22" y="144.78"/>
-<instance part="GND18" gate="1" x="236.22" y="129.54"/>
-<instance part="GND19" gate="1" x="236.22" y="114.3"/>
-<instance part="GND20" gate="1" x="236.22" y="99.06"/>
-<instance part="GND21" gate="1" x="236.22" y="83.82"/>
+<instance part="X6" gate="-2" x="210.82" y="93.98"/>
+<instance part="GND17" gate="1" x="228.6" y="152.4"/>
+<instance part="GND18" gate="1" x="228.6" y="137.16"/>
+<instance part="GND19" gate="1" x="228.6" y="121.92"/>
+<instance part="GND20" gate="1" x="228.6" y="106.68"/>
+<instance part="GND21" gate="1" x="228.6" y="91.44"/>
 <instance part="Q12" gate="G$1" x="134.62" y="45.72">
 <attribute name="R" x="134.62" y="45.72" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
@@ -23494,11 +23604,11 @@ Reichelt 8x PSK 254/3W</text>
 <attribute name="R" x="127" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
 <instance part="GND34" gate="1" x="116.84" y="27.94"/>
-<instance part="X7" gate="-1" x="218.44" y="76.2">
-<attribute name="R" x="218.44" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="X7" gate="-1" x="210.82" y="83.82">
+<attribute name="R" x="210.82" y="83.82" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="X7" gate="-2" x="218.44" y="71.12"/>
-<instance part="GND35" gate="1" x="236.22" y="68.58"/>
+<instance part="X7" gate="-2" x="210.82" y="78.74"/>
+<instance part="GND35" gate="1" x="228.6" y="76.2"/>
 <instance part="D1" gate="G$1" x="58.42" y="152.4" rot="R90">
 <attribute name="R" x="58.42" y="152.4" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
@@ -23523,19 +23633,37 @@ Reichelt 8x PSK 254/3W</text>
 <instance part="GND44" gate="1" x="58.42" y="66.04"/>
 <instance part="GND45" gate="1" x="104.14" y="66.04"/>
 <instance part="GND46" gate="1" x="149.86" y="66.04"/>
-<instance part="X8" gate="-1" x="200.66" y="152.4"/>
-<instance part="X8" gate="-2" x="200.66" y="147.32"/>
-<instance part="X9" gate="-1" x="200.66" y="137.16"/>
-<instance part="X9" gate="-2" x="200.66" y="132.08"/>
-<instance part="X10" gate="-1" x="200.66" y="121.92"/>
-<instance part="X10" gate="-2" x="200.66" y="116.84"/>
-<instance part="X11" gate="-1" x="200.66" y="106.68"/>
-<instance part="X11" gate="-2" x="200.66" y="101.6"/>
-<instance part="X12" gate="-1" x="200.66" y="91.44"/>
-<instance part="X12" gate="-2" x="200.66" y="86.36"/>
-<instance part="X13" gate="-1" x="200.66" y="76.2"/>
-<instance part="X13" gate="-2" x="200.66" y="71.12"/>
+<instance part="X8" gate="-1" x="193.04" y="160.02"/>
+<instance part="X8" gate="-2" x="193.04" y="154.94"/>
+<instance part="X9" gate="-1" x="193.04" y="144.78"/>
+<instance part="X9" gate="-2" x="193.04" y="139.7"/>
+<instance part="X10" gate="-1" x="193.04" y="129.54"/>
+<instance part="X10" gate="-2" x="193.04" y="124.46"/>
+<instance part="X11" gate="-1" x="193.04" y="114.3"/>
+<instance part="X11" gate="-2" x="193.04" y="109.22"/>
+<instance part="X12" gate="-1" x="193.04" y="99.06"/>
+<instance part="X12" gate="-2" x="193.04" y="93.98"/>
+<instance part="X13" gate="-1" x="193.04" y="83.82"/>
+<instance part="X13" gate="-2" x="193.04" y="78.74"/>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
+<instance part="U$12" gate="G$1" x="180.34" y="60.96">
+<attribute name="R" x="180.34" y="60.96" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$13" gate="G$1" x="180.34" y="58.42">
+<attribute name="R" x="180.34" y="58.42" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$14" gate="G$1" x="180.34" y="55.88">
+<attribute name="R" x="180.34" y="55.88" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$15" gate="G$1" x="180.34" y="53.34">
+<attribute name="R" x="180.34" y="53.34" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$16" gate="G$1" x="180.34" y="50.8">
+<attribute name="R" x="180.34" y="50.8" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$17" gate="G$1" x="180.34" y="48.26">
+<attribute name="R" x="180.34" y="48.26" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -23673,38 +23801,38 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X2" gate="-2" pin="1"/>
-<wire x1="223.52" y1="147.32" x2="236.22" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="154.94" x2="228.6" y2="154.94" width="0.1524" layer="91"/>
 <pinref part="GND17" gate="1" pin="GND"/>
 <pinref part="X8" gate="-2" pin="1"/>
-<wire x1="223.52" y1="147.32" x2="205.74" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="154.94" x2="198.12" y2="154.94" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="X3" gate="-2" pin="1"/>
-<wire x1="236.22" y1="132.08" x2="223.52" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="139.7" x2="215.9" y2="139.7" width="0.1524" layer="91"/>
 <pinref part="GND18" gate="1" pin="GND"/>
 <pinref part="X9" gate="-2" pin="1"/>
-<wire x1="223.52" y1="132.08" x2="205.74" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="139.7" x2="198.12" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="X4" gate="-2" pin="1"/>
-<wire x1="236.22" y1="116.84" x2="223.52" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="124.46" x2="215.9" y2="124.46" width="0.1524" layer="91"/>
 <pinref part="GND19" gate="1" pin="GND"/>
 <pinref part="X10" gate="-2" pin="1"/>
-<wire x1="223.52" y1="116.84" x2="205.74" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="124.46" x2="198.12" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="X5" gate="-2" pin="1"/>
-<wire x1="236.22" y1="101.6" x2="223.52" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="109.22" x2="215.9" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="GND20" gate="1" pin="GND"/>
 <pinref part="X11" gate="-2" pin="1"/>
-<wire x1="223.52" y1="101.6" x2="205.74" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="109.22" x2="198.12" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="X6" gate="-2" pin="1"/>
-<wire x1="236.22" y1="86.36" x2="223.52" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="93.98" x2="215.9" y2="93.98" width="0.1524" layer="91"/>
 <pinref part="GND21" gate="1" pin="GND"/>
 <pinref part="X12" gate="-2" pin="1"/>
-<wire x1="223.52" y1="86.36" x2="205.74" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="93.98" x2="198.12" y2="93.98" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R27" gate="G$1" pin="1"/>
@@ -23717,10 +23845,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X7" gate="-2" pin="1"/>
-<wire x1="236.22" y1="71.12" x2="223.52" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="78.74" x2="215.9" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="GND35" gate="1" pin="GND"/>
 <pinref part="X13" gate="-2" pin="1"/>
-<wire x1="223.52" y1="71.12" x2="205.74" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="78.74" x2="198.12" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="D1" gate="G$1" pin="A"/>
@@ -23757,10 +23885,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X2" gate="-1" pin="1"/>
-<wire x1="223.52" y1="152.4" x2="236.22" y2="152.4" width="0.1524" layer="91"/>
-<label x="231.14" y="152.4" size="1.778" layer="95"/>
+<wire x1="215.9" y1="160.02" x2="228.6" y2="160.02" width="0.1524" layer="91"/>
+<label x="223.52" y="160.02" size="1.778" layer="95"/>
 <pinref part="X8" gate="-1" pin="1"/>
-<wire x1="205.74" y1="152.4" x2="223.52" y2="152.4" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="160.02" x2="215.9" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -23889,10 +24017,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X3" gate="-1" pin="1"/>
-<wire x1="223.52" y1="137.16" x2="236.22" y2="137.16" width="0.1524" layer="91"/>
-<label x="231.14" y="137.16" size="1.778" layer="95"/>
+<wire x1="215.9" y1="144.78" x2="228.6" y2="144.78" width="0.1524" layer="91"/>
+<label x="223.52" y="144.78" size="1.778" layer="95"/>
 <pinref part="X9" gate="-1" pin="1"/>
-<wire x1="205.74" y1="137.16" x2="223.52" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="144.78" x2="215.9" y2="144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="WP3" class="0">
@@ -23905,10 +24033,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X4" gate="-1" pin="1"/>
-<wire x1="223.52" y1="121.92" x2="236.22" y2="121.92" width="0.1524" layer="91"/>
-<label x="231.14" y="121.92" size="1.778" layer="95"/>
+<wire x1="215.9" y1="129.54" x2="228.6" y2="129.54" width="0.1524" layer="91"/>
+<label x="223.52" y="129.54" size="1.778" layer="95"/>
 <pinref part="X10" gate="-1" pin="1"/>
-<wire x1="205.74" y1="121.92" x2="223.52" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="129.54" x2="215.9" y2="129.54" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="WP4" class="0">
@@ -23921,10 +24049,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X5" gate="-1" pin="1"/>
-<wire x1="223.52" y1="106.68" x2="236.22" y2="106.68" width="0.1524" layer="91"/>
-<label x="231.14" y="106.68" size="1.778" layer="95"/>
+<wire x1="215.9" y1="114.3" x2="228.6" y2="114.3" width="0.1524" layer="91"/>
+<label x="223.52" y="114.3" size="1.778" layer="95"/>
 <pinref part="X11" gate="-1" pin="1"/>
-<wire x1="205.74" y1="106.68" x2="223.52" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="114.3" x2="215.9" y2="114.3" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="WP5" class="0">
@@ -23937,10 +24065,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X6" gate="-1" pin="1"/>
-<wire x1="223.52" y1="91.44" x2="236.22" y2="91.44" width="0.1524" layer="91"/>
-<label x="231.14" y="91.44" size="1.778" layer="95"/>
+<wire x1="215.9" y1="99.06" x2="228.6" y2="99.06" width="0.1524" layer="91"/>
+<label x="223.52" y="99.06" size="1.778" layer="95"/>
 <pinref part="X12" gate="-1" pin="1"/>
-<wire x1="205.74" y1="91.44" x2="223.52" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="99.06" x2="215.9" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PA4" class="0">
@@ -24003,10 +24131,10 @@ Reichelt 8x PSK 254/3W</text>
 </segment>
 <segment>
 <pinref part="X7" gate="-1" pin="1"/>
-<wire x1="223.52" y1="76.2" x2="236.22" y2="76.2" width="0.1524" layer="91"/>
-<label x="231.14" y="76.2" size="1.778" layer="95"/>
+<wire x1="215.9" y1="83.82" x2="228.6" y2="83.82" width="0.1524" layer="91"/>
+<label x="223.52" y="83.82" size="1.778" layer="95"/>
 <pinref part="X13" gate="-1" pin="1"/>
-<wire x1="205.74" y1="76.2" x2="223.52" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="83.82" x2="215.9" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PB0" class="0">
@@ -24043,6 +24171,7 @@ Reichelt 8x PSK 254/3W</text>
 <instance part="H3" gate="G$1" x="71.12" y="134.62"/>
 <instance part="H4" gate="G$1" x="78.74" y="134.62"/>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
+<instance part="U$2" gate="G$1" x="119.38" y="109.22"/>
 </instances>
 <busses>
 </busses>

@@ -3,10 +3,12 @@
 "1";"";"LEDCHIP-LED0805";"CHIP-LED0805";"LED1";"LED";"";"";"";"";"SMD-LED 0805 GN";
 "6";"";"P-MOSFET-SO8";"SO-08";"Q3, Q5, Q7, Q9, Q11, Q13";"P-Channel MOSFET";"";"";"";"";"IRF 9332";
 "6";"";"SCHOTTKY-DIODESMD";"SMB";"D1, D2, D3, D4, D5, D6";"Schottky Diode";"";"";"";"";"B 340 F";
+"1";"";"SJ";"SJ";"SJ1";"SMD solder JUMPER";"";"";"";"";"";
 "1";"100";"R-EU_R0805";"R0805";"R1";"RESISTOR, European symbol";"";"";"";"";"SMD-0805 100";
-"3";"100n";"C-EUC0603K";"C0603K";"C3, C4, C5";"CAPACITOR, European symbol";"";"";"";"";"X7R-G0603 100N";
+"5";"100n";"C-EUC0603K";"C0603K";"C2, C3, C4, C5, C20";"CAPACITOR, European symbol";"";"";"";"";"X7R-G0603 100N";
 "8";"100n";"C-EUC0805";"C0805";"C8, C9, C12, C13, C14, C15, C16, C17";"CAPACITOR, European symbol";"";"";"";"";"X7R-G0805 100N";
 "6";"10k";"R-EU_R0805";"R0805";"R2, R9, R13, R17, R21, R26";"RESISTOR, European symbol";"";"";"";"";"SMD-0805 10,0K";
+"1";"10n";"C-EUC0603K";"C0603K";"C19";"CAPACITOR, European symbol";"";"";"";"";"X7R-G0603 10N";
 "12";"18k";"R-EU_R0805";"R0805";"R4, R10, R14, R18, R22, R25, R27, R32, R33, R34, R35, R36";"RESISTOR, European symbol";"";"";"";"";"SMD-0805 18,0K";
 "6";"1k2";"R-EU_R0805";"R0805";"R6, R11, R15, R19, R23, R28";"RESISTOR, European symbol";"";"";"";"";"SMD-0805 1,20K";
 "1";"1u";"C-EUC0805";"C0805";"C10";"CAPACITOR, European symbol";"";"";"";"";"X7R-G0805 1,0/25";
@@ -18,6 +20,7 @@
 "2";"2R4 1/4W";"R-EU_R1206";"R1206";"R30, R31";"RESISTOR, European symbol";"";"";"";"";"SMD 1/4W 2,4";
 "4";"3.2";"MOUNT-PAD-ROUND3.2";"3,2-PAD";"H1, H2, H3, H4";"MOUNTING PAD, round";"";"";"";"";"";
 "1";"300";"R-EU_R0805";"R0805";"R3";"RESISTOR, European symbol";"";"";"";"";"SPR-0805 300";
+"1";"4.7u/35V";"CPOL-EUB";"PANASONIC_B";"C18";"POLARIZED CAPACITOR, European symbol";"";"";"";"";"SMD ELKO 4,7/35";
 "2";"47u/25V";"CPOL-EUG";"PANASONIC_G";"C1, C11";"POLARIZED CAPACITOR, European symbol";"";"";"";"";"VF 47/25 P-D";
 "6";"560";"R-EU_R0805";"R0805";"R8, R12, R16, R20, R24, R29";"RESISTOR, European symbol";"";"";"";"";"SMD-0805 560";
 "1";"74HC151D";"74HC151D";"SO16";"IC1";"Data SELECTOR/MULTIPLEXER";"";"";"";"";"SMD HC 151";
@@ -28,9 +31,13 @@
 "1";"DISP_B";"MA03-1";"MA03-1";"SV3";"PIN HEADER";"";"";"unknown";"unknown";"";
 "1";"DISP_C";"MA04-1";"MA04-1";"SV4";"PIN HEADER";"";"";"unknown";"unknown";"";
 "1";"DISP_D";"MA07-1";"MA07-1";"SV5";"PIN HEADER";"";"";"unknown";"unknown";"";
+"2";"EMI 60Ohm Ferrit";"R-EU_R0603";"R0603";"R37, R38";"RESISTOR, European symbol";"";"";"";"";"BLM18PG 600";
 "1";"ESP8266";"MA04-2";"MA04-2";"SV1";"PIN HEADER";"";"";"unknown";"unknown";"MPE 094-2-008";
 "1";"EXTPWR";"PINHD-1X2";"1X02";"JP2";"PIN HEADER";"";"";"";"";"MPE 087-1-002";
+"1";"FT232RL";"FT232RL";"SSOP28";"IC4";"Source: http://www.ftdichip.com/Documents/DataSheets/DS_FT232R_v104.pdf";"";"FT232RL";"1146032";"91K9918";"FT 232 RL";
+"1";"J7MM";"J7MM";"07";"J19";"Bridge";"";"";"";"";"";
 "1";"LM317";"LM317MBSTT3";"SOT223";"IC2";"500 mA Adjustable Output Positive Voltage Regulator";"";"";"";"";"LM317EMP";
+"1";"MINI-USB-SCHIELD-32005-301";"MINI-USB-SCHIELD-32005-301";"32005-301";"X15";"MINI USB-B Conector";"";"";"unknown";"unknown";"USB BWM SMD";
 "6";"MSTBA2";"MSTBA2";"MSTBA2";"X8, X9, X10, X11, X12, X13";"PHOENIX";"FARNELL";"1757242";"3705171";"71C4161";"";
 "6";"MSTBA2";"MSTBA2";"MSTBA2";"X2, X3, X4, X5, X6, X7";"PHOENIX";"FARNELL";"1757242";"3705171";"71C4161";"AKL 230-02";
 "1";"PWR12";"AK500/2";"AK500/2";"X1";"CONNECTOR";"";"";"unknown";"unknown";"AKL 101-02";
