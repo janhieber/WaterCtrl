@@ -9,7 +9,7 @@ https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/schematic.pdf
 
 https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.pdf
 
-https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.png
+![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/board.png)
 
 # Order PCBs
 To order PCBs you can simply send the Eagle files or generate the Gerber
