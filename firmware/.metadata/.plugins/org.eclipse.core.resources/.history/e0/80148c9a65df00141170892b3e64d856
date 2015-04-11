@@ -83,7 +83,7 @@ void USART_puts(USART_TypeDef* USARTx, volatile char *s) {
 void USART_putc(USART_TypeDef* USARTx, char s) {
 	while (USART_GetFlagStatus(USARTx, USART_FLAG_TC) == RESET)
 		;
-	USART_SendData(USARTx, s);
+	USART_SendData(USARTx, *s);
 }
 
 void Delay(uint32_t msec) {

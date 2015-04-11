@@ -1,6 +1,0 @@
-
-volatile uint32_t msTicks = 0;
-
-void initGPIOs(void);
-
-void Delay(uint32_t msec);

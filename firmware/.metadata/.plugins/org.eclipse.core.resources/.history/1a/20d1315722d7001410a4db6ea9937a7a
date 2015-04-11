@@ -1,9 +1,0 @@
-#include <stm32f0xx_conf.h>
-
-
-extern volatile uint32_t msTicks;
-
-void initGPIOs(void);
-void USART_puts(USART_TypeDef* USARTx, volatile char *s);
-
-void Delay(uint32_t msec);

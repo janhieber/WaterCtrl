@@ -1,13 +1,14 @@
-23:25:06 **** Incremental Build of configuration Debug for project fw_v1 ****
+11:41:50 **** Incremental Build of configuration Debug for project fw_v1 ****
 make all 
 Building file: ../src/helpers.c
 Invoking: Cross ARM C Compiler
 arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F051 -DUSE_STDPERIPH_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f0-stdperiph" -std=gnu11 -MMD -MP -MF"src/helpers.d" -MT"src/helpers.o" -c -o "src/helpers.o" "../src/helpers.c"
-../src/helpers.c: In function 'USART1_IRQHandler':
-../src/helpers.c:90:10: warning: variable 'data' set but not used [-Wunused-but-set-variable]
-  uint8_t data = 0x00;
-          ^
 Finished building: ../src/helpers.c
+ 
+Building file: ../src/main.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F051 -DUSE_STDPERIPH_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f0-stdperiph" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
  
 Building target: fw_v1.elf
 Invoking: Cross ARM C++ Linker
@@ -21,14 +22,22 @@ Finished building: fw_v1.bin
 Invoking: Cross ARM GNU Print Size
 arm-none-eabi-size --format=berkeley "fw_v1.elf"
    text	   data	    bss	    dec	    hex	filename
-   4544	     52	    272	   4868	   1304	fw_v1.elf
+   5092	     52	    272	   5416	   1528	fw_v1.elf
 Finished building: fw_v1.siz
  
-23:25:08 **** Incremental Build of configuration Debug for project fw_v1 ****
+11:41:53 **** Incremental Build of configuration Debug for project fw_v1 ****
 make all 
 Invoking: Cross ARM GNU Print Size
 arm-none-eabi-size --format=berkeley "fw_v1.elf"
    text	   data	    bss	    dec	    hex	filename
-   4544	     52	    272	   4868	   1304	fw_v1.elf
+   5092	     52	    272	   5416	   1528	fw_v1.elf
+Finished building: fw_v1.siz
+ 
+11:42:03 **** Incremental Build of configuration Debug for project fw_v1 ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "fw_v1.elf"
+   text	   data	    bss	    dec	    hex	filename
+   5092	     52	    272	   5416	   1528	fw_v1.elf
 Finished building: fw_v1.siz
  
