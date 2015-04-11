@@ -30,6 +30,7 @@ CREATE TABLE Plant
 	id INTEGER NOT NULL,
 	name VARCHAR(30),
 	description TEXT,
+	watering_interval INTEGER,
 	PRIMARY KEY (id),
 	UNIQUE UQ_Plant_id(id)
 ) 
