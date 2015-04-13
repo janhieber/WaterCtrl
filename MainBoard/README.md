@@ -1,3 +1,7 @@
+News: Board is nearly finished, will make a prototype this week
+and then test and finetune some circuits, wires and other thinhs.
+After that i'll order 10 peaces in china at dirtypcb.com
+
 # Info
 This is the Eagle 6.x schematic/board for the main board.
 
@@ -41,13 +45,6 @@ in this folder.
 
 Simply go into this folder with your terminal and execute it: ./orderBOM.sh
 
-Then for each part the script tells you the quantity and opens a browser window.
-Simply click the first result, input quantity and add to cart, press enter key in 
-script to continue with next...
-
-In OSX you may have to replace the 'xdg-open' call in the script with 'firefox' or
-something else... I have no Mac to test this
- 
 # ToDo
 - [ ] Circuit for the moisture measurement (connectors, demultiplexer)
   - [x] schematic
