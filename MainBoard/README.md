@@ -1,5 +1,5 @@
-News: Board is nearly finished, will make a prototype this week
-and then test and finetune some circuits, wires and other thinhs.
+News: Prototype PCB is here. Parts should arrive the next days.
+Rhen test and finetune some circuits, wires and other things.
 After that i'll order 10 peaces in china at dirtypcb.com
 
 # Info
@@ -14,6 +14,10 @@ https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/schematic.pdf
 https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.pdf
 
 ![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/board.png)
+
+# Nice Pics (prototype)
+![PCB top](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/top.jpg "PCB top")
+![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/bottom.jpg "PCB bottom")
 
 # Order PCBs
 To order PCBs you can simply send the Eagle files or generate the Gerber
