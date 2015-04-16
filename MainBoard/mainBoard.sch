@@ -8,34 +8,34 @@
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
-<layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
-<layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
-<layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
-<layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
-<layer number="6" name="Route6" color="1" fill="8" visible="no" active="no"/>
-<layer number="7" name="Route7" color="4" fill="8" visible="no" active="no"/>
-<layer number="8" name="Route8" color="1" fill="2" visible="no" active="no"/>
-<layer number="9" name="Route9" color="4" fill="2" visible="no" active="no"/>
-<layer number="10" name="Route10" color="1" fill="7" visible="no" active="no"/>
-<layer number="11" name="Route11" color="4" fill="7" visible="no" active="no"/>
-<layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
-<layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
-<layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
-<layer number="17" name="Pads" color="2" fill="1" visible="no" active="no"/>
-<layer number="18" name="Vias" color="2" fill="1" visible="no" active="no"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="no"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="no"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="no"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="no"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="no"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="no"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="no" active="no"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="no" active="no"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="no" active="no"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="no" active="no"/>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="no"/>
+<layer number="2" name="Route2" color="1" fill="3" visible="yes" active="no"/>
+<layer number="3" name="Route3" color="4" fill="3" visible="yes" active="no"/>
+<layer number="4" name="Route4" color="1" fill="4" visible="yes" active="no"/>
+<layer number="5" name="Route5" color="4" fill="4" visible="yes" active="no"/>
+<layer number="6" name="Route6" color="1" fill="8" visible="yes" active="no"/>
+<layer number="7" name="Route7" color="4" fill="8" visible="yes" active="no"/>
+<layer number="8" name="Route8" color="1" fill="2" visible="yes" active="no"/>
+<layer number="9" name="Route9" color="4" fill="2" visible="yes" active="no"/>
+<layer number="10" name="Route10" color="1" fill="7" visible="yes" active="no"/>
+<layer number="11" name="Route11" color="4" fill="7" visible="yes" active="no"/>
+<layer number="12" name="Route12" color="1" fill="5" visible="yes" active="no"/>
+<layer number="13" name="Route13" color="4" fill="5" visible="yes" active="no"/>
+<layer number="14" name="Route14" color="1" fill="6" visible="yes" active="no"/>
+<layer number="15" name="Route15" color="4" fill="6" visible="yes" active="no"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="no"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="no"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="no"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="no"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="no"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="no"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="no"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="no"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="no"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="no"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="no"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="no"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="no"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="no"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="no"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="no"/>
@@ -44,8 +44,8 @@
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="no"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="no"/>
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="no"/>
-<layer number="37" name="tTest" color="7" fill="1" visible="no" active="no"/>
-<layer number="38" name="bTest" color="7" fill="1" visible="no" active="no"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="yes" active="no"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="yes" active="no"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="no"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="no"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="no"/>
@@ -53,12 +53,12 @@
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="no"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="no"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="no"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="no" active="no"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="no" active="no"/>
-<layer number="48" name="Document" color="7" fill="1" visible="no" active="no"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="no" active="no"/>
-<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="no"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="no"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="no"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="no"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="no"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="no"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="no"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
@@ -21332,6 +21332,8 @@ Source: www.cypressindustries.com</description>
 </library>
 <library name="extra">
 <packages>
+<package name="DUMMY_BOM">
+</package>
 </packages>
 <symbols>
 <symbol name="DUMMY">
@@ -21344,7 +21346,7 @@ Source: www.cypressindustries.com</description>
 <gate name="G$1" symbol="DUMMY" x="0" y="0"/>
 </gates>
 <devices>
-<device name="">
+<device name="" package="DUMMY_BOM">
 <technologies>
 <technology name=""/>
 </technologies>
@@ -21367,7 +21369,7 @@ Source: www.cypressindustries.com</description>
 <part name="U$1" library="stm32F" deviceset="STM32F051" device="" value="STM32 F051 R4T6"/>
 <part name="P+2" library="supply1" deviceset="+12V" device=""/>
 <part name="+3V2" library="supply1" deviceset="+3V3" device=""/>
-<part name="C11" library="rcl" deviceset="CPOL-EU" device="G" value="47u/25V">
+<part name="C11" library="rcl" deviceset="CPOL-EU" device="D" value="47u/25V">
 <attribute name="R" value="VF 47/25 P-D"/>
 </part>
 <part name="C9" library="rcl" deviceset="C-EU" device="C0805" value="100n">
@@ -21385,7 +21387,7 @@ Source: www.cypressindustries.com</description>
 <part name="R7" library="rcl" deviceset="R-EU_" device="R0805" value="240">
 <attribute name="R" value="SPR-0805 240"/>
 </part>
-<part name="C1" library="rcl" deviceset="CPOL-EU" device="G" value="47u/25V">
+<part name="C1" library="rcl" deviceset="CPOL-EU" device="D" value="47u/25V">
 <attribute name="R" value="VF 47/25 P-D"/>
 </part>
 <part name="R1" library="rcl" deviceset="R-EU_" device="R0805" value="100">
@@ -21455,7 +21457,7 @@ Source: www.cypressindustries.com</description>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
 <part name="Q2" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
-<attribute name="R" value="BC 547A"/>
+<attribute name="R" value="BC 847A SMD"/>
 </part>
 <part name="R2" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
 <attribute name="R" value="SMD-0805 10,0K"/>
@@ -21478,7 +21480,7 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="Q4" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
-<attribute name="R" value="BC 547A"/>
+<attribute name="R" value="BC 847A SMD"/>
 </part>
 <part name="R9" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
 <attribute name="R" value="SMD-0805 10,0K"/>
@@ -21501,7 +21503,7 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="Q6" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
-<attribute name="R" value="BC 547A"/>
+<attribute name="R" value="BC 847A SMD"/>
 </part>
 <part name="R13" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
 <attribute name="R" value="SMD-0805 10,0K"/>
@@ -21524,7 +21526,7 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
 <part name="Q8" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
-<attribute name="R" value="BC 547A"/>
+<attribute name="R" value="BC 847A SMD"/>
 </part>
 <part name="R17" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
 <attribute name="R" value="SMD-0805 10,0K"/>
@@ -21547,7 +21549,7 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
 <part name="Q10" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
-<attribute name="R" value="BC 547A"/>
+<attribute name="R" value="BC 847A SMD"/>
 </part>
 <part name="R21" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
 <attribute name="R" value="SMD-0805 10,0K"/>
@@ -21635,7 +21637,7 @@ Source: www.cypressindustries.com</description>
 <part name="GND33" library="supply1" deviceset="GND" device=""/>
 <part name="GND29" library="supply1" deviceset="GND" device=""/>
 <part name="Q12" library="transistor-npn" deviceset="BC847*" device="SMD" technology="A" value="BC847ASMD">
-<attribute name="R" value="BC 547A"/>
+<attribute name="R" value="BC 847A SMD"/>
 </part>
 <part name="R26" library="rcl" deviceset="R-EU_" device="R0805" value="10k">
 <attribute name="R" value="SMD-0805 10,0K"/>
@@ -21715,22 +21717,22 @@ Source: www.cypressindustries.com</description>
 <attribute name="R" value="SMD-0805 18,0K"/>
 </part>
 <part name="GND40" library="supply1" deviceset="GND" device=""/>
-<part name="D1" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<part name="D1" library="diode" deviceset="SCHOTTKY-DIODE" device="SMC">
 <attribute name="R" value="B 340 F"/>
 </part>
-<part name="D2" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<part name="D2" library="diode" deviceset="SCHOTTKY-DIODE" device="SMC">
 <attribute name="R" value="B 340 F"/>
 </part>
-<part name="D3" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<part name="D3" library="diode" deviceset="SCHOTTKY-DIODE" device="SMC">
 <attribute name="R" value="B 340 F"/>
 </part>
-<part name="D4" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<part name="D4" library="diode" deviceset="SCHOTTKY-DIODE" device="SMC">
 <attribute name="R" value="B 340 F"/>
 </part>
-<part name="D5" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<part name="D5" library="diode" deviceset="SCHOTTKY-DIODE" device="SMC">
 <attribute name="R" value="B 340 F"/>
 </part>
-<part name="D6" library="diode" deviceset="SCHOTTKY-DIODE" device="SMD">
+<part name="D6" library="diode" deviceset="SCHOTTKY-DIODE" device="SMC">
 <attribute name="R" value="B 340 F"/>
 </part>
 <part name="GND41" library="supply1" deviceset="GND" device=""/>
@@ -21794,7 +21796,6 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND53" library="supply1" deviceset="GND" device=""/>
 <part name="GND50" library="supply1" deviceset="GND" device=""/>
-<part name="U$2" library="extra" deviceset="DUMMY_BOM" device="" value="stecker"/>
 <part name="U$3" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
 <attribute name="R" value="PSK 254/3W"/>
 </part>
@@ -21848,6 +21849,12 @@ Source: www.cypressindustries.com</description>
 </part>
 <part name="GND" library="supply1" deviceset="GND" device=""/>
 <part name="GND54" library="supply1" deviceset="GND" device=""/>
+<part name="U$18" library="extra" deviceset="DUMMY_BOM" device="" value="Kontakte (20Stk)">
+<attribute name="R" value="PSK-KONTAKTE"/>
+</part>
+<part name="U$19" library="extra" deviceset="DUMMY_BOM" device="" value="Kontakte (20Stk)">
+<attribute name="R" value="PSK-KONTAKTE"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -22813,6 +22820,12 @@ Wrong symbol</text>
 </instance>
 <instance part="U$10" gate="G$1" x="129.54" y="48.26">
 <attribute name="R" x="129.54" y="48.26" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$18" gate="G$1" x="147.32" y="66.04">
+<attribute name="R" x="147.32" y="66.04" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$19" gate="G$1" x="147.32" y="63.5">
+<attribute name="R" x="147.32" y="63.5" size="1.778" layer="96" display="off"/>
 </instance>
 </instances>
 <busses>
@@ -24242,7 +24255,6 @@ Wrong symbol</text>
 <instance part="H3" gate="G$1" x="71.12" y="134.62"/>
 <instance part="H4" gate="G$1" x="78.74" y="134.62"/>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
-<instance part="U$2" gate="G$1" x="119.38" y="109.22"/>
 </instances>
 <busses>
 </busses>

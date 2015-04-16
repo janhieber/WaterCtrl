@@ -70,6 +70,8 @@
 </layers>
 <library>
 <packages>
+<package name="DUMMY_BOM">
+</package>
 </packages>
 <symbols>
 <symbol name="DUMMY">
@@ -82,7 +84,7 @@
 <gate name="G$1" symbol="DUMMY" x="0" y="0"/>
 </gates>
 <devices>
-<device name="">
+<device name="" package="DUMMY_BOM">
 <technologies>
 <technology name=""/>
 </technologies>
