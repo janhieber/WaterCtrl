@@ -16,6 +16,12 @@ https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.pdf
 ![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/board.png)
 
 # Nice Pics (prototype)
+Currently I'm assembling the prototype. This is really ugly because
+I have to solder many parts on top side, but on prototype i down have plated holes.
+So every connector, via etc. is really ugly. But the point is to figure out
+if its working, thats all. So don't blame me for this soldering :-)
+![PCB prototype](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/proto1.jpg "PCB prototype")
+
 ![PCB top](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/top.jpg "PCB top")
 ![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/bottom.jpg "PCB bottom")
 
