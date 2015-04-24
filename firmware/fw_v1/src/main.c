@@ -1,10 +1,28 @@
 #include <stm32f0xx_conf.h>
 
 #include <stdio.h>
-#include "diag/Trace.h"
+#include <stdbool.h>
+//#include "diag/Trace.h"
+
+#if defined ( __GNUC__ )
+	#define likely(x)		__builtin_expect(!!(x), 1)
+	#define unlikely(x)		__builtin_expect(!!(x), 0)
+#else
+	#define likely(x)		x
+	#define unlikely(x)		x
+#endif
+
+#define UNUSED(...)		(void)(__VA_ARGS__)
+
+#define VERSION 1
+
+// keep this file clean! only the main programm should be here
+// every specific code should be other c files
 
 #include <helpers.h>
-
+#include <flash.h>
+#include <moistureMeasure.h>
+#include <motors.h>
 
 
 void main(void)
@@ -14,12 +32,15 @@ void main(void)
 		while(1);
 	}
 
-	trace_puts("Hello ARM World!");
-	trace_printf("System clock: %uHz\n", SystemCoreClock);
-
-
 	initGPIOs();
 	initUSART1();
+	printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
+	printf("\tSystem clock: %luMHz\r\n\r\n", SystemCoreClock/1000000);
+
+	// for WLAN
+	initUSART2();
+	initMotors();
+	initMoistureMeasure();
 
 	while (1)
 	{

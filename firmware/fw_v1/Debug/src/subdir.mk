@@ -4,19 +4,28 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/_write.c \
+../src/flash.c \
 ../src/helpers.c \
-../src/main.c 
+../src/main.c \
+../src/moistureMeasure.c \
+../src/motors.c \
+../src/printf.c 
 
 OBJS += \
-./src/_write.o \
+./src/flash.o \
 ./src/helpers.o \
-./src/main.o 
+./src/main.o \
+./src/moistureMeasure.o \
+./src/motors.o \
+./src/printf.o 
 
 C_DEPS += \
-./src/_write.d \
+./src/flash.d \
 ./src/helpers.d \
-./src/main.d 
+./src/main.d \
+./src/moistureMeasure.d \
+./src/motors.d \
+./src/printf.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

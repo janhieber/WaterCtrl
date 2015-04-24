@@ -11,7 +11,8 @@ src/main.o: ../src/main.c ../include/stm32f0xx_conf.h \
  ../system/include/stm32f0-stdperiph/stm32f0xx_tim.h \
  ../system/include/stm32f0-stdperiph/stm32f0xx_usart.h \
  ../system/include/stm32f0-stdperiph/stm32f0xx_misc.h \
- ../system/include/diag/Trace.h ../include/helpers.h
+ ../include/helpers.h ../include/flash.h ../include/moistureMeasure.h \
+ ../include/motors.h
 
 ../include/stm32f0xx_conf.h:
 
@@ -41,6 +42,10 @@ src/main.o: ../src/main.c ../include/stm32f0xx_conf.h \
 
 ../system/include/stm32f0-stdperiph/stm32f0xx_misc.h:
 
-../system/include/diag/Trace.h:
-
 ../include/helpers.h:
+
+../include/flash.h:
+
+../include/moistureMeasure.h:
+
+../include/motors.h:

@@ -6,8 +6,6 @@ Archive member included to satisfy reference by file (symbol)
                               /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o) (__aeabi_idiv0)
 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-errno.o)
                               ./system/src/newlib/_sbrk.o (__errno)
-/usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
-                              /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-errno.o) (_impure_ptr)
 
 Allocating common symbols
 Common symbol       size              file
@@ -1127,21 +1125,42 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_macro   0x0000000000000000      0x83e ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_macro   0x0000000000000000      0x34e ./system/src/cmsis/vectors_stm32f0xx.o
- .group         0x0000000000000000        0x8 ./src/_write.o
- .text          0x0000000000000000        0x0 ./src/_write.o
- .data          0x0000000000000000        0x0 ./src/_write.o
- .bss           0x0000000000000000        0x0 ./src/_write.o
- .debug_info    0x0000000000000000       0x21 ./src/_write.o
- .debug_abbrev  0x0000000000000000       0x13 ./src/_write.o
+ .group         0x0000000000000000        0x8 ./src/flash.o
+ .text          0x0000000000000000        0x0 ./src/flash.o
+ .data          0x0000000000000000        0x0 ./src/flash.o
+ .bss           0x0000000000000000        0x0 ./src/flash.o
+ .debug_info    0x0000000000000000       0x21 ./src/flash.o
+ .debug_abbrev  0x0000000000000000       0x13 ./src/flash.o
  .debug_aranges
-                0x0000000000000000       0x18 ./src/_write.o
- .debug_macro   0x0000000000000000       0x11 ./src/_write.o
- .debug_macro   0x0000000000000000      0x83e ./src/_write.o
- .debug_line    0x0000000000000000       0x30 ./src/_write.o
- .debug_str     0x0000000000000000     0x2366 ./src/_write.o
- .comment       0x0000000000000000       0x34 ./src/_write.o
+                0x0000000000000000       0x18 ./src/flash.o
+ .debug_macro   0x0000000000000000       0x15 ./src/flash.o
+ .debug_macro   0x0000000000000000      0x83e ./src/flash.o
+ .debug_line    0x0000000000000000       0x45 ./src/flash.o
+ .debug_str     0x0000000000000000     0x2365 ./src/flash.o
+ .comment       0x0000000000000000       0x34 ./src/flash.o
  .ARM.attributes
-                0x0000000000000000       0x31 ./src/_write.o
+                0x0000000000000000       0x31 ./src/flash.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
+ .group         0x0000000000000000        0x8 ./src/helpers.o
  .group         0x0000000000000000        0x8 ./src/helpers.o
  .group         0x0000000000000000        0x8 ./src/helpers.o
  .group         0x0000000000000000        0x8 ./src/helpers.o
@@ -1177,7 +1196,26 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x750 ./src/helpers.o
  .debug_macro   0x0000000000000000      0x356 ./src/helpers.o
  .debug_macro   0x0000000000000000       0x3a ./src/helpers.o
- .group         0x0000000000000000        0x8 ./src/main.o
+ .debug_macro   0x0000000000000000       0x58 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x22 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x35 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x9c ./src/helpers.o
+ .debug_macro   0x0000000000000000      0x16d ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x4a ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x52 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x16 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x43 ./src/helpers.o
+ .debug_macro   0x0000000000000000      0x180 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x10 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x35 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x10 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x10 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x10 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x22 ./src/helpers.o
+ .debug_macro   0x0000000000000000       0xbd ./src/helpers.o
+ .debug_macro   0x0000000000000000       0x35 ./src/helpers.o
+ .debug_macro   0x0000000000000000      0x27a ./src/helpers.o
+ .debug_macro   0x0000000000000000      0x121 ./src/helpers.o
  .group         0x0000000000000000        0x8 ./src/main.o
  .group         0x0000000000000000        0x8 ./src/main.o
  .group         0x0000000000000000        0x8 ./src/main.o
@@ -1245,9 +1283,150 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ./src/main.o
  .debug_macro   0x0000000000000000       0x22 ./src/main.o
  .debug_macro   0x0000000000000000       0xbd ./src/main.o
- .debug_macro   0x0000000000000000       0x16 ./src/main.o
- .debug_macro   0x0000000000000000       0x35 ./src/main.o
- .debug_macro   0x0000000000000000      0x48e ./src/main.o
+ .debug_macro   0x0000000000000000       0x10 ./src/main.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/moistureMeasure.o
+ .text          0x0000000000000000        0x0 ./src/moistureMeasure.o
+ .data          0x0000000000000000        0x0 ./src/moistureMeasure.o
+ .bss           0x0000000000000000        0x0 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x83e ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000       0x7a ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000       0x3a ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x34e ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000       0x1f ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x242 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000     0x631c ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x17f ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x471 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000       0xdf ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x522 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x4c5 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x750 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000      0x356 ./src/moistureMeasure.o
+ .debug_macro   0x0000000000000000       0x3a ./src/moistureMeasure.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/motors.o
+ .text          0x0000000000000000        0x0 ./src/motors.o
+ .data          0x0000000000000000        0x0 ./src/motors.o
+ .bss           0x0000000000000000        0x0 ./src/motors.o
+ .debug_macro   0x0000000000000000      0x83e ./src/motors.o
+ .debug_macro   0x0000000000000000       0x7a ./src/motors.o
+ .debug_macro   0x0000000000000000       0x3a ./src/motors.o
+ .debug_macro   0x0000000000000000      0x34e ./src/motors.o
+ .debug_macro   0x0000000000000000       0x1f ./src/motors.o
+ .debug_macro   0x0000000000000000      0x242 ./src/motors.o
+ .debug_macro   0x0000000000000000     0x631c ./src/motors.o
+ .debug_macro   0x0000000000000000      0x17f ./src/motors.o
+ .debug_macro   0x0000000000000000      0x471 ./src/motors.o
+ .debug_macro   0x0000000000000000       0xdf ./src/motors.o
+ .debug_macro   0x0000000000000000      0x522 ./src/motors.o
+ .debug_macro   0x0000000000000000      0x4c5 ./src/motors.o
+ .debug_macro   0x0000000000000000      0x750 ./src/motors.o
+ .debug_macro   0x0000000000000000      0x356 ./src/motors.o
+ .debug_macro   0x0000000000000000       0x3a ./src/motors.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .group         0x0000000000000000        0x8 ./src/printf.o
+ .text          0x0000000000000000        0x0 ./src/printf.o
+ .data          0x0000000000000000        0x0 ./src/printf.o
+ .bss           0x0000000000000000        0x0 ./src/printf.o
+ .text.snprintf
+                0x0000000000000000       0x18 ./src/printf.o
+ .text.sprintf  0x0000000000000000       0x18 ./src/printf.o
+ .text.fprintf  0x0000000000000000       0x18 ./src/printf.o
+ .text.puts     0x0000000000000000       0x14 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x83e ./src/printf.o
+ .debug_macro   0x0000000000000000       0x58 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x22 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x35 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x9c ./src/printf.o
+ .debug_macro   0x0000000000000000       0x16 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x4a ./src/printf.o
+ .debug_macro   0x0000000000000000       0x97 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x27a ./src/printf.o
+ .debug_macro   0x0000000000000000       0xf6 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x10 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x52 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x16 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x43 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x180 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x10 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x22 ./src/printf.o
+ .debug_macro   0x0000000000000000       0xbd ./src/printf.o
+ .debug_macro   0x0000000000000000       0x16 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x196 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x7a ./src/printf.o
+ .debug_macro   0x0000000000000000       0x3a ./src/printf.o
+ .debug_macro   0x0000000000000000      0x34e ./src/printf.o
+ .debug_macro   0x0000000000000000       0x1f ./src/printf.o
+ .debug_macro   0x0000000000000000      0x242 ./src/printf.o
+ .debug_macro   0x0000000000000000     0x631c ./src/printf.o
+ .debug_macro   0x0000000000000000      0x17f ./src/printf.o
+ .debug_macro   0x0000000000000000      0x471 ./src/printf.o
+ .debug_macro   0x0000000000000000       0xdf ./src/printf.o
+ .debug_macro   0x0000000000000000      0x522 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x4c5 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x750 ./src/printf.o
+ .debug_macro   0x0000000000000000      0x356 ./src/printf.o
+ .debug_macro   0x0000000000000000       0x3a ./src/printf.o
  .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_dvmd_tls.o)
@@ -1259,19 +1438,6 @@ Discarded input sections
  .debug_frame   0x0000000000000000       0x20 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-errno.o)
  .ARM.attributes
                 0x0000000000000000       0x2c /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-errno.o)
- .text          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .data.impure_data
-                0x0000000000000000       0x60 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .data._impure_ptr
-                0x0000000000000000        0x4 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .rodata.str1.1
-                0x0000000000000000        0x2 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .rodata._global_impure_ptr
-                0x0000000000000000        0x4 /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
 
 Memory Configuration
 
@@ -1308,9 +1474,12 @@ LOAD ./system/src/cortexm/_reset_hardware.o
 LOAD ./system/src/cortexm/exception_handlers.o
 LOAD ./system/src/cmsis/system_stm32f0xx.o
 LOAD ./system/src/cmsis/vectors_stm32f0xx.o
-LOAD ./src/_write.o
+LOAD ./src/flash.o
 LOAD ./src/helpers.o
 LOAD ./src/main.o
+LOAD ./src/moistureMeasure.o
+LOAD ./src/motors.o
+LOAD ./src/printf.o
 LOAD /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a
 LOAD /usr/lib/gcc/arm-none-eabi/4.9.2/../../../../arm-none-eabi/lib/armv6-m/libm.a
 START GROUP
@@ -1329,7 +1498,7 @@ END GROUP
                 0x0000000020001c00                __Main_Stack_Limit = (__stack - __Main_Stack_Size)
                 0x0000000020001c00                PROVIDE (_Main_Stack_Limit, __Main_Stack_Limit)
                 0x0000000000000100                _Minimum_Stack_Size = 0x100
-                0x0000000020000044                PROVIDE (_Heap_Begin, _end_noinit)
+                0x0000000020000474                PROVIDE (_Heap_Begin, _end_noinit)
                 0x0000000020001c00                PROVIDE (_Heap_Limit, (__stack - __Main_Stack_Size))
 
 .isr_vector     0x0000000008000000      0x218
@@ -1387,7 +1556,6 @@ END GROUP
                 0x0000000008000214                WWDG_IRQHandler
                 0x0000000008000214                TIM2_IRQHandler
                 0x0000000008000214                DMA1_Channel2_3_IRQHandler
-                0x0000000008000214                USART2_IRQHandler
                 0x0000000008000214                FLASH_IRQHandler
                 0x0000000008000214                TIM1_BRK_UP_TRG_COM_IRQHandler
                 0x0000000008000218                . = ALIGN (0x4)
@@ -1419,7 +1587,7 @@ END GROUP
  *(.flashtext .flashtext.*)
                 0x0000000008000218                . = ALIGN (0x4)
 
-.text           0x0000000008000218     0x11cc
+.text           0x0000000008000218     0x1794
                 0x0000000008000218                . = ALIGN (0x4)
  *(.text .text.*)
  .text.GPIO_Init
@@ -1500,78 +1668,133 @@ END GROUP
  .text.initUSART1
                 0x0000000008001084       0xb0 ./src/helpers.o
                 0x0000000008001084                initUSART1
+ .text.initUSART2
+                0x0000000008001134       0xc4 ./src/helpers.o
+                0x0000000008001134                initUSART2
  .text.USART_puts
-                0x0000000008001134       0x2c ./src/helpers.o
-                0x0000000008001134                USART_puts
+                0x00000000080011f8       0x2c ./src/helpers.o
+                0x00000000080011f8                USART_puts
  .text.USART_putc
-                0x0000000008001160       0x1c ./src/helpers.o
-                0x0000000008001160                USART_putc
- .text.Delay    0x000000000800117c       0x14 ./src/helpers.o
-                0x000000000800117c                Delay
+                0x0000000008001224       0x1c ./src/helpers.o
+                0x0000000008001224                USART_putc
+ .text.Delay    0x0000000008001240       0x14 ./src/helpers.o
+                0x0000000008001240                Delay
  .text.USART1_IRQHandler
-                0x0000000008001190       0x38 ./src/helpers.o
-                0x0000000008001190                USART1_IRQHandler
+                0x0000000008001254       0x38 ./src/helpers.o
+                0x0000000008001254                USART1_IRQHandler
+ .text.USART2_IRQHandler
+                0x000000000800128c       0x38 ./src/helpers.o
+                0x000000000800128c                USART2_IRQHandler
  .text.SysTick_Handler
-                0x00000000080011c8       0x10 ./src/helpers.o
-                0x00000000080011c8                SysTick_Handler
- .text.main     0x00000000080011d8       0x88 ./src/main.o
-                0x00000000080011d8                main
- .text          0x0000000008001260       0x9c /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
-                0x0000000008001260                __udivsi3
-                0x0000000008001260                __aeabi_uidiv
-                0x00000000080012e8                __aeabi_uidivmod
- .text          0x00000000080012fc        0x4 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_dvmd_tls.o)
-                0x00000000080012fc                __aeabi_ldiv0
-                0x00000000080012fc                __aeabi_idiv0
+                0x00000000080012c4       0x10 ./src/helpers.o
+                0x00000000080012c4                SysTick_Handler
+ .text.main     0x00000000080012d4       0xb8 ./src/main.o
+                0x00000000080012d4                main
+ .text.initMoistureMeasure
+                0x000000000800138c        0x4 ./src/moistureMeasure.o
+                0x000000000800138c                initMoistureMeasure
+ .text.initMotors
+                0x0000000008001390        0x4 ./src/motors.o
+                0x0000000008001390                initMotors
+ .text.PrintChar
+                0x0000000008001394       0x20 ./src/printf.o
+                0x0000000008001394                PrintChar
+ .text.PutChar  0x00000000080013b4        0x8 ./src/printf.o
+                0x00000000080013b4                PutChar
+ .text.PutString
+                0x00000000080013bc       0x18 ./src/printf.o
+                0x00000000080013bc                PutString
+ .text.PutUnsignedInt
+                0x00000000080013d4       0x58 ./src/printf.o
+                0x00000000080013d4                PutUnsignedInt
+ .text.PutSignedInt
+                0x000000000800142c       0x98 ./src/printf.o
+                0x000000000800142c                PutSignedInt
+ .text.PutHexa  0x00000000080014c4       0x7c ./src/printf.o
+                0x00000000080014c4                PutHexa
+ .text.vsnprintf
+                0x0000000008001540      0x134 ./src/printf.o
+                0x0000000008001540                vsnprintf
+ .text.vsprintf
+                0x0000000008001674       0x10 ./src/printf.o
+                0x0000000008001674                vsprintf
+ .text.fputc    0x0000000008001684       0x28 ./src/printf.o
+                0x0000000008001684                fputc
+ .text.fputs    0x00000000080016ac       0x24 ./src/printf.o
+                0x00000000080016ac                fputs
+ .text.vfprintf
+                0x00000000080016d0       0x48 ./src/printf.o
+                0x00000000080016d0                vfprintf
+ .text.vprintf  0x0000000008001718       0x18 ./src/printf.o
+                0x0000000008001718                vprintf
+ .text.printf   0x0000000008001730       0x18 ./src/printf.o
+                0x0000000008001730                printf
+ .text          0x0000000008001748       0x9c /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
+                0x0000000008001748                __udivsi3
+                0x0000000008001748                __aeabi_uidiv
+                0x00000000080017d0                __aeabi_uidivmod
+ .text          0x00000000080017e4        0x4 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x00000000080017e4                __aeabi_ldiv0
+                0x00000000080017e4                __aeabi_idiv0
  *(.rodata .rodata.*)
  .rodata.str1.4
-                0x0000000008001300       0x31 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
+                0x00000000080017e8       0x31 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
                                          0x34 (size before relaxing)
- *fill*         0x0000000008001331        0x3 
+ *fill*         0x0000000008001819        0x3 
  .rodata.str1.4
-                0x0000000008001334       0x31 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
+                0x000000000800181c       0x31 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
                                          0x34 (size before relaxing)
- *fill*         0x0000000008001365        0x3 
+ *fill*         0x000000000800184d        0x3 
  .rodata.str1.4
-                0x0000000008001368       0x30 ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o
+                0x0000000008001850       0x30 ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o
  .rodata.str1.4
-                0x0000000008001398       0x32 ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o
+                0x0000000008001880       0x32 ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o
                                          0x34 (size before relaxing)
- *fill*         0x00000000080013ca        0x2 
+ *fill*         0x00000000080018b2        0x2 
  .rodata.str1.4
-                0x00000000080013cc       0x18 ./src/helpers.o
+                0x00000000080018b4       0x15 ./src/helpers.o
+                                         0x18 (size before relaxing)
+ *fill*         0x00000000080018c9        0x3 
+ .rodata.str1.4
+                0x00000000080018cc       0x36 ./src/main.o
+                                         0x38 (size before relaxing)
+ *fill*         0x0000000008001902        0x2 
+ .rodata.vsnprintf
+                0x0000000008001904       0x84 ./src/printf.o
+ .rodata.str1.4
+                0x0000000008001988       0x24 ./src/printf.o
  *(vtable)
  *(.eh_frame*)
  *(.glue_7)
- .glue_7        0x00000000080013e4        0x0 linker stubs
+ .glue_7        0x00000000080019ac        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x00000000080013e4        0x0 linker stubs
+ .glue_7t       0x00000000080019ac        0x0 linker stubs
 
-.vfp11_veneer   0x00000000080013e4        0x0
- .vfp11_veneer  0x00000000080013e4        0x0 linker stubs
+.vfp11_veneer   0x00000000080019ac        0x0
+ .vfp11_veneer  0x00000000080019ac        0x0 linker stubs
 
-.v4_bx          0x00000000080013e4        0x0
- .v4_bx         0x00000000080013e4        0x0 linker stubs
+.v4_bx          0x00000000080019ac        0x0
+ .v4_bx         0x00000000080019ac        0x0 linker stubs
 
-.iplt           0x00000000080013e4        0x0
- .iplt          0x00000000080013e4        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
+.iplt           0x00000000080019ac        0x0
+ .iplt          0x00000000080019ac        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
 
-.rel.dyn        0x00000000080013e4        0x0
- .rel.iplt      0x00000000080013e4        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
+.rel.dyn        0x00000000080019ac        0x0
+ .rel.iplt      0x00000000080019ac        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000000080013e4                __exidx_start = .
+                0x00000000080019ac                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000080013e4                __exidx_end = .
-                0x00000000080013e4                . = ALIGN (0x4)
-                0x00000000080013e4                _etext = .
-                0x00000000080013e4                __etext = .
-                0x00000000080013e4                _sidata = _etext
+                0x00000000080019ac                __exidx_end = .
+                0x00000000080019ac                . = ALIGN (0x4)
+                0x00000000080019ac                _etext = .
+                0x00000000080019ac                __etext = .
+                0x00000000080019ac                _sidata = _etext
 
-.data           0x0000000020000000       0x34 load address 0x00000000080013e4
+.data           0x0000000020000000      0x464 load address 0x00000000080019ac
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
                 0x0000000020000000                __data_start__ = .
@@ -1588,49 +1811,55 @@ END GROUP
  .data.SystemCoreClock
                 0x000000002000002c        0x4 ./system/src/cmsis/system_stm32f0xx.o
                 0x000000002000002c                SystemCoreClock
+ .data._impure_ptr
+                0x0000000020000030        0x4 ./src/printf.o
+                0x0000000020000030                _impure_ptr
+ *fill*         0x0000000020000034        0x4 
+ .data.r        0x0000000020000038      0x428 ./src/printf.o
+                0x0000000020000038                r
  *(.data_end .data_end.*)
- .data_end      0x0000000020000030        0x4 ./system/src/newlib/_startup.o
-                0x0000000020000034                . = ALIGN (0x4)
-                0x0000000020000034                _edata = .
-                0x0000000020000034                __data_end__ = .
+ .data_end      0x0000000020000460        0x4 ./system/src/newlib/_startup.o
+                0x0000000020000464                . = ALIGN (0x4)
+                0x0000000020000464                _edata = .
+                0x0000000020000464                __data_end__ = .
 
-.igot.plt       0x0000000020000034        0x0 load address 0x0000000008001418
- .igot.plt      0x0000000020000034        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
+.igot.plt       0x0000000020000464        0x0 load address 0x0000000008001e10
+ .igot.plt      0x0000000020000464        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
 
-.bss            0x0000000020000034       0x10 load address 0x0000000008001418
-                0x0000000020000034                . = ALIGN (0x4)
-                0x0000000020000034                __bss_start__ = .
-                0x0000000020000034                _sbss = .
+.bss            0x0000000020000464       0x10 load address 0x0000000008001e10
+                0x0000000020000464                . = ALIGN (0x4)
+                0x0000000020000464                __bss_start__ = .
+                0x0000000020000464                _sbss = .
  *(.bss_begin .bss_begin.*)
- .bss_begin     0x0000000020000034        0x4 ./system/src/newlib/_startup.o
+ .bss_begin     0x0000000020000464        0x4 ./system/src/newlib/_startup.o
  *(.bss .bss.*)
  .bss.name.4061
-                0x0000000020000038        0x4 ./system/src/newlib/_syscalls.o
- .bss.msTicks   0x000000002000003c        0x4 ./src/helpers.o
-                0x000000002000003c                msTicks
+                0x0000000020000468        0x4 ./system/src/newlib/_syscalls.o
+ .bss.msTicks   0x000000002000046c        0x4 ./src/helpers.o
+                0x000000002000046c                msTicks
  *(COMMON)
  *(.bss_end .bss_end.*)
- .bss_end       0x0000000020000040        0x4 ./system/src/newlib/_startup.o
-                0x0000000020000044                . = ALIGN (0x4)
-                0x0000000020000044                __bss_end__ = .
-                0x0000000020000044                _ebss = .
+ .bss_end       0x0000000020000470        0x4 ./system/src/newlib/_startup.o
+                0x0000000020000474                . = ALIGN (0x4)
+                0x0000000020000474                __bss_end__ = .
+                0x0000000020000474                _ebss = .
 
-.noinit         0x0000000020000044        0x0
-                0x0000000020000044                . = ALIGN (0x4)
-                0x0000000020000044                _noinit = .
+.noinit         0x0000000020000474        0x0
+                0x0000000020000474                . = ALIGN (0x4)
+                0x0000000020000474                _noinit = .
  *(.noinit .noinit.*)
-                0x0000000020000044                . = ALIGN (0x4)
-                0x0000000020000044                _end_noinit = .
-                0x0000000020000044                PROVIDE (end, _end_noinit)
-                0x0000000020000044                PROVIDE (_end, _end_noinit)
-                0x0000000020000044                PROVIDE (__end, _end_noinit)
-                0x0000000020000044                PROVIDE (__end__, _end_noinit)
+                0x0000000020000474                . = ALIGN (0x4)
+                0x0000000020000474                _end_noinit = .
+                0x0000000020000474                PROVIDE (end, _end_noinit)
+                0x0000000020000474                PROVIDE (_end, _end_noinit)
+                0x0000000020000474                PROVIDE (__end, _end_noinit)
+                0x0000000020000474                PROVIDE (__end__, _end_noinit)
 
-._check_stack   0x0000000020000044      0x100 load address 0x0000000008001428
-                0x0000000020000044                . = ALIGN (0x4)
-                0x0000000020000144                . = (. + _Minimum_Stack_Size)
- *fill*         0x0000000020000044      0x100 
-                0x0000000020000144                . = ALIGN (0x4)
+._check_stack   0x0000000020000474      0x100 load address 0x0000000008001e20
+                0x0000000020000474                . = ALIGN (0x4)
+                0x0000000020000574                . = (. + _Minimum_Stack_Size)
+ *fill*         0x0000000020000474      0x100 
+                0x0000000020000574                . = ALIGN (0x4)
 
 .bss_CCMRAM
  *(.bss.CCMRAM .bss.CCMRAM.*)
@@ -1695,6 +1924,9 @@ END GROUP
  .comment       0x0000000000000033       0x34 ./system/src/cmsis/vectors_stm32f0xx.o
  .comment       0x0000000000000033       0x34 ./src/helpers.o
  .comment       0x0000000000000033       0x34 ./src/main.o
+ .comment       0x0000000000000033       0x34 ./src/moistureMeasure.o
+ .comment       0x0000000000000033       0x34 ./src/motors.o
+ .comment       0x0000000000000033       0x34 ./src/printf.o
 
 .ARM.attributes
                 0x0000000000000000       0x31
@@ -1727,9 +1959,15 @@ END GROUP
  .ARM.attributes
                 0x000000000000027d       0x31 ./src/main.o
  .ARM.attributes
-                0x00000000000002ae       0x1e /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
+                0x00000000000002ae       0x31 ./src/moistureMeasure.o
  .ARM.attributes
-                0x00000000000002cc       0x1e /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x00000000000002df       0x31 ./src/motors.o
+ .ARM.attributes
+                0x0000000000000310       0x31 ./src/printf.o
+ .ARM.attributes
+                0x0000000000000341       0x1e /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x000000000000035f       0x1e /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_dvmd_tls.o)
 
 .debug
  *(.debug)
@@ -1743,7 +1981,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000      0x5b0
+.debug_aranges  0x0000000000000000      0x6a0
  *(.debug_aranges)
  .debug_aranges
                 0x0000000000000000       0x80 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
@@ -1770,14 +2008,20 @@ END GROUP
  .debug_aranges
                 0x0000000000000518       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_aranges
-                0x0000000000000538       0x58 ./src/helpers.o
+                0x0000000000000538       0x68 ./src/helpers.o
  .debug_aranges
-                0x0000000000000590       0x20 ./src/main.o
+                0x00000000000005a0       0x20 ./src/main.o
+ .debug_aranges
+                0x00000000000005c0       0x20 ./src/moistureMeasure.o
+ .debug_aranges
+                0x00000000000005e0       0x20 ./src/motors.o
+ .debug_aranges
+                0x0000000000000600       0xa0 ./src/printf.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x59c4
+.debug_info     0x0000000000000000     0x6fec
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0xa11 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_info    0x0000000000000a11      0x406 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
@@ -1791,10 +2035,13 @@ END GROUP
  .debug_info    0x0000000000004234      0x1b5 ./system/src/cortexm/exception_handlers.o
  .debug_info    0x00000000000043e9      0x2e8 ./system/src/cmsis/system_stm32f0xx.o
  .debug_info    0x00000000000046d1       0xd1 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_info    0x00000000000047a2      0xc31 ./src/helpers.o
- .debug_info    0x00000000000053d3      0x5f1 ./src/main.o
+ .debug_info    0x00000000000047a2      0xdf6 ./src/helpers.o
+ .debug_info    0x0000000000005598      0x633 ./src/main.o
+ .debug_info    0x0000000000005bcb       0x88 ./src/moistureMeasure.o
+ .debug_info    0x0000000000005c53       0x88 ./src/motors.o
+ .debug_info    0x0000000000005cdb     0x1311 ./src/printf.o
 
-.debug_abbrev   0x0000000000000000     0x1395
+.debug_abbrev   0x0000000000000000     0x1750
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000      0x1db ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_abbrev  0x00000000000001db      0x16e ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
@@ -1809,9 +2056,12 @@ END GROUP
  .debug_abbrev  0x0000000000000cf6      0x146 ./system/src/cmsis/system_stm32f0xx.o
  .debug_abbrev  0x0000000000000e3c       0x9d ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_abbrev  0x0000000000000ed9      0x2a7 ./src/helpers.o
- .debug_abbrev  0x0000000000001180      0x215 ./src/main.o
+ .debug_abbrev  0x0000000000001180      0x1fb ./src/main.o
+ .debug_abbrev  0x000000000000137b       0x45 ./src/moistureMeasure.o
+ .debug_abbrev  0x00000000000013c0       0x45 ./src/motors.o
+ .debug_abbrev  0x0000000000001405      0x34b ./src/printf.o
 
-.debug_line     0x0000000000000000     0x38c3
+.debug_line     0x0000000000000000     0x42cb
  *(.debug_line)
  .debug_line    0x0000000000000000      0x5d6 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_line    0x00000000000005d6      0x25d ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
@@ -1825,10 +2075,13 @@ END GROUP
  .debug_line    0x0000000000002b8c      0x3e3 ./system/src/cortexm/exception_handlers.o
  .debug_line    0x0000000000002f6f      0x257 ./system/src/cmsis/system_stm32f0xx.o
  .debug_line    0x00000000000031c6       0xd4 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_line    0x000000000000329a      0x2aa ./src/helpers.o
- .debug_line    0x0000000000003544      0x37f ./src/main.o
+ .debug_line    0x000000000000329a      0x410 ./src/helpers.o
+ .debug_line    0x00000000000036aa      0x382 ./src/main.o
+ .debug_line    0x0000000000003a2c      0x1f3 ./src/moistureMeasure.o
+ .debug_line    0x0000000000003c1f      0x1e1 ./src/motors.o
+ .debug_line    0x0000000000003e00      0x4cb ./src/printf.o
 
-.debug_frame    0x0000000000000000      0xeb0
+.debug_frame    0x0000000000000000     0x1114
  *(.debug_frame)
  .debug_frame   0x0000000000000000      0x168 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_frame   0x0000000000000168       0x60 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
@@ -1842,11 +2095,14 @@ END GROUP
  .debug_frame   0x0000000000000c94       0x88 ./system/src/cortexm/exception_handlers.o
  .debug_frame   0x0000000000000d1c       0x54 ./system/src/cmsis/system_stm32f0xx.o
  .debug_frame   0x0000000000000d70       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_frame   0x0000000000000d90       0xd4 ./src/helpers.o
- .debug_frame   0x0000000000000e64       0x2c ./src/main.o
- .debug_frame   0x0000000000000e90       0x20 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_frame   0x0000000000000d90      0x118 ./src/helpers.o
+ .debug_frame   0x0000000000000ea8       0x2c ./src/main.o
+ .debug_frame   0x0000000000000ed4       0x20 ./src/moistureMeasure.o
+ .debug_frame   0x0000000000000ef4       0x20 ./src/motors.o
+ .debug_frame   0x0000000000000f14      0x1e0 ./src/printf.o
+ .debug_frame   0x00000000000010f4       0x20 /usr/lib/gcc/arm-none-eabi/4.9.2/armv6-m/libgcc.a(_udivsi3.o)
 
-.debug_str      0x0000000000000000    0x3ddb4
+.debug_str      0x0000000000000000    0x3e450
  *(.debug_str)
  .debug_str     0x0000000000000000    0x3754c ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
                                       0x376e8 (size before relaxing)
@@ -1858,26 +2114,32 @@ END GROUP
                                       0x37d2a (size before relaxing)
  .debug_str     0x000000000003851a     0x37d3 ./system/src/newlib/_exit.o
                                        0x5c4d (size before relaxing)
- .debug_str     0x000000000003bced      0x266 ./system/src/newlib/_startup.o
+ .debug_str     0x000000000003bced      0x260 ./system/src/newlib/_startup.o
                                        0x3f95 (size before relaxing)
- .debug_str     0x000000000003bf53     0x109c ./system/src/newlib/_syscalls.o
+ .debug_str     0x000000000003bf4d     0x109c ./system/src/newlib/_syscalls.o
                                        0x5e72 (size before relaxing)
- .debug_str     0x000000000003cfef       0xdc ./system/src/newlib/assert.o
+ .debug_str     0x000000000003cfe9       0xd7 ./system/src/newlib/assert.o
                                        0x6759 (size before relaxing)
- .debug_str     0x000000000003d0cb       0x67 ./system/src/cortexm/_initialize_hardware.o
+ .debug_str     0x000000000003d0c0       0x67 ./system/src/cortexm/_initialize_hardware.o
                                       0x37405 (size before relaxing)
- .debug_str     0x000000000003d132      0x15f ./system/src/cortexm/exception_handlers.o
+ .debug_str     0x000000000003d127      0x15f ./system/src/cortexm/exception_handlers.o
                                       0x3ac43 (size before relaxing)
- .debug_str     0x000000000003d291       0x67 ./system/src/cmsis/system_stm32f0xx.o
+ .debug_str     0x000000000003d286       0x67 ./system/src/cmsis/system_stm32f0xx.o
                                       0x374b3 (size before relaxing)
- .debug_str     0x000000000003d2f8       0x56 ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_str     0x000000000003d2ed       0x56 ./system/src/cmsis/vectors_stm32f0xx.o
                                        0x2eb2 (size before relaxing)
- .debug_str     0x000000000003d34e      0x230 ./src/helpers.o
-                                      0x37a54 (size before relaxing)
- .debug_str     0x000000000003d57e      0x836 ./src/main.o
-                                      0x3b638 (size before relaxing)
+ .debug_str     0x000000000003d343      0x2d9 ./src/helpers.o
+                                      0x3a967 (size before relaxing)
+ .debug_str     0x000000000003d61c      0x8a5 ./src/main.o
+                                      0x3a956 (size before relaxing)
+ .debug_str     0x000000000003dec1       0x19 ./src/moistureMeasure.o
+                                      0x37399 (size before relaxing)
+ .debug_str     0x000000000003deda       0x10 ./src/motors.o
+                                      0x37387 (size before relaxing)
+ .debug_str     0x000000000003deea      0x566 ./src/printf.o
+                                      0x3abc9 (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x2c5a
+.debug_loc      0x0000000000000000     0x3610
  *(.debug_loc)
  .debug_loc     0x0000000000000000      0x51a ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_loc     0x000000000000051a       0xdf ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
@@ -1887,8 +2149,9 @@ END GROUP
  .debug_loc     0x00000000000028c2       0x63 ./system/src/newlib/_syscalls.o
  .debug_loc     0x0000000000002925       0xc6 ./system/src/newlib/assert.o
  .debug_loc     0x00000000000029eb       0xe2 ./system/src/cmsis/system_stm32f0xx.o
- .debug_loc     0x0000000000002acd      0x127 ./src/helpers.o
- .debug_loc     0x0000000000002bf4       0x66 ./src/main.o
+ .debug_loc     0x0000000000002acd      0x146 ./src/helpers.o
+ .debug_loc     0x0000000000002c13       0x66 ./src/main.o
+ .debug_loc     0x0000000000002c79      0x997 ./src/printf.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1906,7 +2169,7 @@ END GROUP
  *(.debug_varnames)
 OUTPUT(fw_v1.elf elf32-littlearm)
 
-.debug_ranges   0x0000000000000000      0x4e8
+.debug_ranges   0x0000000000000000      0x5a8
  .debug_ranges  0x0000000000000000       0x70 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_ranges  0x0000000000000070       0x20 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o
  .debug_ranges  0x0000000000000090      0x150 ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o
@@ -1919,10 +2182,13 @@ OUTPUT(fw_v1.elf elf32-littlearm)
  .debug_ranges  0x0000000000000420       0x40 ./system/src/cortexm/exception_handlers.o
  .debug_ranges  0x0000000000000460       0x20 ./system/src/cmsis/system_stm32f0xx.o
  .debug_ranges  0x0000000000000480       0x10 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_ranges  0x0000000000000490       0x48 ./src/helpers.o
- .debug_ranges  0x00000000000004d8       0x10 ./src/main.o
+ .debug_ranges  0x0000000000000490       0x58 ./src/helpers.o
+ .debug_ranges  0x00000000000004e8       0x10 ./src/main.o
+ .debug_ranges  0x00000000000004f8       0x10 ./src/moistureMeasure.o
+ .debug_ranges  0x0000000000000508       0x10 ./src/motors.o
+ .debug_ranges  0x0000000000000518       0x90 ./src/printf.o
 
-.debug_macro    0x0000000000000000     0xb7b9
+.debug_macro    0x0000000000000000     0xbca6
  .debug_macro   0x0000000000000000       0xcf ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_macro   0x00000000000000cf      0x83e ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
  .debug_macro   0x000000000000090d       0x7a ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
@@ -1977,11 +2243,17 @@ OUTPUT(fw_v1.elf elf32-littlearm)
  .debug_macro   0x000000000000b0a7       0x10 ./system/src/cortexm/exception_handlers.o
  .debug_macro   0x000000000000b0b7       0xc5 ./system/src/cmsis/system_stm32f0xx.o
  .debug_macro   0x000000000000b17c       0x34 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_macro   0x000000000000b1b0       0xc9 ./src/helpers.o
- .debug_macro   0x000000000000b279      0x1e1 ./src/main.o
- .debug_macro   0x000000000000b45a       0x16 ./src/main.o
- .debug_macro   0x000000000000b470       0x97 ./src/main.o
- .debug_macro   0x000000000000b507       0xf6 ./src/main.o
- .debug_macro   0x000000000000b5fd       0x10 ./src/main.o
- .debug_macro   0x000000000000b60d       0x16 ./src/main.o
- .debug_macro   0x000000000000b623      0x196 ./src/main.o
+ .debug_macro   0x000000000000b1b0      0x1d2 ./src/helpers.o
+ .debug_macro   0x000000000000b382       0x10 ./src/helpers.o
+ .debug_macro   0x000000000000b392      0x1e8 ./src/main.o
+ .debug_macro   0x000000000000b57a       0x16 ./src/main.o
+ .debug_macro   0x000000000000b590       0x97 ./src/main.o
+ .debug_macro   0x000000000000b627       0xf6 ./src/main.o
+ .debug_macro   0x000000000000b71d       0x10 ./src/main.o
+ .debug_macro   0x000000000000b72d       0x16 ./src/main.o
+ .debug_macro   0x000000000000b743      0x196 ./src/main.o
+ .debug_macro   0x000000000000b8d9       0x22 ./src/main.o
+ .debug_macro   0x000000000000b8fb       0xc9 ./src/moistureMeasure.o
+ .debug_macro   0x000000000000b9c4       0xc9 ./src/motors.o
+ .debug_macro   0x000000000000ba8d      0x1c7 ./src/printf.o
+ .debug_macro   0x000000000000bc54       0x52 ./src/printf.o
