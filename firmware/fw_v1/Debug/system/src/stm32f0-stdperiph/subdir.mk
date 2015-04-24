@@ -4,6 +4,8 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../system/src/stm32f0-stdperiph/stm32f0xx_exti.c \
+../system/src/stm32f0-stdperiph/stm32f0xx_flash.c \
 ../system/src/stm32f0-stdperiph/stm32f0xx_gpio.c \
 ../system/src/stm32f0-stdperiph/stm32f0xx_misc.c \
 ../system/src/stm32f0-stdperiph/stm32f0xx_rcc.c \
@@ -12,6 +14,8 @@ C_SRCS += \
 ../system/src/stm32f0-stdperiph/stm32f0xx_usart.c 
 
 OBJS += \
+./system/src/stm32f0-stdperiph/stm32f0xx_exti.o \
+./system/src/stm32f0-stdperiph/stm32f0xx_flash.o \
 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o \
 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o \
 ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o \
@@ -20,6 +24,8 @@ OBJS += \
 ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o 
 
 C_DEPS += \
+./system/src/stm32f0-stdperiph/stm32f0xx_exti.d \
+./system/src/stm32f0-stdperiph/stm32f0xx_flash.d \
 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.d \
 ./system/src/stm32f0-stdperiph/stm32f0xx_misc.d \
 ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.d \

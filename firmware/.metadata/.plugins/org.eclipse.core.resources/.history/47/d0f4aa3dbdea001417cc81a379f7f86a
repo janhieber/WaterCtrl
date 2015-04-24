@@ -5,7 +5,6 @@
  *      Author: jan
  */
 
-#include <stm32f0xx.h>
 #include <flash.h>
 
 
@@ -13,7 +12,6 @@
  * TODO: this should be rewritten from STM32 HAl to StdPeriph Lib
  * simply replace the HAL... function with their coresponding functions in StdPeriph
  * Tip: google how to abuse the flash as storage on STM32
- * Also look at stm32f0xx_flash.c and stm32f0xx_flash.h
  *********************/
 
 

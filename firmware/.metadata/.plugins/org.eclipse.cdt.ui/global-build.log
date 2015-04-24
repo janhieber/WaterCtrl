@@ -1,5 +1,19 @@
-21:50:07 **** Build of configuration Debug for project fw_v1 ****
+22:05:44 **** Clean-only build of configuration Debug for project fw_v1 ****
+make clean 
+rm -rf  ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o ./system/src/stm32f0-stdperiph/stm32f0xx_syscfg.o ./system/src/stm32f0-stdperiph/stm32f0xx_tim.o ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o  ./system/src/newlib/_cxx.o ./system/src/newlib/_exit.o ./system/src/newlib/_sbrk.o ./system/src/newlib/_startup.o ./system/src/newlib/_syscalls.o ./system/src/newlib/assert.o  ./system/src/diag/Trace.o ./system/src/diag/trace_impl.o  ./system/src/cortexm/_initialize_hardware.o ./system/src/cortexm/_reset_hardware.o ./system/src/cortexm/exception_handlers.o  ./system/src/cmsis/system_stm32f0xx.o ./system/src/cmsis/vectors_stm32f0xx.o  ./src/flash.o ./src/helpers.o ./src/main.o ./src/moistureMeasure.o ./src/motors.o ./src/printf.o  fw_v1.bin  fw_v1.siz  ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.d ./system/src/stm32f0-stdperiph/stm32f0xx_misc.d ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.d ./system/src/stm32f0-stdperiph/stm32f0xx_syscfg.d ./system/src/stm32f0-stdperiph/stm32f0xx_tim.d ./system/src/stm32f0-stdperiph/stm32f0xx_usart.d  ./system/src/newlib/_exit.d ./system/src/newlib/_sbrk.d ./system/src/newlib/_startup.d ./system/src/newlib/_syscalls.d ./system/src/newlib/assert.d  ./system/src/diag/Trace.d ./system/src/diag/trace_impl.d  ./system/src/cortexm/_initialize_hardware.d ./system/src/cortexm/_reset_hardware.d ./system/src/cortexm/exception_handlers.d  ./system/src/cmsis/system_stm32f0xx.d ./system/src/cmsis/vectors_stm32f0xx.d  ./src/flash.d ./src/helpers.d ./src/main.d ./src/moistureMeasure.d ./src/motors.d ./src/printf.d  ./system/src/newlib/_cxx.d  fw_v1.elf
+ 
+22:05:44 **** Incremental Build of configuration Debug for project fw_v1 ****
 make all 
+Building file: ../system/src/stm32f0-stdperiph/stm32f0xx_exti.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F051 -DUSE_STDPERIPH_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f0-stdperiph" -std=gnu11 -MMD -MP -MF"system/src/stm32f0-stdperiph/stm32f0xx_exti.d" -MT"system/src/stm32f0-stdperiph/stm32f0xx_exti.o" -c -o "system/src/stm32f0-stdperiph/stm32f0xx_exti.o" "../system/src/stm32f0-stdperiph/stm32f0xx_exti.c"
+Finished building: ../system/src/stm32f0-stdperiph/stm32f0xx_exti.c
+ 
+Building file: ../system/src/stm32f0-stdperiph/stm32f0xx_flash.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F051 -DUSE_STDPERIPH_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f0-stdperiph" -std=gnu11 -MMD -MP -MF"system/src/stm32f0-stdperiph/stm32f0xx_flash.d" -MT"system/src/stm32f0-stdperiph/stm32f0xx_flash.o" -c -o "system/src/stm32f0-stdperiph/stm32f0xx_flash.o" "../system/src/stm32f0-stdperiph/stm32f0xx_flash.c"
+Finished building: ../system/src/stm32f0-stdperiph/stm32f0xx_flash.c
+ 
 Building file: ../system/src/stm32f0-stdperiph/stm32f0xx_gpio.c
 Invoking: Cross ARM C Compiler
 arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F051 -DUSE_STDPERIPH_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f0-stdperiph" -std=gnu11 -MMD -MP -MF"system/src/stm32f0-stdperiph/stm32f0xx_gpio.d" -MT"system/src/stm32f0-stdperiph/stm32f0xx_gpio.o" -c -o "system/src/stm32f0-stdperiph/stm32f0xx_gpio.o" "../system/src/stm32f0-stdperiph/stm32f0xx_gpio.c"
@@ -127,29 +141,7 @@ Finished building: ../src/printf.c
  
 Building target: fw_v1.elf
 Invoking: Cross ARM C++ Linker
-arm-none-eabi-g++ -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"fw_v1.map" --specs=nano.specs -o "fw_v1.elf"  ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o ./system/src/stm32f0-stdperiph/stm32f0xx_syscfg.o ./system/src/stm32f0-stdperiph/stm32f0xx_tim.o ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o  ./system/src/newlib/_cxx.o ./system/src/newlib/_exit.o ./system/src/newlib/_sbrk.o ./system/src/newlib/_startup.o ./system/src/newlib/_syscalls.o ./system/src/newlib/assert.o  ./system/src/diag/Trace.o ./system/src/diag/trace_impl.o  ./system/src/cortexm/_initialize_hardware.o ./system/src/cortexm/_reset_hardware.o ./system/src/cortexm/exception_handlers.o  ./system/src/cmsis/system_stm32f0xx.o ./system/src/cmsis/vectors_stm32f0xx.o  ./src/flash.o ./src/helpers.o ./src/main.o ./src/moistureMeasure.o ./src/motors.o ./src/printf.o   
-Finished building target: fw_v1.elf
- 
-Invoking: Cross ARM GNU Create Flash Image
-arm-none-eabi-objcopy -O binary "fw_v1.elf"  "fw_v1.bin"
-Finished building: fw_v1.bin
- 
-Invoking: Cross ARM GNU Print Size
-arm-none-eabi-size --format=berkeley "fw_v1.elf"
-   text	   data	    bss	    dec	    hex	filename
-   6572	   1124	    272	   7968	   1f20	fw_v1.elf
-Finished building: fw_v1.siz
- 
-21:51:59 **** Incremental Build of configuration Debug for project fw_v1 ****
-make all 
-Building file: ../src/main.c
-Invoking: Cross ARM C Compiler
-arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F051 -DUSE_STDPERIPH_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f0-stdperiph" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
-Finished building: ../src/main.c
- 
-Building target: fw_v1.elf
-Invoking: Cross ARM C++ Linker
-arm-none-eabi-g++ -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"fw_v1.map" --specs=nano.specs -o "fw_v1.elf"  ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o ./system/src/stm32f0-stdperiph/stm32f0xx_syscfg.o ./system/src/stm32f0-stdperiph/stm32f0xx_tim.o ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o  ./system/src/newlib/_cxx.o ./system/src/newlib/_exit.o ./system/src/newlib/_sbrk.o ./system/src/newlib/_startup.o ./system/src/newlib/_syscalls.o ./system/src/newlib/assert.o  ./system/src/diag/Trace.o ./system/src/diag/trace_impl.o  ./system/src/cortexm/_initialize_hardware.o ./system/src/cortexm/_reset_hardware.o ./system/src/cortexm/exception_handlers.o  ./system/src/cmsis/system_stm32f0xx.o ./system/src/cmsis/vectors_stm32f0xx.o  ./src/flash.o ./src/helpers.o ./src/main.o ./src/moistureMeasure.o ./src/motors.o ./src/printf.o   
+arm-none-eabi-g++ -mcpu=cortex-m0 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"fw_v1.map" --specs=nano.specs -o "fw_v1.elf"  ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o ./system/src/stm32f0-stdperiph/stm32f0xx_flash.o ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o ./system/src/stm32f0-stdperiph/stm32f0xx_misc.o ./system/src/stm32f0-stdperiph/stm32f0xx_rcc.o ./system/src/stm32f0-stdperiph/stm32f0xx_syscfg.o ./system/src/stm32f0-stdperiph/stm32f0xx_tim.o ./system/src/stm32f0-stdperiph/stm32f0xx_usart.o  ./system/src/newlib/_cxx.o ./system/src/newlib/_exit.o ./system/src/newlib/_sbrk.o ./system/src/newlib/_startup.o ./system/src/newlib/_syscalls.o ./system/src/newlib/assert.o  ./system/src/diag/Trace.o ./system/src/diag/trace_impl.o  ./system/src/cortexm/_initialize_hardware.o ./system/src/cortexm/_reset_hardware.o ./system/src/cortexm/exception_handlers.o  ./system/src/cmsis/system_stm32f0xx.o ./system/src/cmsis/vectors_stm32f0xx.o  ./src/flash.o ./src/helpers.o ./src/main.o ./src/moistureMeasure.o ./src/motors.o ./src/printf.o   
 Finished building target: fw_v1.elf
  
 Invoking: Cross ARM GNU Create Flash Image

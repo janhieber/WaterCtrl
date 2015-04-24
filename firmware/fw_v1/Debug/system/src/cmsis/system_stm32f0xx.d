@@ -4,6 +4,8 @@ system/src/cmsis/system_stm32f0xx.o: \
  ../system/include/cmsis/core_cmInstr.h \
  ../system/include/cmsis/core_cmFunc.h \
  ../system/include/cmsis/system_stm32f0xx.h ../include/stm32f0xx_conf.h \
+ ../system/include/stm32f0-stdperiph/stm32f0xx_exti.h \
+ ../system/include/stm32f0-stdperiph/stm32f0xx_flash.h \
  ../system/include/stm32f0-stdperiph/stm32f0xx_gpio.h \
  ../system/include/stm32f0-stdperiph/stm32f0xx_syscfg.h \
  ../system/include/stm32f0-stdperiph/stm32f0xx_pwr.h \
@@ -24,6 +26,10 @@ system/src/cmsis/system_stm32f0xx.o: \
 ../system/include/cmsis/system_stm32f0xx.h:
 
 ../include/stm32f0xx_conf.h:
+
+../system/include/stm32f0-stdperiph/stm32f0xx_exti.h:
+
+../system/include/stm32f0-stdperiph/stm32f0xx_flash.h:
 
 ../system/include/stm32f0-stdperiph/stm32f0xx_gpio.h:
 
