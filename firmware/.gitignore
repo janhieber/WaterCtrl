@@ -1,0 +1,4 @@
+# ignore all eclipse runtime files
+.metadata/.plugins/org.eclipse.*
+*.log
+
