@@ -66,8 +66,7 @@ int startSensorCapture(int channel);
 
 uint_fast64_t getMoisture(int channel)
 {
-	(void*)channel;
-	return 0xFFFFFFFFFFFFFFFFu;
+	return getFrequencyOfChannel(channel);
 }
 
 int initMoistureMeasure(void) {
@@ -91,6 +90,16 @@ int startSensorCapture(int Sensor)
 
 }
 
+void printMoisture()
+{
+	uint64_t value =0;
+
+	for (int channel=0;channel<8;channel++)
+	{
+		value = getMoisture(channel);
+		printf("Measured channel %d: %d\n",channel, value);
+	}
+}
 
 void TIM_Config(void)
 {
@@ -121,8 +130,8 @@ void TIM_Config(void)
   TIM_ICInitStructure.TIM_Channel = TIM_Channel_2;
   TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
   TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
-  TIM_ICInitStructure.TIM_ICFilter = 0x0;
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV8;
+  TIM_ICInitStructure.TIM_ICFilter = 0xF;
 
   TIM_ICInit(TIM1, &TIM_ICInitStructure);
 

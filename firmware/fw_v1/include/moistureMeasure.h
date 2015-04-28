@@ -17,3 +17,5 @@ int initMoistureMeasure(void);
 int deinitMoistureMeasure(void);
 
 uint_fast64_t getMoisture(int channel);
+
+void printMoisture();

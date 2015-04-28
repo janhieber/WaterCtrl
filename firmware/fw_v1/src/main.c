@@ -47,10 +47,7 @@ void main(void)
 		GPIO_SetBits(GPIOC, GPIO_Pin_9);
 		Delay(500);
 
-		for (int channel=0;channel<8;channel++)
-		{
-			printf("Measured channel %d: %llu",channel, getMoisture(channel));
-		}
+		printMoisture();
 
 		GPIO_ResetBits(GPIOC, GPIO_Pin_9);
 		Delay(500);

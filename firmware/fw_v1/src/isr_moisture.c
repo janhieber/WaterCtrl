@@ -13,13 +13,13 @@ uint_fast64_t getFrequencyOfChannel(int channel);
 uint16_t IC3ReadValue1 = 0, IC3ReadValue2 = 0;
 uint16_t CaptureNumber = 0;
 uint32_t Capture = 0;
-uint32_t TIM1Freq = 0;
+uint_fast64_t TIM1Freq = 0;
+
+void TIM1_CC_IRQHandler(void);
 
 
 uint_fast64_t getFrequencyOfChannel(int channel)
 {
-	(void*)channel;
-
 	return TIM1Freq;
 }
 
@@ -59,7 +59,7 @@ void TIM1_CC_IRQHandler(void)
         Capture = 0;
       }
       /* Frequency computation */
-      TIM1Freq = (uint32_t) SystemCoreClock / Capture;
+      TIM1Freq = (uint_fast64_t)((uint32_t) SystemCoreClock / Capture)*8;
       CaptureNumber = 0;
     }
   }
