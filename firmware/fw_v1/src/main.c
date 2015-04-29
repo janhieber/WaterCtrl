@@ -35,7 +35,7 @@ void main(void)
 	initGPIOs();
 	initUSART1();
 	printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
-	printf("\tSystem clock: %luMHz\r\n\r\n", SystemCoreClock/1000000);
+	printf("\tSystem clock: %dMHz\r\n\r\n", SystemCoreClock/1000000);
 
 	// for WLAN
 	initUSART2();

@@ -59,7 +59,7 @@ void TIM1_CC_IRQHandler(void)
         Capture = 0;
       }
       /* Frequency computation */
-      TIM1Freq = (uint_fast64_t)((uint32_t) SystemCoreClock / Capture)*8;
+      TIM1Freq = ((uint_fast64_t) SystemCoreClock /  Capture)*8ul;
       CaptureNumber = 0;
     }
   }
