@@ -47,6 +47,8 @@ void main(void)
 		GPIO_SetBits(GPIOC, GPIO_Pin_9);
 		Delay(500);
 
+		printMoisture();
+
 		GPIO_ResetBits(GPIOC, GPIO_Pin_9);
 		Delay(500);
 	}
