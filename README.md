@@ -1,5 +1,19 @@
 WaterCtrl - Automatically water your flowers
 
+# BREAKING NEWS
+I'll completely redesign the main board.
+This is because we wan't to connect the rPi and the STM32
+via CAN bus. But the CPU i have chosen STM32F051 does not have CAN.
+I selected a better CPU STM32F072RBT6 that completely fits our needs.
+Luckily there is a brand new Discovery board with this CPU,
+with this board we don't have to solder the CPU on our board.
+
+So the new board will have two headers, one for the Discovery board
+and one for the Raspberry Pi.
+
+This way we have a ver modular design und less trouble with soldering LQFP packages.
+
+
 # About
 This project is about a complete system to automatically
 water your flowers. Yes, you can eventually go to holiday after years staying at home
