@@ -63,3 +63,20 @@ When the soil is wet the capacity is high and the frequency will be low.
 # More detailes
 Please look in the subfolders for more informations,
 nice pictures and other stuff.
+
+# My future plans
+I have some nice ideas, let me know what you think about this:
+
+When the initial version is running I'd like to create a new branch
+and redesign the fundamental stucture.
+- The rPi will become the central control device with a Bluetooth or Zigbee
+module.
+- The sensors will have their own small contoller and also BT/Zigbee.
+Maybe we can even run them with batteries. The sensors will wake up automatically every
+few hours, measure the moisture in the soil and report the value to the rPi.
+- The Motor control PCBs will also be separate modules with BT/Zigbee but should have
+connectors to concatenate multiple boards and use a single BT/Zigbee module.
+- The STM32 will not be used in this design.
+
+This will allow a complete modular system with most low level functions outsourced on
+smaller modules.
