@@ -38,7 +38,10 @@ do logging to database, delegate low level functions to STM32.
 
 # Design
 This is my idea of the device. Can be changed at any time.
-![Design](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/doc/Design.png)
+![Design](https://cdn.rawgit.com/janhieber/WaterCtrl/master/doc/Design.svg)
+
+And this is the hardware design.
+![Design HW](https://cdn.rawgit.com/janhieber/WaterCtrl/master/doc/Design%20Hardware.svg)
 
 # More detailes
 Main board:
