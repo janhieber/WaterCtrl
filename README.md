@@ -18,6 +18,8 @@ The board has a display and buttons for direct configuration.
 Later we use the WLAN interface to connect to a webserver running somewhere.
 On the server you can also do configuration und observe th waterng.
 
+![Design](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/doc/Design.png)
+
 # More detailes
 Main board:
 - ARM Cortex M0 (STM32F051)
