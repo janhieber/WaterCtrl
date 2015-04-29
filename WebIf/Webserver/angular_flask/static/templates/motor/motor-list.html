@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h1>Motor List</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Channel</th>
+					<th>Duration</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="motor in motors.objects">
+					<td>{{motor.channel}}</td>
+					<td>{{motor.duration}}</td>
+					<td>
+						<button type="button" class="btn btn-primary" ng-click="editMotor(motor.id)">Edit</button>
+						<button type="button" class="btn btn-primary" ng-click="deleteMotor(motor.id)">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" class="btn btn-info" ng-click="createNewMotor()">Create new motor</button>
+	</div>
+</div>

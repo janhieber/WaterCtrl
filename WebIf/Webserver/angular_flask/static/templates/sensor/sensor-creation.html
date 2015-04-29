@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h1>Create a new sensor</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<form novalidate="novalidate" class="form-horizontal">
+	        <div class="control-group">
+	            <label class="control-label" for="inputChannel">Channel:</label>
+	            <div class="controls">
+	                <input type="text" id="inputChannel" ng-model="sensor.channel"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputFrequency">Frequency:</label>
+	            <div class="controls">
+	                <input type="text" id="inputFrequency" ng-model="sensor.frequency"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <div class="controls">
+	            	<a ng-click="cancel()" class="btn btn-small btn-primary">cancel</a>
+	                <a ng-click="createNewSensor()" class="btn btn-small btn-primary">create new sensor</a>
+	            </div>
+	        </div>
+	    </form>
+	</div>
+</div>

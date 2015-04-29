@@ -1,0 +1,47 @@
+<div class="page-header">
+	<h1>Delete plant</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<p>Would you really want to delete the following plant?</p>
+	
+		<form novalidate="novalidate" class="form-horizontal">
+	        <div class="control-group">
+	            <label class="control-label" for="inputName">Name:</label>
+	            <div class="controls">
+	                <input type="text" id="inputName" disabled="true" ng-model="plant.name"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputDescription">Description:</label>
+	            <div class="controls">
+	                <input type="text" id="inputDescription" disabled="true" ng-model="plant.description"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputWateringInterval">Watering Interval:</label>
+	            <div class="controls">
+	                <input type="text" id="inputWateringInterval" disabled="true" ng-model="plant.watering_interval"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputSensor">Sensor:</label>
+	            <div class="controls">
+	                <input type="text" id="inputSensor" disabled="true" ng-model="plant.sensor_id"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputMotor">Motor:</label>
+	            <div class="controls">
+	                <input type="text" id="inputMotor" disabled="true" ng-model="plant.motor_id"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <div class="controls">
+	                <a ng-click="cancel()" class="btn btn-small btn-primary">cancel</a>
+	                <a ng-click="deletePlant(plant.id)" class="btn btn-small btn-primary">delete plant</a>
+	            </div>
+	        </div>
+	    </form>
+	</div>
+</div>

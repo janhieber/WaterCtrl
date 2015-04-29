@@ -1,13 +1,26 @@
 This is the main firmware.
 
-- [ ] Frequency measurement
-- [ ] Play with ESP8266 connectivity
+There should be low level functionality only.
+Every high level control is done by the rPi.
+- [ ] Sensor measurement
+- [ ] motor control
+- [ ] UART logging/debugging
+- [ ] I2C or SPI for rPi communication
+- [ ] watchdog for rPi
 
 
 # Note
 I use this folder as eclipse workspace.
 
 # Dev environment
+
+Read "Dev Environment.pdf" in this folder, and/or follow
+the guide above.
+The PDF is not finished yet, but a lot better that this stuff here.
+The PDF was written for STM32F4 CPUs, we use STM32F0 CPU,
+remember this when following the guide in the PDF.
+A bettery version is coming soon.
+
 Install the following tools.
 On Linux systems many tools are in your distro repo.
 - Eclipse (eclipse)

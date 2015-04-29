@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="wateringApp">
+<head>
+<script src="/static/js/libs/angular.min.js"></script>
+<title>WaterCtrl</title>
+<link rel="stylesheet" href="/static/css/custom.css">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body ng-controller="ParentController">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" ui-sref="home">WaterCtrl</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li ng-class="getClass('motor-list')"><a ui-sref="motor-list">Motor</a></li>
+					<li ng-class="getClass('sensor-list')"><a ui-sref="sensor-list">Sensor</a></li>
+					<li ng-class="getClass('plant-list')"><a ui-sref="plant-list">Plant</a></li>
+					<li ng-class="getClass('watering')"><a ui-sref="watering">Watering</a></li>
+					<li ng-class="getClass('log-list')"><a ui-sref="log-list">Log</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" ng-click="logout()">Log Out</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	
+	<div class="container">
+		<div ui-view></div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/static/js/libs/bootstrap.min.js"></script>
+    
+    <!-- CryptoJS -->
+    <script src="/static/js/libs/core-min.js"></script>
+    <script src="/static/js/libs/enc-utf16-min.js"></script>
+    <script src="/static/js/libs/enc-base64-min.js"></script>
+    <script src="/static/js/libs/aes.js"></script>
+	
+	<!-- Charting Stuff -->
+	<script src="/static/js/libs/highcharts.src.js"></script>
+	<script src="/static/js/libs/highcharts-ng.min.js"></script>
+	
+	<!-- AngularJS -->
+	<script src="/static/js/libs/angular-ui-router.min.js"></script>
+	<script src="/static/js/libs/angular-resource.min.js"></script>
+	<script src="/static/js/libs/ui-bootstrap-tpls-0.11.2.min.js"></script>
+	<script src="/static/js/app.js"></script>
+	<script src="/static/js/routing.js"></script>
+	<script src="/static/js/globalFunctions.js"></script>
+
+	<!--FACTORY -->
+	<script src="/static/services/authInterceptor.js"></script>
+	<script src="/static/services/rest.js"></script>
+	
+
+	<!--CONTROLLERS -->
+	<script src="/static/controllers/parentController.js"></script>
+	<script src="/static/controllers/login.js"></script>
+	<script src="/static/controllers/sensorController.js"></script>
+	<script src="/static/controllers/motorController.js"></script>
+	<script src="/static/controllers/plantController.js"></script>
+	<script src="/static/controllers/wateringController.js"></script>
+	<script src="/static/controllers/logController.js"></script>
+
+	<!--SERVICES -->
+	<script src="/static/services/auth.js"></script>
+	<script src="/static/services/session.js"></script>
+
+</body>
+</html>

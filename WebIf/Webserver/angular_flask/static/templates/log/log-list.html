@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h1>Log</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th width="65%">Logentry</th>
+					<th width="20%">Logdate</th>
+					<th width="15%">State</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="log in logs.objects | orderBy:'-log_date'">
+					<td>{{log.log_entry}}</td>
+					<td>{{log.log_date}}</td>
+					<td>
+						<span class="label label-danger" ng-if="log.log_state == 0">Error</span>
+						<span class="label label-warning" ng-if="log.log_state == 1">Warning</span>
+						<span class="label label-success" ng-if="log.log_state == 2">Success</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
