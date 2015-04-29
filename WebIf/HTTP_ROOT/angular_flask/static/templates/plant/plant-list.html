@@ -1,0 +1,33 @@
+<div class="page-header">
+	<h1>Plant List</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Watering Interval</th>
+					<th>Sensor</th>
+					<th>Motor</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="plant in plants.objects">
+					<td>{{plant.name}}</td>
+					<td>{{plant.description}}</td>
+					<td>{{plant.watering_interval}}</td>
+					<td>{{plant.sensor_id}}</td>
+					<td>{{plant.motor_id}}</td>
+					<td>
+						<button type="button" class="btn btn-primary" ng-click="editPlant(plant.id)">Edit</button>
+						<button type="button" class="btn btn-primary" ng-click="deletePlant(plant.id)">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" class="btn btn-info" ng-click="createNewPlant()">Create new plant</button>
+	</div>
+</div>

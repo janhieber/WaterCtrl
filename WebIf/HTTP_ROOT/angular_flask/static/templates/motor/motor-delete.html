@@ -1,0 +1,29 @@
+<div class="page-header">
+	<h1>Delete motor</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<p>Would you really want to delete the following motor?</p>
+	
+		<form novalidate="novalidate" class="form-horizontal">
+	        <div class="control-group">
+	            <label class="control-label" for="inputChannel">Channel:</label>
+	            <div class="controls">
+	                <input type="text" id="inputChannel" disabled="true" ng-model="motor.channel"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputDuration">Duration:</label>
+	            <div class="controls">
+	                <input type="text" id="inputDuration" disabled="true" ng-model="motor.duration"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <div class="controls">
+	                <a ng-click="cancel()" class="btn btn-small btn-primary">cancel</a>
+	                <a ng-click="deleteMotor(motor.id)" class="btn btn-small btn-primary">delete motor</a>
+	            </div>
+	        </div>
+	    </form>
+	</div>
+</div>

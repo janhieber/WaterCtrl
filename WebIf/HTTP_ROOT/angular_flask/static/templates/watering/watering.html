@@ -1,0 +1,35 @@
+<div class="page-header">
+	<h1>Watering</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<highchart id="chart" config="chartConfig"></highchart>
+	</div>
+	
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Plant</th>
+					<th>Duration</th>
+					<th>Date</th>
+					<th>State</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="watering in waterings">
+					<td>{{watering.id}}</td>
+					<td>{{watering.plant_id}}</td>
+					<td>{{watering.watering_duration}}</td>
+					<td>{{watering.watering_date}}</td>
+					<td>
+						<span class="label label-danger" ng-if="watering.watering_state == 0">Error</span>
+						<span class="label label-success" ng-if="watering.watering_state == 1">Success</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h1>Sensor List</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Channel</th>
+					<th>Frequency</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="sensor in sensors.objects">
+					<td>{{sensor.channel}}</td>
+					<td>{{sensor.frequency}}</td>
+					<td>
+						<button type="button" class="btn btn-primary" ng-click="editSensor(sensor.id)">Edit</button>
+						<button type="button" class="btn btn-primary" ng-click="deleteSensor(sensor.id)">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" class="btn btn-info" ng-click="createNewSensor()">Create new sensor</button>
+	</div>
+</div>

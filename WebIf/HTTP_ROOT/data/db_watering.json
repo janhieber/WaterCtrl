@@ -1,0 +1,82 @@
+{ 
+	"watering": [
+		{
+			"watering_date": "2014-01-23 12:00:00",
+			"watering_duration": "10",
+			"watering_state": 0,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-23 16:00:00",
+			"watering_duration": "10",
+			"watering_state": 0,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-23 19:00:00",
+			"watering_duration": "10",
+			"watering_state": 1,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-24 12:00:00",
+			"watering_duration": "10",
+			"watering_state": 0,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-24 14:00:00",
+			"watering_duration": "10",
+			"watering_state": 1,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-24 18:00:00",
+			"watering_duration": "10",
+			"watering_state": 1,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-25 12:00:00",
+			"watering_duration": "10",
+			"watering_state": 0,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-25 12:00:00",
+			"watering_duration": "10",
+			"watering_state": 1,
+			"plant_id" : 1
+		},
+		{
+			"watering_date": "2014-01-23 12:00:00",
+			"watering_duration": "20",
+			"watering_state": 0,
+			"plant_id" : 2
+		},
+		{
+			"watering_date": "2014-01-23 16:00:00",
+			"watering_duration": "20",
+			"watering_state": 1,
+			"plant_id" : 2
+		},
+		{
+			"watering_date": "2014-01-25 12:00:00",
+			"watering_duration": "20",
+			"watering_state": 1,
+			"plant_id" : 2
+		},
+		{
+			"watering_date": "2014-01-25 16:00:00",
+			"watering_duration": "20",
+			"watering_state": 1,
+			"plant_id" : 2
+		},
+		{
+			"watering_date": "2014-01-25 19:00:00",
+			"watering_duration": "20",
+			"watering_state": 0,
+			"plant_id" : 2
+		}
+	]
+}

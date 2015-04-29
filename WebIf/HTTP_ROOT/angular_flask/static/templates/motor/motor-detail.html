@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h1>Update motor</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<form novalidate="novalidate" class="form-horizontal">
+	        <div class="control-group">
+	            <label class="control-label" for="inputChannel">Channel:</label>
+	            <div class="controls">
+	                <input type="text" id="inputChannel" ng-model="motor.channel"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <label class="control-label" for="inputDuration">Duration:</label>
+	            <div class="controls">
+	                <input type="text" id="inputDuration" ng-model="motor.duration"/>
+	            </div>
+	        </div>
+	        <div class="control-group">
+	            <div class="controls">
+	                <a ng-click="cancel()" class="btn btn-small btn-primary">cancel</a>
+	                <a ng-click="updateMotor()" class="btn btn-small btn-primary">update motor</a>
+	            </div>
+	        </div>
+	    </form>
+	</div>
+</div>
