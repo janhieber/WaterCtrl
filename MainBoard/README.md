@@ -23,8 +23,9 @@ https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.pdf
 ![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/board.png)
 
 # Nice Pics (prototype)
-Currently I'm assembling the prototype. This is really ugly because
-I have to solder many parts on top side, but on prototype i down have plated holes.
+This is the old prototype.
+This is really ugly because I have to solder many parts on top side,
+but on prototype i down have plated holes.
 So every connector, via etc. is really ugly. But the point is to figure out
 if its working, thats all. So don't blame me for this soldering :-)
 ![PCB prototype](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/proto1.jpg "PCB prototype")
@@ -33,11 +34,7 @@ if its working, thats all. So don't blame me for this soldering :-)
 ![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/bottom.jpg "PCB bottom")
 
 # Order PCBs
-To order PCBs you can simply send the Eagle files or generate the Gerber
-files and send it to your board house.
 For cheap PCBs you can order here:
-http://dirtypcbs.com/
-or here:
 http://www.elecrow.com/services-pcb-prototyping-c-73_116.html
 
 Because most people will [have to] order 5 or 10 pieces you can ask
