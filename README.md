@@ -2,16 +2,21 @@ WaterCtrl - Automatically water your flowers
 
 # BREAKING NEWS
 I'll completely redesign the main board.
-This is because we wan't to connect the rPi and the STM32
-via CAN bus. But the CPU i have chosen STM32F051 does not have CAN.
-I selected a better CPU STM32F072RBT6 that completely fits our needs.
-Luckily there is a brand new Discovery board with this CPU,
-with this board we don't have to solder the CPU on our board.
 
-So the new board will have two headers, one for the Discovery board
-and one for the Raspberry Pi.
+This is because the STM32F0 is hard to solder and we need a
+small Linux machine for the webinterface and this stuff...
 
-This way we have a ver modular design und less trouble with soldering LQFP packages.
+The rPi and STM will talk via SPI or I2C.
+
+For the CPU we will use the STM32F0DISCOVERY.
+
+Both parts are affordable.
+If you don't need LAN use the Raspberry Pi 1 Model A+,
+it's smaller than the normal one, costs about 20EUR.
+
+The STM32F0DISCOVERY costs about 10EUR.
+
+You won't need the ESP8266 WLAN module and display anymore.
 
 
 # About

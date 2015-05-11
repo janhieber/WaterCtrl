@@ -1,6 +1,13 @@
-News: Prototype PCB is here. Parts should arrive the next days.
-Rhen test and finetune some circuits, wires and other things.
-After that i'll order 10 peaces in china at dirtypcb.com
+News: Redesign is in progress now.
+Rasberry Pi will be on the top side, but flipped (top down).
+STM32F0DISCOVERY will be on the buttom side.
+This is because we can not route between the pinheaders
+(that would be dangerous because of clearance...).
+
+But as this will only be the first version to test everthing, it OK.
+
+Next will be the testing and placing of the motor control circuit and the
+routing of the sensor connectors.
 
 # Info
 This is the Eagle 6.x schematic/board for the main board.
