@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -2986,9 +2986,6 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 </library>
 <library name="extra">
 <packages>
-<package name="DUMMY_BOM">
-<text x="0" y="0" size="1.27" layer="21">&gt;VALUE</text>
-</package>
 <package name="TO220">
 <wire x1="5.08" y1="-1.143" x2="4.953" y2="-4.064" width="0.127" layer="21"/>
 <wire x1="4.699" y1="-4.318" x2="4.953" y2="-4.064" width="0.127" layer="21"/>
@@ -3156,6 +3153,58 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <wire x1="22.86" y1="80.01" x2="30.48" y2="80.01" width="0.127" layer="48"/>
 <wire x1="30.48" y1="80.01" x2="30.48" y2="90.17" width="0.127" layer="48"/>
 <wire x1="30.48" y1="90.17" x2="22.86" y2="90.17" width="0.127" layer="48"/>
+</package>
+<package name="STM32F103C8T6_DEV_SMD">
+<wire x1="0" y1="0" x2="53.34" y2="0" width="0.127" layer="21"/>
+<wire x1="53.34" y1="0" x2="53.34" y2="22.86" width="0.127" layer="21"/>
+<wire x1="53.34" y1="22.86" x2="0" y2="22.86" width="0.127" layer="21"/>
+<wire x1="0" y1="22.86" x2="0" y2="0" width="0.127" layer="21"/>
+<text x="15.24" y="12.192" size="1.27" layer="25">&gt;NAME</text>
+<text x="15.24" y="10.16" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="0" y1="15.24" x2="6.35" y2="15.24" width="0.127" layer="48"/>
+<wire x1="6.35" y1="15.24" x2="6.35" y2="7.62" width="0.127" layer="48"/>
+<wire x1="6.35" y1="7.62" x2="0" y2="7.62" width="0.127" layer="48"/>
+<wire x1="0" y1="7.62" x2="0" y2="15.24" width="0.127" layer="48"/>
+<smd name="P$1" x="50.8" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$2" x="48.26" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$3" x="45.72" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$4" x="43.18" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$5" x="40.64" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$6" x="38.1" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$7" x="35.56" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$8" x="33.02" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$9" x="30.48" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$10" x="27.94" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$11" x="25.4" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$12" x="22.86" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$13" x="20.32" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$14" x="17.78" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$15" x="15.24" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$16" x="12.7" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$17" x="10.16" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$18" x="7.62" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$19" x="5.08" y="5.588" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$20" x="2.54" y="2.032" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$21" x="2.54" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$22" x="5.08" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$23" x="7.62" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$24" x="10.16" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$25" x="12.7" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$26" x="15.24" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$27" x="17.78" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$28" x="20.32" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$29" x="22.86" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$30" x="25.4" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$31" x="27.94" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$32" x="30.48" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$33" x="33.02" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$34" x="35.56" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$35" x="38.1" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$36" x="40.64" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$37" x="43.18" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$38" x="45.72" y="20.828" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$39" x="48.26" y="17.272" dx="1.27" dy="3.556" layer="1"/>
+<smd name="P$40" x="50.8" y="20.828" dx="1.27" dy="3.556" layer="1"/>
 </package>
 </packages>
 </library>
@@ -4102,22 +4151,6 @@ design rules under a new name.</description>
 <element name="R29" library="rcl" package="R0805" value="100" x="9.398" y="24.13" rot="MR90">
 <attribute name="R" value="SMD-0805 100" x="9.398" y="24.13" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="U$2" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.0356375" y="71.882"/>
-<element name="U$3" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.08753125" y="73.66"/>
-<element name="U$4" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.139425" y="75.438"/>
-<element name="U$5" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.19131875" y="77.216"/>
-<element name="U$6" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.2432125" y="78.994"/>
-<element name="U$7" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.29510625" y="80.772"/>
-<element name="U$8" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.347" y="82.55"/>
-<element name="U$9" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="153.39889375" y="84.328"/>
-<element name="U$12" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="32.09068125" y="-18.034"/>
-<element name="U$13" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="10.044575" y="-18.034"/>
-<element name="U$14" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="10.09646875" y="-16.256"/>
-<element name="U$15" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="32.2463625" y="-16.256"/>
-<element name="U$16" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="21.12225625" y="-18.034"/>
-<element name="U$17" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="21.17415" y="-16.256"/>
-<element name="U$10" library="extra" package="DUMMY_BOM" value="Kontakte (20Stk)" x="153.05204375" y="87.884"/>
-<element name="U$11" library="extra" package="DUMMY_BOM" value="Kontakte (20Stk)" x="153.1039375" y="89.662"/>
 <element name="PCB1" library="RASPBERRY_PI_Bplus" package="RASPBERRY_PI_BPLUS_TPLACE" value="RASPBERRY_PI_B+_TPLACE" x="15.24" y="14.224" rot="MR90"/>
 <element name="U$1" library="extra" package="TO220" value="LM350" x="8.128" y="75.184" smashed="yes" rot="R90">
 <attribute name="R" value="LM 350-220" x="8.128" y="75.184" size="1.778" layer="27" rot="R90" display="off"/>
@@ -4134,6 +4167,7 @@ design rules under a new name.</description>
 <element name="JP1" library="pinhead" package="1X04" value="" x="7.62" y="32.004" smashed="yes">
 <attribute name="VALUE" x="2.54" y="28.829" size="1.27" layer="27"/>
 </element>
+<element name="U$2" library="extra" package="STM32F103C8T6_DEV_SMD" value="STM32F103C8T6_DEV" x="-13.462" y="-54.864"/>
 </elements>
 <signals>
 <signal name="N$20">
@@ -4649,6 +4683,16 @@ design rules under a new name.</description>
 <via x="5.588" y="65.278" extent="1-16" drill="0.8"/>
 <via x="2.286" y="65.278" extent="1-16" drill="0.8"/>
 <via x="3.302" y="82.55" extent="1-16" drill="0.8"/>
+<wire x1="135.89" y1="74.168" x2="135.89" y2="82.296" width="0" layer="19" extent="1-1"/>
+<wire x1="135.89" y1="66.04" x2="135.89" y2="74.168" width="0" layer="19" extent="1-1"/>
+<wire x1="135.89" y1="57.912" x2="135.89" y2="66.04" width="0" layer="19" extent="1-1"/>
+<wire x1="135.89" y1="49.784" x2="135.89" y2="57.912" width="0" layer="19" extent="1-1"/>
+<wire x1="135.89" y1="41.656" x2="135.89" y2="49.784" width="0" layer="19" extent="1-1"/>
+<wire x1="135.89" y1="33.528" x2="135.89" y2="41.656" width="0" layer="19" extent="1-1"/>
+<wire x1="135.89" y1="25.4" x2="135.89" y2="33.528" width="0" layer="19" extent="1-1"/>
+<wire x1="122.9106" y1="60.071" x2="135.89" y2="57.912" width="0" layer="19" extent="1-1"/>
+<wire x1="122.9106" y1="44.069" x2="135.89" y2="41.656" width="0" layer="19" extent="1-1"/>
+<wire x1="133.162" y1="-6.52" x2="135.89" y2="25.4" width="0" layer="19" extent="1-1"/>
 <wire x1="133.67" y1="-11.684" x2="133.162" y2="-6.52" width="0" layer="19" extent="1-1"/>
 <wire x1="136.542" y1="-15.24" x2="133.67" y2="-11.684" width="0" layer="19" extent="1-16"/>
 <wire x1="138.176" y1="-21.59" x2="136.542" y2="-15.24" width="0" layer="19" extent="16-16"/>
@@ -4672,6 +4716,37 @@ design rules under a new name.</description>
 <wire x1="68.58" y1="-21.59" x2="70.756" y2="-15.24" width="0" layer="19" extent="16-16"/>
 <wire x1="67.376" y1="-8.552" x2="70.756" y2="-15.24" width="0" layer="19" extent="1-16"/>
 <wire x1="81.28" y1="14.224" x2="81.092" y2="-8.552" width="0" layer="19" extent="1-1"/>
+<wire x1="69.01" y1="27.674" x2="81.28" y2="14.224" width="0" layer="19" extent="1-1"/>
+<wire x1="66.47" y1="32.754" x2="69.01" y2="27.674" width="0" layer="19" extent="1-1"/>
+<wire x1="69.01" y1="37.834" x2="66.47" y2="32.754" width="0" layer="19" extent="1-1"/>
+<wire x1="69.01" y1="45.454" x2="69.01" y2="37.834" width="0" layer="19" extent="1-1"/>
+<wire x1="66.47" y1="53.074" x2="69.01" y2="45.454" width="0" layer="19" extent="1-1"/>
+<wire x1="69.01" y1="58.154" x2="66.47" y2="53.074" width="0" layer="19" extent="1-1"/>
+<wire x1="69.01" y1="63.234" x2="69.01" y2="58.154" width="0" layer="19" extent="1-1"/>
+<wire x1="66.47" y1="70.854" x2="69.01" y2="63.234" width="0" layer="19" extent="1-1"/>
+<wire x1="81.28" y1="75.184" x2="66.47" y2="70.854" width="0" layer="19" extent="1-1"/>
+<wire x1="81.28" y1="92.964" x2="81.28" y2="75.184" width="0" layer="19" extent="1-1"/>
+<wire x1="43.18" y1="14.224" x2="69.01" y2="27.674" width="0" layer="19" extent="1-1"/>
+<wire x1="23.876" y1="25.146" x2="43.18" y2="14.224" width="0" layer="19" extent="1-1"/>
+<wire x1="23.228" y1="27.686" x2="23.876" y2="25.146" width="0" layer="19" extent="1-1"/>
+<wire x1="25.4" y1="29.718" x2="23.228" y2="27.686" width="0" layer="19" extent="1-1"/>
+<wire x1="23.228" y1="34.544" x2="25.4" y2="29.718" width="0" layer="19" extent="1-1"/>
+<wire x1="25.654" y1="36.068" x2="23.228" y2="34.544" width="0" layer="19" extent="1-1"/>
+<wire x1="13.208" y1="33.782" x2="23.228" y2="34.544" width="0" layer="19" extent="1-1"/>
+<wire x1="11.43" y1="32.004" x2="13.208" y2="33.782" width="0" layer="19" extent="1-1"/>
+<wire x1="4.826" y1="28.448" x2="11.43" y2="32.004" width="0" layer="19" extent="1-1"/>
+<wire x1="9.398" y1="23.18" x2="4.826" y2="28.448" width="0" layer="19" extent="16-16"/>
+<wire x1="7.366" y1="18.5166" x2="9.398" y2="23.18" width="0" layer="19" extent="16-16"/>
+<wire x1="43.18" y1="92.964" x2="66.47" y2="70.854" width="0" layer="19" extent="1-1"/>
+<wire x1="21.524" y1="83.312" x2="43.18" y2="92.964" width="0" layer="19" extent="1-1"/>
+<wire x1="18.73" y1="80.772" x2="21.524" y2="83.312" width="0" layer="19" extent="1-1"/>
+<wire x1="22.606" y1="78.994" x2="18.73" y2="80.772" width="0" layer="19" extent="1-1"/>
+<wire x1="14.224" y1="68.9" x2="18.73" y2="80.772" width="0" layer="19" extent="1-1"/>
+<wire x1="5.588" y1="65.278" x2="14.224" y2="68.9" width="0" layer="19" extent="1-1"/>
+<wire x1="2.286" y1="65.278" x2="5.588" y2="65.278" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="77.658" x2="2.286" y2="65.278" width="0" layer="19" extent="1-1"/>
+<wire x1="5.334" y1="80.96" x2="2.54" y2="77.658" width="0" layer="19" extent="1-1"/>
+<wire x1="3.302" y1="82.55" x2="5.334" y2="80.96" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$29">
 <contactref element="R29" pad="2"/>
