@@ -35,6 +35,14 @@
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c</location>
 		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_tim.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c</location>
+		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_uart.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c</location>
+		</link><link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_rcc_ex.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c</location>
@@ -67,6 +75,10 @@
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c</location>
 		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_spi.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c</location>
+		</link><link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_flash.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c</location>
@@ -75,9 +87,17 @@
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xb.s</location>
 		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_tim_ex.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c</location>
+		</link><link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_pwr.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c</location>
+		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_spi_ex.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c</location>
 		</link><link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_flash_ex.c</name>
 			<type>1</type>
