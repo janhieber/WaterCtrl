@@ -19,7 +19,7 @@ Current layout
 This is the STM32 board I have chosen.
 ![stm32board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/stm32board.jpg)
 
-It has a low power ARM Cortex M1 CPU running at max 72MHz.  
+It has a low power ARM Cortex M3 CPU running at max 72MHz.  
 Should be enough for a PWM and frequency measurement.  
 It's very cheap (look on eBay) and has no useless peripherals.
 
