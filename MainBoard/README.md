@@ -11,7 +11,7 @@ This is the Eagle 6.5 schematic/layout for the main board.
 
 When I'm working on schematics or layout I'll update the
 [schematic.pdf](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/schematic.pdf) and
-[board.pdf](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/board.pdf) files.
+[board.png](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/board.png) files.
 
 Current layout
 ![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/board.png)
