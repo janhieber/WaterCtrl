@@ -1,37 +1,27 @@
-News: Redesign is in progress now.
-Rasberry Pi will be on the top side, but flipped (top down).
-STM32F0DISCOVERY will be on the buttom side.
-This is because we can not route between the pinheaders
-(that would be dangerous because of clearance...).
+News: Redesign is in progress now.  
+- Rasberry Pi will be on the top side, but flipped (top down).  
+  Soldered with [SMD female headers](http://www.voelkner.de/products/478859/Fischer-Elektronik-SMD-Buchsenleiste-RM-2-54-mm-Low-Profile-Pole-2-x-20-BL-LP-6-SMD-40-Z-Inhalt.html)  
+- STM32F103C8T6 mini dev board will be just below the rPi.  
+  Soldered with [SMD pin headers](http://www.voelkner.de/products/297556/Stiftleisten-in-SMD-Technik-RM-2-54-mm-gewinkelt-SL-LP-5...-Pole-1-x-20-SL-LP-5-SMD-051-20-Z-Fisc.html)  
 
-But as this will only be the first version to test everthing, it OK.
-
-Next will be the testing and placing of the motor control circuit and the
-routing of the sensor connectors.
+The SMD headers allow routing of wires on bottom side of the PCB.
 
 # Info
-This is the Eagle 6.x schematic/board for the main board.
+This is the Eagle 6.5 schematic/layout for the main board.
 
-When I'm working on the schematics I'll update the
-'schematic.pdf', 'board.pdf' and 'board.png' files.
-So you can watch the progress:
+When I'm working on schematics or layout I'll update the
+[schematic.pdf](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/schematic.pdf) and
+[board.pdf](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/board.pdf) files.
 
-https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/schematic.pdf
+Current layout
+![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/board.png)
 
-https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.pdf
+This is the STM32 board I have chosen.
+![stm32board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/stm32board.jpg)
 
-![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/board.png)
-
-# Nice Pics (prototype)
-This is the old prototype.
-This is really ugly because I have to solder many parts on top side,
-but on prototype i down have plated holes.
-So every connector, via etc. is really ugly. But the point is to figure out
-if its working, thats all. So don't blame me for this soldering :-)
-![PCB prototype](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/proto1.jpg "PCB prototype")
-
-![PCB top](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/top.jpg "PCB top")
-![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/bottom.jpg "PCB bottom")
+It has a low power ARM Cortex M1 CPU running at max 72MHz.  
+Should be enough for a PWM and frequency measurement.  
+It's very cheap (look on eBay) and has no useless peripherals.
 
 # Order PCBs
 For cheap PCBs you can order here:
@@ -68,14 +58,11 @@ Simply go into this folder with your terminal and execute it: ./orderBOM.sh
   - [x] schematic
   - [x] routed
   - [ ] tested
-- [ ] Place ESP8266 module
-  - [x] schematic
-  - [x] routed
-- [ ] Power supply circuit for 3.3V
+- [ ] Power supply circuit for 5V
   - [x] schematic
   - [x] routed
   - [ ] tested
-- [ ] Wiring up the STM32F0 (Cs, crystal, etc...)
-  - [x] schematic
-  - [x] routed
+- [ ] Wiring up the STM32 and rPi
+  - [ ] schematic
+  - [ ] routed
   - [ ] tested

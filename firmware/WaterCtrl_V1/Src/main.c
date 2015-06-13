@@ -99,7 +99,8 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+	int a = 10;
+	// this is a test
   }
   /* USER CODE END 3 */
 
