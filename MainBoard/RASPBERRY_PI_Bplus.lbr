@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -61,7 +61,7 @@
 <layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
-<layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
@@ -873,7 +873,6 @@
 <pad name="PE_BL" x="81.59" y="3.5" drill="2.75" diameter="6.2" rot="R180"/>
 <pad name="PE_BR" x="23.59" y="3.5" drill="2.75" diameter="6.2" rot="R180"/>
 <pad name="PE_TR" x="23.59" y="52.5" drill="2.75" diameter="6.2" rot="R180"/>
-<pad name="PE_TL" x="81.59" y="52.5" drill="2.75" diameter="6.2" rot="R180"/>
 <text x="76.59" y="48.23" size="1.27" layer="21" ratio="10" rot="MR0" align="top-center">1</text>
 <text x="49.66" y="18.19" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <text x="49.66" y="20.19" size="1.27" layer="25" ratio="10">&gt;NAME</text>
@@ -989,16 +988,18 @@
 <smd name="39" x="28.448" y="50.292" dx="1.143" dy="3.048" layer="1" rot="R180"/>
 <smd name="40" x="28.448" y="54.737" dx="1.143" dy="3.048" layer="1" rot="R180"/>
 <text x="49.53" y="15.24" size="1.27" layer="52">voelkner W70762</text>
+<pad name="P$1" x="80.01" y="40.64" drill="0.8" shape="square"/>
+<pad name="P$2" x="82.55" y="40.64" drill="0.8" shape="octagon"/>
 </package>
 </packages>
 <symbols>
 <symbol name="RASPBERRY_PI_B+">
-<wire x1="-22.86" y1="25.4" x2="20.32" y2="25.4" width="0.254" layer="94"/>
-<wire x1="20.32" y1="25.4" x2="20.32" y2="-35.56" width="0.254" layer="94"/>
+<wire x1="-22.86" y1="30.48" x2="20.32" y2="30.48" width="0.254" layer="94"/>
+<wire x1="20.32" y1="30.48" x2="20.32" y2="-35.56" width="0.254" layer="94"/>
 <wire x1="20.32" y1="-35.56" x2="10.16" y2="-35.56" width="0.254" layer="94"/>
 <wire x1="10.16" y1="-35.56" x2="-12.7" y2="-35.56" width="0.254" layer="94"/>
 <wire x1="-12.7" y1="-35.56" x2="-22.86" y2="-35.56" width="0.254" layer="94"/>
-<wire x1="-22.86" y1="-35.56" x2="-22.86" y2="25.4" width="0.254" layer="94"/>
+<wire x1="-22.86" y1="-35.56" x2="-22.86" y2="30.48" width="0.254" layer="94"/>
 <pin name="5V0@1" x="25.4" y="22.86" length="middle" direction="pwr" rot="R180"/>
 <pin name="3V3@1" x="-27.94" y="22.86" length="middle"/>
 <pin name="GPIO02/SDA1" x="-27.94" y="20.32" length="middle"/>
@@ -1039,11 +1040,10 @@
 <pin name="GPIO20" x="25.4" y="-22.86" length="middle" rot="R180"/>
 <pin name="GND@3" x="-27.94" y="-25.4" length="middle" direction="pwr"/>
 <pin name="GPIO21" x="25.4" y="-25.4" length="middle" rot="R180"/>
-<text x="-22.86" y="27.94" size="1.27" layer="95" font="vector">&gt;NAME</text>
-<text x="-22.86" y="26.035" size="1.27" layer="96" font="vector">&gt;VALUE</text>
+<text x="-22.86" y="33.02" size="1.27" layer="95" font="vector">&gt;NAME</text>
+<text x="-22.86" y="31.115" size="1.27" layer="96" font="vector">&gt;VALUE</text>
 <text x="0" y="-22.86" size="1.27" layer="94" font="vector" align="center">Connector
 J8</text>
-<text x="-7.62" y="-33.02" size="1.27" layer="94" font="vector" align="center">TL</text>
 <text x="-2.54" y="-33.02" size="1.27" layer="94" font="vector" align="center">TR</text>
 <text x="2.54" y="-33.02" size="1.27" layer="94" font="vector" align="center">BL</text>
 <text x="7.62" y="-33.02" size="1.27" layer="94" font="vector" align="center">BR</text>
@@ -1051,10 +1051,11 @@ J8</text>
 <wire x1="-12.7" y1="-35.56" x2="-12.7" y2="-27.94" width="0.254" layer="94" style="shortdash"/>
 <wire x1="-12.7" y1="-27.94" x2="10.16" y2="-27.94" width="0.254" layer="94" style="shortdash"/>
 <wire x1="10.16" y1="-27.94" x2="10.16" y2="-35.56" width="0.254" layer="94" style="shortdash"/>
-<pin name="TL" x="-7.62" y="-40.64" visible="off" length="middle" rot="R90"/>
 <pin name="TR" x="-2.54" y="-40.64" visible="off" length="middle" rot="R90"/>
 <pin name="BL" x="2.54" y="-40.64" visible="off" length="middle" rot="R90"/>
 <pin name="BR" x="7.62" y="-40.64" visible="off" length="middle" rot="R90"/>
+<pin name="RST_RUN" x="-27.94" y="27.94" length="middle"/>
+<pin name="GND@9" x="25.4" y="27.94" length="middle" rot="R180"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -1109,7 +1110,6 @@ LBR by Tim Rettmann 07-2014</description>
 <connect gate="G$1" pin="ID_SC" pad="28"/>
 <connect gate="G$1" pin="ID_SD" pad="27"/>
 <connect gate="G$1" pin="RXD0/GPIO15" pad="10"/>
-<connect gate="G$1" pin="TL" pad="PE_TL"/>
 <connect gate="G$1" pin="TR" pad="PE_TR"/>
 <connect gate="G$1" pin="TXD0/GPIO14" pad="8"/>
 </connects>
@@ -1160,7 +1160,6 @@ LBR by Tim Rettmann 07-2014</description>
 <connect gate="G$1" pin="ID_SC" pad="28"/>
 <connect gate="G$1" pin="ID_SD" pad="27"/>
 <connect gate="G$1" pin="RXD0/GPIO15" pad="10"/>
-<connect gate="G$1" pin="TL" pad="PE_TL"/>
 <connect gate="G$1" pin="TR" pad="PE_TR"/>
 <connect gate="G$1" pin="TXD0/GPIO14" pad="8"/>
 </connects>
@@ -1189,6 +1188,7 @@ LBR by Tim Rettmann 07-2014</description>
 <connect gate="G$1" pin="GND@6" pad="30"/>
 <connect gate="G$1" pin="GND@7" pad="34"/>
 <connect gate="G$1" pin="GND@8" pad="39"/>
+<connect gate="G$1" pin="GND@9" pad="P$2"/>
 <connect gate="G$1" pin="GPIO02/SDA1" pad="3"/>
 <connect gate="G$1" pin="GPIO03/SCL1" pad="5"/>
 <connect gate="G$1" pin="GPIO04/GCKL" pad="7"/>
@@ -1210,8 +1210,8 @@ LBR by Tim Rettmann 07-2014</description>
 <connect gate="G$1" pin="GPIO27/GEN2" pad="13"/>
 <connect gate="G$1" pin="ID_SC" pad="28"/>
 <connect gate="G$1" pin="ID_SD" pad="27"/>
+<connect gate="G$1" pin="RST_RUN" pad="P$1"/>
 <connect gate="G$1" pin="RXD0/GPIO15" pad="10"/>
-<connect gate="G$1" pin="TL" pad="PE_TL"/>
 <connect gate="G$1" pin="TR" pad="PE_TR"/>
 <connect gate="G$1" pin="TXD0/GPIO14" pad="8"/>
 </connects>
