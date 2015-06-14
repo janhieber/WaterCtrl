@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -1000,7 +1000,7 @@
 <wire x1="-12.7" y1="-35.56" x2="-22.86" y2="-35.56" width="0.254" layer="94"/>
 <wire x1="-22.86" y1="-35.56" x2="-22.86" y2="25.4" width="0.254" layer="94"/>
 <pin name="5V0@1" x="25.4" y="22.86" length="middle" direction="pwr" rot="R180"/>
-<pin name="3V3@1" x="-27.94" y="22.86" length="middle" direction="pwr"/>
+<pin name="3V3@1" x="-27.94" y="22.86" length="middle"/>
 <pin name="GPIO02/SDA1" x="-27.94" y="20.32" length="middle"/>
 <pin name="5V0@2" x="25.4" y="20.32" length="middle" direction="pwr" rot="R180"/>
 <pin name="GPIO03/SCL1" x="-27.94" y="17.78" length="middle"/>
@@ -1015,7 +1015,7 @@
 <pin name="GND@4" x="25.4" y="7.62" length="middle" direction="pwr" rot="R180"/>
 <pin name="GPIO22/GEN3" x="-27.94" y="5.08" length="middle"/>
 <pin name="GEN4/GPIO23" x="25.4" y="5.08" length="middle" rot="R180"/>
-<pin name="3V3@2" x="-27.94" y="2.54" length="middle" direction="pwr"/>
+<pin name="3V3@2" x="-27.94" y="2.54" length="middle"/>
 <pin name="GEN5/GPIO24" x="25.4" y="2.54" length="middle" rot="R180"/>
 <pin name="GPIO10/MOSI" x="-27.94" y="0" length="middle"/>
 <pin name="GND@5" x="25.4" y="0" length="middle" direction="pwr" rot="R180"/>
