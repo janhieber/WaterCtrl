@@ -4,29 +4,26 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/_initialize_hardware.c \
-../Src/_write.c \
-../Src/main.c \
-../Src/stm32f1xx_hal_msp.c \
-../Src/stm32f1xx_it.c 
+../newlib/_exit.c \
+../newlib/_sbrk.c \
+../newlib/_startup.c \
+../newlib/_syscalls.c 
 
 OBJS += \
-./Src/_initialize_hardware.o \
-./Src/_write.o \
-./Src/main.o \
-./Src/stm32f1xx_hal_msp.o \
-./Src/stm32f1xx_it.o 
+./newlib/_exit.o \
+./newlib/_sbrk.o \
+./newlib/_startup.o \
+./newlib/_syscalls.o 
 
 C_DEPS += \
-./Src/_initialize_hardware.d \
-./Src/_write.d \
-./Src/main.d \
-./Src/stm32f1xx_hal_msp.d \
-./Src/stm32f1xx_it.d 
+./newlib/_exit.d \
+./newlib/_sbrk.d \
+./newlib/_startup.d \
+./newlib/_syscalls.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Src/%.o: ../Src/%.c
+newlib/%.o: ../newlib/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM C Compiler'
 	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DSTM32F10X_MD -DHSE_VALUE=8000000 -DUSE_HAL_DRIVER -DSTM32F103xB -I../Drivers/CMSIS/Include -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
