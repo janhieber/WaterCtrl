@@ -17851,14 +17851,14 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 8.7</text>
 </package>
 <package name="RASPBERRY_PI_BPLUS_TPLACE_SMD_MIRR">
-<wire x1="85.09" y1="53" x2="85.09" y2="3" width="0.127" layer="21"/>
-<wire x1="85.09" y1="3" x2="82.09" y2="0" width="0.127" layer="21" curve="-90"/>
-<wire x1="82.09" y1="0" x2="3.09" y2="0" width="0.127" layer="21"/>
-<wire x1="3.09" y1="0" x2="0.09" y2="3" width="0.127" layer="21" curve="-90"/>
-<wire x1="0.09" y1="3" x2="0.09" y2="53" width="0.127" layer="21"/>
-<wire x1="0.09" y1="53" x2="3.09" y2="56" width="0.127" layer="21" curve="-90"/>
-<wire x1="3.09" y1="56" x2="82.09" y2="56" width="0.127" layer="21"/>
-<wire x1="82.09" y1="56" x2="85.09" y2="53" width="0.127" layer="21" curve="-90"/>
+<wire x1="85.09" y1="53" x2="85.09" y2="3" width="0.127" layer="51"/>
+<wire x1="85.09" y1="3" x2="82.09" y2="0" width="0.127" layer="51" curve="-90"/>
+<wire x1="82.09" y1="0" x2="3.09" y2="0" width="0.127" layer="51"/>
+<wire x1="3.09" y1="0" x2="0.09" y2="3" width="0.127" layer="51" curve="-90"/>
+<wire x1="0.09" y1="3" x2="0.09" y2="53" width="0.127" layer="51"/>
+<wire x1="0.09" y1="53" x2="3.09" y2="56" width="0.127" layer="51" curve="-90"/>
+<wire x1="3.09" y1="56" x2="82.09" y2="56" width="0.127" layer="51"/>
+<wire x1="82.09" y1="56" x2="85.09" y2="53" width="0.127" layer="51" curve="-90"/>
 <pad name="PE_BL" x="81.59" y="3.5" drill="2.75" diameter="6.2" rot="R180"/>
 <pad name="PE_BR" x="23.59" y="3.5" drill="2.75" diameter="6.2" rot="R180"/>
 <pad name="PE_TR" x="23.59" y="52.5" drill="2.75" diameter="6.2" rot="R180"/>
@@ -18805,10 +18805,11 @@ LBR by Tim Rettmann 07-2014</description>
 <part name="+3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND32" library="supply1" deviceset="GND" device=""/>
 <part name="GND33" library="supply1" deviceset="GND" device=""/>
-<part name="SJ1" library="jumper" deviceset="SJ2W" device=""/>
+<part name="SJ1" library="jumper" deviceset="SJ2W" device="" value="3V3"/>
 <part name="+3V4" library="supply1" deviceset="+3V3" device=""/>
-<part name="SJ2" library="jumper" deviceset="SJ2W" device=""/>
+<part name="SJ2" library="jumper" deviceset="SJ2W" device="" value="5V"/>
 <part name="P+7" library="supply1" deviceset="+5V" device=""/>
+<part name="GND4" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -18830,10 +18831,6 @@ LBR by Tim Rettmann 07-2014</description>
 <instance part="GND39" gate="1" x="193.04" y="53.34"/>
 <instance part="GND32" gate="1" x="25.4" y="66.04"/>
 <instance part="GND33" gate="1" x="121.92" y="66.04"/>
-<instance part="SJ1" gate="G$1" x="109.22" y="147.32" rot="R270"/>
-<instance part="+3V4" gate="G$1" x="109.22" y="157.48"/>
-<instance part="SJ2" gate="G$1" x="139.7" y="154.94" rot="R270"/>
-<instance part="P+7" gate="1" x="139.7" y="165.1"/>
 </instances>
 <busses>
 </busses>
@@ -18990,7 +18987,8 @@ LBR by Tim Rettmann 07-2014</description>
 <wire x1="210.82" y1="86.36" x2="233.68" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="PCB1" gate="G$1" pin="GND@9"/>
 <wire x1="210.82" y1="127" x2="233.68" y2="127" width="0.1524" layer="91"/>
-<wire x1="233.68" y1="127" x2="233.68" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="233.68" y1="127" x2="233.68" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="233.68" y1="116.84" x2="233.68" y2="106.68" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="106.68" x2="233.68" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="99.06" x2="233.68" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="86.36" x2="233.68" y2="81.28" width="0.1524" layer="91"/>
@@ -19004,6 +19002,9 @@ LBR by Tim Rettmann 07-2014</description>
 <junction x="233.68" y="99.06"/>
 <junction x="233.68" y="86.36"/>
 <junction x="233.68" y="81.28"/>
+<pinref part="PCB1" gate="G$1" pin="GND@8"/>
+<wire x1="233.68" y1="116.84" x2="210.82" y2="116.84" width="0.1524" layer="91"/>
+<junction x="233.68" y="116.84"/>
 </segment>
 </net>
 <net name="RPI_TXD" class="0">
@@ -19028,12 +19029,6 @@ LBR by Tim Rettmann 07-2014</description>
 <wire x1="172.72" y1="147.32" x2="193.04" y2="147.32" width="0.1524" layer="91"/>
 <label x="172.72" y="147.32" size="1.778" layer="95"/>
 <pinref part="JP1" gate="A" pin="2"/>
-</segment>
-</net>
-<net name="N$30" class="0">
-<segment>
-<pinref part="PCB1" gate="G$1" pin="GND@8"/>
-<wire x1="228.6" y1="116.84" x2="210.82" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="STM_TXD" class="0">
@@ -19151,11 +19146,6 @@ LBR by Tim Rettmann 07-2014</description>
 <junction x="45.72" y="116.84"/>
 <label x="33.02" y="116.84" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="SJ1" gate="G$1" pin="3"/>
-<wire x1="104.14" y1="147.32" x2="93.98" y2="147.32" width="0.1524" layer="91"/>
-<label x="93.98" y="147.32" size="1.778" layer="95"/>
-</segment>
 </net>
 <net name="RPI_3V3" class="0">
 <segment>
@@ -19167,18 +19157,6 @@ LBR by Tim Rettmann 07-2014</description>
 <pinref part="PCB1" gate="G$1" pin="3V3@2"/>
 <wire x1="157.48" y1="101.6" x2="142.24" y2="101.6" width="0.1524" layer="91"/>
 <label x="142.24" y="101.6" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="SJ1" gate="G$1" pin="1"/>
-<wire x1="114.3" y1="147.32" x2="124.46" y2="147.32" width="0.1524" layer="91"/>
-<label x="116.84" y="147.32" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="+3V3" class="0">
-<segment>
-<pinref part="SJ1" gate="G$1" pin="2"/>
-<wire x1="109.22" y1="152.4" x2="109.22" y2="154.94" width="0.1524" layer="91"/>
-<pinref part="+3V4" gate="G$1" pin="+3V3"/>
 </segment>
 </net>
 <net name="RPI_5V" class="0">
@@ -19192,29 +19170,12 @@ LBR by Tim Rettmann 07-2014</description>
 <junction x="213.36" y="119.38"/>
 <label x="215.9" y="119.38" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="SJ2" gate="G$1" pin="1"/>
-<wire x1="144.78" y1="154.94" x2="154.94" y2="154.94" width="0.1524" layer="91"/>
-<label x="147.32" y="154.94" size="1.778" layer="95"/>
-</segment>
 </net>
 <net name="STM_5V" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="5V"/>
 <wire x1="48.26" y1="119.38" x2="33.02" y2="119.38" width="0.1524" layer="91"/>
 <label x="33.02" y="119.38" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="SJ2" gate="G$1" pin="3"/>
-<wire x1="134.62" y1="154.94" x2="124.46" y2="154.94" width="0.1524" layer="91"/>
-<label x="124.46" y="154.94" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="+5V" class="0">
-<segment>
-<pinref part="SJ2" gate="G$1" pin="2"/>
-<wire x1="139.7" y1="160.02" x2="139.7" y2="162.56" width="0.1524" layer="91"/>
-<pinref part="P+7" gate="1" pin="+5V"/>
 </segment>
 </net>
 </nets>
@@ -19272,6 +19233,10 @@ LBR by Tim Rettmann 07-2014</description>
 <instance part="P+1" gate="1" x="55.88" y="76.2"/>
 <instance part="GND1" gate="1" x="167.64" y="88.9"/>
 <instance part="GND3" gate="1" x="53.34" y="88.9"/>
+<instance part="SJ1" gate="G$1" x="111.76" y="55.88" rot="R270"/>
+<instance part="+3V4" gate="G$1" x="111.76" y="66.04"/>
+<instance part="SJ2" gate="G$1" x="142.24" y="63.5" rot="R270"/>
+<instance part="P+7" gate="1" x="142.24" y="73.66"/>
 </instances>
 <busses>
 </busses>
@@ -19312,6 +19277,11 @@ LBR by Tim Rettmann 07-2014</description>
 <pinref part="LED1" gate="G$1" pin="A"/>
 <wire x1="210.82" y1="121.92" x2="210.82" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="P+10" gate="1" pin="+5V"/>
+</segment>
+<segment>
+<pinref part="SJ2" gate="G$1" pin="2"/>
+<wire x1="142.24" y1="68.58" x2="142.24" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="P+7" gate="1" pin="+5V"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -19393,6 +19363,41 @@ LBR by Tim Rettmann 07-2014</description>
 <wire x1="55.88" y1="71.12" x2="55.88" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
+<net name="STM_3V3" class="0">
+<segment>
+<pinref part="SJ1" gate="G$1" pin="3"/>
+<wire x1="106.68" y1="55.88" x2="96.52" y2="55.88" width="0.1524" layer="91"/>
+<label x="96.52" y="55.88" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="RPI_3V3" class="0">
+<segment>
+<pinref part="SJ1" gate="G$1" pin="1"/>
+<wire x1="116.84" y1="55.88" x2="127" y2="55.88" width="0.1524" layer="91"/>
+<label x="119.38" y="55.88" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<pinref part="SJ1" gate="G$1" pin="2"/>
+<wire x1="111.76" y1="60.96" x2="111.76" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="+3V4" gate="G$1" pin="+3V3"/>
+</segment>
+</net>
+<net name="RPI_5V" class="0">
+<segment>
+<pinref part="SJ2" gate="G$1" pin="1"/>
+<wire x1="147.32" y1="63.5" x2="157.48" y2="63.5" width="0.1524" layer="91"/>
+<label x="149.86" y="63.5" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="STM_5V" class="0">
+<segment>
+<pinref part="SJ2" gate="G$1" pin="3"/>
+<wire x1="137.16" y1="63.5" x2="127" y2="63.5" width="0.1524" layer="91"/>
+<label x="127" y="63.5" size="1.778" layer="95"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -19455,6 +19460,7 @@ Wrong symbol</text>
 <instance part="GND47" gate="1" x="55.88" y="76.2"/>
 <instance part="+3V1" gate="G$1" x="114.3" y="99.06"/>
 <instance part="+3V2" gate="G$1" x="121.92" y="154.94"/>
+<instance part="GND4" gate="1" x="40.64" y="86.36"/>
 </instances>
 <busses>
 </busses>
@@ -19578,6 +19584,20 @@ Wrong symbol</text>
 <wire x1="55.88" y1="134.62" x2="55.88" y2="129.54" width="0.1524" layer="91"/>
 <junction x="55.88" y="134.62"/>
 <pinref part="GND40" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="IC3" gate="A" pin="D5"/>
+<wire x1="63.5" y1="96.52" x2="40.64" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="96.52" x2="40.64" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="88.9" x2="40.64" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="D6"/>
+<wire x1="40.64" y1="91.44" x2="40.64" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="93.98" x2="63.5" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="D7"/>
+<wire x1="63.5" y1="91.44" x2="40.64" y2="91.44" width="0.1524" layer="91"/>
+<junction x="40.64" y="91.44"/>
+<junction x="40.64" y="93.98"/>
+<pinref part="GND4" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="S1_3V" class="0">
@@ -20292,6 +20312,19 @@ Wrong symbol</text>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="101,2,132.08,134.62,KK1,K,,,,"/>
+<approved hash="101,2,142.24,134.62,KK1,K,,,,"/>
+<approved hash="101,5,53.34,134.62,H1,MOUNT,,,,"/>
+<approved hash="101,5,60.96,134.62,H2,MOUNT,,,,"/>
+<approved hash="101,5,68.58,134.62,H3,MOUNT,,,,"/>
+<approved hash="101,5,76.2,134.62,H4,MOUNT,,,,"/>
+<approved hash="104,3,114.3,96.52,IC3P,VCC,+3V3,,,"/>
+<approved hash="104,3,121.92,152.4,IC2P,VCC,+3V3,,,"/>
+<approved hash="104,1,210.82,121.92,PCB1,5V0,RPI_5V,,,"/>
+<approved hash="104,1,210.82,119.38,PCB1,5V0,RPI_5V,,,"/>
+<approved hash="104,4,43.18,139.7,IC1P,VCC,+3V3,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>

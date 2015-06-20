@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.5.0">
+<eagle version="6.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -862,14 +862,14 @@
 <text x="24.13" y="19.05" size="1.27" layer="48">voelkner W70762</text>
 </package>
 <package name="RASPBERRY_PI_BPLUS_TPLACE_SMD_MIRR">
-<wire x1="85.09" y1="53" x2="85.09" y2="3" width="0.127" layer="21"/>
-<wire x1="85.09" y1="3" x2="82.09" y2="0" width="0.127" layer="21" curve="-90"/>
-<wire x1="82.09" y1="0" x2="3.09" y2="0" width="0.127" layer="21"/>
-<wire x1="3.09" y1="0" x2="0.09" y2="3" width="0.127" layer="21" curve="-90"/>
-<wire x1="0.09" y1="3" x2="0.09" y2="53" width="0.127" layer="21"/>
-<wire x1="0.09" y1="53" x2="3.09" y2="56" width="0.127" layer="21" curve="-90"/>
-<wire x1="3.09" y1="56" x2="82.09" y2="56" width="0.127" layer="21"/>
-<wire x1="82.09" y1="56" x2="85.09" y2="53" width="0.127" layer="21" curve="-90"/>
+<wire x1="85.09" y1="53" x2="85.09" y2="3" width="0.127" layer="51"/>
+<wire x1="85.09" y1="3" x2="82.09" y2="0" width="0.127" layer="51" curve="-90"/>
+<wire x1="82.09" y1="0" x2="3.09" y2="0" width="0.127" layer="51"/>
+<wire x1="3.09" y1="0" x2="0.09" y2="3" width="0.127" layer="51" curve="-90"/>
+<wire x1="0.09" y1="3" x2="0.09" y2="53" width="0.127" layer="51"/>
+<wire x1="0.09" y1="53" x2="3.09" y2="56" width="0.127" layer="51" curve="-90"/>
+<wire x1="3.09" y1="56" x2="82.09" y2="56" width="0.127" layer="51"/>
+<wire x1="82.09" y1="56" x2="85.09" y2="53" width="0.127" layer="51" curve="-90"/>
 <pad name="PE_BL" x="81.59" y="3.5" drill="2.75" diameter="6.2" rot="R180"/>
 <pad name="PE_BR" x="23.59" y="3.5" drill="2.75" diameter="6.2" rot="R180"/>
 <pad name="PE_TR" x="23.59" y="52.5" drill="2.75" diameter="6.2" rot="R180"/>
