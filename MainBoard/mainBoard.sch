@@ -17180,6 +17180,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <smd name="39" x="48.26" y="17.272" dx="1.27" dy="3.556" layer="1"/>
 <smd name="40" x="50.8" y="20.828" dx="1.27" dy="3.556" layer="1"/>
 </package>
+<package name="DUMMY_BOM">
+<text x="0" y="0" size="1.27" layer="21">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="LM350">
@@ -17245,6 +17248,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <text x="-20.32" y="50.8" size="1.27" layer="95">&gt;NAME</text>
 <text x="-20.32" y="48.26" size="1.27" layer="96">&gt;VALUE</text>
 </symbol>
+<symbol name="DUMMY">
+<text x="0" y="0" size="1.778" layer="95">&gt;VALUE</text>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="LM350">
@@ -17309,6 +17315,18 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <connect gate="G$1" pin="RST" pad="24"/>
 <connect gate="G$1" pin="VB" pad="40"/>
 </connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="DUMMY_BOM" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="DUMMY" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="DUMMY_BOM">
 <technologies>
 <technology name=""/>
 </technologies>
@@ -18585,7 +18603,7 @@ LBR by Tim Rettmann 07-2014</description>
 <attribute name="R" value="VF 47/25 P-D"/>
 </part>
 <part name="R3" library="rcl" deviceset="R-EU_" device="R0805" value="150">
-<attribute name="R" value="SMD-0805 100"/>
+<attribute name="R" value="SMD-0805 150"/>
 </part>
 <part name="LED1" library="led" deviceset="LED" device="CHIP-LED0805">
 <attribute name="R" value="SMD-LED 0805 GN"/>
@@ -18717,16 +18735,16 @@ LBR by Tim Rettmann 07-2014</description>
 <part name="GND30" library="supply1" deviceset="GND" device=""/>
 <part name="GND29" library="supply1" deviceset="GND" device=""/>
 <part name="D2" library="diode" deviceset="DIODE-" device="DO-214AC">
-<attribute name="R" value="B 340 F"/>
+<attribute name="R" value="B 140 F"/>
 </part>
 <part name="D3" library="diode" deviceset="DIODE-" device="DO-214AC">
-<attribute name="R" value="B 340 F"/>
+<attribute name="R" value="B 140 F"/>
 </part>
 <part name="D4" library="diode" deviceset="DIODE-" device="DO-214AC">
-<attribute name="R" value="B 340 F"/>
+<attribute name="R" value="B 140 F"/>
 </part>
 <part name="D5" library="diode" deviceset="DIODE-" device="DO-214AC">
-<attribute name="R" value="B 340 F"/>
+<attribute name="R" value="B 140 F"/>
 </part>
 <part name="GND41" library="supply1" deviceset="GND" device=""/>
 <part name="GND42" library="supply1" deviceset="GND" device=""/>
@@ -18764,13 +18782,19 @@ LBR by Tim Rettmann 07-2014</description>
 <part name="P+8" library="supply1" deviceset="+15V" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="GND36" library="supply1" deviceset="GND" device=""/>
-<part name="JP1" library="pinhead" deviceset="PINHD-1X3" device="" value="UART_RPI"/>
+<part name="JP1" library="pinhead" deviceset="PINHD-1X3" device="" value="UART_RPI">
+<attribute name="R" value="MPE 087-1-003"/>
+</part>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="U$2" library="extra" deviceset="STM32F103C8T6_DEV" device=""/>
-<part name="JP2" library="pinhead" deviceset="PINHD-1X3" device="" value="UART_STM"/>
+<part name="JP2" library="pinhead" deviceset="PINHD-1X3" device="" value="UART_STM">
+<attribute name="R" value="MPE 087-1-003"/>
+</part>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="GND39" library="supply1" deviceset="GND" device=""/>
-<part name="IC1" library="74xx-eu" deviceset="74*138" device="D" technology="HC" value="74HC138D"/>
+<part name="IC1" library="74xx-eu" deviceset="74*138" device="D" technology="HC" value="74HC138D">
+<attribute name="R" value="SMD HC 238"/>
+</part>
 <part name="GND37" library="supply1" deviceset="GND" device=""/>
 <part name="GND38" library="supply1" deviceset="GND" device=""/>
 <part name="GND40" library="supply1" deviceset="GND" device=""/>
@@ -18792,7 +18816,7 @@ LBR by Tim Rettmann 07-2014</description>
 </part>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
 <part name="D6" library="diode" deviceset="DIODE-" device="DO-214AC">
-<attribute name="R" value="B 340 F"/>
+<attribute name="R" value="B 140 F"/>
 </part>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="P+6" library="supply1" deviceset="+15V" device=""/>
@@ -18810,6 +18834,39 @@ LBR by Tim Rettmann 07-2014</description>
 <part name="SJ2" library="jumper" deviceset="SJ2W" device="" value="5V"/>
 <part name="P+7" library="supply1" deviceset="+5V" device=""/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
+<part name="U$3" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$4" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$5" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$6" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$7" library="extra" deviceset="DUMMY_BOM" device="" value="PSK 254/3W">
+<attribute name="R" value="PSK 254/3W"/>
+</part>
+<part name="U$8" library="extra" deviceset="DUMMY_BOM" device="" value="PSK-KONTAKTE">
+<attribute name="R" value="PSK-KONTAKTE"/>
+</part>
+<part name="U$9" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$10" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$11" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$12" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
+<part name="U$13" library="extra" deviceset="DUMMY_BOM" device="" value="AKL 249-02">
+<attribute name="R" value="AKL 249-02"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -18823,10 +18880,14 @@ LBR by Tim Rettmann 07-2014</description>
 <instance part="PCB1" gate="G$1" x="185.42" y="99.06"/>
 <instance part="GND7" gate="1" x="137.16" y="71.12"/>
 <instance part="GND36" gate="1" x="233.68" y="76.2"/>
-<instance part="JP1" gate="A" x="195.58" y="147.32"/>
+<instance part="JP1" gate="A" x="195.58" y="147.32">
+<attribute name="R" x="195.58" y="147.32" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND5" gate="1" x="172.72" y="142.24"/>
 <instance part="U$2" gate="G$1" x="73.66" y="78.74"/>
-<instance part="JP2" gate="A" x="78.74" y="147.32"/>
+<instance part="JP2" gate="A" x="78.74" y="147.32">
+<attribute name="R" x="78.74" y="147.32" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND23" gate="1" x="58.42" y="142.24"/>
 <instance part="GND39" gate="1" x="193.04" y="53.34"/>
 <instance part="GND32" gate="1" x="25.4" y="66.04"/>
@@ -19407,8 +19468,6 @@ LBR by Tim Rettmann 07-2014</description>
 Wrong symbol</text>
 <text x="129.54" y="68.58" size="1.778" layer="91">connectors:</text>
 <text x="162.56" y="20.32" size="2.54" layer="97">Sensors</text>
-<text x="104.14" y="68.58" size="1.778" layer="91">PSK 254/3W</text>
-<text x="104.14" y="66.04" size="1.778" layer="91">PSK-KONTAKTE</text>
 </plain>
 <instances>
 <instance part="IC3" gate="A" x="76.2" y="93.98">
@@ -19461,6 +19520,24 @@ Wrong symbol</text>
 <instance part="+3V1" gate="G$1" x="114.3" y="99.06"/>
 <instance part="+3V2" gate="G$1" x="121.92" y="154.94"/>
 <instance part="GND4" gate="1" x="40.64" y="86.36"/>
+<instance part="U$3" gate="G$1" x="129.54" y="63.5">
+<attribute name="R" x="129.54" y="63.5" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$4" gate="G$1" x="129.54" y="60.96">
+<attribute name="R" x="129.54" y="60.96" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$5" gate="G$1" x="129.54" y="58.42">
+<attribute name="R" x="129.54" y="58.42" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$6" gate="G$1" x="129.54" y="55.88">
+<attribute name="R" x="129.54" y="55.88" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$7" gate="G$1" x="129.54" y="53.34">
+<attribute name="R" x="129.54" y="53.34" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$8" gate="G$1" x="129.54" y="66.04">
+<attribute name="R" x="129.54" y="66.04" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -19721,7 +19798,6 @@ Wrong symbol</text>
 <plain>
 <text x="162.56" y="20.32" size="2.54" layer="97">Motor Control</text>
 <text x="226.06" y="48.26" size="1.778" layer="91">connectors:</text>
-<text x="226.06" y="55.88" size="1.778" layer="91">AKL 249-02</text>
 <text x="43.18" y="109.22" size="1.778" layer="97">Output not inverting.
 Wrong symbol</text>
 </plain>
@@ -19831,7 +19907,9 @@ Wrong symbol</text>
 <instance part="P+4" gate="1" x="134.62" y="154.94"/>
 <instance part="P+5" gate="1" x="180.34" y="154.94"/>
 <instance part="P+8" gate="1" x="134.62" y="83.82"/>
-<instance part="IC1" gate="A" x="48.26" y="93.98"/>
+<instance part="IC1" gate="A" x="48.26" y="93.98">
+<attribute name="R" x="48.26" y="93.98" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="IC1" gate="P" x="43.18" y="132.08"/>
 <instance part="GND37" gate="1" x="27.94" y="78.74"/>
 <instance part="Q6" gate="G$1" x="88.9" y="48.26">
@@ -19861,6 +19939,21 @@ Wrong symbol</text>
 <instance part="X6" gate="-2" x="226.06" y="96.52"/>
 <instance part="GND31" gate="1" x="243.84" y="93.98"/>
 <instance part="+3V3" gate="G$1" x="43.18" y="142.24"/>
+<instance part="U$9" gate="G$1" x="226.06" y="45.72">
+<attribute name="R" x="226.06" y="45.72" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$10" gate="G$1" x="226.06" y="43.18">
+<attribute name="R" x="226.06" y="43.18" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$11" gate="G$1" x="226.06" y="40.64">
+<attribute name="R" x="226.06" y="40.64" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$12" gate="G$1" x="226.06" y="38.1">
+<attribute name="R" x="226.06" y="38.1" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$13" gate="G$1" x="226.06" y="35.56">
+<attribute name="R" x="226.06" y="35.56" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>

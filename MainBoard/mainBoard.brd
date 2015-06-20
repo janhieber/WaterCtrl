@@ -1737,6 +1737,9 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <smd name="39" x="48.26" y="17.272" dx="1.27" dy="3.556" layer="1"/>
 <smd name="40" x="50.8" y="20.828" dx="1.27" dy="3.556" layer="1"/>
 </package>
+<package name="DUMMY_BOM">
+<text x="0" y="0" size="1.27" layer="21">&gt;VALUE</text>
+</package>
 </packages>
 </library>
 <library name="RASPBERRY_PI_Bplus">
@@ -2233,7 +2236,7 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <attribute name="NAME" x="21.562" y="29.988" size="1.016" layer="25" rot="R180"/>
 </element>
 <element name="R3" library="rcl" package="R0805" value="150" x="2.54" y="76.708" smashed="yes" rot="R270">
-<attribute name="R" value="SMD-0805 100" x="2.54" y="76.708" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="R" value="SMD-0805 150" x="2.54" y="76.708" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="NAME" x="1.651" y="78.74" size="1.27" layer="25"/>
 </element>
 <element name="LED1" library="led" package="CHIP-LED0805" value="" x="2.54" y="72.39" smashed="yes">
@@ -2417,22 +2420,22 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <attribute name="R" value="PSS 254/3W" x="93.98" y="44.958" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="D2" library="diode" package="DO-214AC" value="" x="82.55" y="5.588" smashed="yes" rot="MR180">
-<attribute name="R" value="B 340 F" x="82.55" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="R" value="B 140 F" x="82.55" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
 <attribute name="NAME" x="81.407" y="3.937" size="1.27" layer="26" rot="MR180"/>
 <attribute name="VALUE" x="80.391" y="9.017" size="1.27" layer="28" rot="MR180"/>
 </element>
 <element name="D3" library="diode" package="DO-214AC" value="" x="63.5" y="5.588" smashed="yes" rot="MR180">
-<attribute name="R" value="B 340 F" x="63.5" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="R" value="B 140 F" x="63.5" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
 <attribute name="NAME" x="62.357" y="3.683" size="1.27" layer="26" rot="MR180"/>
 <attribute name="VALUE" x="61.341" y="9.017" size="1.27" layer="28" rot="MR180"/>
 </element>
 <element name="D4" library="diode" package="DO-214AC" value="" x="44.45" y="5.588" smashed="yes" rot="MR180">
-<attribute name="R" value="B 340 F" x="44.45" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="R" value="B 140 F" x="44.45" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
 <attribute name="NAME" x="43.307" y="3.683" size="1.27" layer="26" rot="MR180"/>
 <attribute name="VALUE" x="42.291" y="9.017" size="1.27" layer="28" rot="MR180"/>
 </element>
 <element name="D5" library="diode" package="DO-214AC" value="" x="25.4" y="5.588" smashed="yes" rot="MR180">
-<attribute name="R" value="B 340 F" x="25.4" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="R" value="B 140 F" x="25.4" y="5.588" size="1.778" layer="28" rot="MR180" display="off"/>
 <attribute name="NAME" x="24.511" y="3.937" size="1.27" layer="26" rot="MR180"/>
 <attribute name="VALUE" x="23.241" y="9.017" size="1.27" layer="28" rot="MR180"/>
 </element>
@@ -2457,12 +2460,16 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 </element>
 <element name="JP1" library="pinhead" package="1X03" value="UART_RPI" x="76.454" y="81.534" smashed="yes" rot="R90">
 <attribute name="VALUE" x="80.899" y="76.962" size="1.27" layer="27" rot="R90"/>
+<attribute name="R" value="MPE 087-1-003" x="76.454" y="81.534" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="U$2" library="extra" package="STM32F103C8T6_DEV_SMD" value="STM32F103C8T6_DEV" x="35.306" y="75.946" smashed="yes" rot="R270"/>
 <element name="JP2" library="pinhead" package="1X03" value="UART_STM" x="76.454" y="91.694" smashed="yes" rot="R90">
 <attribute name="VALUE" x="80.899" y="88.138" size="1.27" layer="27" rot="R90"/>
+<attribute name="R" value="MPE 087-1-003" x="76.454" y="91.694" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="IC1" library="74xx-eu" package="SO16" value="74HC138D" x="85.598" y="32.766" rot="R180"/>
+<element name="IC1" library="74xx-eu" package="SO16" value="74HC138D" x="85.598" y="32.766" rot="R180">
+<attribute name="R" value="SMD HC 238" x="85.598" y="32.766" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
 <element name="Q6" library="transistor-npn" package="SOT23" value="BC847ASMD" x="91.186" y="13.208" smashed="yes" rot="R180">
 <attribute name="R" value="BC 847A SMD" x="91.186" y="5.334" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="NAME" x="93.091" y="14.351" size="1.27" layer="25" rot="R270"/>
@@ -2485,7 +2492,7 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <attribute name="VALUE" x="85.471" y="11.811" size="1.27" layer="28" rot="MR90"/>
 </element>
 <element name="D6" library="diode" package="DO-214AC" value="" x="93.98" y="22.098" smashed="yes" rot="MR90">
-<attribute name="R" value="B 340 F" x="89.662" y="13.208" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="R" value="B 140 F" x="89.662" y="13.208" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="NAME" x="95.885" y="20.828" size="1.27" layer="26" rot="MR90"/>
 <attribute name="VALUE" x="90.805" y="19.558" size="1.27" layer="28" rot="MR90"/>
 </element>
@@ -2503,6 +2510,39 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <element name="SJ2" library="jumper" package="SJ_2" value="5V" x="33.528" y="27.686" smashed="yes" rot="R90">
 <attribute name="NAME" x="30.734" y="26.289" size="1.27" layer="25" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="33.528" y="27.5859" size="0.02" layer="27" rot="R90"/>
+</element>
+<element name="U$3" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="0.508" y="-1.778">
+<attribute name="R" value="PSK 254/3W" x="0.508" y="-1.778" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$4" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="0" y="-4.572">
+<attribute name="R" value="PSK 254/3W" x="0" y="-4.572" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$5" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="-0.508" y="-7.366">
+<attribute name="R" value="PSK 254/3W" x="-0.508" y="-7.366" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$6" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="-1.016" y="-10.16">
+<attribute name="R" value="PSK 254/3W" x="-1.016" y="-10.16" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$7" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="-1.524" y="-12.954">
+<attribute name="R" value="PSK 254/3W" x="-1.524" y="-12.954" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$8" library="extra" package="DUMMY_BOM" value="PSK-KONTAKTE" x="-2.032" y="-15.748">
+<attribute name="R" value="PSK-KONTAKTE" x="-2.032" y="-15.748" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$9" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-2.54" y="-18.542">
+<attribute name="R" value="AKL 249-02" x="-2.54" y="-18.542" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$10" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-3.048" y="-21.336">
+<attribute name="R" value="AKL 249-02" x="-3.048" y="-21.336" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$11" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-3.556" y="-24.13">
+<attribute name="R" value="AKL 249-02" x="-3.556" y="-24.13" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$12" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-4.064" y="-26.924">
+<attribute name="R" value="AKL 249-02" x="-4.064" y="-26.924" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U$13" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-4.572" y="-29.718">
+<attribute name="R" value="AKL 249-02" x="-4.572" y="-29.718" size="1.778" layer="27" display="off"/>
 </element>
 </elements>
 <signals>
