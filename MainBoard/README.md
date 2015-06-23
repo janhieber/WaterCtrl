@@ -24,30 +24,42 @@ Should be enough for a PWM and frequency measurement.
 It's very cheap (look on eBay) and has no useless peripherals.
 
 # Order PCBs
-For cheap PCBs you can order here:
-http://www.elecrow.com/services-pcb-prototyping-c-73_116.html
+For cheap PCBs you can order here: [http://dirtypcbs.com](http://dirtypcbs.com)
 
 Because most people will [have to] order 5 or 10 pieces you can ask
-me if someone as some PCBs left. If you have PCBs left, please tell me via Github
+me if someone has some PCBs left. If you have PCBs left, please tell me via Github Issue
 or mail: mail at janhieber dot net
+
 
 # Order parts
 The parts are all from Reichelt (http://www.reichelt.de/) except the
-STM32F0 CPU which I ordered on eBay.
+STM32F1 CPU which I ordered on eBay.
 
 Every part in the schematic has a attribute "R" with the Reichelt
 part number as value.
 
-To generate a BOM do the following:
+To generate the BOM do the following:
  1. Open the schematic in Eagle
- 2. File > Export > BOM    or    Datei > Exportieren > BOM
- 3. I use "values" or "Werte" as list type.
- 4. Maybe Reichelt accepts this list if you ask nice :)
+ 2. File > Export > BOM
+ 3. Select "values" as list type
 
-If you are using Linux or Mac OSX you can use my order script, its called "orderBOM.sh"
-in this folder.
+Now, Reichelt expects a CSV file with the following format:  
+> DIODE GN;2  
+> SMD 0805 100K;12
 
-Simply go into this folder with your terminal and execute it: ./orderBOM.sh
+If you are working on Linux or Mac OSX you can execute this in a terminal:  
+```bash
+tail -n +2 BOM.csv | sed 's/\"//g' | awk -F ';' 'length($11)>0{print $11";"$1}' > BOM_reichelt.csv
+```
+
+*make sure you are in the directory where the BOM.csv is*
+
+Otherwise use Libreoffice or Excel etc to generate the list, or well, add everything
+manually to cart.
+
+Now register at Reichelt and login.  
+Click on your username on top and then "load cart" and import the CSV.
+
 
 # ToDo
 - [ ] Circuit for the moisture measurement (connectors, demultiplexer)
