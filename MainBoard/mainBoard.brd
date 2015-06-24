@@ -36,14 +36,14 @@
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
-<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
-<layer number="32" name="bCream" color="7" fill="5" visible="yes" active="yes"/>
-<layer number="33" name="tFinish" color="6" fill="3" visible="yes" active="yes"/>
-<layer number="34" name="bFinish" color="6" fill="6" visible="yes" active="yes"/>
-<layer number="35" name="tGlue" color="7" fill="4" visible="yes" active="yes"/>
-<layer number="36" name="bGlue" color="7" fill="5" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
@@ -2544,38 +2544,38 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <attribute name="NAME" x="30.734" y="26.289" size="1.27" layer="25" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="33.528" y="27.5859" size="0.02" layer="27" rot="R90"/>
 </element>
-<element name="U$3" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="0.508" y="-1.778">
-<attribute name="R" value="PSK 254/3W" x="0.508" y="-1.778" size="1.778" layer="27" display="off"/>
+<element name="U$3" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="105.918" y="37.338">
+<attribute name="R" value="PSK 254/3W" x="105.918" y="37.338" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$4" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="0" y="-4.572">
-<attribute name="R" value="PSK 254/3W" x="0" y="-4.572" size="1.778" layer="27" display="off"/>
+<element name="U$4" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="105.41" y="34.544">
+<attribute name="R" value="PSK 254/3W" x="105.41" y="34.544" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$5" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="-0.508" y="-7.366">
-<attribute name="R" value="PSK 254/3W" x="-0.508" y="-7.366" size="1.778" layer="27" display="off"/>
+<element name="U$5" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="104.902" y="31.75">
+<attribute name="R" value="PSK 254/3W" x="104.902" y="31.75" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$6" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="-1.016" y="-10.16">
-<attribute name="R" value="PSK 254/3W" x="-1.016" y="-10.16" size="1.778" layer="27" display="off"/>
+<element name="U$6" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="104.394" y="28.956">
+<attribute name="R" value="PSK 254/3W" x="104.394" y="28.956" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$7" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="-1.524" y="-12.954">
-<attribute name="R" value="PSK 254/3W" x="-1.524" y="-12.954" size="1.778" layer="27" display="off"/>
+<element name="U$7" library="extra" package="DUMMY_BOM" value="PSK 254/3W" x="103.886" y="26.162">
+<attribute name="R" value="PSK 254/3W" x="103.886" y="26.162" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$8" library="extra" package="DUMMY_BOM" value="PSK-KONTAKTE" x="-2.032" y="-15.748">
-<attribute name="R" value="PSK-KONTAKTE" x="-2.032" y="-15.748" size="1.778" layer="27" display="off"/>
+<element name="U$8" library="extra" package="DUMMY_BOM" value="PSK-KONTAKTE" x="103.378" y="23.368">
+<attribute name="R" value="PSK-KONTAKTE" x="103.378" y="23.368" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$9" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-2.54" y="-18.542">
-<attribute name="R" value="AKL 249-02" x="-2.54" y="-18.542" size="1.778" layer="27" display="off"/>
+<element name="U$9" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="7.874" y="-3.81">
+<attribute name="R" value="AKL 249-02" x="7.874" y="-3.81" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$10" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-3.048" y="-21.336">
-<attribute name="R" value="AKL 249-02" x="-3.048" y="-21.336" size="1.778" layer="27" display="off"/>
+<element name="U$10" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="7.62" y="-6.096">
+<attribute name="R" value="AKL 249-02" x="7.62" y="-6.096" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$11" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-3.556" y="-24.13">
-<attribute name="R" value="AKL 249-02" x="-3.556" y="-24.13" size="1.778" layer="27" display="off"/>
+<element name="U$11" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="20.32" y="-3.556">
+<attribute name="R" value="AKL 249-02" x="20.32" y="-3.556" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$12" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-4.064" y="-26.924">
-<attribute name="R" value="AKL 249-02" x="-4.064" y="-26.924" size="1.778" layer="27" display="off"/>
+<element name="U$12" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="20.32" y="-6.096">
+<attribute name="R" value="AKL 249-02" x="20.32" y="-6.096" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U$13" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="-4.572" y="-29.718">
-<attribute name="R" value="AKL 249-02" x="-4.572" y="-29.718" size="1.778" layer="27" display="off"/>
+<element name="U$13" library="extra" package="DUMMY_BOM" value="AKL 249-02" x="31.496" y="-4.318">
+<attribute name="R" value="AKL 249-02" x="31.496" y="-4.318" size="1.778" layer="27" display="off"/>
 </element>
 </elements>
 <signals>
