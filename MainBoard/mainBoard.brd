@@ -2452,7 +2452,9 @@ Package DO-213AB = http://www.diotec.com/pdf/sm4001.pdf</description>
 <attribute name="R" value="LM 350-220" x="8.128" y="75.184" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="7.874" y="72.136" size="1.27" layer="27" ratio="10" rot="R90"/>
 </element>
-<element name="KK1" library="heatsink" package="SK104-PAD" value="SK104-PAD" x="8.128" y="75.184" smashed="yes" rot="R270"/>
+<element name="KK1" library="heatsink" package="SK104-PAD" value="SK104-PAD" x="8.128" y="75.184" smashed="yes" rot="R270">
+<attribute name="R" value="V PR32/25,4" x="8.128" y="75.184" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="D1" library="diode" package="MELF-MLL41" value="" x="6.35" y="76.708" smashed="yes" rot="MR270">
 <attribute name="R" value="1N 4002 SMD" x="6.35" y="76.708" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="NAME" x="4.626" y="79.371" size="1.27" layer="26" rot="MR270"/>
