@@ -69,6 +69,14 @@ We will use MySQL. Install MySSQL:
 	
 Then you will be prompted to type in your root passwords.
 
+### Create a database
+
+	mysql -u root -p
+	CREATE DATABASE waterctrl;
+	CREATE USER 'waterctrl_user'@'localhost' IDENTIFIED BY 'W@t3rC!rl';
+	GRANT ALL ON waterctrl.* TO 'waterctrl_user'@'localhost';
+	FLUSH PRIVILEGES;
+
 ## Install required dependencies
 
 We will need PIP for our webinterface dependencies:
@@ -81,8 +89,11 @@ Then go to the webinterace folder
 	
 Install the dependencies:
 
-	pip install -r requirements.txt
+	sudo pip install -r requirements.txt
 	
+## Run the webserver
+
+
 
 	
 
