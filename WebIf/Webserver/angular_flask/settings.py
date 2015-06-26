@@ -2,8 +2,8 @@
 DEBUG = True
 SECRET_KEY = 'temporary_secret_key'  # make sure to change this
 
-DBUSER = 'matthias'
-DBPASSWD = 'geforce306'
+DBUSER = 'DBUSER'
+DBPASSWD = 'DBPASSWORD'
 DBSCHEMA = 'waterctrl'
 DBHOST = '127.0.0.1'
 
