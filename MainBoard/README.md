@@ -4,7 +4,7 @@ News: First PCBs are ordered!
 # Progress
 First PCBs arrived!
 
-![PCB top](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb_top1.jpg) | ![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb_bottom1.jpg)
+![PCBs](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb1.jpg)
 
 # Info
 This is the Eagle 6.5 schematic/layout for the main board.
