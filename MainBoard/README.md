@@ -1,10 +1,5 @@
-News: Redesign is in progress now.  
-- Rasberry Pi will be on the top side, but flipped (top down).  
-  Soldered with [SMD female headers](http://www.voelkner.de/products/478859/Fischer-Elektronik-SMD-Buchsenleiste-RM-2-54-mm-Low-Profile-Pole-2-x-20-BL-LP-6-SMD-40-Z-Inhalt.html)  
-- STM32F103C8T6 mini dev board will be just below the rPi.  
-  Soldered with [SMD pin headers](http://www.voelkner.de/products/297556/Stiftleisten-in-SMD-Technik-RM-2-54-mm-gewinkelt-SL-LP-5...-Pole-1-x-20-SL-LP-5-SMD-051-20-Z-Fisc.html)  
+News: First PCBs are ordered!
 
-The SMD headers allow routing of wires on bottom side of the PCB.
 
 # Progress
 First PCBs arrived!
@@ -80,6 +75,12 @@ Click on your username on top and then "load cart" and import the CSV.
   - [x] routed
   - [ ] tested
 - [ ] Wiring up the STM32 and rPi
+<<<<<<< HEAD
   - [ ] schematic
   - [ ] routed
   - [ ] tested
+=======
+  - [x] schematic
+  - [x] routed
+  - [ ] tested
+>>>>>>> ba06be28f703d0df5e12109daff27424b3daf9bc

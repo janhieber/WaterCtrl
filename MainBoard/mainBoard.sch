@@ -18766,7 +18766,9 @@ LBR by Tim Rettmann 07-2014</description>
 <part name="U$1" library="extra" deviceset="LM350" device="">
 <attribute name="R" value="LM 350-220"/>
 </part>
-<part name="KK1" library="heatsink" deviceset="SK104-PAD" device=""/>
+<part name="KK1" library="heatsink" deviceset="SK104-PAD" device="">
+<attribute name="R" value="V PR32/25,4"/>
+</part>
 <part name="P+9" library="supply1" deviceset="+5V" device=""/>
 <part name="P+10" library="supply1" deviceset="+5V" device=""/>
 <part name="D1" library="diode" deviceset="DIODE-" device="MELF-MLL41">
@@ -19284,7 +19286,9 @@ LBR by Tim Rettmann 07-2014</description>
 <instance part="U$1" gate="G$1" x="109.22" y="124.46">
 <attribute name="R" x="109.22" y="124.46" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="KK1" gate="G$1" x="137.16" y="137.16"/>
+<instance part="KK1" gate="G$1" x="137.16" y="137.16">
+<attribute name="R" x="137.16" y="137.16" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="P+9" gate="1" x="167.64" y="124.46"/>
 <instance part="P+10" gate="1" x="210.82" y="124.46"/>
 <instance part="D1" gate="G$1" x="109.22" y="134.62" rot="R180">
