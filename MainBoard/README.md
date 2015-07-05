@@ -6,6 +6,11 @@ News: Redesign is in progress now.
 
 The SMD headers allow routing of wires on bottom side of the PCB.
 
+# Progress
+First PCBs arrived!
+
+![PCB top](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb_top1.jpg) | ![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb_bottom1.jpg)
+
 # Info
 This is the Eagle 6.5 schematic/layout for the main board.
 
