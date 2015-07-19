@@ -146,8 +146,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/CMSIS/Device/ST/STM32F1xx/Source"/>
-						<entry excluding="stm32f1xx_hal_msp_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/STM32F1xx_HAL_Driver/Src"/>
+						<entry excluding="Templates/iar/|Templates/arm/|Templates/gcc/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Drivers/CMSIS/Device/ST/STM32F1xx/Source"/>
+						<entry excluding="stm32f1xx_hal_msp_template.c|stm32f1xx_hal_dac_ex.c|stm32f1xx_hal_adc_ex.c|stm32f1xx_hal_adc.c|stm32f1xx_hal_can.c|stm32f1xx_hal_cec.c|stm32f1xx_hal_crc.c|stm32f1xx_hal_dac.c|stm32f1xx_hal_eth.c|stm32f1xx_hal_hcd.c|stm32f1xx_hal_i2c.c|stm32f1xx_hal_i2s.c|stm32f1xx_hal_irda.c|stm32f1xx_hal_iwdg.c|stm32f1xx_hal_nand.c|stm32f1xx_hal_nor.c|stm32f1xx_hal_pccard.c|stm32f1xx_hal_pcd_ex.c|stm32f1xx_hal_pcd.c|stm32f1xx_hal_rtc_ex.c|stm32f1xx_hal_rtc.c|stm32f1xx_hal_sd.c|stm32f1xx_hal_smartcard.c|stm32f1xx_hal_sram.c|stm32f1xx_hal_wwdg.c|stm32f1xx_ll_fsmc.c|stm32f1xx_ll_sdmmc.c|stm32f1xx_ll_usb.c" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Drivers/STM32F1xx_HAL_Driver/Src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
 					</sourceEntries>
 				</configuration>
@@ -306,8 +306,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/CMSIS/Device/ST/STM32F1xx/Source"/>
-						<entry excluding="stm32f1xx_hal_msp_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers/STM32F1xx_HAL_Driver/Src"/>
+						<entry excluding="Templates/arm/|Templates/gcc/|Templates/iar/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Drivers/CMSIS/Device/ST/STM32F1xx/Source"/>
+						<entry excluding="stm32f1xx_hal_msp_template.c|stm32f1xx_hal_adc_ex.c|stm32f1xx_hal_adc.c|stm32f1xx_hal_can.c|stm32f1xx_hal_cec.c|stm32f1xx_hal_crc.c|stm32f1xx_hal_dac_ex.c|stm32f1xx_hal_dac.c|stm32f1xx_hal_eth.c|stm32f1xx_hal_hcd.c|stm32f1xx_hal_i2c.c|stm32f1xx_hal_i2s.c|stm32f1xx_hal_irda.c|stm32f1xx_hal_iwdg.c|stm32f1xx_hal_nand.c|stm32f1xx_hal_nor.c|stm32f1xx_hal_pccard.c|stm32f1xx_hal_pcd_ex.c|stm32f1xx_hal_pcd.c|stm32f1xx_hal_rtc_ex.c|stm32f1xx_hal_rtc.c|stm32f1xx_hal_sd.c|stm32f1xx_hal_smartcard.c|stm32f1xx_hal_sram.c|stm32f1xx_hal_wwdg.c|stm32f1xx_ll_fsmc.c|stm32f1xx_ll_sdmmc.c|stm32f1xx_ll_usb.c" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Drivers/STM32F1xx_HAL_Driver/Src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
 					</sourceEntries>
 				</configuration>
@@ -334,7 +334,14 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/WaterCtrl_V1"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/WaterCtrl_V1"/>
+		</configuration>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
