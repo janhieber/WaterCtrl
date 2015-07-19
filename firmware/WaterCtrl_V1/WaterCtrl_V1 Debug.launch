@@ -15,7 +15,7 @@
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerExecutable" value="${openocd_path}/${openocd_executable}"/>
 <intAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerGdbPortNumber" value="3333"/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerLog" value=""/>
-<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerOther" value="-s /usr/share/openocd/scripts&#10;-f interface/stlink-v2.cfg&#10;-f target/stm32f1x.cfg&#10;-c &quot;transport select hla_swd&quot;&#10;-c &quot;reset_config none separate&quot;&#10;-c &quot;init&quot;&#10;-c &quot;reset halt&quot;"/>
+<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerOther" value="-s /usr/share/openocd/scripts&#10;-f interface/stlink-v2.cfg&#10;-f target/stm32f1x.cfg"/>
 <intAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerTelnetPortNumber" value="4444"/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.otherInitCommands" value=""/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.otherRunCommands" value=""/>
@@ -46,6 +46,7 @@
 <booleanAttribute key="org.eclipse.cdt.dsf.gdb.UPDATE_THREADLIST_ON_SUSPEND" value="false"/>
 <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
 <stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_REGISTER_GROUPS" value=""/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Debug/WaterCtrl_V1.elf"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="WaterCtrl_V1"/>
 <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="false"/>
@@ -59,5 +60,6 @@
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
 </listAttribute>
+<stringAttribute key="org.eclipse.dsf.launch.MEMORY_BLOCKS" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;memoryBlockExpressionList context=&quot;Context string&quot;/&gt;&#10;"/>
 <stringAttribute key="process_factory_id" value="org.eclipse.cdt.dsf.gdb.GdbProcessFactory"/>
 </launchConfiguration>

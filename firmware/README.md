@@ -48,3 +48,13 @@ In external tools there is a flash entry.
 |37      |PA14           |I/O   |SYS_JTCK-SWCLK|          |
 |42      |PB6            |I/O   |TIM4_CH1      |          |
 |46      |PB9            |Output|GPIO_Output   |LED_ERR   |
+
+# Flash current firmware
+We copy the current firmware into this folder, see the .bin files.
+
+To flash these firmares with Linux or OSX use the following command:
+```bash
+openocd -s /usr/share/openocd/scripts -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -c "reset_config none separate" -c "init" -c "reset halt" -c "flash write_image erase WaterCtrl_V1.bin 0x08000000" -c "reset run" -c shutdown
+```
+
+When using Windows, download the ST-Link utility. In the menu you can select a file to flash.
