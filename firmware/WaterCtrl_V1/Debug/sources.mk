@@ -27,7 +27,6 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-newlib \
 Src \
 Drivers/STM32F1xx_HAL_Driver/Src \
 Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates \

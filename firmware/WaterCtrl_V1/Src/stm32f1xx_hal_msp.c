@@ -122,10 +122,10 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
     /* Peripheral interrupt DeInit*/
     HAL_NVIC_DisableIRQ(SPI1_IRQn);
 
+  }
   /* USER CODE BEGIN SPI1_MspDeInit 1 */
 
   /* USER CODE END SPI1_MspDeInit 1 */
-  }
 
 }
 
@@ -160,7 +160,27 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef* htim_ic)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(htim_ic->Instance==TIM4)
+  if(htim_ic->Instance==TIM3)
+  {
+  /* USER CODE BEGIN TIM3_MspInit 0 */
+
+  /* USER CODE END TIM3_MspInit 0 */
+    /* Peripheral clock enable */
+    __TIM3_CLK_ENABLE();
+  
+    /**TIM3 GPIO Configuration    
+    PB0     ------> TIM3_CH3 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_0;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN TIM3_MspInit 1 */
+
+  /* USER CODE END TIM3_MspInit 1 */
+  }
+  else if(htim_ic->Instance==TIM4)
   {
   /* USER CODE BEGIN TIM4_MspInit 0 */
 
@@ -199,17 +219,34 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_1);
 
+  }
   /* USER CODE BEGIN TIM2_MspDeInit 1 */
 
   /* USER CODE END TIM2_MspDeInit 1 */
-  }
 
 }
 
 void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef* htim_ic)
 {
 
-  if(htim_ic->Instance==TIM4)
+  if(htim_ic->Instance==TIM3)
+  {
+  /* USER CODE BEGIN TIM3_MspDeInit 0 */
+
+  /* USER CODE END TIM3_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __TIM3_CLK_DISABLE();
+  
+    /**TIM3 GPIO Configuration    
+    PB0     ------> TIM3_CH3 
+    */
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_0);
+
+  /* USER CODE BEGIN TIM3_MspDeInit 1 */
+
+  /* USER CODE END TIM3_MspDeInit 1 */
+  }
+  else if(htim_ic->Instance==TIM4)
   {
   /* USER CODE BEGIN TIM4_MspDeInit 0 */
 
@@ -285,10 +322,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     /* Peripheral interrupt DeInit*/
     HAL_NVIC_DisableIRQ(USART1_IRQn);
 
+  }
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
-  }
 
 }
 
