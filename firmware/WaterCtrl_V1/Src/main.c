@@ -1,7 +1,10 @@
 /* Includes ------------------------------------------------------------------*/
+#include <spirecv.h>
 #include "stm32f1xx_hal.h"
 
+
 /* USER CODE BEGIN Includes */
+
 
 /* USER CODE END Includes */
 
@@ -35,6 +38,9 @@ static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN 0 */
 
+signed int printf(const char *pFormat, ...);
+
+
 /* USER CODE END 0 */
 
 int main(void) {
@@ -65,12 +71,26 @@ int main(void) {
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+
+
+    int a=2345;
+    printf("asd %i\t", a);
+
+    HAL_SPI_Receive_IT(&hspi1, spi_recvbuf, SPI_RECSIZE);
+
     while (1) {
+        /*
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
-        HAL_Delay(1000);
+        HAL_Delay(500);
 
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
-        HAL_Delay(1000);
+        HAL_Delay(500);
+        */
+
+
+        __NOP();
+
+
 
         /* USER CODE END WHILE */
 
@@ -213,7 +233,7 @@ void MX_TIM4_Init(void) {
 void MX_USART1_UART_Init(void) {
 
     huart1.Instance = USART1;
-    huart1.Init.BaudRate = 115200;
+    huart1.Init.BaudRate = 9600;
     huart1.Init.WordLength = UART_WORDLENGTH_8B;
     huart1.Init.StopBits = UART_STOPBITS_1;
     huart1.Init.Parity = UART_PARITY_NONE;
