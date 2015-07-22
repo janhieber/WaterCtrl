@@ -1,11 +1,24 @@
-This is the main firmware.
+# Firmware
+This is the firmware for the STM32.
 
-There should be low level functionality only.
-Every high level control is done by the rPi.
+# Flash current firmware
+We copy the current firmware into this folder, see the .bin files.
+
+To flash these firmares with Linux or OSX use the following command:
+```bash
+openocd -s /usr/share/openocd/scripts -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -c "reset_config none separate" -c "init" -c "reset halt" -c "flash write_image erase WaterCtrl_V1.bin 0x08000000" -c "reset run" -c shutdown
+```
+
+When using Windows, download the ST-Link utility. In the menu you can select a file to flash.
+
+
+# ToDo
+There should be low level functionality only.  
+*Every high level control is done by the rPi.*
 - [ ] Sensor measurement
 - [ ] motor control
 - [ ] UART logging/debugging
-- [ ] I2C or SPI for rPi communication
+- [ ] SPI for rPi communication
 - [ ] watchdog for rPi
 
 
@@ -14,50 +27,37 @@ I use this folder as eclipse workspace.
 
 # Dev environment
 
-Read "Dev Environment.pdf" in this folder, and/or follow
-the guide above.
-The PDF is not finished yet, but a lot better that this stuff here.
-The PDF was written for STM32F4 CPUs, we use STM32F0 CPU,
-remember this when following the guide in the PDF.
-A bettery version is coming soon.
+Read [Dev Environment.pdf](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/firmware/docu/Dev%20Environment.pdf)
+to setup Eclipse for the STM32.
 
-Install the following tools.
-On Linux systems many tools are in your distro repo.
-- Eclipse (eclipse)
-- Eclipse CDT (eclipse-cdt)
-- OpenOCD (openocd)
-- STLink v2 (stlink)
-- GNU ARM GCC embedded (arm-none-eabi-gcc, arm-none-eabi-gdb, arm-none-eabi-newlib, arm-none-eabi-binutils)
+Now switch your workspace to "firmware" folder of this project.  
 
-In Eclipse:
-Help > Install new software > work with: Luna ....
-In "Mobile and Device Development" select:
-- C/C++ GCC Cross Compiler Support
-- C/C++ GDB Hardware Debugging
-- C/C++ Memoryy View Enhancements
-and install them.
-
-In Eclipse:
-Help > Install new software > work with: Add new
-name: GNU ARM Eclipse Plug-ins
-location: http://gnuarmeclipse.sourceforge.net/updates
-Select all and install.
-
-Now switch your workspace to "firmware" folder of this project.
-In menu: Window > Open Perspective > Packs
-In middle window click on the two arrows with the tooltip: update the package definitions ....
-When finished switch to "Devices" on the left and select
-STMicroelectronics > STM32F0 Series
-In middle view rightclick on latest version and install.
-In status bar at the bottom you see the progress.
-
-When finished switch to C/C++ perspective,
-open project properties of "fw_v1" and go to
-C/C++ Build > Settings > Cross ARM GNU Create Flash Image > General
-Select "Raw Binary" as Output format.
-
-No you should be able to build the project.
+No you should be able to build the project.  
 In external tools there is a flash entry.
 
-For serial console, connect to TX/RX to PB6 and PB7.
+# CPU Pins
+
+|Position|Name           |Type  |Signal        |Label     |
+|--------|---------------|------|--------------|----------|
+|2       |PC13-TAMPER-RTC|Output|GPIO_Output   |RPI_NRST  |
+|3       |PC14-OSC32_IN  |Output|GPIO_Output   |PWM_A0    |
+|4       |PC15-OSC32_OUT |Output|GPIO_Output   |PWM_A1    |
+|5       |PD0-OSC_IN     |I/O   |RCC_OSC_IN    |          |
+|6       |PD1-OSC_OUT    |I/O   |RCC_OSC_OUT   |          |
+|10      |PA0-WKUP       |Output|GPIO_Output   |PWM_A2    |
+|11      |PA1            |I/O   |TIM2_CH2      |PWM       |
+|15      |PA5            |I/O   |SPI1_SCK      |          |
+|16      |PA6            |I/O   |SPI1_MISO     |          |
+|17      |PA7            |I/O   |SPI1_MOSI     |          |
+|18      |PB0            |I/O   |TIM3_CH3      |FREQ      |
+|19      |PB1            |Output|GPIO_Output   |SEN_A0    |
+|21      |PB10           |Output|GPIO_Output   |SEN_A1    |
+|22      |PB11           |Output|GPIO_Output   |SEN_A2    |
+|28      |PB15           |Output|GPIO_Output   |SEN_ENABLE|
+|30      |PA9            |I/O   |USART1_TX     |          |
+|31      |PA10           |I/O   |USART1_RX     |          |
+|34      |PA13           |I/O   |SYS_JTMS-SWDIO|          |
+|37      |PA14           |I/O   |SYS_JTCK-SWCLK|          |
+|42      |PB6            |I/O   |TIM4_CH1      |          |
+|46      |PB9            |Output|GPIO_Output   |LED_ERR   |
 

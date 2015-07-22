@@ -1,59 +1,65 @@
-News: Prototype PCB is here. Parts should arrive the next days.
-Rhen test and finetune some circuits, wires and other things.
-After that i'll order 10 peaces in china at dirtypcb.com
+News: First PCBs are ordered!
+
+
+# Progress
+First PCBs arrived!
+
+![PCBs](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb1.jpg)
 
 # Info
-This is the Eagle 6.x schematic/board for the main board.
+This is the Eagle 6.5 schematic/layout for the main board.
 
-When I'm working on the schematics I'll update the
-'schematic.pdf', 'board.pdf' and 'board.png' files.
-So you can watch the progress:
+When I'm working on schematics or layout I'll update the
+[schematic.pdf](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/schematic.pdf) and
+[board.png](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/board.png) files.
 
-https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/schematic.pdf
+Current layout
+![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/board.png)
 
-https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/board.pdf
+This is the STM32 board I have chosen.
+![stm32board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/stm32board.jpg)
 
-![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/board.png)
-
-# Nice Pics (prototype)
-Currently I'm assembling the prototype. This is really ugly because
-I have to solder many parts on top side, but on prototype i down have plated holes.
-So every connector, via etc. is really ugly. But the point is to figure out
-if its working, thats all. So don't blame me for this soldering :-)
-![PCB prototype](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/proto1.jpg "PCB prototype")
-
-![PCB top](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/top.jpg "PCB top")
-![PCB bottom](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/doc/bottom.jpg "PCB bottom")
+It has a low power ARM Cortex M3 CPU running at max 72MHz.  
+Should be enough for a PWM and frequency measurement.  
+It's very cheap (look on eBay) and has no useless peripherals.
 
 # Order PCBs
-To order PCBs you can simply send the Eagle files or generate the Gerber
-files and send it to your board house.
-For cheap PCBs you can order here:
-http://dirtypcbs.com/
-or here:
-http://www.elecrow.com/services-pcb-prototyping-c-73_116.html
+For cheap PCBs you can order here: [http://dirtypcbs.com](http://dirtypcbs.com)
 
 Because most people will [have to] order 5 or 10 pieces you can ask
-me if someone as some PCBs left. If you have PCBs left, please tell me via Github
+me if someone has some PCBs left. If you have PCBs left, please tell me via Github Issue
 or mail: mail at janhieber dot net
+
 
 # Order parts
 The parts are all from Reichelt (http://www.reichelt.de/) except the
-STM32F0 CPU which I ordered on eBay.
+STM32F1 CPU which I ordered on eBay.
 
 Every part in the schematic has a attribute "R" with the Reichelt
 part number as value.
 
-To generate a BOM do the following:
+To generate the BOM do the following:
  1. Open the schematic in Eagle
- 2. File > Export > BOM    or    Datei > Exportieren > BOM
- 3. I use "values" or "Werte" as list type.
- 4. Maybe Reichelt accepts this list if you ask nice :)
+ 2. File > Export > BOM
+ 3. Select "values" as list type
 
-If you are using Linux or Mac OSX you can use my order script, its called "orderBOM.sh"
-in this folder.
+Now, Reichelt expects a CSV file with the following format:  
+> DIODE GN;2  
+> SMD 0805 100K;12
 
-Simply go into this folder with your terminal and execute it: ./orderBOM.sh
+If you are working on Linux or Mac OSX you can execute this in a terminal:  
+```bash
+tail -n +2 BOM.csv | sed 's/\"//g' | awk -F ';' 'length($11)>0{print $11";"$1}' > BOM_reichelt.csv
+```
+
+*make sure you are in the directory where the BOM.csv is*
+
+Otherwise use Libreoffice or Excel etc to generate the list, or well, add everything
+manually to cart.
+
+Now register at Reichelt and login.  
+Click on your username on top and then "load cart" and import the CSV.
+
 
 # ToDo
 - [ ] Circuit for the moisture measurement (connectors, demultiplexer)
@@ -64,14 +70,17 @@ Simply go into this folder with your terminal and execute it: ./orderBOM.sh
   - [x] schematic
   - [x] routed
   - [ ] tested
-- [ ] Place ESP8266 module
-  - [x] schematic
-  - [x] routed
-- [ ] Power supply circuit for 3.3V
+- [ ] Power supply circuit for 5V
   - [x] schematic
   - [x] routed
   - [ ] tested
-- [ ] Wiring up the STM32F0 (Cs, crystal, etc...)
+- [ ] Wiring up the STM32 and rPi
+<<<<<<< HEAD
+  - [ ] schematic
+  - [ ] routed
+  - [ ] tested
+=======
   - [x] schematic
   - [x] routed
   - [ ] tested
+>>>>>>> ba06be28f703d0df5e12109daff27424b3daf9bc
