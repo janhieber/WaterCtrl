@@ -68,3 +68,5 @@ firmware/WaterCtrl_V1/Release/
 
 # libreoffice
 *.csv#
+
+RemoteSystemsTempFiles
