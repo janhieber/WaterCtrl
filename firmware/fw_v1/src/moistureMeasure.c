@@ -34,6 +34,9 @@
  *
  * 	Questions for implementation:
  * 	1. which frequency range is expected -> prescaler
+ * 	2. How to implement self stopping measure interval?
+ * 		a. How to stop the measurement between channels
+ *
  */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,6 +44,15 @@
 #define MOISTURE_MEASURE_CHANNEL_MAX 0x08u
 #define MOISTURE_MEASURE_STATE_INACTIVE 0x0000
 #define MOISTURE_MEASURE_STATE_ACTIVE 0x0001
+
+#define MOISTURE_MEASURE_CHANNEL0_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL1_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL2_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL3_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL4_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL5_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL6_ACTIVE
+#define MOISTURE_MEASURE_CHANNEL7_ACTIVE
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
@@ -60,7 +72,7 @@ extern uint_fast64_t getFrequencyOfChannel();
   * @param  None
   * @retval None
   */
-void TIM_Config(void);
+void TIM_MeasureInit(void);
 
 int startSensorCapture(int channel);
 
@@ -82,7 +94,7 @@ int startSensorCapture(int Sensor)
 {
 	// select input
 
-	TIM_Config();
+	TIM_MeasureInit();
 
 	Delay(500);
 
@@ -102,12 +114,10 @@ void printMoisture()
 	}
 }
 
-void TIM_Config(void)
+void TIM_MeasureInit(void)
 {
   TIM_ICInitTypeDef  TIM_ICInitSt;
-  TIM_TimeBaseInitTypeDef TIM_TimeBaseSt;
   GPIO_InitTypeDef GPIO_InitSt;
-  NVIC_InitTypeDef NVIC_InitSt;
 
   /* TIM1 clock enable */
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
@@ -122,14 +132,6 @@ void TIM_Config(void)
 
   /* Connect TIM pins to AF2 */
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_2);
-
-
-  //TIM_TimeBaseStructInit(&TIM_TimeBaseSt);
-
-  //TIM_TimeBaseSt.
-
-  //TIM_TimeBaseInit(TIM2,);
-
 
   /* TIM1 configuration: Input Capture mode ---------------------
      The external signal is connected to TIM1 CH2 pin (PA.09)
@@ -150,13 +152,17 @@ void TIM_Config(void)
 
   /* Enable the CC2 Interrupt Request */
   TIM_ITConfig(TIM1, TIM_IT_CC2, ENABLE);
-
-  /* Enable the TIM1 global Interrupt */
-  NVIC_InitSt.NVIC_IRQChannel = TIM1_CC_IRQn;
-  NVIC_InitSt.NVIC_IRQChannelPriority = 0;
-  NVIC_InitSt.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitSt);
-
 }
 
 
+void TIM_EnableMeasureInterrupt()
+{
+	  NVIC_InitTypeDef NVIC_InitSt;
+/* Enable the TIM1 global Interrupt */
+NVIC_InitSt.NVIC_IRQChannel = TIM1_CC_IRQn;
+NVIC_InitSt.NVIC_IRQChannelPriority = 0;
+NVIC_InitSt.NVIC_IRQChannelCmd = ENABLE;
+NVIC_Init(&NVIC_InitSt);
+
+return;
+}
