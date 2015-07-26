@@ -33,9 +33,9 @@
 		<item value="800" key="ListSashWeight"/>
 	</section>
 	<section name="org.eclipse.equinox.internal.p2.ui.dialogs.InstallWizard.WizardSettings">
-		<item value="1292" key="DIALOG_WIDTH"/>
-		<item value="1|DejaVu Sans|10.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
-		<item value="906" key="DIALOG_HEIGHT"/>
+		<item value="1314" key="DIALOG_WIDTH"/>
+		<item value="1|Sans|10.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="706" key="DIALOG_HEIGHT"/>
 		<item value="311" key="DIALOG_X_ORIGIN"/>
 		<item value="55" key="DIALOG_Y_ORIGIN"/>
 	</section>
