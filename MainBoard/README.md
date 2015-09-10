@@ -73,14 +73,8 @@ Click on your username on top and then "load cart" and import the CSV.
 - [ ] Power supply circuit for 5V
   - [x] schematic
   - [x] routed
-  - [ ] tested
+  - [x] tested
 - [ ] Wiring up the STM32 and rPi
-<<<<<<< HEAD
-  - [ ] schematic
-  - [ ] routed
-  - [ ] tested
-=======
   - [x] schematic
   - [x] routed
   - [ ] tested
->>>>>>> ba06be28f703d0df5e12109daff27424b3daf9bc
