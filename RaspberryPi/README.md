@@ -15,7 +15,7 @@ Now you should have root privileges.
 Go to your downloads folder and write the image with dd to your SD card:
 ```bash
 cd downloads
-dd if=WaterCtrl_rpi.img of=/dev/mmcblk0
+dd if=WaterCtrl_rpi.img of=/dev/mmcblk0 bs=4M
 sync
 ```
 
