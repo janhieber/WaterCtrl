@@ -38,7 +38,7 @@ The moisture measurement is done by a oscillating circuit that uses two
 big copper planes as capacitor in the soil.
 When the soil is wet the capacity is high and the frequency will be low.
 
-# More detailes
+# More details
 Please look in the subfolders for more informations,
 nice pictures and other stuff.
 
