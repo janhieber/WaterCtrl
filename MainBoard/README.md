@@ -7,7 +7,7 @@ First PCBs arrived!
 ![PCBs](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/pcb1.jpg)
 
 # Info
-This is the Eagle 6.5 schematic/layout for the main board.
+This is the Eagle schematic/layout for the main board.
 
 When I'm working on schematics or layout I'll update the
 [schematic.pdf](https://github.com/janhieber/WaterCtrl/raw/master/MainBoard/docu/schematic.pdf) and
@@ -16,11 +16,11 @@ When I'm working on schematics or layout I'll update the
 Current layout
 ![routed board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/board.png)
 
-This is the STM32 board I have chosen.
+This is the STM32 board I have chosen for low level work.
 ![stm32board](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MainBoard/docu/stm32board.jpg)
 
 It has a low power ARM Cortex M3 CPU running at max 72MHz.  
-Should be enough for a PWM and frequency measurement.  
+Should be enough for PWM and frequency measurement.  
 It's very cheap (look on eBay) and has no useless peripherals.
 
 # Order PCBs
@@ -33,9 +33,9 @@ or mail: mail at janhieber dot net
 
 # Order parts
 The parts are all from Reichelt (http://www.reichelt.de/) except the
-STM32F1 CPU which I ordered on eBay.
+STM32 board which I ordered on eBay.
 
-Every part in the schematic has a attribute "R" with the Reichelt
+Every part in the schematic has an attribute "R" with the Reichelt
 part number as value.
 
 To generate the BOM do the following:
@@ -54,11 +54,11 @@ tail -n +2 BOM.csv | sed 's/\"//g' | awk -F ';' 'length($11)>0{print $11";"$1}' 
 
 *make sure you are in the directory where the BOM.csv is*
 
-Otherwise use Libreoffice or Excel etc to generate the list, or well, add everything
+Otherwise use Libreoffice or Excel etc to generate the list, or add everything
 manually to cart.
 
 Now register at Reichelt and login.  
-Click on your username on top and then "load cart" and import the CSV.
+Click on your username on top and then "load cart" to import the CSV.
 
 
 # ToDo
@@ -70,17 +70,12 @@ Click on your username on top and then "load cart" and import the CSV.
   - [x] schematic
   - [x] routed
   - [ ] tested
-- [ ] Power supply circuit for 5V
+- [x] Power supply circuit for 5V
   - [x] schematic
   - [x] routed
-  - [ ] tested
+  - [x] tested
 - [ ] Wiring up the STM32 and rPi
-<<<<<<< HEAD
-  - [ ] schematic
-  - [ ] routed
-  - [ ] tested
-=======
   - [x] schematic
   - [x] routed
+  - [ ] SPI connection
   - [ ] tested
->>>>>>> ba06be28f703d0df5e12109daff27424b3daf9bc

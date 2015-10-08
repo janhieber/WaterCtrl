@@ -5,7 +5,9 @@
 
 /* USER CODE BEGIN Includes */
 
+#include "moistureMeasure.h"
 
+#define VERSION 1
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -66,6 +68,8 @@ int main(void) {
     MX_USART1_UART_Init();
 
     /* USER CODE BEGIN 2 */
+	printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
+	printf("\tSystem clock: %dMHz\r\n\r\n", SystemCoreClock/1000000);
 
     /* USER CODE END 2 */
 
@@ -77,6 +81,8 @@ int main(void) {
     printf("asd %i\t", a);
 
     HAL_SPI_Receive_IT(&hspi1, spi_recvbuf, SPI_RECSIZE);
+
+	initMoistureMeasure(&htim3);
 
     while (1) {
         /*
@@ -90,13 +96,15 @@ int main(void) {
 
         __NOP();
 
+        printMoisture();
+        HAL_Delay(1000);
+
 
 
         /* USER CODE END WHILE */
-
+    }
         /* USER CODE BEGIN 3 */
 
-    }
     /* USER CODE END 3 */
 
 }
