@@ -1,9 +1,13 @@
-/*
- * moistureMeasure.c
- *
- *  Created on: 24.04.2015
- *      Author: jan
- */
+/* ---------------------------------------------------------------------------
+** This software is in the public domain, furnished "as is", without technical
+** support, and with no warranty, express or implied, as to its usefulness for
+** any purpose.
+**
+** moistureMeasure.c
+** *see header file*
+**
+** Author: dropedout
+** -------------------------------------------------------------------------*/
 
 #include "stm32f1xx_hal.h"
 

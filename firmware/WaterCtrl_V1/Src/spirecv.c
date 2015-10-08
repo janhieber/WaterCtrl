@@ -1,9 +1,13 @@
-/*
- * spirecv.c
- *
- *  Created on: 20.07.2015
- *      Author: jan
- */
+/* ---------------------------------------------------------------------------
+** This software is in the public domain, furnished "as is", without technical
+** support, and with no warranty, express or implied, as to its usefulness for
+** any purpose.
+**
+** spirecv.c
+** *see header file*
+**
+** Author: Jan Hieber <mail@janhieber.net>
+** -------------------------------------------------------------------------*/
 
 #include <spirecv.h>
 #include "stm32f1xx_hal.h"

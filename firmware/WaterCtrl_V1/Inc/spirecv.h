@@ -1,9 +1,16 @@
-/*
- * spirecv.h
- *
- *  Created on: 20.07.2015
- *      Author: jan
- */
+/* ---------------------------------------------------------------------------
+** This software is in the public domain, furnished "as is", without technical
+** support, and with no warranty, express or implied, as to its usefulness for
+** any purpose.
+**
+** spirecv.h
+** Functions for SPI receiver.
+** - init/handle interrupts/DMA
+** - act on received messages
+** - send queued messages
+**
+** Author: Jan Hieber <mail@janhieber.net>
+** -------------------------------------------------------------------------*/
 
 #ifndef SPIRECV_H_
 #define SPIRECV_H_
