@@ -21,15 +21,6 @@
 #define SPI_RECSIZE 128
 uint8_t spi_recvbuf[SPI_RECSIZE];
 
-typedef enum {
-    SpiQueueSend = 0x1,
-    SpiQueueRecv = 0x1
-} SpiQueue;
-
-
-void spiQueueInit(void);
-void spiQueuePush(SpiQueue spiqueue, char *msg);
-char* spiQueuePop(SpiQueue spiqueue);
 
 
 
