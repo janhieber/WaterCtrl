@@ -52,7 +52,7 @@ void HAL_MspInit(void)
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
   /* System interrupt init*/
-/* SysTick_IRQn interrupt configuration */
+  /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
     /**NOJTAG: JTAG-DP Disabled and SW-DP Enabled 
@@ -180,26 +180,6 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef* htim_ic)
 
   /* USER CODE END TIM3_MspInit 1 */
   }
-  else if(htim_ic->Instance==TIM4)
-  {
-  /* USER CODE BEGIN TIM4_MspInit 0 */
-
-  /* USER CODE END TIM4_MspInit 0 */
-    /* Peripheral clock enable */
-    __TIM4_CLK_ENABLE();
-  
-    /**TIM4 GPIO Configuration    
-    PB6     ------> TIM4_CH1 
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_6;
-    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /* USER CODE BEGIN TIM4_MspInit 1 */
-
-  /* USER CODE END TIM4_MspInit 1 */
-  }
 
 }
 
@@ -242,27 +222,10 @@ void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef* htim_ic)
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_0);
 
+  }
   /* USER CODE BEGIN TIM3_MspDeInit 1 */
 
   /* USER CODE END TIM3_MspDeInit 1 */
-  }
-  else if(htim_ic->Instance==TIM4)
-  {
-  /* USER CODE BEGIN TIM4_MspDeInit 0 */
-
-  /* USER CODE END TIM4_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __TIM4_CLK_DISABLE();
-  
-    /**TIM4 GPIO Configuration    
-    PB6     ------> TIM4_CH1 
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_6);
-
-  /* USER CODE BEGIN TIM4_MspDeInit 1 */
-
-  /* USER CODE END TIM4_MspDeInit 1 */
-  }
 
 }
 

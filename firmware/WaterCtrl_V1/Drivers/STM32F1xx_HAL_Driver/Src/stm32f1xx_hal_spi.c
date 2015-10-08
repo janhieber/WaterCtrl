@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_spi.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   SPI HAL module driver.
   *    
   *          This file provides firmware functions to manage the following 
@@ -119,7 +119,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -264,7 +264,7 @@ __weak HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
   if(hspi->State == HAL_SPI_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    hspi-> Lock = HAL_UNLOCKED;
+    hspi->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC... */
     HAL_SPI_MspInit(hspi);

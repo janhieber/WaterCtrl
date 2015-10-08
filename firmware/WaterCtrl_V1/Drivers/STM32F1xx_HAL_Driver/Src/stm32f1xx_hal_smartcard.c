@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_smartcard.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   SMARTCARD HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the SMARTCARD peripheral:
@@ -103,7 +103,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -216,7 +216,7 @@ static HAL_StatusTypeDef SMARTCARD_WaitOnFlagUntilTimeout(SMARTCARD_HandleTypeDe
   [..]
   Please refer to the ISO 7816-3 specification for more details.
 
-    -@- It is also possible to choose 0.5 stop bit for receiving but it is recommended 
+    (@) It is also possible to choose 0.5 stop bit for receiving but it is recommended 
         to use 1.5 stop bits for both transmitting and receiving to avoid switching 
         between the two configurations.
   [..]
@@ -259,7 +259,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Init(SMARTCARD_HandleTypeDef *hsc)
   if(hsc->State == HAL_SMARTCARD_STATE_RESET)
   {  
     /* Allocate lock resource and initialize it */
-    hsc-> Lock = HAL_UNLOCKED;
+    hsc->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware */
     HAL_SMARTCARD_MspInit(hsc);
@@ -382,11 +382,12 @@ HAL_StatusTypeDef HAL_SMARTCARD_DeInit(SMARTCARD_HandleTypeDef *hsc)
     This subsection provides a set of functions allowing to manage the SMARTCARD data transfers.
 
   [..]
-    Smartcard is a single wire half duplex communication protocol. 
+    (#) Smartcard is a single wire half duplex communication protocol. 
     The Smartcard interface is designed to support asynchronous protocol Smartcards as
-    defined in the ISO 7816-3 standard. The USART should be configured as:
-    (+) 8 bits plus parity: where M=1 and PCE=1 in the USART_CR1 register
-    (+) 1.5 stop bits when transmitting and receiving: where STOP=11 in the USART_CR2 register.
+    defined in the ISO 7816-3 standard. 
+    (#) The USART should be configured as:
+        (++) 8 bits plus parity: where M=1 and PCE=1 in the USART_CR1 register
+        (++) 1.5 stop bits when transmitting and receiving: where STOP=11 in the USART_CR2 register.
 
     (#) There are two modes of transfer:
         (++) Blocking mode: The communication is performed in polling mode. 

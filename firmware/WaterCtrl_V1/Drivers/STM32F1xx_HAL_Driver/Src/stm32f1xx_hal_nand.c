@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_nand.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   NAND HAL module driver.
   *          This file provides a generic firmware to drive NAND memories mounted 
   *          as external device.
@@ -55,7 +55,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -167,7 +167,7 @@ HAL_StatusTypeDef  HAL_NAND_Init(NAND_HandleTypeDef *hnand, FSMC_NAND_PCC_Timing
   if(hnand->State == HAL_NAND_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    hnand-> Lock = HAL_UNLOCKED;
+    hnand->Lock = HAL_UNLOCKED;
     
     /* Initialize the low level hardware (MSP) */
     HAL_NAND_MspInit(hnand);
@@ -365,10 +365,10 @@ HAL_StatusTypeDef HAL_NAND_Read_ID(NAND_HandleTypeDef *hnand, NAND_IDTypeDef *pN
   data = *(__IO uint32_t *)deviceaddress;
   
   /* Return the data read */
-  pNAND_ID->Maker_Id   = __ADDR_1st_CYCLE(data);
-  pNAND_ID->Device_Id  = __ADDR_2nd_CYCLE(data);
-  pNAND_ID->Third_Id   = __ADDR_3rd_CYCLE(data);
-  pNAND_ID->Fourth_Id  = __ADDR_4th_CYCLE(data);
+  pNAND_ID->Maker_Id   = ADDR_1st_CYCLE(data);
+  pNAND_ID->Device_Id  = ADDR_2nd_CYCLE(data);
+  pNAND_ID->Third_Id   = ADDR_3rd_CYCLE(data);
+  pNAND_ID->Fourth_Id  = ADDR_4th_CYCLE(data);
   
   /* Update the NAND controller state */ 
   hnand->State = HAL_NAND_STATE_READY;
@@ -475,20 +475,20 @@ HAL_StatusTypeDef HAL_NAND_Read_Page(NAND_HandleTypeDef *hnand, NAND_AddressType
     size = hnand->Info.PageSize + ((hnand->Info.PageSize) * numpagesread);
     
     /* Get the address offset */
-    addressoffset = __ARRAY_ADDRESS(&nandaddress, hnand);
+    addressoffset = ARRAY_ADDRESS(&nandaddress, hnand);
     
     /* Send read page command sequence */
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_AREA_A;  
    
     *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = 0x00; 
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_1st_CYCLE(addressoffset); 
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_2nd_CYCLE(addressoffset); 
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_3rd_CYCLE(addressoffset);
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_1st_CYCLE(addressoffset); 
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_2nd_CYCLE(addressoffset); 
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_3rd_CYCLE(addressoffset);
   
     /* for 512 and 1 GB devices, 4th cycle is required */    
     if(hnand->Info.BlockNbr >= 1024)
     {
-      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_4th_CYCLE(addressoffset);
+      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_4th_CYCLE(addressoffset);
     }
   
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA))  = NAND_CMD_AREA_TRUE1;
@@ -570,21 +570,21 @@ HAL_StatusTypeDef HAL_NAND_Write_Page(NAND_HandleTypeDef *hnand, NAND_AddressTyp
     size = hnand->Info.PageSize + ((hnand->Info.PageSize) * numpageswritten);
     
     /* Get the address offset */
-    addressoffset = __ARRAY_ADDRESS(&nandaddress, hnand);
+    addressoffset = ARRAY_ADDRESS(&nandaddress, hnand);
     
     /* Send write page command sequence */
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_AREA_A;
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_WRITE0;
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = 0x00;  
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_1st_CYCLE(addressoffset);  
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_2nd_CYCLE(addressoffset);  
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_3rd_CYCLE(addressoffset);
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_1st_CYCLE(addressoffset);  
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_2nd_CYCLE(addressoffset);  
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_3rd_CYCLE(addressoffset);
   
     /* for 512 and 1 GB devices, 4th cycle is required */     
     if(hnand->Info.BlockNbr >= 1024)
     {
-      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_4th_CYCLE(addressoffset);
+      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_4th_CYCLE(addressoffset);
     }
   
     /* Write data to memory */
@@ -676,20 +676,20 @@ HAL_StatusTypeDef HAL_NAND_Read_SpareArea(NAND_HandleTypeDef *hnand, NAND_Addres
     size = (hnand->Info.SpareAreaSize) + ((hnand->Info.SpareAreaSize) * num_spare_area_read);   
 
     /* Get the address offset */
-    addressoffset = __ARRAY_ADDRESS(&nandaddress, hnand);
+    addressoffset = ARRAY_ADDRESS(&nandaddress, hnand);
     
     /* Send read spare area command sequence */     
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_AREA_C;
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = 0x00; 
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_1st_CYCLE(addressoffset);     
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_2nd_CYCLE(addressoffset);     
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_3rd_CYCLE(addressoffset);
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_1st_CYCLE(addressoffset);     
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_2nd_CYCLE(addressoffset);     
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_3rd_CYCLE(addressoffset);
   
     /* for 512 and 1 GB devices, 4th cycle is required */    
     if(hnand->Info.BlockNbr >= 1024)
     {
-      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_4th_CYCLE(addressoffset);
+      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_4th_CYCLE(addressoffset);
     } 
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_AREA_TRUE1;    
@@ -755,7 +755,7 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea(NAND_HandleTypeDef *hnand, NAND_Addre
     deviceaddress = NAND_DEVICE2;
   }
   
-  /* Update the FMC_NAND controller state */
+  /* Update the FSMC_NAND controller state */
   hnand->State = HAL_NAND_STATE_BUSY;  
   
   /* Save the content of pAddress as it will be modified */
@@ -770,21 +770,21 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea(NAND_HandleTypeDef *hnand, NAND_Addre
     size = (hnand->Info.SpareAreaSize) + ((hnand->Info.SpareAreaSize) * num_spare_area_written);
 
     /* Get the address offset */
-    addressoffset = __ARRAY_ADDRESS(&nandaddress, hnand);
+    addressoffset = ARRAY_ADDRESS(&nandaddress, hnand);
     
     /* Send write Spare area command sequence */
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_AREA_C;
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_WRITE0;
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = 0x00;  
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_1st_CYCLE(addressoffset);  
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_2nd_CYCLE(addressoffset);  
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_3rd_CYCLE(addressoffset); 
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_1st_CYCLE(addressoffset);  
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_2nd_CYCLE(addressoffset);  
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_3rd_CYCLE(addressoffset); 
   
     /* for 512 and 1 GB devices, 4th cycle is required */     
     if(hnand->Info.BlockNbr >= 1024)
     {
-      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_4th_CYCLE(addressoffset);
+      *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_4th_CYCLE(addressoffset);
     }
   
     /* Write data to memory */
@@ -863,14 +863,14 @@ HAL_StatusTypeDef HAL_NAND_Erase_Block(NAND_HandleTypeDef *hnand, NAND_AddressTy
   /* Send Erase block command sequence */
   *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_ERASE0;
 
-  *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_1st_CYCLE(__ARRAY_ADDRESS(pAddress, hnand));
-  *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_2nd_CYCLE(__ARRAY_ADDRESS(pAddress, hnand));
-  *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_3rd_CYCLE(__ARRAY_ADDRESS(pAddress, hnand));
+  *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_1st_CYCLE(ARRAY_ADDRESS(pAddress, hnand));
+  *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_2nd_CYCLE(ARRAY_ADDRESS(pAddress, hnand));
+  *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_3rd_CYCLE(ARRAY_ADDRESS(pAddress, hnand));
   
   /* for 512 and 1 GB devices, 4th cycle is required */     
   if(hnand->Info.BlockNbr >= 1024)
   {
-    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = __ADDR_4th_CYCLE(__ARRAY_ADDRESS(pAddress, hnand));
+    *(__IO uint8_t *)((uint32_t)(deviceaddress | ADDR_AREA)) = ADDR_4th_CYCLE(ARRAY_ADDRESS(pAddress, hnand));
   }  
     
   *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_ERASE1; 

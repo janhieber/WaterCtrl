@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_rcc_ex.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   Header file of RCC HAL Extension module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -62,19 +62,18 @@
 
 /* Alias word address of PLLI2SON bit */
 #define PLLI2SON_BITNUMBER           POSITION_VAL(RCC_CR_PLL3ON)
-#define RCC_CR_PLLI2SON_BB               ((uint32_t)(PERIPH_BB_BASE + (RCC_CR_OFFSET_BB * 32) + (PLLI2SON_BITNUMBER * 4)))
+#define RCC_CR_PLLI2SON_BB           ((uint32_t)(PERIPH_BB_BASE + (RCC_CR_OFFSET_BB * 32) + (PLLI2SON_BITNUMBER * 4)))
+/* Alias word address of PLL2ON bit */
+#define PLL2ON_BITNUMBER             POSITION_VAL(RCC_CR_PLL2ON)
+#define RCC_CR_PLL2ON_BB             ((uint32_t)(PERIPH_BB_BASE + (RCC_CR_OFFSET_BB * 32) + (PLL2ON_BITNUMBER * 4)))
 
-/** @defgroup RCCEx_PLL_Timeout PLL I2S Timeout
-  * @{
-  */
 #define PLLI2S_TIMEOUT_VALUE         ((uint32_t)100)  /* 100 ms */
-/**
-  * @}
-  */
+#define PLL2_TIMEOUT_VALUE           ((uint32_t)100)  /* 100 ms */
 
 #endif /* STM32F105xC || STM32F107xC */
 
-#define CR_REG_INDEX                     ((uint8_t)1)    
+
+#define CR_REG_INDEX                 ((uint8_t)1)    
 
 /**
   * @}
@@ -89,7 +88,8 @@
                                            ((__SOURCE__) == RCC_PREDIV1_SOURCE_PLL2))
 #endif /* STM32F105xC || STM32F107xC */
 
-#if defined(STM32F105xC) || defined(STM32F107xC) || defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F100xB)\
+ || defined(STM32F100xE)
 #define IS_RCC_HSE_PREDIV(__DIV__) (((__DIV__) == RCC_HSE_PREDIV_DIV1)  || ((__DIV__) == RCC_HSE_PREDIV_DIV2)  || \
                                     ((__DIV__) == RCC_HSE_PREDIV_DIV3)  || ((__DIV__) == RCC_HSE_PREDIV_DIV4)  || \
                                     ((__DIV__) == RCC_HSE_PREDIV_DIV5)  || ((__DIV__) == RCC_HSE_PREDIV_DIV6)  || \
@@ -139,7 +139,7 @@
 
 #define IS_RCC_I2S3CLKSOURCE(__SOURCE__) (((__SOURCE__) == RCC_I2S3CLKSOURCE_SYSCLK)  || ((__SOURCE__) == RCC_I2S3CLKSOURCE_PLLI2S_VCO))
 
-#define IS_RCC_USBPLLCLK_DIV(__USBCLK__) (((__USBCLK__) == RCC_USBPLLCLK_DIV2)  || ((__USBCLK__) == RCC_USBPLLCLK_DIV3))
+#define IS_RCC_USBPLLCLK_DIV(__USBCLK__) (((__USBCLK__) == RCC_USBCLKSOURCE_PLL_DIV2)  || ((__USBCLK__) == RCC_USBCLKSOURCE_PLL_DIV3))
 
 #define IS_RCC_PLLI2S_MUL(__MUL__) (((__MUL__) == RCC_PLLI2S_MUL8)   || ((__MUL__) == RCC_PLLI2S_MUL9)  || \
                                     ((__MUL__) == RCC_PLLI2S_MUL10)  || ((__MUL__) == RCC_PLLI2S_MUL11)  || \
@@ -186,7 +186,8 @@
                 (((__SELECTION__) & RCC_PERIPHCLK_USB)  == RCC_PERIPHCLK_USB))
 
 
-#elif defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB)
+#elif defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB)
 
 #define IS_RCC_PERIPHCLOCK(__SELECTION__)  \
                ((((__SELECTION__) & RCC_PERIPHCLK_RTC) == RCC_PERIPHCLK_RTC)  || \
@@ -201,9 +202,10 @@
 
 #endif /* STM32F105xC || STM32F107xC */
 
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
 
-#define IS_RCC_USBPLLCLK_DIV(__USBCLK__) (((__USBCLK__) == RCC_USBPLLCLK_DIV1)  || ((__USBCLK__) == RCC_USBPLLCLK_DIV1_5))
+#define IS_RCC_USBPLLCLK_DIV(__USBCLK__) (((__USBCLK__) == RCC_USBCLKSOURCE_PLL)  || ((__USBCLK__) == RCC_USBCLKSOURCE_PLL_DIV1_5))
 
 #endif /* STM32F102x6 || STM32F102xB || STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG */
 
@@ -252,13 +254,13 @@ typedef struct
 #endif /* STM32F105xC || STM32F107xC */
 
   uint32_t HSEState;              /*!< The new state of the HSE.
-                                       This parameter can be a value of @ref __HAL_RCC_HSE_CONFIG */
+                                       This parameter can be a value of @ref RCC_HSE_Config */
                           
   uint32_t HSEPredivValue;       /*!<  The Prediv1 factor value (named PREDIV1 or PLLXTPRE in RM)
                                        This parameter can be a value of @ref RCCEx_Prediv1_Factor */
 
   uint32_t LSEState;              /*!<  The new state of the LSE.
-                                        This parameter can be a value of @ref __HAL_RCC_LSE_CONFIG */
+                                        This parameter can be a value of @ref RCC_LSE_Config */
                                           
   uint32_t HSIState;              /*!< The new state of the HSI.
                                        This parameter can be a value of @ref RCC_HSI_Config */
@@ -307,22 +309,24 @@ typedef struct
   uint32_t AdcClockSelection;         /*!< ADC clock source      
                                        This parameter can be a value of @ref RCCEx_ADC_Prescaler */
 
-#if defined (STM32F103xE) || defined (STM32F103xG) || defined (STM32F105xC) || defined (STM32F107xC)
+#if defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
+ || defined(STM32F107xC)
   uint32_t I2s2ClockSelection;         /*!< I2S2 clock source
                                        This parameter can be a value of @ref RCCEx_I2S2_Clock_Source */
 
   uint32_t I2s3ClockSelection;         /*!< I2S3 clock source
                                        This parameter can be a value of @ref RCCEx_I2S3_Clock_Source */
   
-#if defined (STM32F105xC) || defined (STM32F107xC)
+#if defined(STM32F105xC) || defined(STM32F107xC)
   RCC_PLLI2SInitTypeDef PLLI2S;  /*!< PLL I2S structure parameters 
                                       This parameter will be used only when PLLI2S is selected as Clock Source I2S2 or I2S3 */
 
 #endif /* STM32F105xC || STM32F107xC */
 #endif /* STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
 
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || \
-    defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)\
+ || defined(STM32F105xC) || defined(STM32F107xC)
   uint32_t UsbClockSelection;         /*!< USB clock source      
                                        This parameter can be a value of @ref RCCEx_USB_Prescaler */
 
@@ -344,12 +348,14 @@ typedef struct
   */
 #define RCC_PERIPHCLK_RTC           ((uint32_t)0x00000001)
 #define RCC_PERIPHCLK_ADC           ((uint32_t)0x00000002)
-#if defined (STM32F103xE) || defined (STM32F103xG) || defined (STM32F105xC) || defined (STM32F107xC)
+#if defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
+ || defined(STM32F107xC)
 #define RCC_PERIPHCLK_I2S2          ((uint32_t)0x00000004)
 #define RCC_PERIPHCLK_I2S3          ((uint32_t)0x00000008)
 #endif /* STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || \
-    defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)\
+ || defined(STM32F105xC) || defined(STM32F107xC)
 #define RCC_PERIPHCLK_USB          ((uint32_t)0x00000010)
 #endif /* STM32F102x6 || STM32F102xB || STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
 
@@ -369,7 +375,8 @@ typedef struct
   * @}
   */
 
-#if defined (STM32F103xE) || defined (STM32F103xG) || defined (STM32F105xC) || defined (STM32F107xC)
+#if defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
+ || defined(STM32F107xC)
 /** @defgroup RCCEx_I2S2_Clock_Source I2S2 Clock Source
   * @{
   */
@@ -396,13 +403,14 @@ typedef struct
 
 #endif /* STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
 
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
 
 /** @defgroup RCCEx_USB_Prescaler USB Prescaler
   * @{
   */
-#define RCC_USBPLLCLK_DIV1              RCC_CFGR_USBPRE
-#define RCC_USBPLLCLK_DIV1_5            ((uint32_t)0x00000000)
+#define RCC_USBCLKSOURCE_PLL              RCC_CFGR_USBPRE
+#define RCC_USBCLKSOURCE_PLL_DIV1_5       ((uint32_t)0x00000000)
 
 /**
   * @}
@@ -415,8 +423,8 @@ typedef struct
 /** @defgroup RCCEx_USB_Prescaler USB Prescaler
   * @{
   */
-#define RCC_USBPLLCLK_DIV2              RCC_CFGR_OTGFSPRE
-#define RCC_USBPLLCLK_DIV3              ((uint32_t)0x00000000)
+#define RCC_USBCLKSOURCE_PLL_DIV2              RCC_CFGR_OTGFSPRE
+#define RCC_USBCLKSOURCE_PLL_DIV3              ((uint32_t)0x00000000)
 
 /**
   * @}
@@ -460,7 +468,8 @@ typedef struct
 
 #define RCC_HSE_PREDIV_DIV1              ((uint32_t)0x00000000)
 
-#if defined(STM32F105xC) || defined(STM32F107xC) || defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F100xB)\
+ || defined(STM32F100xE)
 #define RCC_HSE_PREDIV_DIV2              RCC_CFGR2_PREDIV1_DIV2
 #define RCC_HSE_PREDIV_DIV3              RCC_CFGR2_PREDIV1_DIV3
 #define RCC_HSE_PREDIV_DIV4              RCC_CFGR2_PREDIV1_DIV4
@@ -632,8 +641,9 @@ typedef struct
   * @{
   */
 
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || \
-    defined (STM32F105xC) || defined  (STM32F107xC) || defined  (STM32F100xE)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined(STM32F105xC) || defined  (STM32F107xC)\
+ || defined  (STM32F100xE)
 #define __HAL_RCC_DMA2_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->AHBENR, RCC_AHBENR_DMA2EN);\
@@ -645,7 +655,8 @@ typedef struct
 #define __HAL_RCC_DMA2_CLK_DISABLE()        (RCC->AHBENR &= ~(RCC_AHBENR_DMA2EN))
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG || STM32F105xC || STM32F107xC || STM32F100xE */
 
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || defined  (STM32F100xE)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined  (STM32F100xE)
 #define __HAL_RCC_FSMC_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->AHBENR, RCC_AHBENR_FSMCEN);\
@@ -657,7 +668,7 @@ typedef struct
 #define __HAL_RCC_FSMC_CLK_DISABLE()        (RCC->AHBENR &= ~(RCC_AHBENR_FSMCEN))
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG || STM32F100xE */
 
-#if defined (STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_SDIO_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->AHBENR, RCC_AHBENR_SDIOEN);\
@@ -743,16 +754,18 @@ typedef struct
   * @{
   */
 
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || \
-    defined (STM32F105xC) || defined  (STM32F107xC) || defined  (STM32F100xE)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined(STM32F105xC) || defined  (STM32F107xC)\
+ || defined  (STM32F100xE)
 #define __HAL_RCC_DMA2_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_DMA2EN)) != RESET)
 #define __HAL_RCC_DMA2_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_DMA2EN)) == RESET)
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG || STM32F105xC || STM32F107xC || STM32F100xE */
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || defined  (STM32F100xE)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined  (STM32F100xE)
 #define __HAL_RCC_FSMC_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_FSMCEN)) != RESET)
 #define __HAL_RCC_FSMC_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_FSMCEN)) == RESET)
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG || STM32F100xE */
-#if defined (STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_SDIO_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_SDIOEN)) != RESET)
 #define __HAL_RCC_SDIO_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_SDIOEN)) == RESET)
 #endif /* STM32F103xE || STM32F103xG */
@@ -781,8 +794,8 @@ typedef struct
   * @{   
   */
 
-#if defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \
-    defined(STM32F105xC) ||defined (STM32F107xC)
+#if defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE)\
+ || defined(STM32F103xG) || defined(STM32F105xC) ||defined(STM32F107xC)
 #define __HAL_RCC_CAN1_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB1ENR, RCC_APB1ENR_CAN1EN);\
@@ -794,9 +807,10 @@ typedef struct
 #define __HAL_RCC_CAN1_CLK_DISABLE()        (RCC->APB1ENR &= ~(RCC_APB1ENR_CAN1EN))
 #endif /* STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
 
-#if defined(STM32F100xB) || defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE) || \
-    defined(STM32F101xG) || defined(STM32F102xB) || defined(STM32F103xB) || defined(STM32F103xE) || \
-    defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F100xB) || defined(STM32F100xE) || defined(STM32F101xB)\
+ || defined(STM32F101xE) || defined(STM32F101xG) || defined(STM32F102xB)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)\
+ || defined(STM32F105xC) || defined(STM32F107xC)
 #define __HAL_RCC_TIM4_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB1ENR, RCC_APB1ENR_TIM4EN);\
@@ -835,7 +849,8 @@ typedef struct
 #define __HAL_RCC_I2C2_CLK_DISABLE()        (RCC->APB1ENR &= ~(RCC_APB1ENR_I2C2EN))
 #endif /* STM32F100xB || STM32F101xB || STM32F101xE || (...) || STM32F105xC || STM32F107xC */
 
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_USB_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB1ENR, RCC_APB1ENR_USBEN);\
@@ -847,8 +862,8 @@ typedef struct
 #define __HAL_RCC_USB_CLK_DISABLE()         (RCC->APB1ENR &= ~(RCC_APB1ENR_USBEN))
 #endif /* STM32F102x6 || STM32F102xB || STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG */
 
-#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || \
-    defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
 #define __HAL_RCC_TIM5_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB1ENR, RCC_APB1ENR_TIM5EN);\
@@ -1073,14 +1088,15 @@ typedef struct
   * @{
   */
 
-#if defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \
-    defined(STM32F105xC) ||defined (STM32F107xC)
+#if defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE)\
+ || defined(STM32F103xG) || defined(STM32F105xC) ||defined(STM32F107xC)
 #define __HAL_RCC_CAN1_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_CAN1EN)) != RESET)
 #define __HAL_RCC_CAN1_IS_CLK_DISABLED()      ((RCC->APB1ENR & (RCC_APB1ENR_CAN1EN)) == RESET)
 #endif /* STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
-#if defined(STM32F100xB) || defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE) || \
-    defined(STM32F101xG) || defined(STM32F102xB) || defined(STM32F103xB) || defined(STM32F103xE) || \
-    defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F100xB) || defined(STM32F100xE) || defined(STM32F101xB)\
+ || defined(STM32F101xE) || defined(STM32F101xG) || defined(STM32F102xB)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)\
+ || defined(STM32F105xC) || defined(STM32F107xC)
 #define __HAL_RCC_TIM4_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_TIM4EN)) != RESET)
 #define __HAL_RCC_TIM4_IS_CLK_DISABLED()      ((RCC->APB1ENR & (RCC_APB1ENR_TIM4EN)) == RESET)
 #define __HAL_RCC_SPI2_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_SPI2EN)) != RESET)
@@ -1090,12 +1106,13 @@ typedef struct
 #define __HAL_RCC_I2C2_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_I2C2EN)) != RESET)
 #define __HAL_RCC_I2C2_IS_CLK_DISABLED()      ((RCC->APB1ENR & (RCC_APB1ENR_I2C2EN)) == RESET)
 #endif /* STM32F100xB || STM32F101xB || STM32F101xE || (...) || STM32F105xC || STM32F107xC */
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_USB_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_USBEN)) != RESET)
 #define __HAL_RCC_USB_IS_CLK_DISABLED()      ((RCC->APB1ENR & (RCC_APB1ENR_USBEN)) == RESET)
 #endif /* STM32F102x6 || STM32F102xB || STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG */
-#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || \
-    defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
 #define __HAL_RCC_TIM5_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_TIM5EN)) != RESET)
 #define __HAL_RCC_TIM5_IS_CLK_DISABLED()      ((RCC->APB1ENR & (RCC_APB1ENR_TIM5EN)) == RESET)
 #define __HAL_RCC_TIM6_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_TIM6EN)) != RESET)
@@ -1162,8 +1179,9 @@ typedef struct
   * @{   
   */
 
-#if defined(STM32F101xG) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F105xC) || \
-    defined(STM32F107xC) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F101xG) || defined(STM32F103x6) || defined(STM32F103xB)\
+ || defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F103xE)\
+ || defined(STM32F103xG)
 #define __HAL_RCC_ADC2_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB2ENR, RCC_APB2ENR_ADC2EN);\
@@ -1175,7 +1193,7 @@ typedef struct
 #define __HAL_RCC_ADC2_CLK_DISABLE()        (RCC->APB2ENR &= ~(RCC_APB2ENR_ADC2EN))
 #endif /* STM32F101xG || STM32F103x6 || STM32F103xB || STM32F105xC || STM32F107xC || STM32F103xE || STM32F103xG */
 
-#if defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F100xB) || defined(STM32F100xE)
 #define __HAL_RCC_TIM15_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB2ENR, RCC_APB2ENR_TIM15EN);\
@@ -1205,9 +1223,10 @@ typedef struct
 #define __HAL_RCC_TIM17_CLK_DISABLE()       (RCC->APB2ENR &= ~(RCC_APB2ENR_TIM17EN))
 #endif /* STM32F100xB || STM32F100xE */
 
-#if defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE) || defined(STM32F101xG) || \
-    defined(STM32F100xB) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \
-    defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE)\
+ || defined(STM32F101xG) || defined(STM32F100xB) || defined(STM32F103xB)\
+ || defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
+ || defined(STM32F107xC)
 #define __HAL_RCC_GPIOE_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPEEN);\
@@ -1219,7 +1238,8 @@ typedef struct
 #define __HAL_RCC_GPIOE_CLK_DISABLE()       (RCC->APB2ENR &= ~(RCC_APB2ENR_IOPEEN))
 #endif /* STM32F101x6 || STM32F101xB || STM32F101xE || (...) || STM32F105xC || STM32F107xC */
 
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG)
 #define __HAL_RCC_GPIOF_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPFEN);\
@@ -1240,7 +1260,7 @@ typedef struct
 #define __HAL_RCC_GPIOG_CLK_DISABLE()       (RCC->APB2ENR &= ~(RCC_APB2ENR_IOPGEN))
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG*/
 
-#if defined (STM32F103xE) || defined (STM32F103xG)
+#if defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_TIM8_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB2ENR, RCC_APB2ENR_TIM8EN);\
@@ -1261,7 +1281,7 @@ typedef struct
 #define __HAL_RCC_ADC3_CLK_DISABLE()        (RCC->APB2ENR &= ~(RCC_APB2ENR_ADC3EN))
 #endif /* STM32F103xE || STM32F103xG */
 
-#if defined (STM32F100xE)
+#if defined(STM32F100xE)
 #define __HAL_RCC_GPIOF_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPFEN);\
@@ -1324,12 +1344,13 @@ typedef struct
   * @{
   */
 
-#if defined(STM32F101xG) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F105xC) || \
-    defined(STM32F107xC) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F101xG) || defined(STM32F103x6) || defined(STM32F103xB)\
+ || defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F103xE)\
+ || defined(STM32F103xG)
 #define __HAL_RCC_ADC2_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_ADC2EN)) != RESET)
 #define __HAL_RCC_ADC2_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_ADC2EN)) == RESET)
 #endif /* STM32F101xG || STM32F103x6 || STM32F103xB || STM32F105xC || STM32F107xC || STM32F103xE || STM32F103xG */
-#if defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F100xB) || defined(STM32F100xE)
 #define __HAL_RCC_TIM15_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_TIM15EN)) != RESET)
 #define __HAL_RCC_TIM15_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_TIM15EN)) == RESET)
 #define __HAL_RCC_TIM16_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_TIM16EN)) != RESET)
@@ -1337,25 +1358,27 @@ typedef struct
 #define __HAL_RCC_TIM17_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_TIM17EN)) != RESET)
 #define __HAL_RCC_TIM17_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_TIM17EN)) == RESET)
 #endif /* STM32F100xB || STM32F100xE */
-#if defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE) || defined(STM32F101xG) || \
-    defined(STM32F100xB) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \
-    defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE)\
+ || defined(STM32F101xG) || defined(STM32F100xB) || defined(STM32F103xB)\
+ || defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
+ || defined(STM32F107xC)
 #define __HAL_RCC_GPIOE_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_IOPEEN)) != RESET)
 #define __HAL_RCC_GPIOE_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_IOPEEN)) == RESET)
 #endif /* STM32F101x6 || STM32F101xB || STM32F101xE || (...) || STM32F105xC || STM32F107xC */
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG)
 #define __HAL_RCC_GPIOF_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_IOPFEN)) != RESET)
 #define __HAL_RCC_GPIOF_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_IOPFEN)) == RESET)
 #define __HAL_RCC_GPIOG_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_IOPGEN)) != RESET)
 #define __HAL_RCC_GPIOG_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_IOPGEN)) == RESET)
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG*/
-#if defined (STM32F103xE) || defined (STM32F103xG)
+#if defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_TIM8_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_TIM8EN)) != RESET)
 #define __HAL_RCC_TIM8_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_TIM8EN)) == RESET)
 #define __HAL_RCC_ADC3_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_ADC3EN)) != RESET)
 #define __HAL_RCC_ADC3_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_ADC3EN)) == RESET)
 #endif /* STM32F103xE || STM32F103xG */
-#if defined (STM32F100xE)
+#if defined(STM32F100xE)
 #define __HAL_RCC_GPIOF_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_IOPFEN)) != RESET)
 #define __HAL_RCC_GPIOF_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_IOPFEN)) == RESET)
 #define __HAL_RCC_GPIOG_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_IOPGEN)) != RESET)
@@ -1401,16 +1424,17 @@ typedef struct
   * @{   
   */
 
-#if defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \
-    defined(STM32F105xC) ||defined (STM32F107xC)
+#if defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE)\
+ || defined(STM32F103xG) || defined(STM32F105xC) ||defined(STM32F107xC)
 #define __HAL_RCC_CAN1_FORCE_RESET()        (RCC->APB1RSTR |= (RCC_APB1RSTR_CAN1RST))
 
 #define __HAL_RCC_CAN1_RELEASE_RESET()      (RCC->APB1RSTR &= ~(RCC_APB1RSTR_CAN1RST))
 #endif /* STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG || STM32F105xC || STM32F107xC */
 
-#if defined(STM32F100xB) || defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE) || \
-    defined(STM32F101xG) || defined(STM32F102xB) || defined(STM32F103xB) || defined(STM32F103xE) || \
-    defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F100xB) || defined(STM32F100xE) || defined(STM32F101xB)\
+ || defined(STM32F101xE) || defined(STM32F101xG) || defined(STM32F102xB)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)\
+ || defined(STM32F105xC) || defined(STM32F107xC)
 #define __HAL_RCC_TIM4_FORCE_RESET()        (RCC->APB1RSTR |= (RCC_APB1RSTR_TIM4RST))
 #define __HAL_RCC_SPI2_FORCE_RESET()        (RCC->APB1RSTR |= (RCC_APB1RSTR_SPI2RST))
 #define __HAL_RCC_USART3_FORCE_RESET()      (RCC->APB1RSTR |= (RCC_APB1RSTR_USART3RST))
@@ -1422,13 +1446,14 @@ typedef struct
 #define __HAL_RCC_I2C2_RELEASE_RESET()      (RCC->APB1RSTR &= ~(RCC_APB1RSTR_I2C2RST))
 #endif /* STM32F100xB || STM32F101xB || STM32F101xE || (...) || STM32F105xC || STM32F107xC */
 
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_USB_FORCE_RESET()         (RCC->APB1RSTR |= (RCC_APB1RSTR_USBRST))
 #define __HAL_RCC_USB_RELEASE_RESET()       (RCC->APB1RSTR &= ~(RCC_APB1RSTR_USBRST))
 #endif /* STM32F102x6 || STM32F102xB || STM32F103x6 || STM32F103xB || STM32F103xE || STM32F103xG */
 
-#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG) || \
-    defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG) || defined(STM32F105xC) || defined(STM32F107xC)
 #define __HAL_RCC_TIM5_FORCE_RESET()        (RCC->APB1RSTR |= (RCC_APB1RSTR_TIM5RST))
 #define __HAL_RCC_TIM6_FORCE_RESET()        (RCC->APB1RSTR |= (RCC_APB1RSTR_TIM6RST))
 #define __HAL_RCC_TIM7_FORCE_RESET()        (RCC->APB1RSTR |= (RCC_APB1RSTR_TIM7RST))
@@ -1501,14 +1526,15 @@ typedef struct
   * @{   
   */
 
-#if defined(STM32F101xG) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F105xC) || \
-    defined(STM32F107xC) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F101xG) || defined(STM32F103x6) || defined(STM32F103xB)\
+ || defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F103xE)\
+ || defined(STM32F103xG)
 #define __HAL_RCC_ADC2_FORCE_RESET()        (RCC->APB2RSTR |= (RCC_APB2RSTR_ADC2RST))
 
 #define __HAL_RCC_ADC2_RELEASE_RESET()      (RCC->APB2RSTR &= ~(RCC_APB2RSTR_ADC2RST))
 #endif /* STM32F101xG || STM32F103x6 || STM32F103xB || STM32F105xC || STM32F107xC || STM32F103xE || STM32F103xG */
 
-#if defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F100xB) || defined(STM32F100xE)
 #define __HAL_RCC_TIM15_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_TIM15RST))
 #define __HAL_RCC_TIM16_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_TIM16RST))
 #define __HAL_RCC_TIM17_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_TIM17RST))
@@ -1518,15 +1544,17 @@ typedef struct
 #define __HAL_RCC_TIM17_RELEASE_RESET()     (RCC->APB2RSTR &= ~(RCC_APB2RSTR_TIM17RST))
 #endif /* STM32F100xB || STM32F100xE */
 
-#if defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE) || defined(STM32F101xG) || \
-    defined(STM32F100xB) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \
-    defined(STM32F105xC) || defined(STM32F107xC)
+#if defined(STM32F100xE) || defined(STM32F101xB) || defined(STM32F101xE)\
+ || defined(STM32F101xG) || defined(STM32F100xB) || defined(STM32F103xB)\
+ || defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
+ || defined(STM32F107xC)
 #define __HAL_RCC_GPIOE_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_IOPERST))
 
 #define __HAL_RCC_GPIOE_RELEASE_RESET()     (RCC->APB2RSTR &= ~(RCC_APB2RSTR_IOPERST))
 #endif /* STM32F101x6 || STM32F101xB || STM32F101xE || (...) || STM32F105xC || STM32F107xC */
 
-#if defined (STM32F101xE) || defined (STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG)
+#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG)\
+ || defined(STM32F103xG)
 #define __HAL_RCC_GPIOF_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_IOPFRST))
 #define __HAL_RCC_GPIOG_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_IOPGRST))
 
@@ -1534,7 +1562,7 @@ typedef struct
 #define __HAL_RCC_GPIOG_RELEASE_RESET()     (RCC->APB2RSTR &= ~(RCC_APB2RSTR_IOPGRST))
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG*/
 
-#if defined (STM32F103xE) || defined (STM32F103xG)
+#if defined(STM32F103xE) || defined(STM32F103xG)
 #define __HAL_RCC_TIM8_FORCE_RESET()        (RCC->APB2RSTR |= (RCC_APB2RSTR_TIM8RST))
 #define __HAL_RCC_ADC3_FORCE_RESET()        (RCC->APB2RSTR |= (RCC_APB2RSTR_ADC3RST))
 
@@ -1542,7 +1570,7 @@ typedef struct
 #define __HAL_RCC_ADC3_RELEASE_RESET()      (RCC->APB2RSTR &= ~(RCC_APB2RSTR_ADC3RST))
 #endif /* STM32F103xE || STM32F103xG */
 
-#if defined (STM32F100xE)
+#if defined(STM32F100xE)
 #define __HAL_RCC_GPIOF_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_IOPFRST))
 #define __HAL_RCC_GPIOG_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_IOPGRST))
 
@@ -1568,7 +1596,8 @@ typedef struct
   * @{   
   */ 
 
-#if defined(STM32F105xC) || defined(STM32F107xC) || defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F100xB)\
+ || defined(STM32F100xE)
 /**
   * @brief  Macro to configure the External High Speed oscillator (HSE) Predivision factor for PLL.
   * @note   Predivision factor can not be changed if PLL is used as system clock
@@ -1592,7 +1621,8 @@ typedef struct
 
 #endif /* STM32F105xC || STM32F107xC */
 
-#if defined(STM32F105xC) || defined(STM32F107xC) || defined (STM32F100xB) || defined (STM32F100xE)
+#if defined(STM32F105xC) || defined(STM32F107xC) || defined(STM32F100xB)\
+ || defined(STM32F100xE)
 /**
   * @brief  Macro to get prediv1 factor for PLL.
   */
@@ -1658,20 +1688,21 @@ typedef struct
   * @{
   */  
 
-#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
+#if defined(STM32F102x6) || defined(STM32F102xB) || defined(STM32F103x6)\
+ || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG)
 /** @brief  Macro to configure the USB clock.
   * @param  __USBCLKSOURCE__: specifies the USB clock source.
   *          This parameter can be one of the following values:
-  *            @arg RCC_USBPLLCLK_DIV1: PLL clock divided by 1 selected as USB clock
-  *            @arg RCC_USBPLLCLK_DIV1_5: PLL clock divided by 1.5 selected as USB clock
+  *            @arg RCC_USBCLKSOURCE_PLL: PLL clock divided by 1 selected as USB clock
+  *            @arg RCC_USBCLKSOURCE_PLL_DIV1_5: PLL clock divided by 1.5 selected as USB clock
   */
 #define __HAL_RCC_USB_CONFIG(__USBCLKSOURCE__) \
                   MODIFY_REG(RCC->CFGR, RCC_CFGR_USBPRE, (uint32_t)(__USBCLKSOURCE__))
 
 /** @brief  Macro to get the USB clock (USBCLK).
   * @retval The clock source can be one of the following values:
-  *            @arg RCC_USBPLLCLK_DIV1: PLL clock divided by 1 selected as USB clock
-  *            @arg RCC_USBPLLCLK_DIV1_5: PLL clock divided by 1.5 selected as USB clock
+  *            @arg RCC_USBCLKSOURCE_PLL: PLL clock divided by 1 selected as USB clock
+  *            @arg RCC_USBCLKSOURCE_PLL_DIV1_5: PLL clock divided by 1.5 selected as USB clock
   */
 #define __HAL_RCC_GET_USB_SOURCE() ((uint32_t)(READ_BIT(RCC->CFGR, RCC_CFGR_USBPRE)))
 
@@ -1682,16 +1713,16 @@ typedef struct
 /** @brief  Macro to configure the USB OTSclock.
   * @param  __USBCLKSOURCE__: specifies the USB clock source.
   *          This parameter can be one of the following values:
-  *            @arg RCC_USBPLLCLK_DIV2: PLL clock divided by 2 selected as USB OTG FS clock
-  *            @arg RCC_USBPLLCLK_DIV3: PLL clock divided by 3 selected as USB OTG FS clock
+  *            @arg RCC_USBCLKSOURCE_PLL_DIV2: PLL clock divided by 2 selected as USB OTG FS clock
+  *            @arg RCC_USBCLKSOURCE_PLL_DIV3: PLL clock divided by 3 selected as USB OTG FS clock
   */
 #define __HAL_RCC_USB_CONFIG(__USBCLKSOURCE__) \
                   MODIFY_REG(RCC->CFGR, RCC_CFGR_OTGFSPRE, (uint32_t)(__USBCLKSOURCE__))
 
 /** @brief  Macro to get the USB clock (USBCLK).
   * @retval The clock source can be one of the following values:
-  *            @arg RCC_USBPLLCLK_DIV2: PLL clock divided by 2 selected as USB OTG FS clock
-  *            @arg RCC_USBPLLCLK_DIV3: PLL clock divided by 3 selected as USB OTG FS clock
+  *            @arg RCC_USBCLKSOURCE_PLL_DIV2: PLL clock divided by 2 selected as USB OTG FS clock
+  *            @arg RCC_USBCLKSOURCE_PLL_DIV3: PLL clock divided by 3 selected as USB OTG FS clock
   */
 #define __HAL_RCC_GET_USB_SOURCE() ((uint32_t)(READ_BIT(RCC->CFGR, RCC_CFGR_OTGFSPRE)))
 
@@ -1757,13 +1788,13 @@ typedef struct
   *         be used as system clock source.
   * @note   The main PLL2 is disabled by hardware when entering STOP and STANDBY modes.
   */
-#define __HAL_RCC_PLL2_ENABLE()          (*(__IO uint32_t *) CR_PLL2ON_BB = ENABLE)
+#define __HAL_RCC_PLL2_ENABLE()          (*(__IO uint32_t *) RCC_CR_PLL2ON_BB = ENABLE)
 
 /** @brief Macros to disable the main PLL2.
   * @note   The main PLL2 can not be disabled if it is used indirectly as system clock source
   * @note   The main PLL2 is disabled by hardware when entering STOP and STANDBY modes.
   */
-#define __HAL_RCC_PLL2_DISABLE()         (*(__IO uint32_t *) CR_PLL2ON_BB = DISABLE)
+#define __HAL_RCC_PLL2_DISABLE()         (*(__IO uint32_t *) RCC_CR_PLL2ON_BB = DISABLE)
 
 /** @brief macros to configure the main PLL2 multiplication factor.
   * @note   This function must be used only when the main PLL2 is disabled.

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_dac_ex.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   DAC HAL module driver.
   *         This file provides firmware functions to manage the following 
   *         functionalities of DAC extension peripheral:
@@ -25,7 +25,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -152,7 +152,7 @@ HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef* hdac, uint32
   hdac->State = HAL_DAC_STATE_BUSY;
   
   /* Enable the selected wave generation for the selected DAC channel */
-  MODIFY_REG(hdac->Instance->CR, ((DAC_CR_WAVE1)|(DAC_CR_MAMP1))<<Channel, (DAC_WAVE_TRIANGLE | Amplitude) << Channel);
+  MODIFY_REG(hdac->Instance->CR, ((DAC_CR_WAVE1)|(DAC_CR_MAMP1))<<Channel, (DAC_CR_WAVE1_1 | Amplitude) << Channel);
   
   /* Change DAC state */
   hdac->State = HAL_DAC_STATE_READY;
@@ -200,8 +200,8 @@ HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef* hdac, uint32_t 
   hdac->State = HAL_DAC_STATE_BUSY;
   
   /* Enable the selected wave generation for the selected DAC channel */
-  MODIFY_REG(hdac->Instance->CR, ((DAC_CR_WAVE1)|(DAC_CR_MAMP1))<<Channel, (DAC_WAVE_NOISE | Amplitude) << Channel);
-  
+  MODIFY_REG(hdac->Instance->CR, ((DAC_CR_WAVE1)|(DAC_CR_MAMP1))<<Channel, (DAC_CR_WAVE1_0 | Amplitude) << Channel);
+ 
   /* Change DAC state */
   hdac->State = HAL_DAC_STATE_READY;
   

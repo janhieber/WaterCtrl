@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_can.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   CAN HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Controller Area Network (CAN) peripheral:           
@@ -73,7 +73,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -197,7 +197,7 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef* hcan)
   if(hcan->State == HAL_CAN_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    hcan-> Lock = HAL_UNLOCKED;
+    hcan->Lock = HAL_UNLOCKED;
     /* Init the low level hardware */
     HAL_CAN_MspInit(hcan);
   }
