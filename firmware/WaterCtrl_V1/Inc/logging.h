@@ -12,8 +12,6 @@
 #ifndef LOGGING_H
 #define LOGGING_H
 
-// when changing this, also change in printf.c!
-#define UART_MAX_SIZE 128
 
 typedef enum {
     LogError = 0x0,

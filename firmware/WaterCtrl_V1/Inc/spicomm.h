@@ -18,11 +18,10 @@
 #include <stdint.h>
 
 
-#define SPI_RECSIZE 128
-uint8_t spi_recvbuf[SPI_RECSIZE];
+#define SPI_SENDBUF_SIZE 16
+#define SPI_RECVBUF_SIZE 16
 
-
-
+void spiQueueInit();
 
 
 #endif /* SPICOMM_H_ */

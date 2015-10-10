@@ -14,7 +14,7 @@
 LogDestination log_destination = LogDstSerConsole;
 
 void log(LogLevel loglevel, char* msg){
-    if (strlen(msg) >= UART_MAX_SIZE) return;
+    if (strlen(msg) > STR_MAX_SIZE) return;
 
     switch (log_destination) {
     case LogDstSerConsole:

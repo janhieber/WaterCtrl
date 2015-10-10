@@ -11,6 +11,9 @@
  ** -------------------------------------------------------------------------*/
 
 /* Includes ------------------------------------------------------------------*/
+
+#include <stdbool.h>
+#include <string.h>
 #include "stm32f1xx_hal.h"
 
 /* USER CODE BEGIN Includes */
@@ -50,14 +53,70 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+#define SCHED_PERIOD 250
+#define SCHED_MAX_TASKS 16
+
 
 signed int printf(const char *pFormat, ...);
+
+volatile int32_t cycleTicker;
+
+volatile uint8_t spisend[16];
+volatile uint8_t spirecv[16];
+volatile uint8_t uartsend[16];
+volatile bool uartsend_new;
+
+void (*schedTasks[SCHED_MAX_TASKS])(void);
+
+void IncCycleTicker(void) {
+    cycleTicker--;
+}
+
+void cycleError(void) {
+    log(LogError, "Scheduler overrun!");
+}
+
+void schedTrap(void) {
+    log(LogError, "Scheduler trap! This should not happen!");
+}
+void schedInit(void) {
+    uint8_t i;
+    for(i=0; i<SCHED_MAX_TASKS; i++)
+        schedTasks[i] = &schedTrap;
+}
+void schedAddTask(void (*schedTask)(void)) {
+    uint8_t i;
+    for(i=0; i<SCHED_MAX_TASKS; i++){
+        if((&schedTrap) == schedTasks[i]) {
+            schedTasks[i] = schedTask;
+            return;
+        }
+    }
+    log(LogError, "Scheduler task list full!");
+}
+
+void uartTest(void) {
+    if (uartsend_new) {
+        HAL_UART_Transmit(&huart1, spirecv, sizeof(spirecv), 50);
+        uartsend_new = false;
+    }
+}
+
+void ledBink(void) {
+    // LED blinker, user like it when LEDs blink cyclic
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+    HAL_Delay(10);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+}
 
 /* USER CODE END 0 */
 
 int main(void) {
 
     /* USER CODE BEGIN 1 */
+
+
+
     spiQueueInit();
     /* USER CODE END 1 */
 
@@ -80,44 +139,53 @@ int main(void) {
     printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
     printf("\tSystem clock: %dMHz\r\n\r\n", SystemCoreClock / 1000000);
 
+
+
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
 
-    int a = 2345;
-    printf("asd %i\t", a);
+    // fill scheduler
+    schedAddTask(&ledBink);
+    schedAddTask(&uartTest);
 
     //initMoistureMeasure(&htim3);
+    uartsend_new = false;
+    strcpy(spisend, "Hello test\r\n");
+    HAL_SPI_TransmitReceive_IT(&hspi1, spisend, spirecv, sizeof(spisend));
 
-    spiQueuePush(SpiQueueSend, "Test 1");
-    spiQueuePush(SpiQueueSend, "Test 2 - adssss das dadasd adsd");
-    spiQueuePush(SpiQueueSend, "Test 3");
-
-    char *msg = spiQueuePop(SpiQueueSend);
-    while(msg) {
-        printf("%s", msg);
-        free(msg);
-        msg = spiQueuePop(SpiQueueSend);
-    }
-
-    while(1){};
-
+    // reset cyclick Ticker
+    cycleTicker = SCHED_PERIOD;
     while (1) {
-        /*
-         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
-         HAL_Delay(500);
+        if (cycleTicker <= 0) {
+            // check for overrun
+            if (cycleTicker < -1)
+                cycleError();
+            else
+                cycleTicker = SCHED_PERIOD;
 
-         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
-         HAL_Delay(500);
-         */
 
-        uint8_t spisend[16] = "Hello RPi\r\n";
-        uint8_t spirecv[16] = { 0, };
+
+            // call scheduled tasks
+            uint8_t i;
+            for(i=0; i<SCHED_MAX_TASKS; i++){
+                if((&schedTrap) != schedTasks[i])
+                    (*schedTasks[i])();
+            }
+            ledBink();
+
+        };
+
+        //
+
+        //uint8_t spisend[16] = "Hello RPi\r\n";
+        //uint8_t spirecv[16] = { 0, };
         // send/receive SPI message
-        HAL_SPI_TransmitReceive(&hspi1, spisend, spirecv, sizeof(spisend), 800);
+        //HAL_SPI_TransmitReceive(&hspi1, spisend, spirecv, sizeof(spisend), 800);
+
         // print SPI message to UART
-        HAL_UART_Transmit(&huart1, spirecv, sizeof(spirecv), 50);
+        //HAL_UART_Transmit(&huart1, spirecv, sizeof(spirecv), 50);
 
         //printMoisture();
         //HAL_Delay(50);

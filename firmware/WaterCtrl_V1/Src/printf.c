@@ -34,7 +34,7 @@ void PrintChar(char c) {
 }
 
 /** Maximum string size allowed (in bytes). */
-#define MAX_STRING_SIZE         128
+uint8_t MAX_STRING_SIZE = STR_MAX_SIZE+1;
 
 /**********************************
  * CONFIGURE HERE - END
