@@ -36,7 +36,7 @@
 #include "stm32f1xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+void IncCycleTicker();
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -59,7 +59,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  IncCycleTicker();
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -90,7 +90,7 @@ void TIM3_IRQHandler(void)
 void SPI1_IRQHandler(void)
 {
   /* USER CODE BEGIN SPI1_IRQn 0 */
-
+  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
   /* USER CODE END SPI1_IRQn 0 */
   HAL_SPI_IRQHandler(&hspi1);
   /* USER CODE BEGIN SPI1_IRQn 1 */

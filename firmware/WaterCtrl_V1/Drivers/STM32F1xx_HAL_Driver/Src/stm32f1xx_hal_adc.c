@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_adc.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Analog to Digital Convertor (ADC)
   *          peripheral:
@@ -24,9 +24,9 @@
   *
   @verbatim
   ==============================================================================
-                    ##### ADC peripheral features #####
+                     ##### ADC peripheral features #####
   ==============================================================================
-  [..] 
+  [..]
   (+) 12-bit resolution
 
   (+) Interrupt generation at the end of regular conversion, end of injected
@@ -34,16 +34,16 @@
   
   (+) Single and continuous conversion modes.
   
-  (+) Scan mode for automatic conversion of channel 0 to channel 'n'.
+  (+) Scan mode for conversion of several channels sequentially.
   
   (+) Data alignment with in-built data coherency.
   
-  (+) Channel-wise programmable sampling time.
+  (+) Programmable sampling time (channel wise)
   
-  (+) ADC conversion Regular or Injected groups.
+  (+) ADC conversion of regular group and injected group.
 
-  (+) External trigger (timer or EXTI) with configurable polarity for both  
-      regular and injected groups.
+  (+) External trigger (timer or EXTI) 
+      for both regular and injected groups.
 
   (+) DMA request generation for transfer of conversions data of regular group.
 
@@ -64,7 +64,7 @@
       Vdda or to an external voltage reference).
 
 
-                      ##### How to use this driver #####
+                     ##### How to use this driver #####
   ==============================================================================
     [..]
 
@@ -77,10 +77,10 @@
            Caution: On STM32F1, ADC clock frequency max is 14MHz (refer
                     to device datasheet).
                     Therefore, ADC clock prescaler must be configured in 
-                    function of ADC clock source frequency to remain 
-                    below this maximum frequency.
-        (++) One clock setting is mandatory: 
-             ADC clock (core and conversion clock).
+                    function of ADC clock source frequency to remain below
+                    this maximum frequency.
+        (++) One clock setting is mandatory:
+             ADC clock (core clock, also possibly conversion clock).
              (+++) Example:
                    Into HAL_ADC_MspInit() (recommended code location) or with
                    other device clock parameters configuration:
@@ -95,7 +95,7 @@
               using macro __HAL_RCC_GPIOx_CLK_ENABLE()
          (++) Configure these ADC pins in analog mode
               using function HAL_GPIO_Init()
-  
+
     (#) Optionally, in case of usage of ADC with interruptions:
          (++) Configure the NVIC for ADC
               using function HAL_NVIC_EnableIRQ(ADCx_IRQn)
@@ -111,14 +111,13 @@
          (++) Insert the ADC interruption handler function HAL_ADC_IRQHandler() 
               into the function of corresponding DMA interruption vector 
               DMAx_Channelx_IRQHandler().
-  
+
      *** Configuration of ADC, groups regular/injected, channels parameters ***
      ==========================================================================
      [..]
 
     (#) Configure the ADC parameters (resolution, data alignment, ...)
-        and regular group parameters (conversion trigger, sequencer, ...,
-        of regular group)
+        and regular group parameters (conversion trigger, sequencer, ...)
         using function HAL_ADC_Init().
 
     (#) Configure the channels for regular group parameters (channel number, 
@@ -248,7 +247,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -288,7 +287,7 @@
   */
 
 #ifdef HAL_ADC_MODULE_ENABLED
-    
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /** @defgroup ADC_Private_Constants ADC Private Constants
@@ -397,7 +396,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     assert_param(IS_ADC_REGULAR_NB_CONV(hadc->Init.NbrOfConversion));
     assert_param(IS_FUNCTIONAL_STATE(hadc->Init.DiscontinuousConvMode));
     assert_param(IS_ADC_REGULAR_DISCONT_NUMBER(hadc->Init.NbrOfDiscConversion));
-  } 
+  }
   
   /* As prerequisite, into HAL_ADC_MspInit(), ADC clock must be configured    */
   /* at RCC top level.                                                        */
@@ -408,9 +407,12 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
   /* - Initialization of ADC MSP                                              */
   if (hadc->State == HAL_ADC_STATE_RESET)
   {
+    /* Initialize ADC error code */
+    ADC_CLEAR_ERRORCODE(hadc);
+    
     /* Allocate lock resource and initialize it */
-    hadc-> Lock = HAL_UNLOCKED;
-
+    hadc->Lock = HAL_UNLOCKED;
+    
     /* Init the low level hardware */
     HAL_ADC_MspInit(hadc);
   }
@@ -425,11 +427,14 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
   
   /* Configuration of ADC parameters if previous preliminary actions are      */ 
   /* correctly completed.                                                     */
-  if (tmp_hal_status != HAL_ERROR)
+  if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL) &&
+      (tmp_hal_status == HAL_OK)                                  )
   {
-    /* Initialize the ADC state */
-    hadc->State = HAL_ADC_STATE_BUSY;
-
+    /* Set ADC state */
+    ADC_STATE_CLR_SET(hadc->State,
+                      HAL_ADC_STATE_REG_BUSY | HAL_ADC_STATE_INJ_BUSY,
+                      HAL_ADC_STATE_BUSY_INTERNAL);
+    
     /* Set ADC parameters */
     
     /* Configuration of ADC:                                                  */
@@ -451,15 +456,28 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     /*  - discontinuous mode disable/enable                                   */
     /*  - discontinuous mode number of conversions                            */
     tmp_cr1 |= (ADC_CR1_SCAN_SET(hadc->Init.ScanConvMode));
-
+    
     /* Enable discontinuous mode only if continuous mode is disabled */
-    if ((hadc->Init.DiscontinuousConvMode == ENABLE) &&
-        (hadc->Init.ContinuousConvMode == DISABLE)     )
-    {    
-      /* Enable the selected ADC regular discontinuous mode */
-      /* Set the number of channels to be converted in discontinuous mode */
-      tmp_cr1 |= (ADC_CR1_DISCEN                                           |
-                  ADC_CR1_DISCONTINUOUS_NUM(hadc->Init.NbrOfDiscConversion) );
+    if (hadc->Init.DiscontinuousConvMode == ENABLE)
+    {
+      if (hadc->Init.ContinuousConvMode == DISABLE)
+      {
+        /* Enable the selected ADC regular discontinuous mode */
+        /* Set the number of channels to be converted in discontinuous mode */
+        SET_BIT(tmp_cr1, ADC_CR1_DISCEN                                            |
+                         ADC_CR1_DISCONTINUOUS_NUM(hadc->Init.NbrOfDiscConversion)  );
+      }
+      else
+      {
+        /* ADC regular group settings continuous and sequencer discontinuous*/
+        /* cannot be enabled simultaneously.                                */
+        
+        /* Update ADC state machine to error */
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_CONFIG);
+        
+        /* Set ADC error code to ADC IP internal error */
+        SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_INTERNAL);
+      }
     }
     
     /* Update ADC configuration register CR1 with previous settings */
@@ -498,9 +516,10 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     /* Check back that ADC registers have effectively been configured to      */
     /* ensure of no potential problem of ADC core IP clocking.                */
     /* Check through register CR2 (excluding bits set in other functions:     */
-    /* execution control bits (ADON, JSWSTART, SWSTART), injected group bits  */
-    /* (JEXTTRIG and JEXTSEL), channel internal measurement path bit (TSVREFE)*/
-    if (READ_BIT(hadc->Instance->CR2, ~(ADC_CR2_ADON |
+    /* execution control bits (ADON, JSWSTART, SWSTART), regular group bits   */
+    /* (DMA), injected group bits (JEXTTRIG and JEXTSEL), channel internal    */
+    /* measurement path bit (TSVREFE).                                        */
+    if (READ_BIT(hadc->Instance->CR2, ~(ADC_CR2_ADON | ADC_CR2_DMA |
                                         ADC_CR2_SWSTART | ADC_CR2_JSWSTART |
                                         ADC_CR2_JEXTTRIG | ADC_CR2_JEXTSEL |
                                         ADC_CR2_TSVREFE                     ))
@@ -509,16 +528,20 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
       /* Set ADC error code to none */
       ADC_CLEAR_ERRORCODE(hadc);
       
-      /* Initialize the ADC state */
-      hadc->State = HAL_ADC_STATE_READY;
+      /* Set the ADC state */
+      ADC_STATE_CLR_SET(hadc->State,
+                        HAL_ADC_STATE_BUSY_INTERNAL,
+                        HAL_ADC_STATE_READY);
     }
     else
     {
       /* Update ADC state machine to error */
-      hadc->State = HAL_ADC_STATE_ERROR;
+      ADC_STATE_CLR_SET(hadc->State,
+                        HAL_ADC_STATE_BUSY_INTERNAL,
+                        HAL_ADC_STATE_ERROR_INTERNAL);
       
       /* Set ADC error code to ADC IP internal error */
-      hadc->ErrorCode |= HAL_ADC_ERROR_INTERNAL;
+      SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_INTERNAL);
       
       tmp_hal_status = HAL_ERROR;
     }
@@ -527,7 +550,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
   else
   {
     /* Update ADC state machine to error */
-    hadc->State = HAL_ADC_STATE_ERROR;
+    SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL);
         
     tmp_hal_status = HAL_ERROR;
   }
@@ -557,8 +580,8 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   
-  /* Change ADC state */
-  hadc->State = HAL_ADC_STATE_BUSY;
+  /* Set ADC state */
+  SET_BIT(hadc->State, HAL_ADC_STATE_BUSY_INTERNAL);
   
   /* Stop potential conversion on going, on regular and injected groups */
   /* Disable ADC peripheral */
@@ -567,7 +590,7 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef* hadc)
   
   /* Configuration of ADC parameters if previous preliminary actions are      */ 
   /* correctly completed.                                                     */
-  if (tmp_hal_status != HAL_ERROR)
+  if (tmp_hal_status == HAL_OK)
   {
     /* ========== Reset ADC registers ========== */
 
@@ -665,7 +688,7 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef* hadc)
     /* Set ADC error code to none */
     ADC_CLEAR_ERRORCODE(hadc);
     
-    /* Change ADC state */
+    /* Set ADC state */
     hadc->State = HAL_ADC_STATE_RESET; 
   
   }
@@ -747,29 +770,61 @@ HAL_StatusTypeDef HAL_ADC_Start(ADC_HandleTypeDef* hadc)
   tmp_hal_status = ADC_Enable(hadc);
   
   /* Start conversion if ADC is effectively enabled */
-  if (tmp_hal_status != HAL_ERROR)
+  if (tmp_hal_status == HAL_OK)
   {
-    /* State machine update: Check if an injected conversion is ongoing */
-    if(hadc->State == HAL_ADC_STATE_BUSY_INJ)
+    /* Set ADC state                                                          */
+    /* - Clear state bitfield related to regular group conversion results     */
+    /* - Set state bitfield related to regular operation                      */
+    ADC_STATE_CLR_SET(hadc->State,
+                      HAL_ADC_STATE_READY | HAL_ADC_STATE_REG_EOC,
+                      HAL_ADC_STATE_REG_BUSY);
+    
+    /* Set group injected state (from auto-injection) and multimode state     */
+    /* for all cases of multimode: independent mode, multimode ADC master     */
+    /* or multimode ADC slave (for devices with several ADCs):                */
+    if (ADC_NONMULTIMODE_OR_MULTIMODEMASTER(hadc))
     {
-      /* Change ADC state */
-      hadc->State = HAL_ADC_STATE_BUSY_INJ_REG;  
+      /* Set ADC state (ADC independent or master) */
+      CLEAR_BIT(hadc->State, HAL_ADC_STATE_MULTIMODE_SLAVE);
+      
+      /* If conversions on group regular are also triggering group injected,  */
+      /* update ADC state.                                                    */
+      if (READ_BIT(hadc->Instance->CR1, ADC_CR1_JAUTO) != RESET)
+      {
+        ADC_STATE_CLR_SET(hadc->State, HAL_ADC_STATE_INJ_EOC, HAL_ADC_STATE_INJ_BUSY);  
+      }
     }
     else
     {
-      /* Change ADC state */
-      hadc->State = HAL_ADC_STATE_BUSY_REG;
+      /* Set ADC state (ADC slave) */
+      SET_BIT(hadc->State, HAL_ADC_STATE_MULTIMODE_SLAVE);
+      
+      /* If conversions on group regular are also triggering group injected,  */
+      /* update ADC state.                                                    */
+      if (ADC_MULTIMODE_AUTO_INJECTED(hadc))
+      {
+        ADC_STATE_CLR_SET(hadc->State, HAL_ADC_STATE_INJ_EOC, HAL_ADC_STATE_INJ_BUSY);
+      }
     }
-
+    
+    /* State machine update: Check if an injected conversion is ongoing */
+    if (HAL_IS_BIT_SET(hadc->State, HAL_ADC_STATE_INJ_BUSY))
+    {
+      /* Reset ADC error code fields related to conversions on group regular */
+      CLEAR_BIT(hadc->ErrorCode, (HAL_ADC_ERROR_OVR | HAL_ADC_ERROR_DMA));         
+    }
+    else
+    {
+      /* Reset ADC all error code fields */
+      ADC_CLEAR_ERRORCODE(hadc);
+    }
+    
     /* Process unlocked */
     /* Unlock before starting ADC conversions: in case of potential           */
     /* interruption, to let the process to ADC IRQ Handler.                   */
     __HAL_UNLOCK(hadc);
-    
-    /* Set ADC error code to none */
-    ADC_CLEAR_ERRORCODE(hadc);
   
-    /* Clear regular group conversion flag and overrun flag */
+    /* Clear regular group conversion flag */
     /* (To ensure of no unknown state from potential previous ADC operations) */
     __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_EOC);
     
@@ -777,9 +832,10 @@ HAL_StatusTypeDef HAL_ADC_Start(ADC_HandleTypeDef* hadc)
     /* If software start has been selected, conversion starts immediately.    */
     /* If external trigger has been selected, conversion will start at next   */
     /* trigger event.                                                         */
-    /* Case of multimode enabled (for devices with several ADCs): if ADC is   */
-    /* slave, ADC is enabled only (conversion is not started). If ADC is      */
-    /* master, ADC is enabled and conversion is started.                      */
+    /* Case of multimode enabled:                                             */ 
+    /*  - if ADC is slave, ADC is enabled only (conversion is not started).   */
+    /*  - if ADC is master, ADC is enabled and conversion is started.         */
+    /* If ADC is master, ADC is enabled and conversion is started.            */
     /* Note: Alternate trigger for single conversion could be to force an     */
     /*       additional set of bit ADON "hadc->Instance->CR2 |= ADC_CR2_ADON;"*/
     if (ADC_IS_SOFTWARE_START_REGULAR(hadc)      &&
@@ -828,10 +884,12 @@ HAL_StatusTypeDef HAL_ADC_Stop(ADC_HandleTypeDef* hadc)
   tmp_hal_status = ADC_ConversionStop_Disable(hadc);
   
   /* Check if ADC is effectively disabled */
-  if (tmp_hal_status != HAL_ERROR)
+  if (tmp_hal_status == HAL_OK)
   {
-    /* Change ADC state */
-    hadc->State = HAL_ADC_STATE_READY;
+    /* Set ADC state */
+    ADC_STATE_CLR_SET(hadc->State,
+                      HAL_ADC_STATE_REG_BUSY | HAL_ADC_STATE_INJ_BUSY,
+                      HAL_ADC_STATE_READY);
   }
   
   /* Process unlocked */
@@ -843,6 +901,14 @@ HAL_StatusTypeDef HAL_ADC_Stop(ADC_HandleTypeDef* hadc)
 
 /**
   * @brief  Wait for regular group conversion to be completed.
+  * @note   This function cannot be used in a particular setup: ADC configured 
+  *         in DMA mode.
+  *         In this case, DMA resets the flag EOC and polling cannot be
+  *         performed on each conversion.
+  * @note   On STM32F1 devices, limitation in case of sequencer enabled
+  *         (several ranks selected): polling cannot be done on each 
+  *         conversion inside the sequence. In this case, polling is replaced by
+  *         wait for maximum conversion time.
   * @param  hadc: ADC handle
   * @param  Timeout: Timeout value in millisecond.
   * @retval HAL status
@@ -859,20 +925,37 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   
-  /* Get timeout */
+  /* Get tick count */
   tickstart = HAL_GetTick();
+  
+  /* Verification that ADC configuration is compliant with polling for        */
+  /* each conversion:                                                         */
+  /* Particular case is ADC configured in DMA mode                            */
+  if (HAL_IS_BIT_SET(hadc->Instance->CR2, ADC_CR2_DMA))
+  {
+    /* Update ADC state machine to error */
+    SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_CONFIG);
+    
+    /* Process unlocked */
+    __HAL_UNLOCK(hadc);
+    
+    return HAL_ERROR;
+  }
   
   /* Polling for end of conversion: differentiation if single/sequence        */
   /* conversion.                                                              */
   /*  - If single conversion for regular group (Scan mode disabled or enabled */
   /*    with NbrOfConversion =1), flag EOC is used to determine the           */
   /*    conversion completion.                                                */
-  /*  - If sequence conversion for regular group, flag EOC is set only a the  */
-  /*    end of the sequence. To poll for each conversion, the maximum         */
-  /*    conversion time is calculated from ADC conversion time (selected      */
-  /*    sampling time + conversion time of 12.5 ADC clock cycles) and         */
-  /*    APB2/ADC clock prescalers (depending on settings, conversion time     */
-  /*    range can be from 28 to 32256 CPU cycles).                            */
+  /*  - If sequence conversion for regular group (scan mode enabled and       */
+  /*    NbrOfConversion >=2), flag EOC is set only at the end of the          */
+  /*    sequence.                                                             */
+  /*    To poll for each conversion, the maximum conversion time is computed  */
+  /*    from ADC conversion time (selected sampling time + conversion time of */
+  /*    12.5 ADC clock cycles) and APB2/ADC clock prescalers (depending on    */
+  /*    settings, conversion time range can be from 28 to 32256 CPU cycles).  */
+  /*    As flag EOC is not set after each conversion, no timeout status can   */
+  /*    be set.                                                               */
   if (HAL_IS_BIT_CLR(hadc->Instance->CR1, ADC_CR1_SCAN) &&
       HAL_IS_BIT_CLR(hadc->Instance->SQR1, ADC_SQR1_L)    )
   {
@@ -885,26 +968,26 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
         if((Timeout == 0) || ((HAL_GetTick() - tickstart ) > Timeout))
         {
           /* Update ADC state machine to timeout */
-          hadc->State = HAL_ADC_STATE_TIMEOUT;
+          SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
           
           /* Process unlocked */
           __HAL_UNLOCK(hadc);
           
-          return HAL_ERROR;
+          return HAL_TIMEOUT;
         }
       }
     }
   }
   else
   {
-    /* Poll with maximum conversion time */
+    /* Replace polling by wait for maximum conversion time */
     /*  - Computation of CPU clock cycles corresponding to ADC clock cycles   */
     /*    and ADC maximum conversion cycles on all channels.                  */
     /*  - Wait for the expected ADC clock cycles delay                        */
     Conversion_Timeout_CPU_cycles_max = ((SystemCoreClock
                                           / HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_ADC))
                                          * ADC_CONVCYCLES_MAX_RANGE(hadc)                 );
-
+    
     while(Conversion_Timeout_CPU_cycles < Conversion_Timeout_CPU_cycles_max)
     {
       /* Check if timeout is disabled (set to infinite wait) */
@@ -913,12 +996,12 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
         if((Timeout == 0) || ((HAL_GetTick() - tickstart) > Timeout))
         {
           /* Update ADC state machine to timeout */
-          hadc->State = HAL_ADC_STATE_TIMEOUT;
+          SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
           
           /* Process unlocked */
           __HAL_UNLOCK(hadc);
           
-          return HAL_ERROR;
+          return HAL_TIMEOUT;
         }
       }
       Conversion_Timeout_CPU_cycles ++;
@@ -928,23 +1011,23 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
   /* Clear regular group conversion flag */
   __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_STRT | ADC_FLAG_EOC);
   
-  /* Update state machine on conversion status if not in error state */
-  if(hadc->State != HAL_ADC_STATE_ERROR)
-  {
-    /* Update ADC state machine */
-    if(hadc->State != HAL_ADC_STATE_EOC_INJ_REG)
-    {
-      /* Check if a conversion is ready on injected group */
-      if(hadc->State == HAL_ADC_STATE_EOC_INJ)
-      {
-        /* Change ADC state */
-        hadc->State = HAL_ADC_STATE_EOC_INJ_REG;  
-      }
-      else
-      {
-        /* Change ADC state */
-        hadc->State = HAL_ADC_STATE_EOC_REG;
-      }
+  /* Update ADC state machine */
+  SET_BIT(hadc->State, HAL_ADC_STATE_REG_EOC);
+  
+  /* Determine whether any further conversion upcoming on group regular       */
+  /* by external trigger, continuous mode or scan sequence on going.          */
+  /* Note: On STM32F1 devices, in case of sequencer enabled                   */
+  /*       (several ranks selected), end of conversion flag is raised         */
+  /*       at the end of the sequence.                                        */
+  if(ADC_IS_SOFTWARE_START_REGULAR(hadc)        && 
+     (hadc->Init.ContinuousConvMode == DISABLE)   )
+  {   
+    /* Set ADC state */
+    CLEAR_BIT(hadc->State, HAL_ADC_STATE_REG_BUSY);   
+
+    if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_INJ_BUSY))
+    { 
+      SET_BIT(hadc->State, HAL_ADC_STATE_READY);
     }
   }
   
@@ -969,7 +1052,7 @@ HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventTy
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   assert_param(IS_ADC_EVENT_TYPE(EventType));
   
-  /* Get start tick count */
+  /* Get tick count */
   tickstart = HAL_GetTick();
       
   /* Check selected event flag */
@@ -981,7 +1064,7 @@ HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventTy
       if((Timeout == 0) || ((HAL_GetTick() - tickstart ) > Timeout))
       {
         /* Update ADC state machine to timeout */
-        hadc->State = HAL_ADC_STATE_TIMEOUT;
+        SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
         
         /* Process unlocked */
         __HAL_UNLOCK(hadc);
@@ -992,8 +1075,8 @@ HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventTy
   }
   
   /* Analog watchdog (level out of window) event */
-  /* Change ADC state */
-  hadc->State = HAL_ADC_STATE_AWD;
+  /* Set ADC state */
+  SET_BIT(hadc->State, HAL_ADC_STATE_AWD1);
     
   /* Clear ADC analog watchdog flag */
   __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_AWD);
@@ -1024,27 +1107,59 @@ HAL_StatusTypeDef HAL_ADC_Start_IT(ADC_HandleTypeDef* hadc)
   tmp_hal_status = ADC_Enable(hadc);
   
   /* Start conversion if ADC is effectively enabled */
-  if (tmp_hal_status != HAL_ERROR)
+  if (tmp_hal_status == HAL_OK)
   {
-    /* State machine update: Check if an injected conversion is ongoing */
-    if(hadc->State == HAL_ADC_STATE_BUSY_INJ)
+    /* Set ADC state                                                          */
+    /* - Clear state bitfield related to regular group conversion results     */
+    /* - Set state bitfield related to regular operation                      */
+    ADC_STATE_CLR_SET(hadc->State,
+                      HAL_ADC_STATE_READY | HAL_ADC_STATE_REG_EOC | HAL_ADC_STATE_REG_OVR | HAL_ADC_STATE_REG_EOSMP,
+                      HAL_ADC_STATE_REG_BUSY);
+    
+    /* Set group injected state (from auto-injection) and multimode state     */
+    /* for all cases of multimode: independent mode, multimode ADC master     */
+    /* or multimode ADC slave (for devices with several ADCs):                */
+    if (ADC_NONMULTIMODE_OR_MULTIMODEMASTER(hadc))
     {
-      /* Change ADC state */
-      hadc->State = HAL_ADC_STATE_BUSY_INJ_REG;  
+      /* Set ADC state (ADC independent or master) */
+      CLEAR_BIT(hadc->State, HAL_ADC_STATE_MULTIMODE_SLAVE);
+      
+      /* If conversions on group regular are also triggering group injected,  */
+      /* update ADC state.                                                    */
+      if (READ_BIT(hadc->Instance->CR1, ADC_CR1_JAUTO) != RESET)
+      {
+        ADC_STATE_CLR_SET(hadc->State, HAL_ADC_STATE_INJ_EOC, HAL_ADC_STATE_INJ_BUSY);  
+      }
     }
     else
     {
-      /* Change ADC state */
-      hadc->State = HAL_ADC_STATE_BUSY_REG;
+      /* Set ADC state (ADC slave) */
+      SET_BIT(hadc->State, HAL_ADC_STATE_MULTIMODE_SLAVE);
+      
+      /* If conversions on group regular are also triggering group injected,  */
+      /* update ADC state.                                                    */
+      if (ADC_MULTIMODE_AUTO_INJECTED(hadc))
+      {
+        ADC_STATE_CLR_SET(hadc->State, HAL_ADC_STATE_INJ_EOC, HAL_ADC_STATE_INJ_BUSY);
+      }
     }
-
+    
+    /* State machine update: Check if an injected conversion is ongoing */
+    if (HAL_IS_BIT_SET(hadc->State, HAL_ADC_STATE_INJ_BUSY))
+    {
+      /* Reset ADC error code fields related to conversions on group regular */
+      CLEAR_BIT(hadc->ErrorCode, (HAL_ADC_ERROR_OVR | HAL_ADC_ERROR_DMA));         
+    }
+    else
+    {
+      /* Reset ADC all error code fields */
+      ADC_CLEAR_ERRORCODE(hadc);
+    }
+    
     /* Process unlocked */
     /* Unlock before starting ADC conversions: in case of potential           */
     /* interruption, to let the process to ADC IRQ Handler.                   */
     __HAL_UNLOCK(hadc);
-    
-    /* Set ADC error code to none */
-    ADC_CLEAR_ERRORCODE(hadc);
     
     /* Clear regular group conversion flag and overrun flag */
     /* (To ensure of no unknown state from potential previous ADC operations) */
@@ -1057,9 +1172,9 @@ HAL_StatusTypeDef HAL_ADC_Start_IT(ADC_HandleTypeDef* hadc)
     /* If software start has been selected, conversion starts immediately.    */
     /* If external trigger has been selected, conversion will start at next   */
     /* trigger event.                                                         */
-    /* Case of multimode enabled (for devices with several ADCs): if ADC is   */
-    /* slave, ADC is enabled only (conversion is not started). If ADC is      */
-    /* master, ADC is enabled and conversion is started.                      */
+    /* Case of multimode enabled:                                             */ 
+    /*  - if ADC is slave, ADC is enabled only (conversion is not started).   */
+    /*  - if ADC is master, ADC is enabled and conversion is started.         */
     if (ADC_IS_SOFTWARE_START_REGULAR(hadc)      &&
         ADC_NONMULTIMODE_OR_MULTIMODEMASTER(hadc)  )
     {
@@ -1104,13 +1219,15 @@ HAL_StatusTypeDef HAL_ADC_Stop_IT(ADC_HandleTypeDef* hadc)
   tmp_hal_status = ADC_ConversionStop_Disable(hadc);
   
   /* Check if ADC is effectively disabled */
-  if (tmp_hal_status != HAL_ERROR)
+  if (tmp_hal_status == HAL_OK)
   {
     /* Disable ADC end of conversion interrupt for regular group */
     __HAL_ADC_DISABLE_IT(hadc, ADC_IT_EOC);
     
-    /* Change ADC state */
-    hadc->State = HAL_ADC_STATE_READY;
+    /* Set ADC state */
+    ADC_STATE_CLR_SET(hadc->State,
+                      HAL_ADC_STATE_REG_BUSY | HAL_ADC_STATE_INJ_BUSY,
+                      HAL_ADC_STATE_READY);
   }
   
   /* Process unlocked */
@@ -1163,27 +1280,59 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
     tmp_hal_status = ADC_Enable(hadc);
     
     /* Start conversion if ADC is effectively enabled */
-    if (tmp_hal_status != HAL_ERROR)
+    if (tmp_hal_status == HAL_OK)
     {
-      /* State machine update: Check if an injected conversion is ongoing */
-      if(hadc->State == HAL_ADC_STATE_BUSY_INJ)
+      /* Set ADC state                                                        */
+      /* - Clear state bitfield related to regular group conversion results   */
+      /* - Set state bitfield related to regular operation                    */
+      ADC_STATE_CLR_SET(hadc->State,
+                        HAL_ADC_STATE_READY | HAL_ADC_STATE_REG_EOC | HAL_ADC_STATE_REG_OVR | HAL_ADC_STATE_REG_EOSMP,
+                        HAL_ADC_STATE_REG_BUSY);
+    
+    /* Set group injected state (from auto-injection) and multimode state     */
+    /* for all cases of multimode: independent mode, multimode ADC master     */
+    /* or multimode ADC slave (for devices with several ADCs):                */
+    if (ADC_NONMULTIMODE_OR_MULTIMODEMASTER(hadc))
+    {
+      /* Set ADC state (ADC independent or master) */
+      CLEAR_BIT(hadc->State, HAL_ADC_STATE_MULTIMODE_SLAVE);
+      
+      /* If conversions on group regular are also triggering group injected,  */
+      /* update ADC state.                                                    */
+      if (READ_BIT(hadc->Instance->CR1, ADC_CR1_JAUTO) != RESET)
       {
-        /* Change ADC state */
-        hadc->State = HAL_ADC_STATE_BUSY_INJ_REG;  
+        ADC_STATE_CLR_SET(hadc->State, HAL_ADC_STATE_INJ_EOC, HAL_ADC_STATE_INJ_BUSY);  
+      }
+    }
+    else
+    {
+      /* Set ADC state (ADC slave) */
+      SET_BIT(hadc->State, HAL_ADC_STATE_MULTIMODE_SLAVE);
+      
+      /* If conversions on group regular are also triggering group injected,  */
+      /* update ADC state.                                                    */
+      if (ADC_MULTIMODE_AUTO_INJECTED(hadc))
+      {
+        ADC_STATE_CLR_SET(hadc->State, HAL_ADC_STATE_INJ_EOC, HAL_ADC_STATE_INJ_BUSY);
+      }
+    }
+      
+      /* State machine update: Check if an injected conversion is ongoing */
+      if (HAL_IS_BIT_SET(hadc->State, HAL_ADC_STATE_INJ_BUSY))
+      {
+        /* Reset ADC error code fields related to conversions on group regular */
+        CLEAR_BIT(hadc->ErrorCode, (HAL_ADC_ERROR_OVR | HAL_ADC_ERROR_DMA));         
       }
       else
       {
-        /* Change ADC state */
-        hadc->State = HAL_ADC_STATE_BUSY_REG;
+        /* Reset ADC all error code fields */
+        ADC_CLEAR_ERRORCODE(hadc);
       }
       
       /* Process unlocked */
       /* Unlock before starting ADC conversions: in case of potential         */
       /* interruption, to let the process to ADC IRQ Handler.                 */
       __HAL_UNLOCK(hadc);
-      
-      /* Set ADC error code to none */
-      ADC_CLEAR_ERRORCODE(hadc);
       
       /* Set the DMA transfer complete callback */
       hadc->DMA_Handle->XferCpltCallback = ADC_DMAConvCplt;
@@ -1268,7 +1417,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef* hadc)
   tmp_hal_status = ADC_ConversionStop_Disable(hadc);
   
   /* Check if ADC is effectively disabled */
-  if (tmp_hal_status != HAL_ERROR)
+  if (tmp_hal_status == HAL_OK)
   {
     /* Disable ADC DMA mode */
     CLEAR_BIT(hadc->Instance->CR2, ADC_CR2_DMA);
@@ -1278,15 +1427,17 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef* hadc)
     tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
     
     /* Check if DMA channel effectively disabled */
-    if (tmp_hal_status != HAL_ERROR)
+    if (tmp_hal_status == HAL_OK)
     {
-      /* Change ADC state */
-      hadc->State = HAL_ADC_STATE_READY;
+      /* Set ADC state */
+      ADC_STATE_CLR_SET(hadc->State,
+                        HAL_ADC_STATE_REG_BUSY | HAL_ADC_STATE_INJ_BUSY,
+                        HAL_ADC_STATE_READY);
     }
     else
     {
       /* Update ADC state machine to error */
-      hadc->State = HAL_ADC_STATE_ERROR;      
+      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
     }
   }
     
@@ -1335,32 +1486,30 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
     if(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOC) )
     {
       /* Update state machine on conversion status if not in error state */
-      if(hadc->State != HAL_ADC_STATE_ERROR)
+      if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL))
       {
-        /* Update ADC state machine */
-        if(hadc->State != HAL_ADC_STATE_EOC_INJ_REG)
-        {
-          /* Check if a conversion is ready on injected group */
-          if(hadc->State == HAL_ADC_STATE_EOC_INJ)
-          {
-            /* Change ADC state */
-            hadc->State = HAL_ADC_STATE_EOC_INJ_REG;  
-          }
-          else
-          {
-            /* Change ADC state */
-            hadc->State = HAL_ADC_STATE_EOC_REG;
-          }
-        }
+        /* Set ADC state */
+        SET_BIT(hadc->State, HAL_ADC_STATE_REG_EOC); 
       }
       
-      /* Disable interruption if no further conversion upcoming regular       */
-      /* external trigger or by continuous mode                               */
+      /* Determine whether any further conversion upcoming on group regular   */
+      /* by external trigger, continuous mode or scan sequence on going.      */
+      /* Note: On STM32F1 devices, in case of sequencer enabled               */
+      /*       (several ranks selected), end of conversion flag is raised     */
+      /*       at the end of the sequence.                                    */
       if(ADC_IS_SOFTWARE_START_REGULAR(hadc)        && 
          (hadc->Init.ContinuousConvMode == DISABLE)   )
       {
-        /* Disable ADC end of single conversion interrupt  */
+        /* Disable ADC end of conversion interrupt on group regular */
         __HAL_ADC_DISABLE_IT(hadc, ADC_IT_EOC);
+        
+        /* Set ADC state */
+        CLEAR_BIT(hadc->State, HAL_ADC_STATE_REG_BUSY);   
+        
+        if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_INJ_BUSY))
+        {
+          SET_BIT(hadc->State, HAL_ADC_STATE_READY);
+        }
       }
 
       /* Conversion complete callback */
@@ -1377,36 +1526,34 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
     if(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_JEOC))
     {
       /* Update state machine on conversion status if not in error state */
-      if(hadc->State != HAL_ADC_STATE_ERROR)
+      if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL))
       {
-        /* Update ADC state machine */
-        if(hadc->State != HAL_ADC_STATE_EOC_INJ_REG)
-        {
-
-          if(hadc->State == HAL_ADC_STATE_EOC_REG)
-          {
-            /* Change ADC state */
-            hadc->State = HAL_ADC_STATE_EOC_INJ_REG;  
-          }
-          else
-          {
-            /* Change ADC state */
-            hadc->State = HAL_ADC_STATE_EOC_INJ;
-          }
-        }
+        /* Set ADC state */
+        SET_BIT(hadc->State, HAL_ADC_STATE_INJ_EOC);
       }
 
-      /* Disable interruption if no further conversion upcoming injected      */
-      /* external trigger or by automatic injected conversion with regular    */
-      /* group having no further conversion upcoming (same conditions as      */
-      /* regular group interruption disabling above).                         */
+      /* Determine whether any further conversion upcoming on group injected  */
+      /* by external trigger, scan sequence on going or by automatic injected */
+      /* conversion from group regular (same conditions as group regular      */
+      /* interruption disabling above).                                       */
+      /* Note: On STM32F1 devices, in case of sequencer enabled               */
+      /*       (several ranks selected), end of conversion flag is raised     */
+      /*       at the end of the sequence.                                    */
       if(ADC_IS_SOFTWARE_START_INJECTED(hadc)                     || 
          (HAL_IS_BIT_CLR(hadc->Instance->CR1, ADC_CR1_JAUTO) &&     
          (ADC_IS_SOFTWARE_START_REGULAR(hadc)        &&
           (hadc->Init.ContinuousConvMode == DISABLE)   )        )   )
       {
-        /* Disable ADC end of single conversion interrupt  */
+        /* Disable ADC end of conversion interrupt on group injected */
         __HAL_ADC_DISABLE_IT(hadc, ADC_IT_JEOC);
+        
+        /* Set ADC state */
+        CLEAR_BIT(hadc->State, HAL_ADC_STATE_INJ_BUSY);   
+
+        if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_REG_BUSY))
+        { 
+          SET_BIT(hadc->State, HAL_ADC_STATE_READY);
+        }
       }
 
       /* Conversion complete callback */ 
@@ -1422,14 +1569,14 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
   {
     if(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_AWD))
     {
-      /* Change ADC state */
-      hadc->State = HAL_ADC_STATE_AWD;
+      /* Set ADC state */
+      SET_BIT(hadc->State, HAL_ADC_STATE_AWD1);
       
       /* Level out of window callback */ 
       HAL_ADC_LevelOutOfWindowCallback(hadc);
       
-      /* Clear the ADCx's Analog watchdog flag */
-      __HAL_ADC_CLEAR_FLAG(hadc,ADC_FLAG_AWD);
+      /* Clear the ADC analog watchdog flag */
+      __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_AWD);
     }
   }
   
@@ -1606,7 +1753,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
     else
     {
       /* Update ADC state machine to error */
-      hadc->State = HAL_ADC_STATE_ERROR;
+      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_CONFIG);
       
       tmp_hal_status = HAL_ERROR;
     }
@@ -1712,7 +1859,7 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef* hadc, ADC_AnalogWDG
   * @param  hadc: ADC handle
   * @retval HAL state
   */
-HAL_ADC_StateTypeDef HAL_ADC_GetState(ADC_HandleTypeDef* hadc)
+uint32_t HAL_ADC_GetState(ADC_HandleTypeDef* hadc)
 {
   /* Return ADC state */
   return hadc->State;
@@ -1769,7 +1916,7 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef* hadc)
       wait_loop_index--;
     }
     
-    /* Get timeout */
+    /* Get tick count */
     tickstart = HAL_GetTick();
 
     /* Wait for ADC effectively enabled */
@@ -1778,10 +1925,10 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef* hadc)
       if((HAL_GetTick() - tickstart) > ADC_ENABLE_TIMEOUT)
       {
         /* Update ADC state machine to error */
-        hadc->State = HAL_ADC_STATE_ERROR;
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL);
       
         /* Set ADC error code to ADC IP internal error */
-        hadc->ErrorCode |= HAL_ADC_ERROR_INTERNAL;
+        SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_INTERNAL);
         
         /* Process unlocked */
         __HAL_UNLOCK(hadc);
@@ -1812,7 +1959,7 @@ HAL_StatusTypeDef ADC_ConversionStop_Disable(ADC_HandleTypeDef* hadc)
     /* Disable the ADC peripheral */
     __HAL_ADC_DISABLE(hadc);
      
-    /* Get timeout */
+    /* Get tick count */
     tickstart = HAL_GetTick();
     
     /* Wait for ADC effectively disabled */
@@ -1821,10 +1968,10 @@ HAL_StatusTypeDef ADC_ConversionStop_Disable(ADC_HandleTypeDef* hadc)
       if((HAL_GetTick() - tickstart) > ADC_DISABLE_TIMEOUT)
       {
         /* Update ADC state machine to error */
-        hadc->State = HAL_ADC_STATE_ERROR;
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL);
         
         /* Set ADC error code to ADC IP internal error */
-        hadc->ErrorCode |= HAL_ADC_ERROR_INTERNAL;
+        SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_INTERNAL);
         
         return HAL_ERROR;
       }
@@ -1846,21 +1993,25 @@ void ADC_DMAConvCplt(DMA_HandleTypeDef *hdma)
   ADC_HandleTypeDef* hadc = ( ADC_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
  
   /* Update state machine on conversion status if not in error state */
-  if(hadc->State != HAL_ADC_STATE_ERROR)
+  if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL | HAL_ADC_STATE_ERROR_DMA))
   {
     /* Update ADC state machine */
-    if(hadc->State != HAL_ADC_STATE_EOC_INJ_REG)
+    SET_BIT(hadc->State, HAL_ADC_STATE_REG_EOC);
+    
+    /* Determine whether any further conversion upcoming on group regular     */
+    /* by external trigger, continuous mode or scan sequence on going.        */
+    /* Note: On STM32F1 devices, in case of sequencer enabled                 */
+    /*       (several ranks selected), end of conversion flag is raised       */
+    /*       at the end of the sequence.                                      */
+    if(ADC_IS_SOFTWARE_START_REGULAR(hadc)        && 
+       (hadc->Init.ContinuousConvMode == DISABLE)   )
     {
-      /* Check if a conversion is ready on injected group */
-      if(hadc->State == HAL_ADC_STATE_EOC_INJ)
+      /* Set ADC state */
+      CLEAR_BIT(hadc->State, HAL_ADC_STATE_REG_BUSY);   
+      
+      if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_INJ_BUSY))
       {
-        /* Change ADC state */
-        hadc->State = HAL_ADC_STATE_EOC_INJ_REG;  
-      }
-      else
-      {
-        /* Change ADC state */
-        hadc->State = HAL_ADC_STATE_EOC_REG;
+        SET_BIT(hadc->State, HAL_ADC_STATE_READY);
       }
     }
     
@@ -1898,11 +2049,11 @@ void ADC_DMAError(DMA_HandleTypeDef *hdma)
   /* Retrieve ADC handle corresponding to current DMA handle */
   ADC_HandleTypeDef* hadc = ( ADC_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
   
-  /* Change ADC state */
-  hadc->State = HAL_ADC_STATE_ERROR;
+  /* Set ADC state */
+  SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
   
   /* Set ADC error code to DMA error */
-  hadc->ErrorCode |= HAL_ADC_ERROR_DMA;
+  SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_DMA);
   
   /* Error callback */
   HAL_ADC_ErrorCallback(hadc); 

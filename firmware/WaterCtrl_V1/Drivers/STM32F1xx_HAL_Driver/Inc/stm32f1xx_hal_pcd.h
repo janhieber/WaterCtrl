@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_pcd.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.1
+  * @date    31-July-2015
   * @brief   Header file of PCD HAL module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -152,6 +152,16 @@ typedef struct
   * @{
   */
 #define PCD_PHY_EMBEDDED                                              2
+/**
+  * @}
+  */
+
+/** @defgroup PCD_Turnaround_Timeout Turnaround Timeout Value
+  * @{
+  */
+#ifndef USBD_FS_TRDT_VALUE
+ #define USBD_FS_TRDT_VALUE           5
+#endif /* USBD_FS_TRDT_VALUE */
 /**
   * @}
   */
@@ -690,7 +700,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
   }/* PCD_SET_EP_CNT_RX_REG */
 
 #define PCD_SET_EP_RX_DBUF0_CNT(USBx, bEpNum,wCount) {\
-    uint16_t *pdwReg = PCD_EP_TX_CNT((USBx), (bEpNum)); \
+    uint32_t *pdwReg = PCD_EP_TX_CNT((USBx), (bEpNum)); \
     PCD_SET_EP_CNT_RX_REG(pdwReg, (wCount));\
   }
 
@@ -770,7 +780,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
     }                                                         \
     else if((bDir) == PCD_EP_DBUF_IN)\
     {/* IN endpoint */                                        \
-      *PCD_EP_RX_CNT((USBx), (bEpNum)) = (uint32_t)(wCount); \
+      *PCD_EP_TX_CNT((USBx), (bEpNum)) = (uint32_t)(wCount); \
     }                                                         \
   } /* SetEPDblBuf1Count */
 

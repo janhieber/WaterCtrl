@@ -2,9 +2,9 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_tim.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
-  * @brief   TIM HAL module driver.
+  * @version V1.0.1
+  * @date    31-July-2015
+  * @brief   TIM HAL module driver
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Timer (TIM) peripheral:
   *           + Time Base Initialization
@@ -98,7 +98,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -144,7 +144,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-
 /** @defgroup TIM_Private_Functions TIM Private Functions
   * @{
   */
@@ -220,7 +219,7 @@ HAL_StatusTypeDef HAL_TIM_Base_Init(TIM_HandleTypeDef *htim)
   if(htim->State == HAL_TIM_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    htim-> Lock = HAL_UNLOCKED;
+    htim->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC */
     HAL_TIM_Base_MspInit(htim);
@@ -491,7 +490,7 @@ HAL_StatusTypeDef HAL_TIM_OC_Init(TIM_HandleTypeDef* htim)
   if(htim->State == HAL_TIM_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    htim-> Lock = HAL_UNLOCKED;
+    htim->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
     HAL_TIM_OC_MspInit(htim);
@@ -991,7 +990,7 @@ HAL_StatusTypeDef HAL_TIM_PWM_Init(TIM_HandleTypeDef *htim)
   if(htim->State == HAL_TIM_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    htim-> Lock = HAL_UNLOCKED;
+    htim->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
     HAL_TIM_PWM_MspInit(htim);
@@ -1494,7 +1493,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Init(TIM_HandleTypeDef *htim)
   if(htim->State == HAL_TIM_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    htim-> Lock = HAL_UNLOCKED;
+    htim->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
     HAL_TIM_IC_MspInit(htim);
@@ -1964,7 +1963,7 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_Init(TIM_HandleTypeDef *htim, uint32_t OnePul
   if(htim->State == HAL_TIM_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    htim-> Lock = HAL_UNLOCKED;
+    htim->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
     HAL_TIM_OnePulse_MspInit(htim);
@@ -2240,7 +2239,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim,  TIM_Encoder_Ini
   if(htim->State == HAL_TIM_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
-    htim-> Lock = HAL_UNLOCKED;
+    htim->Lock = HAL_UNLOCKED;
     
     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
     HAL_TIM_Encoder_MspInit(htim);
@@ -3754,10 +3753,10 @@ HAL_StatusTypeDef HAL_TIM_GenerateEvent(TIM_HandleTypeDef *htim, uint32_t EventS
   *         contains the OCREF clear feature and parameters for the TIM peripheral.
   * @param  Channel : specifies the TIM Channel
   *          This parameter can be one of the following values:
-  *            @arg TIM_Channel_1: TIM Channel 1
-  *            @arg TIM_Channel_2: TIM Channel 2
-  *            @arg TIM_Channel_3: TIM Channel 3
-  *            @arg TIM_Channel_4: TIM Channel 4
+  *            @arg TIM_CHANNEL_1: TIM Channel 1
+  *            @arg TIM_CHANNEL_2: TIM Channel 2
+  *            @arg TIM_CHANNEL_3: TIM Channel 3
+  *            @arg TIM_CHANNEL_4: TIM Channel 4
   * @retval HAL status
   */ 
 HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim, TIM_ClearInputConfigTypeDef * sClearInputConfig, uint32_t Channel)
@@ -4385,7 +4384,7 @@ HAL_TIM_StateTypeDef HAL_TIM_Encoder_GetState(TIM_HandleTypeDef *htim)
   * @}
   */
 
-/** @addtogroup TIM_Private_Functions TIM_Private_Functions
+/** @addtogroup TIM_Private_Functions
   * @{
   */
 
@@ -4827,6 +4826,14 @@ static void TIM_OC4_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
   TIMx->CCER = tmpccer;
 }
 
+
+/**
+  * @brief  Time Slave configuration
+  * @param  htim: pointer to a TIM_HandleTypeDef structure that contains
+  *                the configuration information for TIM module.
+  * @param  sSlaveConfig: The slave configuration structure
+  * @retval None
+  */
 static void TIM_SlaveTimer_SetConfig(TIM_HandleTypeDef *htim,
                               TIM_SlaveConfigTypeDef * sSlaveConfig)
 {
@@ -4872,7 +4879,6 @@ static void TIM_SlaveTimer_SetConfig(TIM_HandleTypeDef *htim,
     {
       /* Check the parameters */
       assert_param(IS_TIM_CC1_INSTANCE(htim->Instance));
-      assert_param(IS_TIM_TRIGGERPOLARITY(sSlaveConfig->TriggerPolarity));
       assert_param(IS_TIM_TRIGGERFILTER(sSlaveConfig->TriggerFilter));
 
       /* Disable the Channel 1: Reset the CC1E Bit */
@@ -4957,14 +4963,14 @@ static void TIM_SlaveTimer_SetConfig(TIM_HandleTypeDef *htim,
   * @param  TIMx  to select the TIM peripheral.
   * @param  TIM_ICPolarity : The Input Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICPolarity_Rising
-  *            @arg TIM_ICPolarity_Falling
-  *            @arg TIM_ICPolarity_BothEdge 
+  *            @arg TIM_ICPOLARITY_RISING
+  *            @arg TIM_ICPOLARITY_FALLING
+  *            @arg TIM_ICPOLARITY_BOTHEDGE
   * @param  TIM_ICSelection : specifies the input to be used.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICSelection_DirectTI : TIM Input 1 is selected to be connected to IC1.
-  *            @arg TIM_ICSelection_IndirectTI : TIM Input 1 is selected to be connected to IC2.
-  *            @arg TIM_ICSelection_TRC : TIM Input 1 is selected to be connected to TRC.
+  *            @arg TIM_ICSELECTION_DIRECTTI:    TIM Input 1 is selected to be connected to IC1.
+  *            @arg TIM_ICSELECTION_INDIRECTTI:  TIM Input 1 is selected to be connected to IC2.
+  *            @arg TIM_ICSELECTION_TRC:         TIM Input 1 is selected to be connected to TRC.
   * @param  TIM_ICFilter : Specifies the Input Capture Filter.
   *          This parameter must be a value between 0x00 and 0x0F.
   * @retval None
@@ -5012,9 +5018,9 @@ void TIM_TI1_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_
   * @param  TIMx  to select the TIM peripheral.
   * @param  TIM_ICPolarity : The Input Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICPolarity_Rising
-  *            @arg TIM_ICPolarity_Falling
-  *            @arg TIM_ICPolarity_BothEdge
+  *            @arg TIM_ICPOLARITY_RISING   
+  *            @arg TIM_ICPOLARITY_FALLING  
+  *            @arg TIM_ICPOLARITY_BOTHEDGE 
   * @param  TIM_ICFilter : Specifies the Input Capture Filter.
   *          This parameter must be a value between 0x00 and 0x0F.
   * @retval None
@@ -5047,14 +5053,14 @@ static void TIM_TI1_ConfigInputStage(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity,
   * @param  TIMx  to select the TIM peripheral
   * @param  TIM_ICPolarity : The Input Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICPolarity_Rising
-  *            @arg TIM_ICPolarity_Falling
-  *            @arg TIM_ICPolarity_BothEdge 
+  *            @arg TIM_ICPOLARITY_RISING   
+  *            @arg TIM_ICPOLARITY_FALLING  
+  *            @arg TIM_ICPOLARITY_BOTHEDGE 
   * @param  TIM_ICSelection : specifies the input to be used.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICSelection_DirectTI : TIM Input 2 is selected to be connected to IC2.
-  *            @arg TIM_ICSelection_IndirectTI : TIM Input 2 is selected to be connected to IC1.
-  *            @arg TIM_ICSelection_TRC : TIM Input 2 is selected to be connected to TRC.
+  *            @arg TIM_ICSELECTION_DIRECTTI:   TIM Input 2 is selected to be connected to IC2.
+  *            @arg TIM_ICSELECTION_INDIRECTTI: TIM Input 2 is selected to be connected to IC1.
+  *            @arg TIM_ICSELECTION_TRC:        TIM Input 2 is selected to be connected to TRC.
   * @param  TIM_ICFilter : Specifies the Input Capture Filter.
   *          This parameter must be a value between 0x00 and 0x0F.
   * @retval None
@@ -5095,9 +5101,9 @@ static void TIM_TI2_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   * @param  TIMx  to select the TIM peripheral.
   * @param  TIM_ICPolarity : The Input Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICPolarity_Rising
-  *            @arg TIM_ICPolarity_Falling
-  *            @arg TIM_ICPolarity_BothEdge
+  *            @arg TIM_ICPOLARITY_RISING  
+  *            @arg TIM_ICPOLARITY_FALLING 
+  *            @arg TIM_ICPOLARITY_BOTHEDGE
   * @param  TIM_ICFilter : Specifies the Input Capture Filter.
   *          This parameter must be a value between 0x00 and 0x0F.
   * @retval None
@@ -5130,14 +5136,14 @@ static void TIM_TI2_ConfigInputStage(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity,
   * @param  TIMx  to select the TIM peripheral
   * @param  TIM_ICPolarity : The Input Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICPolarity_Rising
-  *            @arg TIM_ICPolarity_Falling
-  *            @arg TIM_ICPolarity_BothEdge 
+  *            @arg TIM_ICPOLARITY_RISING  
+  *            @arg TIM_ICPOLARITY_FALLING 
+  *            @arg TIM_ICPOLARITY_BOTHEDGE
   * @param  TIM_ICSelection : specifies the input to be used.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICSelection_DirectTI : TIM Input 3 is selected to be connected to IC3.
-  *            @arg TIM_ICSelection_IndirectTI : TIM Input 3 is selected to be connected to IC4.
-  *            @arg TIM_ICSelection_TRC : TIM Input 3 is selected to be connected to TRC.
+  *            @arg TIM_ICSELECTION_DIRECTTI:   TIM Input 3 is selected to be connected to IC3.
+  *            @arg TIM_ICSELECTION_INDIRECTTI: TIM Input 3 is selected to be connected to IC4.
+  *            @arg TIM_ICSELECTION_TRC:        TIM Input 3 is selected to be connected to TRC.
   * @param  TIM_ICFilter : Specifies the Input Capture Filter.
   *          This parameter must be a value between 0x00 and 0x0F.
   * @retval None
@@ -5178,20 +5184,20 @@ static void TIM_TI3_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   * @param  TIMx to select the TIM peripheral
   * @param  TIM_ICPolarity : The Input Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICPolarity_Rising
-  *            @arg TIM_ICPolarity_Falling
-  *            @arg TIM_ICPolarity_BothEdge 
+  *            @arg TIM_ICPOLARITY_RISING  
+  *            @arg TIM_ICPOLARITY_FALLING 
+  *            @arg TIM_ICPOLARITY_BOTHEDGE
   * @param  TIM_ICSelection : specifies the input to be used.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ICSelection_DirectTI : TIM Input 4 is selected to be connected to IC4.
-  *            @arg TIM_ICSelection_IndirectTI : TIM Input 4 is selected to be connected to IC3.
-  *            @arg TIM_ICSelection_TRC : TIM Input 4 is selected to be connected to TRC.
+  *            @arg TIM_ICSELECTION_DIRECTTI:   TIM Input 4 is selected to be connected to IC4.
+  *            @arg TIM_ICSELECTION_INDIRECTTI: TIM Input 4 is selected to be connected to IC3.
+  *            @arg TIM_ICSELECTION_TRC:        TIM Input 4 is selected to be connected to TRC.
   * @param  TIM_ICFilter : Specifies the Input Capture Filter.
   *          This parameter must be a value between 0x00 and 0x0F.
+  * @retval None
   * @note TIM_ICFilter and TIM_ICPolarity are not used in INDIRECT mode as TI4FP3 
   *       (on channel1 path) is used as the input signal. Therefore CCMR2 must be 
   *        protected against un-initialized filter and polarity values.
-  * @retval None
   */
 static void TIM_TI4_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICSelection,
                        uint32_t TIM_ICFilter)
@@ -5254,14 +5260,14 @@ static void TIM_ITRx_SetConfig(TIM_TypeDef *TIMx, uint16_t InputTriggerSource)
   * @param  TIMx  to select the TIM peripheral
   * @param  TIM_ExtTRGPrescaler : The external Trigger Prescaler.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ExtTRGPSC_DIV1 : ETRP Prescaler OFF.
-  *            @arg TIM_ExtTRGPSC_DIV2 : ETRP frequency divided by 2.
-  *            @arg TIM_ExtTRGPSC_DIV4 : ETRP frequency divided by 4.
-  *            @arg TIM_ExtTRGPSC_DIV8 : ETRP frequency divided by 8.
+  *            @arg TIM_ETRPRESCALER_DIV1: ETRP Prescaler OFF.
+  *            @arg TIM_ETRPRESCALER_DIV2: ETRP frequency divided by 2.
+  *            @arg TIM_ETRPRESCALER_DIV4: ETRP frequency divided by 4.
+  *            @arg TIM_ETRPRESCALER_DIV8: ETRP frequency divided by 8.
   * @param  TIM_ExtTRGPolarity : The external Trigger Polarity.
   *          This parameter can be one of the following values:
-  *            @arg TIM_ExtTRGPolarity_Inverted : active low or falling edge active.
-  *            @arg TIM_ExtTRGPolarity_NonInverted : active high or rising edge active.
+  *            @arg TIM_ETRPOLARITY_INVERTED: active low or falling edge active.
+  *            @arg TIM_ETRPOLARITY_NONINVERTED: active high or rising edge active.
   * @param  ExtTRGFilter : External Trigger Filter.
   *          This parameter must be a value between 0x00 and 0x0F
   * @retval None
@@ -5288,10 +5294,10 @@ static void TIM_ETR_SetConfig(TIM_TypeDef* TIMx, uint32_t TIM_ExtTRGPrescaler,
   * @param  TIMx  to select the TIM peripheral
   * @param  Channel : specifies the TIM Channel
   *          This parameter can be one of the following values:
-  *            @arg TIM_Channel_1 : TIM Channel 1
-  *            @arg TIM_Channel_2 : TIM Channel 2
-  *            @arg TIM_Channel_3 : TIM Channel 3
-  *            @arg TIM_Channel_4 : TIM Channel 4
+  *            @arg TIM_CHANNEL_1: TIM Channel 1
+  *            @arg TIM_CHANNEL_2: TIM Channel 2
+  *            @arg TIM_CHANNEL_3: TIM Channel 3
+  *            @arg TIM_CHANNEL_4: TIM Channel 4
   * @param  ChannelState : specifies the TIM Channel CCxE bit new state.
   *          This parameter can be: TIM_CCx_ENABLE or TIM_CCx_Disable.
   * @retval None
@@ -5312,7 +5318,6 @@ void TIM_CCxChannelCmd(TIM_TypeDef* TIMx, uint32_t Channel, uint32_t ChannelStat
   /* Set or reset the CCxE Bit */
   TIMx->CCER |=  (uint32_t)(ChannelState << Channel);
 }
-
 
 /**
   * @}

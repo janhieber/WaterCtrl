@@ -76,6 +76,7 @@
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1609378221" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="STR_MAX_SIZE=127"/>
 									<listOptionValue builtIn="false" value="STM32F10X_MD"/>
 									<listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
@@ -237,11 +238,12 @@
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1683024934" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="STM32F10X_MD"/>
+									<listOptionValue builtIn="false" value="STR_MAX_SIZE=127"/>
 									<listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
 									<listOptionValue builtIn="false" value="STM32F103xB"/>
 								</option>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.other.26643925" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.other" value="-Wno-unused" valueType="string"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.other.26643925" name="Other compiler flags" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.other" useByScannerDiscovery="true" value="-Wno-unused" valueType="string"/>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.921835883" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
 							<tool command="${cross_prefix}${cross_cpp}${cross_suffix}" commandLinePattern="${COMMAND} ${cross_toolchain_flags} ${FLAGS} -c ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GCCErrorParser" id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.1526764738" name="Cross ARM C++ Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler">

@@ -1,9 +1,13 @@
-/*
- * isr_moisture.c
- *
- *  Created on: Apr 28, 2015
- *      Author: micha
- */
+/* ---------------------------------------------------------------------------
+** This software is in the public domain, furnished "as is", without technical
+** support, and with no warranty, express or implied, as to its usefulness for
+** any purpose.
+**
+** isr_moisture.c
+** Frequency measurement
+**
+** Author: dropedout
+** -------------------------------------------------------------------------*/
 
 #include "stm32f1xx_hal.h"
 
