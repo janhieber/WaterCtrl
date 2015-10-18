@@ -9,11 +9,13 @@
  ** Author: Jan Hieber <mail@janhieber.net>
  ** -------------------------------------------------------------------------*/
 
+#include "stm32f1xx_hal.h"
+
+
 #include <stdlib.h>
 #include <stdbool.h>
 
 #include <spicomm.h>
-#include "stm32f1xx_hal.h"
 
 extern SPI_HandleTypeDef hspi1;
 uint8_t spisend[16];

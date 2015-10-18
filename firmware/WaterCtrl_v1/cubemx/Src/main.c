@@ -36,7 +36,7 @@
 /* USER CODE BEGIN Includes */
 
 // DEFINES
-#define VERSION 1
+#define VERSION (uint8_t)1
 
 // TOOLCHAIN INCLUDES
 #include <stdint.h>
@@ -78,12 +78,17 @@ static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN 0 */
 
+// this is for printf.c
+void PrintChar(char c) {
+	HAL_UART_Transmit(&huart1, (uint8_t *) &c, 1, 50);
+}
+
 /* USER CODE END 0 */
 
 int main(void) {
 
 	/* USER CODE BEGIN 1 */
-	SystemInit();
+
 	/* USER CODE END 1 */
 
 	/* MCU Configuration----------------------------------------------------------*/
@@ -102,21 +107,18 @@ int main(void) {
 	MX_USART1_UART_Init();
 
 	/* USER CODE BEGIN 2 */
-	//printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
-	//printf("\tSystem clock: %dMHz\r\n\r\n", SystemCoreClock / 1000000);
+	printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
+	printf("\tSystem clock: %dMHz\r\n\r\n",
+			(uint8_t)(SystemCoreClock / 1000000));
 
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-	HAL_Delay(500);
-
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
+
 		uint8_t buf[] = "test 123\r\n";
 		HAL_UART_Transmit(&huart1, buf, sizeof(buf), 50);
-
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 		HAL_Delay(1000);
 
@@ -260,7 +262,8 @@ void MX_GPIO_Init(void) {
 
 	GPIO_InitTypeDef GPIO_InitStruct;
 
-	/* GPIO Ports Clock Enable */__GPIOC_CLK_ENABLE();
+	/* GPIO Ports Clock Enable */
+	__GPIOC_CLK_ENABLE();
 	__GPIOD_CLK_ENABLE();
 	__GPIOA_CLK_ENABLE();
 	__GPIOB_CLK_ENABLE();
