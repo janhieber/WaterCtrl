@@ -1,8 +1,3 @@
-# Firmware
-This is the firmware for the STM32.
-
-
-
 # Flash current firmware
 We copy the current firmware into this folder, see the .bin files.
 
@@ -68,14 +63,9 @@ Most of the code and the generated project file are of no use to us, we simply i
 For the files we use, we create a *group* in the Coocox project view and add the files.  
 This way we can simply regenerate the code without any problems or conflict with Coocox.  
 
-Remember: Some files are not added to the project, for example the HAL *.c* files we dont use,
-like *cubemx\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_adc.c*.
-The *.h* files are all in the project, so if you get *implicit declaration of ...* warnings,
-add the missing *.c* files to the project group.
-
-You should also enable the headers in *stm32f1xx_hal_conf.h*
 
 
 # Special configuration
-#1 In Coocox go to Edit -> Preferences -> General -> Editors -> Text Editors and check *insert spaces for tabs*.
+In Coocox go to Edit -> Preferences -> General -> Editors -> Text Editors and check *insert spaces for tabs*.
    We use tabs with 4 spaces
+
