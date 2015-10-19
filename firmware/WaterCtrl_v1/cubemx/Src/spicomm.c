@@ -18,20 +18,20 @@ extern SPI_HandleTypeDef hspi1;
  *  to the queue. Should always increment by SPI_XFER_SIZE
  *  to not shoot over the end!
  *  current start end end are defined in index vars! */
-uint8_t *spiSendBuf;
-uint8_t *spiRecvBuf;
+static volatile uint8_t *spiSendBuf;
+static volatile uint8_t *spiRecvBuf;
 
 /*! these are circular buffers for sending end receiving
  *  messages end with a newline ('\n') char */
-uint8_t spiSendQueue[SPI_SENDQUEUE_SIZE];
-uint8_t spiRecvQueue[SPI_RECVQUEUE_SIZE];
+static volatile uint8_t spiSendQueue[SPI_SENDQUEUE_SIZE];
+static volatile uint8_t spiRecvQueue[SPI_RECVQUEUE_SIZE];
 
 /*! Index of current queue start and end.
  *  Need to be multiples of SPI_XFER_SIZE */
-uint32_t spiSendQueueBegin;
-uint32_t spiSendQueueEnd;
-uint32_t spiRecvQueueBegin;
-uint32_t spiRecvQueueEnd;
+static volatile uint32_t spiSendQueueBegin;
+static volatile uint32_t spiSendQueueEnd;
+static volatile uint32_t spiRecvQueueBegin;
+static volatile uint32_t spiRecvQueueEnd;
 
 /** @brief Init SPI queues
  */
@@ -50,6 +50,34 @@ void spiQueueInit() {
     // init send/recv pointers
     spiSendBuf = spiSendQueue;
     spiRecvBuf = spiRecvQueue;
+}
+
+void spiSend(char *msg){
+    uint8_t msglen = strlen(msg);
+    if (spiSendQueueEnd >= spiSendQueueBegin){
+        if(spiSendQueueEnd + msglen <= SPI_SENDQUEUE_SIZE){
+            // if fits in buffer
+            strcpy(&(spiSendQueue[spiSendQueueEnd]), msg);
+            // set new end
+            if (msglen % SPI_XFER_SIZE)
+                spiSendQueueEnd += SPI_XFER_SIZE * ((msglen % SPI_XFER_SIZE) +1);
+            else
+                spiSendQueueEnd += msglen;
+        }else{
+            // if it does not fit in buffer to end
+            uint8_t remaining = msglen - (SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
+            if (remaining < spiSendQueueBegin) {
+                strncpy(&(spiSendQueue[spiSendQueueEnd]), msg, SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
+                strncpy(spiSendQueue, &(msg[SPI_SENDQUEUE_SIZE - spiSendQueueEnd +1]), remaining);
+                if (remaining % SPI_XFER_SIZE)
+                    spiSendQueueEnd += SPI_XFER_SIZE * ((remaining % SPI_XFER_SIZE) +1);
+                else
+                    spiSendQueueEnd += remaining;
+            }else {
+                Log(LogError, "SPI send buf full!");
+            }
+        }
+    }
 }
 
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
@@ -102,5 +130,5 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
     }
 
     // setup next XFER
-    HAL_SPI_TransmitReceive_IT(&hspi1, spiSendBuf, spiRecvBuf, SPI_XFER_SIZE);
+    HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)spiSendBuf, (uint8_t *)spiRecvBuf, SPI_XFER_SIZE);
 }

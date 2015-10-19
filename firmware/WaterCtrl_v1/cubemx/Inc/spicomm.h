@@ -1,6 +1,6 @@
 /** @file spicomm.h
- *  @brief Functions for SPI receiver.
- *      - init/handle interrupts/DMA
+ *  @brief Functions for SPI.
+ *      - init/handle interrupts
  *      - act on received messages
  *      - send queued messages
  *
@@ -19,8 +19,8 @@
 #define SPI_RECVQUEUE_SIZE (SPI_XFER_SIZE*128)
 
 
-
 void spiQueueInit();
 
+void spiSend(char *msg);
 
 #endif /* SPICOMM_H_ */
