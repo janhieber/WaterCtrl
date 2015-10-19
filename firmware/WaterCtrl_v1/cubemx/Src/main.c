@@ -44,7 +44,7 @@
 
 // INCLUDES
 #include <spicomm.h>
-#include <logging.h>
+#include <log.h>
 #include <moistureMeasure.h>
 #include <motors.h>
 

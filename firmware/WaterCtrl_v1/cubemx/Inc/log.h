@@ -1,4 +1,4 @@
-/** @file logging.h
+/** @file log.h
  *  @brief Functions for logging messages and routing/filter them.
  *
  *  @author Jan Hieber <mail@janhieber.net>
@@ -22,7 +22,7 @@ typedef enum {
     LogDstNoDestination = 0x2
 } LogDestination;
 
-//void log(LogLevel loglevel, char* msg);
+void Log(LogLevel loglevel, char* msg);
 
 void logSetDestination(LogDestination destination);
 

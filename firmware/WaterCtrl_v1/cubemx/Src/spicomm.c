@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include <log.h>
 #include <spicomm.h>
 #include <mxconstants.h>
 
@@ -17,8 +18,8 @@ extern SPI_HandleTypeDef hspi1;
  *  to the queue. Should always increment by SPI_XFER_SIZE
  *  to not shoot over the end!
  *  current start end end are defined in index vars! */
-volatile uint8_t *spiSendBuf;
-volatile uint8_t *spiRecvBuf;
+uint8_t *spiSendBuf;
+uint8_t *spiRecvBuf;
 
 /*! these are circular buffers for sending end receiving
  *  messages end with a newline ('\n') char */
@@ -35,13 +36,12 @@ uint32_t spiRecvQueueEnd;
 /** @brief Init SPI queues
  */
 void spiQueueInit() {
-    uint32_t i;
     // init send queue
-    for (i = 0; i < SPI_SENDQUEUE_SIZE; i++)
-        spiSendQueue[i][j] = 0;
+    for (uint32_t i = 0; i < SPI_SENDQUEUE_SIZE; i++)
+        spiSendQueue[i] = 0;
     // init recv queue
-    for (i = 0; i < SPI_RECVQUEUE_SIZE; i++)
-        spiRecvQueue[i][j] = 0;
+    for (uint32_t i = 0; i < SPI_RECVQUEUE_SIZE; i++)
+        spiRecvQueue[i] = 0;
     // reset begin / end marks
     spiSendQueueBegin = 0;
     spiSendQueueEnd = 0;
@@ -60,7 +60,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
             spiRecvQueueEnd += SPI_XFER_SIZE;
             spiRecvBuf = &(spiRecvQueue[spiRecvQueueEnd]);
         } else
-            log(LogError, "Spi Recv buffer full!");
+            Log(LogError, "Spi Recv buffer full!");
     } else {
         if ((spiRecvQueueEnd + SPI_XFER_SIZE) < SPI_RECVQUEUE_SIZE) {
             // if not overlapping
@@ -72,7 +72,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
                 spiRecvQueueEnd = 0;
                 spiRecvBuf = &(spiRecvQueue[spiRecvQueueEnd]);
             } else
-                log(LogError, "Spi Recv buffer full!");
+                Log(LogError, "Spi Recv buffer full!");
         }
 
     }

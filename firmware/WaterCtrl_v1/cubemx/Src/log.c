@@ -1,13 +1,17 @@
-/** @file logging.c
+/** @file log.c
  *  @brief Functions for logging messages and routing/filter them.
  *
  *  @author Jan Hieber <mail@janhieber.net>
  */
 
-#include <logging.h>
+#include <log.h>
 #include <mxconstants.h>
 
 LogDestination log_destination = LogDstSerConsole;
+
+void Log(LogLevel loglevel, char* msg){
+    // dummy
+}
 
 /*void log(LogLevel loglevel, char* msg){
     if (strlen(msg) > STR_MAX_SIZE) return;
