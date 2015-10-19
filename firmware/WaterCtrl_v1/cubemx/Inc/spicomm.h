@@ -1,28 +1,24 @@
-/* ---------------------------------------------------------------------------
-** This software is in the public domain, furnished "as is", without technical
-** support, and with no warranty, express or implied, as to its usefulness for
-** any purpose.
-**
-** spicomm.h
-** Functions for SPI receiver.
-** - init/handle interrupts/DMA
-** - act on received messages
-** - send queued messages
-**
-** Author: Jan Hieber <mail@janhieber.net>
-** -------------------------------------------------------------------------*/
+/** @file spicomm.h
+ *  @brief Functions for SPI receiver.
+ *      - init/handle interrupts/DMA
+ *      - act on received messages
+ *      - send queued messages
+ *
+ *  @author Jan Hieber <mail@janhieber.net>
+ */
 
 #ifndef SPICOMM_H_
 #define SPICOMM_H_
 
-#define STR_MAX_SIZE 127
-
 #include <stdint.h>
 #include <string.h>
 
+/*! size of the SPI send queue */
+#define SPI_SENDQUEUE_SIZE (SPI_XFER_SIZE*128)
+/*! size of the SPI receive queue */
+#define SPI_RECVQUEUE_SIZE (SPI_XFER_SIZE*128)
 
-#define SPI_SENDBUF_SIZE 16
-#define SPI_RECVBUF_SIZE 16
+
 
 void spiQueueInit();
 

@@ -40,6 +40,12 @@
 
 /* USER CODE BEGIN Private defines */
 
+/*! max string size in bytes! */
+#define STR_MAX_SIZE 128
+
+/*! SPI transfer size in bytes */
+#define SPI_XFER_SIZE 16
+
 /* USER CODE END Private defines */
 
 /**

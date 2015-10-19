@@ -1,15 +1,11 @@
-/* ---------------------------------------------------------------------------
-** This software is in the public domain, furnished "as is", without technical
-** support, and with no warranty, express or implied, as to its usefulness for
-** any purpose.
-**
-** logging.c
-** *see header file*
-**
-** Author: Jan Hieber <mail@janhieber.net>
-** -------------------------------------------------------------------------*/
+/** @file logging.c
+ *  @brief Functions for logging messages and routing/filter them.
+ *
+ *  @author Jan Hieber <mail@janhieber.net>
+ */
 
 #include <logging.h>
+#include <mxconstants.h>
 
 LogDestination log_destination = LogDstSerConsole;
 
