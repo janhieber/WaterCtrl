@@ -74,8 +74,9 @@ extern uint_fast64_t getFrequencyOfChannel();
 
 /**
   * @brief  Starts Timer and enables interrupt.
-  * @param  None
-  * @retval None
+  * @param  ptrTimerRef Timer to use
+  * @param  channel Channel to use
+  * @retval return value
   */
 int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
 
