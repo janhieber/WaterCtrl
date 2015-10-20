@@ -142,7 +142,7 @@ Infinite_Loop:
 
 g_pfnVectors:
 
-  .word _eram
+  .word _estack
   .word Reset_Handler
   .word NMI_Handler
   .word HardFault_Handler

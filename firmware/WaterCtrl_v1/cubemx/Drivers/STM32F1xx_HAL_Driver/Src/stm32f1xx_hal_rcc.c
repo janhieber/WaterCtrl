@@ -1134,7 +1134,9 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
   */
 uint32_t HAL_RCC_GetHCLKFreq(void)
 {
-  SystemCoreClock = HAL_RCC_GetSysClockFreq() >> aAPBAHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE)>> POSITION_VAL(RCC_CFGR_HPRE)];
+    uint index = (RCC->CFGR & RCC_CFGR_HPRE)>> POSITION_VAL(RCC_CFGR_HPRE);
+    int sysfreq = HAL_RCC_GetSysClockFreq();
+  SystemCoreClock = sysfreq >> aAPBAHBPrescTable[index];
   return SystemCoreClock;
 }
 
