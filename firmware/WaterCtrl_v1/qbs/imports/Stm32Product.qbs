@@ -6,35 +6,23 @@ Product {
     cpp.commonCompilerFlags: [
         "-mcpu=cortex-m3",
         "-mthumb",
-        "-O0",
-        "-fmessage-length=0",
-        "-fsigned-char",
-        "-ffunction-sections",
-        "-fdata-sections",
-        "-ffreestanding",
+        "-O1",
         "-Wall",
-        "-Wextra",
-        "-g",
+        "-g2",
         "-std=gnu11",
-        "-Wno-unused",
     ]
     cpp.linkerFlags: [
         "-mcpu=cortex-m3",
         "-mthumb",
         "-nostartfiles",
-        "-fmessage-length=0",
-        "-fsigned-char",
-        "-ffunction-sections",
-        "-fdata-sections",
-        "-ffreestanding",
-        "-Wall",
-        "-Wextra",
+        "-g2",
+        "-O1",
+        "-Wl,-Map,/tmp/"+ name + ".map",
         "-g",
-        "-Wl,-Map,"+ name + ".map",
-        "-lg",
-        "-lnosys",
     ]
     cpp.linkerScripts: [
         "../arm-gcc-link.ld"
     ]
+    cpp.architecture: "arm"
+
 }

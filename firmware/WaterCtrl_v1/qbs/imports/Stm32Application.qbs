@@ -9,8 +9,7 @@ Stm32Product {
     
     cpp.positionIndependentCode: false
     cpp.linkerFlags: {
-        base.push("-Xlinker");
-        base.push("--gc-sections");
+        base.push("-Wl,--gc-sections");
         return base;
     }
 }
