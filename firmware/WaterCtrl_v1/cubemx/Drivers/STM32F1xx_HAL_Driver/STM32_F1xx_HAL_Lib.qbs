@@ -8,17 +8,17 @@ Stm32Library {
         prefix: "**/"
         files: [
             "*.c",
-            "*.cpp",
             "*.h",
-            "../../CMSIS/Device/ST/STM32F1xx/Source/Templates/*.c",
+            "../../CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c",
         ]
     }
 
     cpp.defines: [
+        "STM32F10X_MD",
+        "STM32F103xB",
         "STM32F103C8T6",
         "HSE_VALUE=8000000",
-        "USE_HAL_DRIVER",
-        "STM32F103xB",
+        "USE_HAL_DRIVER"
     ]
     cpp.includePaths: [
         "Inc",
@@ -30,10 +30,11 @@ Stm32Library {
     Export {
         Depends { name: "cpp" }
         cpp.defines: [
+            "STM32F10X_MD",
+            "STM32F103xB",
             "STM32F103C8T6",
             "HSE_VALUE=8000000",
-            "USE_HAL_DRIVER",
-            "STM32F103xB",
+            "USE_HAL_DRIVER"
         ]
         cpp.includePaths: [
             "Inc",

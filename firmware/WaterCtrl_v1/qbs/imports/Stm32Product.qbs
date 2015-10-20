@@ -35,7 +35,6 @@ Product {
         "-lnosys",
     ]
     cpp.linkerScripts: [
-        //"../arm-gcc-link.ld",
-        "SW4STM32/cubemx Configuration/STM32F103C8Tx_FLASH.ld",
+        "../arm-gcc-link.ld"
     ]
 }

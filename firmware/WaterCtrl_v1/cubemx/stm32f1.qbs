@@ -15,16 +15,15 @@ Stm32Application {
         prefix: "Src/**/"
         files: [
             "*.c",
-            "*.cpp",
             "*.h",
             "*.s",
 
         ]
         cpp.cxxFlags: [
-            "-std=c++11",
+            "-std=gnu++11",
         ]
         cpp.cFlags: [
-            "-std=gnu99",
+            "-std=gnu11",
         ]
     }
 
@@ -35,10 +34,10 @@ Stm32Application {
     ]
     cpp.defines: [
         "STM32F10X_MD",
-        "STR_MAX_SIZE=127",
-        "HSE_VALUE=8000000",
-        "USE_HAL_DRIVER",
         "STM32F103xB",
+        "STM32F103C8T6",
+        "HSE_VALUE=8000000",
+        "USE_HAL_DRIVER"
     ]
 
     Rule {
