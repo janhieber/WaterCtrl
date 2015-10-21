@@ -13,7 +13,6 @@ Stm32Library {
             "Src/stm32f1xx_hal_cortex.c",
             "Src/stm32f1xx_hal_rcc.c",
             "Src/stm32f1xx_hal_uart.c",
-            "Src/stm32f1xx_hal_usart.c",
             "Src/stm32f1xx_hal_spi_ex.c",
             "Src/stm32f1xx_hal_flash.c",
             "Src/stm32f1xx_hal_gpio.c",
