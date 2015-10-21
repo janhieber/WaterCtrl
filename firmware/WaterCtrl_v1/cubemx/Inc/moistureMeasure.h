@@ -12,6 +12,8 @@
 #ifndef MOISTUREMEASURE_H
 #define MOISTUREMEASURE_H
 
+#include <log.h>
+
 int initMoistureMeasure(TIM_HandleTypeDef*);
 
 int deinitMoistureMeasure(void);

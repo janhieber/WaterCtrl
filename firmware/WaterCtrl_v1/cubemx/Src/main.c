@@ -80,7 +80,7 @@ static void MX_USART1_UART_Init(void);
 
 // this is for printf.c
 void PrintChar(char c) {
-	HAL_UART_Transmit(&huart1, (uint8_t *) &c, 1, 50);
+    HAL_UART_Transmit(&huart1, (uint8_t *) &c, 1, 50);
 }
 
 /* USER CODE END 0 */
@@ -94,14 +94,11 @@ int main(void)
 
   /* MCU Configuration----------------------------------------------------------*/
 
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
   /* Configure the system clock */
-
   SystemClock_Config();
-
-
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
@@ -111,26 +108,29 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
-	printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
-	printf("\tSystem clock: %dMHz\r\n\r\n",
-			(uint8_t)(SystemCoreClock / 1000000));
+    printf("\r\n\tWaterCtrl version %d\r\n", VERSION);
+    printf("\tSystem clock: %dMHz\r\n\r\n",
+           (uint8_t)(SystemCoreClock / 1000000));
+
+    initMoistureMeasure(&htim3);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	while (1) {
+    while (1) {
 
-		uint8_t buf[] = "test 123\r\n";
-		HAL_UART_Transmit(&huart1, buf, sizeof(buf), 50);
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-		HAL_Delay(1000);
+        uint8_t buf[] = "test 123\r\n";
+        HAL_UART_Transmit(&huart1, buf, sizeof(buf), 50);
+        HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+        HAL_Delay(1000);
+        printMoisture();
 
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
 
-	}
+    }
   /* USER CODE END 3 */
 
 }
@@ -266,6 +266,8 @@ void MX_USART1_UART_Init(void)
         * Output
         * EVENT_OUT
         * EXTI
+        * Free pins are configured automatically as Analog (this feature is enabled through 
+        * the Code Generation settings)
 */
 void MX_GPIO_Init(void)
 {
@@ -296,12 +298,28 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : PA2 PA3 PA4 PA8 
+                           PA11 PA12 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_8 
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PB1 PB10 PB11 PB15 
                            PB9 */
   GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_15 
                           |GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB2 PB12 PB13 PB14 
+                           PB3 PB4 PB5 PB6 
+                           PB7 PB8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14 
+                          |GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6 
+                          |GPIO_PIN_7|GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
@@ -322,8 +340,8 @@ void MX_GPIO_Init(void)
 void assert_failed(uint8_t* file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+         ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 
 }

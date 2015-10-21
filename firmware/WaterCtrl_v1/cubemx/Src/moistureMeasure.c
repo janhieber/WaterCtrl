@@ -101,56 +101,51 @@ uint32_t Timer3Channel;
 
 uint_fast64_t getMoisture(int channel)
 {
-	return getFrequencyOfChannel(channel);
+    return getFrequencyOfChannel(channel);
 }
 
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 
-	stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
+    stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
 
-	ptrTimer3Ref = ptr;
+    ptrTimer3Ref = ptr;
+    startSensorCapture(0);
 
-
-	startSensorCapture(0);
-
-	return 0;
+    return 0;
 }
 
 int startSensorCapture(int Sensor)
 {
-	// select input
+    // select input
 
-	MeasureInit(ptrTimer3Ref,Timer3Channel);
+    MeasureInit(ptrTimer3Ref,Timer3Channel);
 
-	HAL_Delay(500);
-
-	return Sensor;
-
+    return Sensor;
 }
 
 void printMoisture()
 {
-	uint value =0;
+    uint value =0;
 
-	for (int sensor=0;sensor<1;sensor++)
-	{
-		value = getMoisture(sensor);
-		printf("Measured channel %d: %d Hz\t\t", sensor, value);
-		printf("freq: %x\n",value);
-	}
+    for (int sensor=0;sensor<1;sensor++)
+    {
+        value = getMoisture(sensor);
+        printf("Measured channel %d: %d Hz\t\t", sensor, value);
+        printf("freq: %x\n",value);
+    }
 }
 
 int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 {
     int retval = -1;
 
-  /* TIM1 configuration: Input Capture mode ---------------------
+    /* TIM1 configuration: Input Capture mode ---------------------
      The external signal is connected to TIM1 CH2 pin (PA.09)
      The Rising edge is used as active edge,
      The TIM1 CCR2 is used to compute the frequency value
   ------------------------------------------------------------ */
 
-  /*TIM_ICInitSt.TIM_Channel = TIM_Channel_2;
+    /*TIM_ICInitSt.TIM_Channel = TIM_Channel_2;
   TIM_ICInitSt.TIM_ICPolarity = TIM_ICPolarity_Rising;
   TIM_ICInitSt.TIM_ICSelection = TIM_ICSelection_DirectTI;
   TIM_ICInitSt.TIM_ICPrescaler = TIM_ICPSC_DIV8;
@@ -158,7 +153,7 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 
   TIM_ICInit(TIM1, &TIM_ICInitSt);*/
 
-  /* TIM enable counter */
+    /* TIM enable counter */
     if(ptrTimerRef)
     {
         if (HAL_OK != (retval = HAL_TIM_IC_Start(ptrTimerRef,channel)))
@@ -168,23 +163,23 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 
     }
 
-  EnableMeasureInterrupt();
+    EnableMeasureInterrupt();
 
-  return retval;
+    return retval;
 }
 
 
 void EnableMeasureInterrupt()
 {
-    HAL_NVIC_ClearPendingIRQ(TIM1_CC_IRQn);
-    HAL_NVIC_EnableIRQ(TIM1_CC_IRQn);
+    HAL_NVIC_ClearPendingIRQ(TIM3_IRQn);
+    HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
     return;
 }
 void DisableMeasureInterrupt()
 {
-    HAL_NVIC_ClearPendingIRQ(TIM1_CC_IRQn);
-    HAL_NVIC_DisableIRQ(TIM1_CC_IRQn);
+    HAL_NVIC_ClearPendingIRQ(TIM3_IRQn);
+    HAL_NVIC_DisableIRQ(TIM3_IRQn);
 
     return;
 }
