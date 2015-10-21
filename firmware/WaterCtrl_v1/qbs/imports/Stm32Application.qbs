@@ -5,11 +5,15 @@ Stm32Product {
         "application",
         "combHex",
     ]
+
     consoleApplication: false
     
     cpp.positionIndependentCode: false
-    cpp.linkerFlags: {
-        base.push("-Wl,--gc-sections");
-        return base;
-    }
+    cpp.treatWarningsAsErrors: false
+    cpp.warningLevel: "default" // "all" or "none" or "default"
+
+//    cpp.linkerFlags: {
+//        base.push("-Wl,--gc-sections");
+//        return base;
+//    }
 }

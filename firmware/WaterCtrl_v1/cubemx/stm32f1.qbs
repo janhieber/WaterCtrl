@@ -6,53 +6,21 @@ import Stm32Application
 Stm32Application {
 
     name: "WaterCtrl_v1"
-
     type: "hex"
 
-    //Depends { name: "STM32_F1xx_HAL_Lib" }
     Group {
-        name: "sources"
-        prefix: "Src/**/"
+        name: "app"
         files: [
-            "*.c",
-            "*.h",
-            "*.s",
-        ]
-
-        cpp.cxxFlags: [
-            "-std=gnu++11",
-        ]
-        cpp.cFlags: [
-            "-std=gnu11",
+            "Src/**/*",
+            "Inc/**/*",
         ]
     }
 
     Group {
-        name: "sources2"
+        name: "HAL_Driver"
         files: [
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c",
-            "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c",
-
-        ]
-
-        cpp.cxxFlags: [
-            "-std=gnu++11",
-        ]
-        cpp.cFlags: [
-            "-std=gnu11",
+            "Drivers/STM32F1xx_HAL_Driver/Src/**/*",
+            "Drivers/STM32F1xx_HAL_Driver/Inc/**/*"
         ]
     }
 
@@ -62,6 +30,7 @@ Stm32Application {
         "Drivers/CMSIS/Include/",
         "Drivers/CMSIS/Device/ST/STM32F1xx/Include/",
     ]
+
     cpp.defines: [
         "STM32F10X_MD",
         "STM32F103xB",
