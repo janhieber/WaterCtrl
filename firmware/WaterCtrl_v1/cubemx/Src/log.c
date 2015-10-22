@@ -14,15 +14,21 @@
 
 #include <log.h>
 #include <mxconstants.h>
+#include <spicomm.h>
 
-static LogDestination log_destination = LogDstSerConsole;
+signed int printf(const char *pFormat, ...);
+
+static LogDestination log_destination = LogDstSerConsole | LogDstRaspberryPi;
+static LogLevel log_filter = LogDebug | LogError | LogInfo;
 
 void Log(LogLevel loglevel, char *msg) {
   if (strlen(msg) > STR_MAX_SIZE)
     return;
 
-  switch (log_destination) {
-  case LogDstSerConsole:
+  if (!(loglevel & log_filter))
+    return;
+
+  if (log_destination & LogDstSerConsole) {
     switch (loglevel) {
     case LogError:
       printf("EE: %s\r\n", msg);
@@ -33,9 +39,12 @@ void Log(LogLevel loglevel, char *msg) {
     case LogDebug:
       printf("DD: %s\r\n", msg);
       break;
+    default:
+      break;
     }
-    break;
-  case LogDstRaspberryPi:
+  }
+
+  if (log_destination & LogDstRaspberryPi) {
     switch (loglevel) {
     case LogError:
       spiSend(0x01, msg);
@@ -46,11 +55,9 @@ void Log(LogLevel loglevel, char *msg) {
     case LogDebug:
       spiSend(0x03, msg);
       break;
+    default:
+      break;
     }
-    break;
-  case LogDstNoDestination:
-  default:
-    break;
   }
 }
 
@@ -58,6 +65,7 @@ void logSetDestination(LogDestination destination) {
   log_destination = destination;
 }
 
+void logSetFilter(LogLevel filter) { log_filter = filter; }
 
 /**
   * @}

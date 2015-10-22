@@ -117,10 +117,14 @@ int main(void) {
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
-  logSetDestination(LogDstSerConsole);
+  logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
+  logSetFilter(LogDebug | LogError );
 
-  Log(LogInfo, "WaterCtrl version %d", VERSION);
-  Log(LogInfo, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
+  char tmp[30] = {0,};
+  sprintf(tmp, "WaterCtrl version %d", VERSION);
+  Log(LogInfo, tmp);
+  sprintf(tmp, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
+  Log(LogInfo, tmp);
 
   initMoistureMeasure(&htim3);
 

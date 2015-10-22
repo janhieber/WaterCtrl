@@ -120,8 +120,12 @@ void printMoisture()
     for (int sensor=0;sensor<1;sensor++)
     {
         value = getMoisture(sensor);
-        printf("Measured channel %d: %d Hz\t\t", sensor, value);
-        printf("freq: %x\n",value);
+
+        char tmpbuf[40] = {0,};
+        sprintf(tmpbuf, "Measured channel %d: %d Hz", sensor, value);
+        Log(LogInfo, tmpbuf);
+
+        //printf("freq: %x\n",value);
     }
 }
 
@@ -148,7 +152,8 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
     {
         if (HAL_OK != (retval = HAL_TIM_IC_Start(ptrTimerRef,channel)))
         {
-            printf("FAILED: timer start, erro: %d",retval);
+            //printf("FAILED: timer start, erro: %d",retval);
+            Log(LogError, "failed to start timer!");
         }
 
     }
