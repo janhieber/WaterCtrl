@@ -19,10 +19,12 @@ Product {
         "-g2",
         "-O1",
         //"-Wl,-Map,/tmp/"+ name + ".map",
-        "-Wl,-Map," + name + ".map",
+        "-Wl,-Map," + buildDirectory + "/" + name + ".map",
         //"-Wl,--specs=nano.specs", // for libnano
-        "-Wl,--gc-sections",
+        "-Wl,--gc-sections"
     ]
+
+
     cpp.linkerScripts: [
         "../arm-gcc-link.ld"
     ]
