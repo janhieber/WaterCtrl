@@ -57,7 +57,7 @@ void spiSend(char *msg){
     if (spiSendQueueEnd >= spiSendQueueBegin){
         if(spiSendQueueEnd + msglen <= SPI_SENDQUEUE_SIZE){
             // if fits in buffer
-            strcpy(&(spiSendQueue[spiSendQueueEnd]), msg);
+            strcpy((char * restrict)&(spiSendQueue[spiSendQueueEnd]), msg);
             // set new end
             if (msglen % SPI_XFER_SIZE)
                 spiSendQueueEnd += SPI_XFER_SIZE * ((msglen % SPI_XFER_SIZE) +1);
@@ -67,8 +67,8 @@ void spiSend(char *msg){
             // if it does not fit in buffer to end
             uint8_t remaining = msglen - (SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
             if (remaining < spiSendQueueBegin) {
-                strncpy(&(spiSendQueue[spiSendQueueEnd]), msg, SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
-                strncpy(spiSendQueue, &(msg[SPI_SENDQUEUE_SIZE - spiSendQueueEnd +1]), remaining);
+                strncpy((char * restrict)&(spiSendQueue[spiSendQueueEnd]), msg, SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
+                strncpy((char * restrict)spiSendQueue, &(msg[SPI_SENDQUEUE_SIZE - spiSendQueueEnd +1]), remaining);
                 if (remaining % SPI_XFER_SIZE)
                     spiSendQueueEnd += SPI_XFER_SIZE * ((remaining % SPI_XFER_SIZE) +1);
                 else
