@@ -64,6 +64,11 @@ void HAL_MspInit(void)
   /* USER CODE END MspInit 1 */
 }
 
+void HAL_IWDG_MspInit(IWDG_HandleTypeDef* hiwdg)
+{
+
+}
+
 void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 {
 
