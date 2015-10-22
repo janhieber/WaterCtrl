@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printf',['Printf',['../group__printf.html',1,'']]]
+  ['logging',['Logging',['../group__Logging.html',1,'']]]
 ];

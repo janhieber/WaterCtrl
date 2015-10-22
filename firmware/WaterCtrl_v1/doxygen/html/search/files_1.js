@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['motors_2ec',['motors.c',['../motors_8c.html',1,'']]],
-  ['motors_2eh',['motors.h',['../motors_8h.html',1,'']]]
+  ['log_2ec',['log.c',['../log_8c.html',1,'']]],
+  ['log_2eh',['log.h',['../log_8h.html',1,'']]]
 ];
