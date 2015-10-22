@@ -2,43 +2,64 @@
 <tagfile>
   <compound kind="file">
     <name>log.h</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>log_8h</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>Log</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaa5f1e819907ea056f541d68e85272cd2</anchor>
+      <arglist>(LogLevel loglevel, char *msg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>logSetDestination</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaa0b7f0e3704065f96cacc925211a5af3</anchor>
+      <arglist>(LogDestination destination)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>motors.h</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>motors_8h</filename>
   </compound>
   <compound kind="file">
     <name>spicomm.h</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>spicomm_8h</filename>
     <member kind="define">
       <type>#define</type>
       <name>SPI_SENDQUEUE_SIZE</name>
-      <anchorfile>spicomm_8h.html</anchorfile>
-      <anchor>a046708bf8b10b373fc94bf9b92b45649</anchor>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga046708bf8b10b373fc94bf9b92b45649</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>SPI_RECVQUEUE_SIZE</name>
-      <anchorfile>spicomm_8h.html</anchorfile>
-      <anchor>a6177ab4ab1e1790508797c4987003b3c</anchor>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga6177ab4ab1e1790508797c4987003b3c</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>spiQueueInit</name>
-      <anchorfile>spicomm_8h.html</anchorfile>
-      <anchor>a9efb05b0b48169d9ad99cead17797f1b</anchor>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga9efb05b0b48169d9ad99cead17797f1b</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>spiSend</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>gae7a5ae0fcd4d456fa8341756fd3f5c37</anchor>
+      <arglist>(uint8_t id, char *msg)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>stm32f1xx_hal_conf.h</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>stm32f1xx__hal__conf_8h</filename>
     <member kind="define">
       <type>#define</type>
@@ -288,13 +309,27 @@
   </compound>
   <compound kind="file">
     <name>stm32f1xx_it.h</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>stm32f1xx__it_8h</filename>
     <member kind="function">
       <type>void</type>
       <name>SysTick_Handler</name>
       <anchorfile>stm32f1xx__it_8h.html</anchorfile>
       <anchor>ab5e09814056d617c521549e542639b7e</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>TIM2_IRQHandler</name>
+      <anchorfile>stm32f1xx__it_8h.html</anchorfile>
+      <anchor>a38ad4725462bdc5e86c4ead4f04b9fc2</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>TIM3_IRQHandler</name>
+      <anchorfile>stm32f1xx__it_8h.html</anchorfile>
+      <anchor>ac8e51d2183b5230cbd5481f8867adce9</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
@@ -313,55 +348,239 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>isr_moisture.c</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <filename>isr__moisture_8c</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>HAL_TIM_IC_CaptureCallback</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga77a2401a35ddd9bd0b8fc28331b81381</anchor>
+      <arglist>(TIM_HandleTypeDef *htim)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>log.c</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>log_8c</filename>
     <includes id="log_8h" name="log.h" local="no" imported="no">log.h</includes>
+    <member kind="function">
+      <type>void</type>
+      <name>Log</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaa5f1e819907ea056f541d68e85272cd2</anchor>
+      <arglist>(LogLevel loglevel, char *msg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>logSetDestination</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaa0b7f0e3704065f96cacc925211a5af3</anchor>
+      <arglist>(LogDestination destination)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>moistureMeasure.c</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <filename>moistureMeasure_8c</filename>
+    <member kind="function">
+      <type>int</type>
+      <name>MeasureInit</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>gac306477cfeeb89d9fb7c5aaab4d7d2fa</anchor>
+      <arglist>(TIM_HandleTypeDef *ptrTimerRef, uint32_t channel)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>EnableMeasureInterrupt</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga88dd3486884d225ff651e28d30877201</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>DisableMeasureInterrupt</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga5f3f4f49c56ba5d2b1843d59ab583239</anchor>
+      <arglist>()</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>motors.c</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>motors_8c</filename>
+    <includes id="log_8h" name="log.h" local="no" imported="no">log.h</includes>
     <includes id="motors_8h" name="motors.h" local="no" imported="no">motors.h</includes>
   </compound>
   <compound kind="file">
+    <name>printf.c</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <filename>printf_8c</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>MAX_STRING_SIZE</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga220f38b26fa99d4d91b574f42d991516</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>__attribute__</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gaf9aace1b44b73111e15aa39f06f43456</anchor>
+      <arglist>((weak))</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>PutChar</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga9d6957a52d69935cd92755844e9252be</anchor>
+      <arglist>(char *pStr, char c)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>PutString</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga9692c423423d4787d69f090a359c5644</anchor>
+      <arglist>(char *pStr, const char *pSource)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>PutUnsignedInt</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gafeda5b1cd1c8e201b2fc997b35d03281</anchor>
+      <arglist>(char *pStr, char fill, signed int width, unsigned int value)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>PutSignedInt</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gae7337166e7d8bcc7d589e63777ae2541</anchor>
+      <arglist>(char *pStr, char fill, signed int width, signed int value)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>PutHexa</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga3b3bdb18a334228eb2b08b1a70c1a62a</anchor>
+      <arglist>(char *pStr, char fill, signed int width, unsigned char maj, unsigned int value)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>vsnprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga8f2d28f08e5d66db9a14ed70cb1f4220</anchor>
+      <arglist>(char *pStr, size_t length, const char *pFormat, va_list ap)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>snprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gae4d7a9a581baef0b2b2174383580ab15</anchor>
+      <arglist>(char *pString, size_t length, const char *pFormat,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>vsprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gac2bd6c4c9ad1b563bdcd20f18a36811a</anchor>
+      <arglist>(char *pString, const char *pFormat, va_list ap)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>vfprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga4c938d1cedba90cbc8107400ebea6100</anchor>
+      <arglist>(FILE *pStream, const char *pFormat, va_list ap)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>vprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gadc27df6594a246219000f9d2a584a3be</anchor>
+      <arglist>(const char *pFormat, va_list ap)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>fprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga714a7aeb0b480bc7cc85c1685964861f</anchor>
+      <arglist>(FILE *pStream, const char *pFormat,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>printf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gad6c265f6d41266cbb62035915f9c0030</anchor>
+      <arglist>(const char *pFormat,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>sprintf</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga2ab9fb00bf66223b1a3f334376963100</anchor>
+      <arglist>(char *pStr, const char *pFormat,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>puts</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga5a8c5f197e584138be351a4437f67689</anchor>
+      <arglist>(const char *pStr)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>fputc</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga25c4b74226a8a3a0d6eef3a072be087b</anchor>
+      <arglist>(signed int c, FILE *pStream)</arglist>
+    </member>
+    <member kind="function">
+      <type>signed int</type>
+      <name>fputs</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>gad870e26ae50d712bb504aa4b067802f4</anchor>
+      <arglist>(const char *pStr, FILE *pStream)</arglist>
+    </member>
+    <member kind="variable">
+      <type>struct _reent</type>
+      <name>r</name>
+      <anchorfile>group__printf.html</anchorfile>
+      <anchor>ga933442104e916763ad534cd32e42bbae</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>spicomm.c</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>spicomm_8c</filename>
     <includes id="log_8h" name="log.h" local="no" imported="no">log.h</includes>
     <includes id="spicomm_8h" name="spicomm.h" local="no" imported="no">spicomm.h</includes>
     <member kind="function">
       <type>void</type>
       <name>spiQueueInit</name>
-      <anchorfile>spicomm_8c.html</anchorfile>
-      <anchor>a9efb05b0b48169d9ad99cead17797f1b</anchor>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga9efb05b0b48169d9ad99cead17797f1b</anchor>
       <arglist>()</arglist>
     </member>
-    <member kind="variable">
-      <type>uint8_t *</type>
-      <name>spiSendBuf</name>
-      <anchorfile>spicomm_8c.html</anchorfile>
-      <anchor>ac288888069ac5db4a11a00415cd86b31</anchor>
-      <arglist></arglist>
+    <member kind="function">
+      <type>void</type>
+      <name>spiSend</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>gae7a5ae0fcd4d456fa8341756fd3f5c37</anchor>
+      <arglist>(uint8_t id, char *msg)</arglist>
     </member>
-    <member kind="variable">
-      <type>uint8_t</type>
-      <name>spiSendQueue</name>
-      <anchorfile>spicomm_8c.html</anchorfile>
-      <anchor>af65a1e320199ae2bc5e3a1048c4e7fe9</anchor>
-      <arglist>[SPI_SENDQUEUE_SIZE]</arglist>
-    </member>
-    <member kind="variable">
-      <type>uint32_t</type>
-      <name>spiSendQueueBegin</name>
-      <anchorfile>spicomm_8c.html</anchorfile>
-      <anchor>a47891c9335a00a09a3a29d6ed35ea004</anchor>
-      <arglist></arglist>
+    <member kind="function">
+      <type>void</type>
+      <name>HAL_SPI_TxRxCpltCallback</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga04e63f382f172164c8e7cae4ff5d883c</anchor>
+      <arglist>(SPI_HandleTypeDef *hspi)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>stm32f1xx_it.c</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>stm32f1xx__it_8c</filename>
     <includes id="stm32f1xx__it_8h" name="stm32f1xx_it.h" local="yes" imported="no">stm32f1xx_it.h</includes>
     <member kind="function">
@@ -373,6 +592,20 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>TIM2_IRQHandler</name>
+      <anchorfile>stm32f1xx__it_8c.html</anchorfile>
+      <anchor>a38ad4725462bdc5e86c4ead4f04b9fc2</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>TIM3_IRQHandler</name>
+      <anchorfile>stm32f1xx__it_8c.html</anchorfile>
+      <anchor>ac8e51d2183b5230cbd5481f8867adce9</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>SPI1_IRQHandler</name>
       <anchorfile>stm32f1xx__it_8c.html</anchorfile>
       <anchor>a9bbd8c17ce4f49adcca47d11f482aab6</anchor>
@@ -386,11 +619,142 @@
       <arglist>(void)</arglist>
     </member>
   </compound>
+  <compound kind="file">
+    <name>system_stm32f1xx.c</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <filename>system__stm32f1xx_8c</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>HSE_VALUE</name>
+      <anchorfile>group__STM32F1xx__System__Private__Defines.html</anchorfile>
+      <anchor>gaeafcff4f57440c60e64812dddd13e7cb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>HSI_VALUE</name>
+      <anchorfile>group__STM32F1xx__System__Private__Defines.html</anchorfile>
+      <anchor>gaaa8c76e274d0f6dd2cefb5d0b17fbc37</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>VECT_TAB_OFFSET</name>
+      <anchorfile>group__STM32F1xx__System__Private__Defines.html</anchorfile>
+      <anchor>ga40e1495541cbb4acbe3f1819bd87a9fe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>SystemInit</name>
+      <anchorfile>group__STM32F1xx__System__Private__Functions.html</anchorfile>
+      <anchor>ga93f514700ccf00d08dbdcff7f1224eb2</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>SystemCoreClockUpdate</name>
+      <anchorfile>group__STM32F1xx__System__Private__Functions.html</anchorfile>
+      <anchor>gae0c36a9591fe6e9c45ecb21a794f0f0f</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>SystemCoreClock</name>
+      <anchorfile>group__STM32F1xx__System__Private__Variables.html</anchorfile>
+      <anchor>gaa3cd3e43291e81e795d642b79b6088e6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="group">
-    <name>RetargetPrintf</name>
-    <title>RetargetPrintf</title>
-    <filename>group__RetargetPrintf.html</filename>
+    <name>CMSIS</name>
+    <title>CMSIS</title>
+    <filename>group__CMSIS.html</filename>
+    <subgroup>Stm32f1xx_system</subgroup>
+  </compound>
+  <compound kind="group">
+    <name>Communication</name>
+    <title>Communication</title>
+    <filename>group__Communication.html</filename>
+    <subgroup>Logging</subgroup>
     <subgroup>printf</subgroup>
+    <subgroup>SPI</subgroup>
+  </compound>
+  <compound kind="group">
+    <name>Logging</name>
+    <title>Logging</title>
+    <filename>group__Logging.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>Log</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaa5f1e819907ea056f541d68e85272cd2</anchor>
+      <arglist>(LogLevel loglevel, char *msg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>logSetDestination</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaa0b7f0e3704065f96cacc925211a5af3</anchor>
+      <arglist>(LogDestination destination)</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>Main</name>
+    <title>Main</title>
+    <filename>group__Main.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>SystemClock_Config</name>
+      <anchorfile>group__Main.html</anchorfile>
+      <anchor>ga70af21c671abfcc773614a9a4f63d920</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>PrintChar</name>
+      <anchorfile>group__Main.html</anchorfile>
+      <anchor>gaac7233dce0ef357b1ea507667a7b6e07</anchor>
+      <arglist>(char c)</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>MoistureMeasure</name>
+    <title>MoistureMeasure</title>
+    <filename>group__MoistureMeasure.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>HAL_TIM_IC_CaptureCallback</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga77a2401a35ddd9bd0b8fc28331b81381</anchor>
+      <arglist>(TIM_HandleTypeDef *htim)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>MeasureInit</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>gac306477cfeeb89d9fb7c5aaab4d7d2fa</anchor>
+      <arglist>(TIM_HandleTypeDef *ptrTimerRef, uint32_t channel)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>EnableMeasureInterrupt</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga88dd3486884d225ff651e28d30877201</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>DisableMeasureInterrupt</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga5f3f4f49c56ba5d2b1843d59ab583239</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>MotorControl</name>
+    <title>MotorControl</title>
+    <filename>group__MotorControl.html</filename>
   </compound>
   <compound kind="group">
     <name>printf</name>
@@ -531,48 +895,143 @@
     </member>
   </compound>
   <compound kind="group">
-    <name>Clibrary</name>
-    <title>Clibrary</title>
-    <filename>group__Clibrary.html</filename>
+    <name>SPI</name>
+    <title>SPI</title>
+    <filename>group__SPI.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>SPI_SENDQUEUE_SIZE</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga046708bf8b10b373fc94bf9b92b45649</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SPI_RECVQUEUE_SIZE</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga6177ab4ab1e1790508797c4987003b3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>spiQueueInit</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga9efb05b0b48169d9ad99cead17797f1b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>spiSend</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>gae7a5ae0fcd4d456fa8341756fd3f5c37</anchor>
+      <arglist>(uint8_t id, char *msg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>HAL_SPI_TxRxCpltCallback</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga04e63f382f172164c8e7cae4ff5d883c</anchor>
+      <arglist>(SPI_HandleTypeDef *hspi)</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_Defines</name>
+    <title>STM32F1xx_System_Private_Defines</title>
+    <filename>group__STM32F1xx__System__Private__Defines.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>HSE_VALUE</name>
+      <anchorfile>group__STM32F1xx__System__Private__Defines.html</anchorfile>
+      <anchor>gaeafcff4f57440c60e64812dddd13e7cb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>HSI_VALUE</name>
+      <anchorfile>group__STM32F1xx__System__Private__Defines.html</anchorfile>
+      <anchor>gaaa8c76e274d0f6dd2cefb5d0b17fbc37</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>VECT_TAB_OFFSET</name>
+      <anchorfile>group__STM32F1xx__System__Private__Defines.html</anchorfile>
+      <anchor>ga40e1495541cbb4acbe3f1819bd87a9fe</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_FunctionPrototypes</name>
+    <title>STM32F1xx_System_Private_FunctionPrototypes</title>
+    <filename>group__STM32F1xx__System__Private__FunctionPrototypes.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_Functions</name>
+    <title>STM32F1xx_System_Private_Functions</title>
+    <filename>group__STM32F1xx__System__Private__Functions.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>SystemInit</name>
+      <anchorfile>group__STM32F1xx__System__Private__Functions.html</anchorfile>
+      <anchor>ga93f514700ccf00d08dbdcff7f1224eb2</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>SystemCoreClockUpdate</name>
+      <anchorfile>group__STM32F1xx__System__Private__Functions.html</anchorfile>
+      <anchor>gae0c36a9591fe6e9c45ecb21a794f0f0f</anchor>
+      <arglist>(void)</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_Includes</name>
+    <title>STM32F1xx_System_Private_Includes</title>
+    <filename>group__STM32F1xx__System__Private__Includes.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_Macros</name>
+    <title>STM32F1xx_System_Private_Macros</title>
+    <filename>group__STM32F1xx__System__Private__Macros.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_TypesDefinitions</name>
+    <title>STM32F1xx_System_Private_TypesDefinitions</title>
+    <filename>group__STM32F1xx__System__Private__TypesDefinitions.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>STM32F1xx_System_Private_Variables</name>
+    <title>STM32F1xx_System_Private_Variables</title>
+    <filename>group__STM32F1xx__System__Private__Variables.html</filename>
+    <member kind="variable">
+      <type>uint32_t</type>
+      <name>SystemCoreClock</name>
+      <anchorfile>group__STM32F1xx__System__Private__Variables.html</anchorfile>
+      <anchor>gaa3cd3e43291e81e795d642b79b6088e6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>Stm32f1xx_system</name>
+    <title>Stm32f1xx_system</title>
+    <filename>group__stm32f1xx__system.html</filename>
+    <subgroup>STM32F1xx_System_Private_Defines</subgroup>
+    <subgroup>STM32F1xx_System_Private_FunctionPrototypes</subgroup>
+    <subgroup>STM32F1xx_System_Private_Functions</subgroup>
+    <subgroup>STM32F1xx_System_Private_Includes</subgroup>
+    <subgroup>STM32F1xx_System_Private_Macros</subgroup>
+    <subgroup>STM32F1xx_System_Private_TypesDefinitions</subgroup>
+    <subgroup>STM32F1xx_System_Private_Variables</subgroup>
+  </compound>
+  <compound kind="group">
+    <name>Stuff</name>
+    <title>Stuff</title>
+    <filename>group__Stuff.html</filename>
     <subgroup>syscalls</subgroup>
   </compound>
   <compound kind="group">
     <name>syscalls</name>
     <title>Syscalls</title>
     <filename>group__syscalls.html</filename>
-  </compound>
-  <compound kind="dir">
-    <name>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/</path>
-    <filename>dir_f5c2326d5189201af8bb833049f1bb32.html</filename>
-    <dir>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc</dir>
-    <dir>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src</dir>
-  </compound>
-  <compound kind="dir">
-    <name>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
-    <filename>dir_7e785e8a1296a2296327502ca3ef93ec.html</filename>
-    <file>log.h</file>
-    <file>moistureMeasure.h</file>
-    <file>motors.h</file>
-    <file>mxconstants.h</file>
-    <file>spicomm.h</file>
-    <file>stm32f1xx_hal_conf.h</file>
-    <file>stm32f1xx_it.h</file>
-  </compound>
-  <compound kind="dir">
-    <name>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src</name>
-    <path>E:/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
-    <filename>dir_9355b857e7ab51b20f700bfd37fef090.html</filename>
-    <file>isr_moisture.c</file>
-    <file>log.c</file>
-    <file>main.c</file>
-    <file>moistureMeasure.c</file>
-    <file>motors.c</file>
-    <file>printf.c</file>
-    <file>spicomm.c</file>
-    <file>stm32f1xx_hal_msp.c</file>
-    <file>stm32f1xx_it.c</file>
-    <file>syscalls.c</file>
   </compound>
 </tagfile>

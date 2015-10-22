@@ -1,13 +1,16 @@
-/**************************************************************************//*****
- * @file     printf.c
- * @brief    Implementation of several stdio.h methods, such as printf(), 
+/** @file printf.c
+ *  @brief Implementation of several stdio.h methods, such as printf(),
  *           sprintf() and so on. This reduces the memory footprint of the
  *           binary when using those methods, compared to the libc implementation.
- ********************************************************************************/
+ *
+ *  @author CooCox <http://www.coocox.org/>
+ */
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <mxconstants.h>
-/** @addtogroup RetargetPrintf
+
+/** @addtogroup Communication
   * @{
   */
   

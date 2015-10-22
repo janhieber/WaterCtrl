@@ -1,13 +1,31 @@
-/* ---------------------------------------------------------------------------
-** This software is in the public domain, furnished "as is", without technical
-** support, and with no warranty, express or implied, as to its usefulness for
-** any purpose.
-**
-** moistureMeasure.c
-** *see header file*
-**
-** Author: dropedout
-** -------------------------------------------------------------------------*/
+/** @file moistureMeasure.c
+ *  @brief Measure frequency connected to TIM inputs
+ *      Measure and  calculate floating mean of the frequency via interrupt.
+ *
+ *  @todo:
+ * 	Make input pin configurable. We need to measure 8 sensor inputs
+ * 	Find algorithm which less stress the output
+ * 	- lower measurement period time
+ * 	- combine capture inputs to gain more precision/range
+ *
+ * 	Multiplex inputs
+ * 	- GPIO for input selection
+ * 	- disable capture while inputs switch
+ *
+ * 	@attention:
+ * 	Concurrent access to global frequency by interrupt and output loop!
+ *
+ * 	Questions for implementation:
+ * 	1. which frequency range is expected -> prescaler
+ * 	2. How to implement self stopping measure interval?
+ * 		a. How to stop the measurement between channels
+ *
+ *  @author Dropedout
+ */
+
+/** @addtogroup MoistureMeasure
+  * @{
+  */
 
 #include "stm32f1xx_hal.h"
 
@@ -16,33 +34,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-/**
- * @brief Measure frequency connected to TIM inputs
- *
- * 	Measure and  calculate floating mean of the frequency via interrupt.
- *
- * 	@retVal Global frequency in ulong
- *
- *
- * 	ToDo:
- * 	Make input pin configurable. We need to measure 8 sensor inputs
- * 	Find algorithm which less stress the output
- * 	- lower measurement period time
- * 	- combine capture inputs to gain more precision/range
- * 	-
- * 	Multiplex inputs
- * 	- GPIO for input selection
- * 	- disable capture while inputs switch
- *
- * 	Attention:
- * 	Concurrent access to global frequency by interrupt and output loop!
- *
- * 	Questions for implementation:
- * 	1. which frequency range is expected -> prescaler
- * 	2. How to implement self stopping measure interval?
- * 		a. How to stop the measurement between channels
- *
- */
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -82,14 +74,11 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
 
 /**
   * @brief  Enable timer interrupt.
-  * @param  None
-  * @retval None
   */
 void EnableMeasureInterrupt();
+
 /**
   * @brief  Disable timer interrupt.
-  * @param  None
-  * @retval None
   */
 void DisableMeasureInterrupt();
 
@@ -105,6 +94,7 @@ uint_fast64_t getMoisture(int channel)
 }
 
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
+    Log(LogInfo, "init moisture measure system");
 
     stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
 
@@ -183,3 +173,8 @@ void DisableMeasureInterrupt()
 
     return;
 }
+
+
+/**
+  * @}
+  */

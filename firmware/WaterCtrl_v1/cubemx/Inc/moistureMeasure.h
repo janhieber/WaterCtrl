@@ -9,6 +9,10 @@
 ** Author: dropedout
 ** -------------------------------------------------------------------------*/
 
+/** @addtogroup MoistureMeasure
+  * @{
+  */
+
 #ifndef MOISTUREMEASURE_H
 #define MOISTUREMEASURE_H
 
@@ -24,3 +28,7 @@ void printMoisture();
 
 
 #endif // MOISTUREMEASURE_H
+
+/**
+  * @}
+  */

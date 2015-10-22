@@ -3,11 +3,17 @@
  * @brief    Implementation of newlib syscall
  ********************************************************************************/
  
+/** @file stdio.c
+ *  @brief Implementation of newlib syscall
+ *
+ *  @author CooCox <http://www.coocox.org/>
+ */
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-/** @addtogroup Clibrary
+/** @addtogroup Stuff
   * @{
   */
   

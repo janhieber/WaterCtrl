@@ -1,13 +1,12 @@
-/* ---------------------------------------------------------------------------
-** This software is in the public domain, furnished "as is", without technical
-** support, and with no warranty, express or implied, as to its usefulness for
-** any purpose.
-**
-** isr_moisture.c
-** Frequency measurement
-**
-** Author: dropedout
-** -------------------------------------------------------------------------*/
+/** @file isr_moisture.c
+ *  @brief Frequency measurement
+ *
+ *  @author Dropedout
+ */
+
+/** @addtogroup MoistureMeasure
+  * @{
+  */
 
 #include "stm32f1xx_hal.h"
 
@@ -27,8 +26,6 @@ uint_fast64_t getFrequencyOfChannel(int channel)
 
 /**
  * @brief  This function handles TIM1 Capture Compare interrupt request.
- * @param  None
- * @retval None
  */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
@@ -69,3 +66,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
         }
     }
 }
+
+
+/**
+  * @}
+  */
