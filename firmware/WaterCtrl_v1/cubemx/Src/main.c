@@ -45,8 +45,19 @@
   * @{
   */
 
-// DEFINES
+/* ============ DEFINES ============== */
+// general
 #define VERSION (uint8_t)1
+
+// for scheduler
+#define INTERVAL_ALWAYS 0
+#define INTERVAL_10MS 10
+#define INTERVAL_100MS 100
+#define INTERVAL_500MS 500
+#define INTERVAL_1S 1000
+#define INTERVAL_5S 5000
+
+#define ARRAYSIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 // TOOLCHAIN INCLUDES
 #include <stdint.h>
@@ -83,20 +94,72 @@ static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
+void AliveTicker(void);
+void Tsk_Always(void);
+void Tsk_10ms(void);
 
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
 
 /*! this is for printf.c to handle output */
-void PrintChar(char c) { HAL_UART_Transmit(&huart1, (uint8_t *)&c, 1, 50); }
+void PrintChar(char c) { HAL_UART_Transmit(&huart1, (uint8_t*)&c, 1, 50); }
+
+/*! Define parameters to configure a task */
+typedef struct {
+  uint16_t Interval;   // how often the task will run
+  uint32_t LastTick;   // stores last tick the task was ran
+  void (*Func)(void);  // function ptr to task
+} TaskType;
+
+/*! Task configuration table */
+static TaskType Tasks[] = {
+    {INTERVAL_ALWAYS, 0, Tsk_Always},
+    {INTERVAL_10MS, 0, Tsk_10ms},
+    {INTERVAL_1S, 0, AliveTicker},
+    {INTERVAL_5S, 0, printMoisture},
+};
+
+/**
+ * @brief Example tasks that runs as often as possible
+ */
+void Tsk_Always(void) { __NOP(); }
+
+/**
+ * @brief Example task that runs every 10 ms
+ */
+void Tsk_10ms(void) { __NOP(); }
+
+/**
+ * @brief System alive indicator for LED
+ */
+void AliveTicker(void) {
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  HAL_Delay(50);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+}
+
+/**
+ * @brief Get number of scheduled tasks
+ * @return Number of tasks
+ */
+uint8_t Tsk_GetNumTasks(void) { return ARRAYSIZE(Tasks); }
+
+/**
+ * @brief Get task configuration table
+ * @return Task configuration table
+ */
+TaskType* Tsk_GetConfig(void) { return Tasks; }
 
 /* USER CODE END 0 */
 
 int main(void) {
-
   /* USER CODE BEGIN 1 */
 
+  // this is for temporary sprintf stuff
+  char tmpbuf[64] = {
+      0,
+  };
   /* USER CODE END 1 */
 
   /* MCU
@@ -117,27 +180,49 @@ int main(void) {
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
+
+  // setup logging
   logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
-  logSetFilter(LogDebug | LogError );
+  logSetFilter(LogDebug | LogError | LogInfo);
 
-  char tmp[30] = {0,};
-  sprintf(tmp, "WaterCtrl version %d", VERSION);
-  Log(LogInfo, tmp);
-  sprintf(tmp, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
-  Log(LogInfo, tmp);
+  // nice greetings
+  sprintf(tmpbuf, "WaterCtrl version %d", VERSION);
+  Log(LogInfo, tmpbuf);
+  sprintf(tmpbuf, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
+  Log(LogInfo, tmpbuf);
 
+  // init modules
   initMoistureMeasure(&htim3);
+  initMotors();
+
+  // setup scheduler vars
+  static uint32_t tick = 0;
+  static TaskType* TaskPtr;
+  static uint8_t TaskIndex = 0;
+  const uint8_t NumTasks = Tsk_GetNumTasks();
+  sprintf(tmpbuf, "Scheduler: %d tasks scheduled", NumTasks);
+  Log(LogDebug, tmpbuf);
+
+  // init scheduler
+  TaskPtr = Tsk_GetConfig();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  Log(LogInfo, "reaching mainloop");
+  Log(LogDebug, "reaching mainloop");
   while (1) {
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-    HAL_Delay(1000);
-
-    printMoisture();
+    // scheduling
+    tick = HAL_GetTick();
+    for (TaskIndex = 0; TaskIndex < NumTasks; TaskIndex++) {
+      if (TaskPtr[TaskIndex].Interval == 0)
+        (*TaskPtr[TaskIndex].Func)();
+      else if ((tick - TaskPtr[TaskIndex].LastTick) >=
+               TaskPtr[TaskIndex].Interval) {
+        (*TaskPtr[TaskIndex].Func)();
+        TaskPtr[TaskIndex].LastTick = tick;
+      }
+    }
 
     /* USER CODE END WHILE */
 
@@ -149,7 +234,6 @@ int main(void) {
 /** System Clock Configuration
 */
 void SystemClock_Config(void) {
-
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
@@ -178,7 +262,6 @@ void SystemClock_Config(void) {
 
 /* SPI1 init function */
 void MX_SPI1_Init(void) {
-
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_SLAVE;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
@@ -196,7 +279,6 @@ void MX_SPI1_Init(void) {
 
 /* TIM2 init function */
 void MX_TIM2_Init(void) {
-
   TIM_ClockConfigTypeDef sClockSourceConfig;
   TIM_MasterConfigTypeDef sMasterConfig;
   TIM_OC_InitTypeDef sConfigOC;
@@ -226,7 +308,6 @@ void MX_TIM2_Init(void) {
 
 /* TIM3 init function */
 void MX_TIM3_Init(void) {
-
   TIM_MasterConfigTypeDef sMasterConfig;
   TIM_IC_InitTypeDef sConfigIC;
 
@@ -250,7 +331,6 @@ void MX_TIM3_Init(void) {
 
 /* USART1 init function */
 void MX_USART1_UART_Init(void) {
-
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
@@ -273,7 +353,6 @@ void MX_USART1_UART_Init(void) {
         * the Code Generation settings)
 */
 void MX_GPIO_Init(void) {
-
   GPIO_InitTypeDef GPIO_InitStruct;
 
   /* GPIO Ports Clock Enable */
@@ -340,7 +419,7 @@ void MX_GPIO_Init(void) {
    * @param line: assert_param error line source number
    * @retval None
    */
-void assert_failed(uint8_t *file, uint32_t line) {
+void assert_failed(uint8_t* file, uint32_t line) {
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line
      number,
