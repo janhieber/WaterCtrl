@@ -13,8 +13,7 @@
 
 void initMotors(void);
 
-
-#endif // MOTORS_H
+#endif  // MOTORS_H
 
 /**
   * @}

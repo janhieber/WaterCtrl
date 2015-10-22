@@ -14,12 +14,7 @@
 #include <log.h>
 #include <motors.h>
 
-
-void initMotors(void) {
-    Log(LogInfo, "init motor control system");
-
-}
-
+void initMotors(void) { Log(LogInfo, "init motor control system"); }
 
 /**
   * @}

@@ -45,11 +45,9 @@ static bool spiReady = false;
 
 void spiQueueInit() {
   // init send queue
-  for (uint32_t i = 0; i < SPI_SENDQUEUE_SIZE; i++)
-    spiSendQueue[i] = 0;
+  for (uint32_t i = 0; i < SPI_SENDQUEUE_SIZE; i++) spiSendQueue[i] = 0;
   // init recv queue
-  for (uint32_t i = 0; i < SPI_RECVQUEUE_SIZE; i++)
-    spiRecvQueue[i] = 0;
+  for (uint32_t i = 0; i < SPI_RECVQUEUE_SIZE; i++) spiRecvQueue[i] = 0;
   // reset begin / end marks
   spiSendQueueBegin = 0;
   spiSendQueueEnd = 0;
@@ -68,8 +66,7 @@ void spiQueueInit() {
 }
 
 void spiSend(uint8_t id, char *msg) {
-  if (!spiReady)
-    return;
+  if (!spiReady) return;
 
   uint8_t msglen = strlen(msg);
   if (spiSendQueueEnd >= spiSendQueueBegin) {
@@ -103,8 +100,7 @@ void spiSend(uint8_t id, char *msg) {
 /** @brief SPI receive complete callback
  */
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
-  if (!spiReady)
-    return;
+  if (!spiReady) return;
 
   // set new recv buffer
   if (spiRecvQueueEnd < spiRecvQueueBegin) {

@@ -26,7 +26,6 @@ typedef enum {
   LogDstRaspberryPi = 0x02
 } LogDestination;
 
-
 /** @brief Do logging
  *  @param loglevel The loglevel of enum type LogLevel
  *  @param msg message to send as 0 terminated string
@@ -43,7 +42,7 @@ void logSetDestination(LogDestination destination);
  */
 void logSetFilter(LogLevel filter);
 
-#endif // LOGGING_H
+#endif  // LOGGING_H
 
 /**
   * @}
