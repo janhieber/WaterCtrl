@@ -40,6 +40,16 @@
 
 /* USER CODE BEGIN Private defines */
 
+/*! array size calculation */
+#define ARRAYSIZE(x) (sizeof(x) / sizeof((x)[0]))
+
+/*! optimizations */
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
+/*! enable/disable watchdog */
+//#define USEWATCHDOG  // enable this in production
+
 /*! max string size in bytes! */
 #define STR_MAX_SIZE 128
 
