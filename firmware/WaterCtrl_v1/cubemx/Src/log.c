@@ -22,7 +22,7 @@ static LogDestination log_destination = LogDstSerConsole | LogDstRaspberryPi;
 static LogLevel log_filter = LogDebug | LogError | LogInfo;
 
 void Log(LogLevel loglevel, char *msg) {
-  if (strlen(msg) > STR_MAX_SIZE) return;
+  if (unlikely(strlen(msg) > STR_MAX_SIZE)) return;
 
   if (!(loglevel & log_filter)) return;
 

@@ -66,7 +66,7 @@ void spiQueueInit() {
 }
 
 void spiSend(uint8_t id, char *msg) {
-  if (!spiReady) return;
+  if (unlikely(!spiReady)) return;
 
   uint8_t msglen = strlen(msg);
   if (spiSendQueueEnd >= spiSendQueueBegin) {
@@ -100,7 +100,7 @@ void spiSend(uint8_t id, char *msg) {
 /** @brief SPI receive complete callback
  */
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
-  if (!spiReady) return;
+  if (unlikely(!spiReady)) return;
 
   // set new recv buffer
   if (spiRecvQueueEnd < spiRecvQueueBegin) {
