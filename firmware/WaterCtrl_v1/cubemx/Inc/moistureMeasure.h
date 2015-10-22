@@ -16,6 +16,8 @@
 #ifndef MOISTUREMEASURE_H
 #define MOISTUREMEASURE_H
 
+#include <stm32f1xx_hal.h>
+
 #include <log.h>
 
 int initMoistureMeasure(TIM_HandleTypeDef*);
