@@ -27,10 +27,6 @@
 	<linkedResources>
 		
 	<link>
-			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_flash_ex.c</name>
-			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c</location>
-		</link><link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_dma.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c</location>
@@ -110,5 +106,9 @@
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_spi_ex.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c</location>
+		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_flash_ex.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c</location>
 		</link></linkedResources>
 </projectDescription>
