@@ -22,6 +22,9 @@
 
 extern SPI_HandleTypeDef hspi1;
 
+// debug
+extern UART_HandleTypeDef huart1;
+
 /*! these are pointers for sending and receiving, pointed
  *  to the queue. Should always increment by SPI_XFER_SIZE
  *  to not shoot over the end!
@@ -65,14 +68,22 @@ void spiQueueInit() {
                              (uint8_t *)spiRecvBuf, SPI_XFER_SIZE);
 }
 
+
+void spiDebug(UART_HandleTypeDef *huart) {
+  //HAL_UART_Transmit(huart, spiSendQueue, SPI_SENDQUEUE_SIZE, 100);
+  //HAL_UART_Transmit(huart, "\r\n", 2, 100);
+}
+
+
 void spiSend(uint8_t id, char *msg) {
   if (unlikely(!spiReady)) return;
 
-  uint8_t msglen = strlen(msg);
+  uint8_t msglen = strlen(msg) +1;
   if (spiSendQueueEnd >= spiSendQueueBegin) {
     if (spiSendQueueEnd + msglen <= SPI_SENDQUEUE_SIZE) {
       // if fits in buffer
-      strcpy((char *restrict) & (spiSendQueue[spiSendQueueEnd]), msg);
+      spiSendQueue[spiSendQueueEnd] = id;
+      strcpy((char *restrict) & (spiSendQueue[spiSendQueueEnd+1]), msg);
       // set new end
       if (msglen % SPI_XFER_SIZE)
         spiSendQueueEnd += SPI_XFER_SIZE * ((msglen % SPI_XFER_SIZE) + 1);
@@ -82,20 +93,29 @@ void spiSend(uint8_t id, char *msg) {
       // if it does not fit in buffer to end
       uint8_t remaining = msglen - (SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
       if (remaining < spiSendQueueBegin) {
-        strncpy((char *restrict) & (spiSendQueue[spiSendQueueEnd]), msg,
-                SPI_SENDQUEUE_SIZE - spiSendQueueEnd);
+        spiSendQueue[spiSendQueueEnd] = id;
+        strncpy((char *restrict) & (spiSendQueue[spiSendQueueEnd+1]), msg,
+                SPI_SENDQUEUE_SIZE - (spiSendQueueEnd+1));
         strncpy((char *restrict)spiSendQueue,
-                &(msg[SPI_SENDQUEUE_SIZE - spiSendQueueEnd + 1]), remaining);
+                &(msg[SPI_SENDQUEUE_SIZE - spiSendQueueEnd +1 +1]), remaining);
         if (remaining % SPI_XFER_SIZE)
           spiSendQueueEnd += SPI_XFER_SIZE * ((remaining % SPI_XFER_SIZE) + 1);
         else
           spiSendQueueEnd += remaining;
       } else {
-        Log(LogError, "SPI send buf full!");
+        LogUart(LogError, "SPI send buf full! 1");
       }
     }
   }
 }
+
+
+void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi){
+  char buf[20];
+  sprintf(buf, "SPI ErrorCode: 0x%02x", hspi->ErrorCode);
+  LogUart(LogError, buf);
+}
+
 
 /** @brief SPI receive complete callback
  */
@@ -109,7 +129,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
       spiRecvQueueEnd += SPI_XFER_SIZE;
       spiRecvBuf = &(spiRecvQueue[spiRecvQueueEnd]);
     } else
-      Log(LogError, "Spi Recv buffer full!");
+      LogUart(LogError, "Spi Recv buffer full! 2");
   } else {
     if ((spiRecvQueueEnd + SPI_XFER_SIZE) < SPI_RECVQUEUE_SIZE) {
       // if not overlapping
@@ -121,7 +141,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
         spiRecvQueueEnd = 0;
         spiRecvBuf = &(spiRecvQueue[spiRecvQueueEnd]);
       } else
-        Log(LogError, "Spi Recv buffer full!");
+        LogUart(LogError, "Spi Recv buffer full! 3");
     }
   }
 
@@ -149,6 +169,8 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
       }
     }
   }
+
+  //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 
   // setup next XFER
   HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)spiSendBuf,

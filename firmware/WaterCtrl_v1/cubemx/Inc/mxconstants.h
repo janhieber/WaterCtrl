@@ -56,6 +56,10 @@
 /*! SPI transfer size in bytes */
 #define SPI_XFER_SIZE 16
 
+// printf.c
+signed int printf(const char *pFormat, ...);
+
+
 /* USER CODE END Private defines */
 
 /**
