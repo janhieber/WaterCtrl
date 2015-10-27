@@ -98,11 +98,20 @@ void resetIWDG(void) {
   WatchdogReset(&hiwdg);
 }
 
+/*!
+ * @brief task for printing debug stuff
+ */
+void debugInfo(void) {
+  //spiDebug(&huart1);
+}
+
+
 /*! Scheduler task configuration table */
 TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},
     {INTERVAL_1S, 0, AliveTicker},
     {INTERVAL_5S, 0, printMoisture},
+    {INTERVAL_1S, 0, debugInfo},
 };
 
 /* USER CODE END 0 */
@@ -135,6 +144,9 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
+
+  // setup SPI
+  spiQueueInit();
 
   // setup logging
   logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
@@ -229,7 +241,7 @@ void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLED;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
