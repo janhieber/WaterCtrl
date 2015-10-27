@@ -18,7 +18,7 @@
 #include <string.h>
 
 /*! these are the log levels for message */
-typedef enum { LogError = 0x00, LogInfo = 0x01, LogDebug = 0x04 } LogLevel;
+typedef enum { LogError = 0x01, LogInfo = 0x02, LogDebug = 0x04 } LogLevel;
 
 /*! these are the possible log destinations */
 typedef enum {
@@ -31,6 +31,12 @@ typedef enum {
  *  @param msg message to send as 0 terminated string
  */
 void Log(LogLevel loglevel, char *msg);
+
+/** @brief Do logging explicit on UART, not SPI
+ *  @param loglevel The loglevel of enum type LogLevel
+ *  @param msg message to send as 0 terminated string
+ */
+void LogUart(LogLevel loglevel, char *msg);
 
 /** @brief Set log desftination
  *  @param destination The log destination as enum type of LogDestination
