@@ -45,7 +45,8 @@ Stm32Application {
 
         Artifact {
             fileTags: ["hex"]
-            filePath: ".obj/" + product.name + "/" + input.baseDir + "/" + input.fileName + ".bin"
+            //filePath: ".obj/" + product.name + "/" + input.baseDir + "/" + input.fileName + ".bin"
+            filePath: input.fileName + ".bin"
 
         }
 
