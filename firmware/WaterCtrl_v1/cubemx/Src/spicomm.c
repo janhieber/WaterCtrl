@@ -112,7 +112,7 @@ void spiSend(uint8_t id, char *msg) {
 
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi){
   char buf[20];
-  sprintf(buf, "SPI ErrorCode: 0x%02x", hspi->ErrorCode);
+  sprintf(buf, "SPI ErrorCode: 0x%02x", (unsigned int)hspi->ErrorCode);
   LogUart(LogError, buf);
 }
 
