@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+""" imports """
 import os
 import sys
 import time
@@ -17,9 +18,9 @@ def setup():
 def main():
     while 1:
         if gpio.input(21) == gpio.LOW:
-            os.system("reboot")
+            os.system("poweroff")
             sys.exit()
-        time.sleep(0.3)
+        time.sleep(1)
 
 if __name__ == '__main__':
     try:
@@ -29,4 +30,3 @@ if __name__ == '__main__':
         pass
     finally:
         exit(0)
-
