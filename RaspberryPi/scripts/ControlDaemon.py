@@ -22,7 +22,6 @@ class app(threading.Thread):
 
     def run(self):
         logging.info('Starting')
-        global appExit
         while True:
             # queue some data for MessageBroker
             randomData = random.choice('abcdefghij')
