@@ -37,9 +37,7 @@ def setup():
     signal.signal(signal.SIGUSR2, signal_handler)
     
     # some empty loglines on start
-    logging.critical('=====================================')
-    logging.critical('=====================================')
-    logging.critical('=====================================')
+    logging.critical('STARTUP\n\n\n\n\n')
 
 
 """
