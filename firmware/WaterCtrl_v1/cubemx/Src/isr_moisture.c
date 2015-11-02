@@ -10,7 +10,7 @@
 
 #include "stm32f1xx_hal.h"
 
-uint_fast64_t getFrequencyOfChannel(int channel);
+uint_fast64_t getFrequencyOfChannel();
 
 
 uint16_t IC3ReadValue1 = 0, IC3ReadValue2 = 0;
@@ -19,7 +19,7 @@ uint32_t Capture = 0;
 uint_fast64_t TIM1Freq = 0;
 
 
-uint_fast64_t getFrequencyOfChannel(int channel)
+uint_fast64_t getFrequencyOfChannel()
 {
     return TIM1Freq;
 }

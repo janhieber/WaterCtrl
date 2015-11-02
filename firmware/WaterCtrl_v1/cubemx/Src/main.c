@@ -110,6 +110,7 @@ void debugInfo(void) {
 TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},
     {INTERVAL_1S, 0, AliveTicker},
+    {INTERVAL_1S, 0, MoistureTask},
     {INTERVAL_5S, 0, printMoisture},
     {INTERVAL_1S, 0, debugInfo},
 };

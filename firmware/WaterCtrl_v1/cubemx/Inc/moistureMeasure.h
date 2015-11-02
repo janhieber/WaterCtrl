@@ -24,9 +24,11 @@ int initMoistureMeasure(TIM_HandleTypeDef*);
 
 int deinitMoistureMeasure(void);
 
-uint_fast64_t getMoisture(int channel);
+uint_fast64_t getMoisture();
 
 void printMoisture();
+
+void MoistureTask();
 
 
 #endif // MOISTUREMEASURE_H
