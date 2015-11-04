@@ -157,7 +157,7 @@ int main(void) {
 
   // init modules
   initMoistureMeasure(&htim3);
-  initMotors();
+  motInit();
 
   // init scheduling
   initScheduler(Tasks, ARRAYSIZE(Tasks));
