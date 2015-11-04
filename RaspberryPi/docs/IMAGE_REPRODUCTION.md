@@ -5,15 +5,18 @@ We use this to create new images when new Raspbian versions are released.
 # Prereq
 - Minimum SDCard size: 8 GB
 
-# Basics
-_Clean the SDCard with the following command:
-```bash
+# Notes
+- We can post our MariaDB/MySQL password here, because network access is disabled by default
+
+# Install Rasbian
+Clean the SDCard with the following command:
+```shell
 dd if=/dev/zero of=/dev/mmcblk0 bs=4M
 sync
 ```
 
 Download. extract and write the image:
-```bash
+```shell
 unzip 2015-09-24-raspbian-jessie.zip
 dd if=2015-09-24-raspbian-jessie.img of=/dev/mmcblk0 bs=4M
 sync
@@ -22,15 +25,15 @@ rm 2015-09-24-raspbian-jessie.{zip,img}
 
 # Boot config
 Enable SPI:
-```bash
+```shell
 mount /dev/mmcblk0p1 /mnt
 nano /mnt/config.txt
 ```
 Remove comment on line:
->#dtparam=spi=on
+>\#dtparam=spi=on
 
 Unmount, sync
-```bash
+```shell
 umount /mnt
 sync
 ```
@@ -39,7 +42,7 @@ Now boot the RPi, attached UART cable before boot.
 
 # Network config
 Move and link network configs:
-```bash
+```shell
 mv /etc/network/interfaces /boot/
 ln -s /boot/interfaces /etc/network/interfaces
 mv /etc/wpa_supplicant/wpa_supplicant.conf /boot/
@@ -47,29 +50,78 @@ ln -s /boot/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 ```
 
 Edit /boot/wpa_supplicant.conf and insert the WLAN config:
->network={
->  ssid="jou"
->  psk="EXei3fie"
->  key_mgmt=WPA-PSK
->}
+>network={  
+>  ssid="ssid"  
+>  psk="psd"  
+>  key_mgmt=WPA-PSK  
+>}  
 
 Reboot and check network connection.
 
+When updating packages, the config files may get overwritten.
+We check this in a script and recreate them on shutdown:
+```shell
+sudo nano /etc/rc.local.shutdown
+```
+insert:  
+
+>\#!/bin/sh -e  
+>  
+>if [[ $(readlink /etc/network/interfaces) != "/boot/interfaces" ]]  
+>then  
+>  rm -f /etc/network/interfaces  
+>  ln -s /boot/interfaces /etc/network/interfaces  
+>fi  
+>  
+>if [[ $(readlink /etc/wpa_supplicant/wpa_supplicant.conf) != "/boot/wpa_supplic$  
+>then  
+>  rm -f /etc/wpa_supplicant/wpa_supplicant.conf  
+>  ln -s /boot/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf  
+>fi  
+
+and make it executable:
+```shell
+sudo chmod +x /etc/rc.local.shutdown
+```
+
+
 # Upgrade system
-```bash
+```shell
 sudo apt-get update
 sudo apt-get dist-upgrade
+sudo rpi-update
 sync
 rm -rf python_games
 
 sudo apt-get purge xserver* x11-common x11-utils x11-xkb-utils x11-xserver-utils xarchiver xauth xkb-data console-setup xinit lightdm libx{composite,cb,cursor,damage,dmcp,ext,font,ft,i,inerama,kbfile,klavier,mu,pm,randr,render,res,t,xf86}* lxde* lx{input,menu-data,panel,polkit,randr,session,session-edit,shortcut,task,terminal} obconf openbox gtk* libgtk* alsa* nano scratch tsconf desktop-file-utils omxplayer
 
 sudo apt-get autoremove
-sudo apt-get install python3-rpi.gpio python-rpi.gpio wiringpi console-data vim
+sudo apt-get install python3-rpi.gpio python-rpi.gpio wiringpi console-data vim nano ca-certificates
+
 reboot
 sudo dpkg-reconfigure tzdata
 sudo dpkg-reconfigure console-data
-sudo apt-get install mariadb-server mariadb-client python3-mysql.connector 
 ```
+
+# Clone repo
+```shell
+git clone https://github.com/janhieber/WaterCtrl.git
+```
+
+# Install spidev for python
+```shell
+sudo apt-get install python3-spidev 
+```
+# Install MariaDB
+```shell
+sudo apt-get install mariadb-server mariadb-client python3-mysql.connector
+```
+
+# Create WaterCtrl database
+```shell
+cd ~/WaterCtrl/RaspberryPi/scripts
+mysql -u root -p < create_db.sql
+```
+
 
 to be continued ...
