@@ -26,23 +26,29 @@ void motTask100ms()
 
 }
 
-bool motControl(int motor, int time, int max_level)
+int motControl(int motor, int time, int max_level)
 {
-    bool retval = false;
-    if( (motor < MOT_ACTIVE_1) ||  (motor > MOT_ACTIVE_5))
+    int retval = -1;
+    if( (motor < MOT_ACTIVE_0) ||  (motor > MOT_ACTIVE_4))
     {
-        LogUart(LogError,"wrong motor selected!);
+        Log(LogError,"wrong motor selected!");
     }
     else
     {
-
+        // calc a ramp
+        
     }
 
 
 
     if (g_activeMotor != MOT_ACTIVE_NONE)
     {
+        //HAL_TIMEx_PWMN_Start(TIM2,)
 
+    }
+    else
+    {
+        Log(LogInfo, "motor already active.");
     }
 
     return retval;

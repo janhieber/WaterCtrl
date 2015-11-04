@@ -11,7 +11,7 @@
 #ifndef MOTORS_H
 #define MOTORS_H
 
-enum _activeMotor {
+typedef enum _activeMotor {
     MOT_ACTIVE_NONE = 0x00,
     MOT_ACTIVE_0,
     MOT_ACTIVE_1,
@@ -27,7 +27,7 @@ void motTask100ms();
 
 void motTask5s();
 
-bool motControl(int motor, int time, int max_level);
+int motControl(int motor, int time, int max_level);
 
 #endif  // MOTORS_H
 
