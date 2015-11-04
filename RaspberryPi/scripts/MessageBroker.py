@@ -9,7 +9,7 @@ import datetime
 import random
 import logging
 import configparser
-import spidev
+#import spidev
 
 
 

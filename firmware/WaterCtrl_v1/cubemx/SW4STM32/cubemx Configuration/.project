@@ -27,10 +27,6 @@
 	<linkedResources>
 		
 	<link>
-			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_dma.c</name>
-			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c</location>
-		</link><link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_flash.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c</location>
@@ -110,5 +106,29 @@
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_flash_ex.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c</location>
+		</link><link>
+			<name>Application/User/iwdg.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Src/iwdg.c</location>
+		</link><link>
+			<name>Application/User/gpio.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Src/gpio.c</location>
+		</link><link>
+			<name>Application/User/usart.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Src/usart.c</location>
+		</link><link>
+			<name>Application/User/tim.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Src/tim.c</location>
+		</link><link>
+			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_dma.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c</location>
+		</link><link>
+			<name>Application/User/spi.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Src/spi.c</location>
 		</link></linkedResources>
 </projectDescription>

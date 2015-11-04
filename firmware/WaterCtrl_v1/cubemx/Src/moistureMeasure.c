@@ -143,21 +143,21 @@ int startSensorCapture(int Sensor)
 void printMoisture()
 {
     char tmpbuf[40] = {0,};
-    sprintf(tmpbuf, "Measured channel 1: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 1: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 2: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 2: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 3: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 3: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 4: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 4: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 5: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 5: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 6: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL5_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 6: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL5_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 7: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL6_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 7: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL6_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 8: %llu Hz",  frequency[MOISTURE_MEASURE_CHANNEL7_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 8: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL7_ACTIVE]);
     Log(LogInfo, tmpbuf);
 
 }
@@ -180,10 +180,16 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 
   TIM_ICInit(TIM1, &TIM_ICInitSt);*/
 
+    Log(LogDebug, "enable INT");
+    EnableMeasureInterrupt();
+
+    Log(LogDebug, "start measure");
+
     /* TIM enable counter */
     if(ptrTimerRef)
     {
-        if (HAL_OK != (retval = HAL_TIM_IC_Start(ptrTimerRef,channel)))
+        if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, TIM_CHANNEL_3)))
+        //if (HAL_OK != (retval = HAL_TIM_IC_Start(ptrTimerRef,channel)))
         {
             //printf("FAILED: timer start, erro: %d",retval);
             Log(LogError, "failed to start timer!");
@@ -191,7 +197,6 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 
     }
 
-    EnableMeasureInterrupt();
 
     return retval;
 }
