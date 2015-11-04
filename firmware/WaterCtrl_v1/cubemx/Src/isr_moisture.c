@@ -9,6 +9,7 @@
   */
 
 #include "stm32f1xx_hal.h"
+#include <log.h>
 
 uint_fast64_t getFrequencyOfChannel();
 
@@ -29,6 +30,7 @@ uint_fast64_t getFrequencyOfChannel()
  */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
+
     /* Clear TIM1 Capture compare interrupt pending bit */
     if (TIM3 == htim->Instance)
     {
