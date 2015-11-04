@@ -14,7 +14,40 @@
 #include <log.h>
 #include <motors.h>
 
-void initMotors(void) { Log(LogInfo, "init motor control system"); }
+static eActiveMotor g_activeMotor = MOT_ACTIVE_INVALID;
+
+void motInit(void) {
+    g_activeMotor = MOT_ACTIVE_NONE;
+    Log(LogInfo, "init motor control system");
+}
+
+void motTask100ms()
+{
+
+}
+
+bool motControl(int motor, int time, int max_level)
+{
+    bool retval = false;
+    if( (motor < MOT_ACTIVE_1) ||  (motor > MOT_ACTIVE_5))
+    {
+        LogUart(LogError,"wrong motor selected!);
+    }
+    else
+    {
+
+    }
+
+
+
+    if (g_activeMotor != MOT_ACTIVE_NONE)
+    {
+
+    }
+
+    return retval;
+}
+
 
 /**
   * @}

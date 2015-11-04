@@ -11,7 +11,23 @@
 #ifndef MOTORS_H
 #define MOTORS_H
 
-void initMotors(void);
+enum _activeMotor {
+    MOT_ACTIVE_NONE = 0x00,
+    MOT_ACTIVE_0,
+    MOT_ACTIVE_1,
+    MOT_ACTIVE_2,
+    MOT_ACTIVE_3,
+    MOT_ACTIVE_4,
+    MOT_ACTIVE_INVALID = 0xff
+} eActiveMotor;
+
+void motInit(void);
+
+void motTask100ms();
+
+void motTask5s();
+
+bool motControl(int motor, int time, int max_level);
 
 #endif  // MOTORS_H
 
