@@ -65,19 +65,19 @@ sudo nano /etc/rc.local.shutdown
 ```
 insert:  
 
->\#!/bin/sh -e
->
->if [[ $(readlink /etc/network/interfaces) != "/boot/interfaces" ]]
->then
->  rm -f /etc/network/interfaces
->  ln -s /boot/interfaces /etc/network/interfaces
->fi
->
->if [[ $(readlink /etc/wpa_supplicant/wpa_supplicant.conf) != "/boot/wpa_supplic$
->then
->  rm -f /etc/wpa_supplicant/wpa_supplicant.conf
->  ln -s /boot/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
->fi
+>\#!/bin/sh -e  
+>  
+>if [[ $(readlink /etc/network/interfaces) != "/boot/interfaces" ]]  
+>then  
+>  rm -f /etc/network/interfaces  
+>  ln -s /boot/interfaces /etc/network/interfaces  
+>fi  
+>  
+>if [[ $(readlink /etc/wpa_supplicant/wpa_supplicant.conf) != "/boot/wpa_supplic$  
+>then  
+>  rm -f /etc/wpa_supplicant/wpa_supplicant.conf  
+>  ln -s /boot/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf  
+>fi  
 
 and make it executable:
 ```shell
