@@ -9,7 +9,8 @@ import datetime
 import random
 import logging
 import configparser
-#import spidev
+import os
+import spidev
 
 
 
@@ -69,11 +70,11 @@ class app(threading.Thread):
             time.sleep(nextCycle - time.time())
         
         # manage exit
-        self.exit()
+        self.exit_()
         logging.info('Exiting')
         return
 
-    def exit(self):
+    def exit_(self):
         # close SPI conenction
         if self.SPI is not None:
             self.SPI.close()

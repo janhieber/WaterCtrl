@@ -64,7 +64,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 
-uint64_t frequency[MOISTURE_MEASURE_CHANNEL_MAX];
+volatile uint32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX];
 
 uint16_t stateRegister = MOISTURE_MEASURE_STATE_INACTIVE;
 uint activeChannel = 0;
@@ -76,7 +76,8 @@ uint activeChannel = 0;
   *
   * @see isr_moisture.c
   */
-extern uint_fast64_t getFrequencyOfChannel();
+extern uint32_t getFrequencyOfChannel();
+void resetFrequencyOfChannel();
 
 
 /**
@@ -143,21 +144,21 @@ int startSensorCapture(int Sensor)
 void printMoisture()
 {
     char tmpbuf[40] = {0,};
-    sprintf(tmpbuf, "Measured channel 1: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 1: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 2: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 2: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 3: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 3: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 4: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 4: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 5: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 5: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 6: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL5_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 6: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL5_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 7: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL6_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 7: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL6_ACTIVE]);
     Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 8: %d Hz",  frequency[MOISTURE_MEASURE_CHANNEL7_ACTIVE]);
+    sprintf(tmpbuf, "Measured channel 8: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL7_ACTIVE]);
     Log(LogInfo, tmpbuf);
 
 }
@@ -165,20 +166,6 @@ void printMoisture()
 int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 {
     int retval = -1;
-
-    /* TIM1 configuration: Input Capture mode ---------------------
-     The external signal is connected to TIM1 CH2 pin (PA.09)
-     The Rising edge is used as active edge,
-     The TIM1 CCR2 is used to compute the frequency value
-  ------------------------------------------------------------ */
-
-    /*TIM_ICInitSt.TIM_Channel = TIM_Channel_2;
-  TIM_ICInitSt.TIM_ICPolarity = TIM_ICPolarity_Rising;
-  TIM_ICInitSt.TIM_ICSelection = TIM_ICSelection_DirectTI;
-  TIM_ICInitSt.TIM_ICPrescaler = TIM_ICPSC_DIV8;
-  TIM_ICInitSt.TIM_ICFilter = 0x03;
-
-  TIM_ICInit(TIM1, &TIM_ICInitSt);*/
 
     Log(LogDebug, "enable INT");
     EnableMeasureInterrupt();
@@ -189,7 +176,6 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
     if(ptrTimerRef)
     {
         if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, TIM_CHANNEL_3)))
-        //if (HAL_OK != (retval = HAL_TIM_IC_Start(ptrTimerRef,channel)))
         {
             //printf("FAILED: timer start, erro: %d",retval);
             Log(LogError, "failed to start timer!");
@@ -214,6 +200,7 @@ void moiSetChannel(int channel)
     int tSensorSelect;
     moiDisableSensor();
     DisableMeasureInterrupt();
+    resetFrequencyOfChannel();
     tSensorSelect = MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2;
     HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_RESET);
     switch (channel)

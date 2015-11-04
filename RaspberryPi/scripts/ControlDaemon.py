@@ -27,13 +27,21 @@ class app(threading.Thread):
 
     def setup(self):
         # connect to db
-        self.db = mysql.connector.connect(
-            user = self.config.get('database', 'user'),
-            password = self.config.get('database', 'password'),
-            host = self.config.get('database', 'host'),
-            unix_socket = self.config.get('database', 'unix_socket'),
-            database = self.config.get('database', 'database')
-         )
+        if len(self.config.get('database', 'unix_socket')) == 0:
+            dbcfg = {
+                'user': self.config.get('database', 'user'),
+                'password': self.config.get('database', 'password'),
+                'host': self.config.get('database', 'host'),
+                'database': self.config.get('database', 'database')
+            }
+        else:
+            dbcfg = {
+                'user': self.config.get('database', 'user'),
+                'password': self.config.get('database', 'password'),
+                'unix_socket': self.config.get('database', 'unix_socket'),
+                'database': self.config.get('database', 'database')
+            }
+        self.db = mysql.connector.connect(**dbcfg)
                               
     def run(self):
         logging.info('Starting')
@@ -42,7 +50,7 @@ class app(threading.Thread):
             # open db cursor and query data
             self.dbc = self.db.cursor()
             query = ("SELECT * FROM bla")
-            self.dbc.execute(query)
+            #self.dbc.execute(query)
             self.dbc.close()
             
             # queue some data for MessageBroker
@@ -57,12 +65,12 @@ class app(threading.Thread):
             time.sleep(random.uniform(0.1, 2.0))
         
         # manage exit
-        self.exit()
+        self.exit_()
         logging.info('Exiting')
         return
 
               
-    def exit(self):
+    def exit_(self):
         # close db connection
         self.dbc.close()
         self.db.close()
