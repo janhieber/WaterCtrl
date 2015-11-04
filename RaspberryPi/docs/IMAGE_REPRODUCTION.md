@@ -56,31 +56,12 @@ Edit /boot/wpa_supplicant.conf and insert the WLAN config:
 >  key_mgmt=WPA-PSK  
 >}  
 
-Reboot and check network connection.
+Reboot and check networking.
 
-When updating packages, the config files may get overwritten.
+When updating packages, the symlinks may get overwritten.
 We check this in a script and recreate them on shutdown:
 ```shell
-sudo nano /etc/rc.local.shutdown
-```
-insert:  
-
->\#!/bin/sh -e  
->  
->if [[ $(readlink /etc/network/interfaces) != "/boot/interfaces" ]]  
->then  
->  rm -f /etc/network/interfaces  
->  ln -s /boot/interfaces /etc/network/interfaces  
->fi  
->  
->if [[ $(readlink /etc/wpa_supplicant/wpa_supplicant.conf) != "/boot/wpa_supplic$  
->then  
->  rm -f /etc/wpa_supplicant/wpa_supplicant.conf  
->  ln -s /boot/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf  
->fi  
-
-and make it executable:
-```shell
+sudo wget https://raw.githubusercontent.com/janhieber/WaterCtrl/master/RaspberryPi/scripts/rc.local.shutdown -O /etc/rc.local.shutdown
 sudo chmod +x /etc/rc.local.shutdown
 ```
 
