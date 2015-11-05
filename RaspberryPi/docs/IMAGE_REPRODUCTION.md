@@ -105,4 +105,26 @@ mysql -u root -p < create_db.sql
 ```
 
 
+
+
+# Create image
+Wipe free space:
+```shell
+sudo apt-get install secure-delete
+sudo sfill -llz /
+sync
+sudo poweroff
+```
+
+Remove SDCard and create image + zip:
+```shell
+dd if=/dev/mmcblk0 conv=sync,noerror bs=4M | gzip -c  > image.img.gz
+```
+
+To restore the image:
+```shell
+gunzip -c image.img.gz | dd of=/dev/mmcblk0 bs=4M
+sync
+```
+
 to be continued ...
