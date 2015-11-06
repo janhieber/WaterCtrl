@@ -112,7 +112,7 @@ void moiSetChannel(int);
 
 /* Global data */
 TIM_HandleTypeDef * ptrTimer3Ref;
-uint32_t Timer3Channel;
+uint32_t TimerChannel = TIM_CHANNEL_3;
 
 uint_fast64_t getMoisture()
 {
@@ -133,7 +133,7 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 int startSensorCapture(int Sensor)
 {
 
-    MeasureInit(ptrTimer3Ref,Timer3Channel);
+    MeasureInit(ptrTimer3Ref,TimerChannel);
 
     // select input
     moiSetChannel(Sensor);
@@ -175,7 +175,7 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
     /* TIM enable counter */
     if(ptrTimerRef)
     {
-        if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, TIM_CHANNEL_3)))
+        if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, channel)))
         {
             //printf("FAILED: timer start, erro: %d",retval);
             Log(LogError, "failed to start timer!");

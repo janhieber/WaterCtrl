@@ -96,7 +96,6 @@ void MX_TIM3_Init(void)
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV2;
   sConfigIC.ICFilter = 0x0;
   HAL_TIM_IC_ConfigChannel(&htim3, &sConfigIC, TIM_CHANNEL_3);
-
 }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
