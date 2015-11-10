@@ -17,6 +17,8 @@ void AliveTicker(void);
 void WatchdogReset(IWDG_HandleTypeDef *hiwdg);
 void WatchdogStart(IWDG_HandleTypeDef *hiwdg);
 
+
+
 #endif // STUFF_H
 
 /**

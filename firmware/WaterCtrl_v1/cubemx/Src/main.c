@@ -99,15 +99,20 @@ void resetIWDG(void) { WatchdogReset(&hiwdg); }
  */
 void debugInfo(void) {
   // spiDebug(&huart1);
+  Log(LogDebug, "asdasdas asasd123451");
+
+  Log(LogDebug, "asdasdas asasd123451");
+
+
 }
 
 /*! Scheduler task configuration table */
 TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},
     {INTERVAL_1S, 0, AliveTicker},
-    {INTERVAL_1S, 0, MoistureTask},
-    {INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_1S, 0, debugInfo},
+    //{INTERVAL_1S, 0, MoistureTask},
+    //{INTERVAL_5S, 0, printMoisture},
+    {INTERVAL_2S, 0, debugInfo},
 };
 
 /* USER CODE END 0 */
@@ -144,8 +149,7 @@ int main(void) {
   // setup SPI
   spiQueueInit();
 
-  // setup logging
-  // logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
+  // setup logging, first UART, later with SPI
   logSetDestination(LogDstSerConsole);
   logSetFilter(LogDebug | LogError | LogInfo);
 
@@ -154,6 +158,8 @@ int main(void) {
   Log(LogInfo, tmpbuf);
   sprintf(tmpbuf, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
   Log(LogInfo, tmpbuf);
+
+  HAL_Delay(1000);
 
   // init modules
   initMoistureMeasure(&htim3);
@@ -167,10 +173,16 @@ int main(void) {
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+
+  // start watchdog
+  WatchdogStart(&hiwdg);
+
   Log(LogDebug, "reaching mainloop");
+
+  // enable SPI logging
+  logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
+
   while (true) {
-    // start watchdog
-    WatchdogStart(&hiwdg);
 
     // scheduling
     doScheduling();

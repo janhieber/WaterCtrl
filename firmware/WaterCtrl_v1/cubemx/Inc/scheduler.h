@@ -21,9 +21,14 @@
 // intervals
 #define INTERVAL_ALWAYS 0
 #define INTERVAL_10MS 10
+#define INTERVAL_50MS 50
 #define INTERVAL_100MS 100
+#define INTERVAL_250MS 100
 #define INTERVAL_500MS 500
 #define INTERVAL_1S 1000
+#define INTERVAL_2S 2000
+#define INTERVAL_3S 3000
+#define INTERVAL_4S 4000
 #define INTERVAL_5S 5000
 
 /*! Define parameters to configure a task */
