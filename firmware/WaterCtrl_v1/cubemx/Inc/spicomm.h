@@ -24,9 +24,9 @@
 #include <string.h>
 
 /*! size of the SPI send queue */
-#define SPI_SENDQUEUE_SIZE (SPI_XFER_SIZE * 5)
+#define SPI_SENDQUEUE_SIZE (SPI_XFER_SIZE * 16)
 /*! size of the SPI receive queue */
-#define SPI_RECVQUEUE_SIZE (SPI_XFER_SIZE * 5)
+#define SPI_RECVQUEUE_SIZE (SPI_XFER_SIZE * 16)
 
 /** @brief Init SPI queues
  */

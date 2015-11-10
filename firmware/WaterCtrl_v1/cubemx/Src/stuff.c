@@ -37,6 +37,7 @@ void WatchdogReset(IWDG_HandleTypeDef *hiwdg) {
  */
 void WatchdogStart(IWDG_HandleTypeDef *hiwdg) {
 #ifdef USEWATCHDOG
+  Log(LogInfo, "Enable watchdog")
   IWDG_ENABLE_WRITE_ACCESS(hiwdg);
   __HAL_IWDG_START(hiwdg);
 #endif

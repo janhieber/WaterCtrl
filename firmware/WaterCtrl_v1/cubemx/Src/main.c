@@ -99,19 +99,15 @@ void resetIWDG(void) { WatchdogReset(&hiwdg); }
  */
 void debugInfo(void) {
   // spiDebug(&huart1);
-  Log(LogDebug, "asdasdas asasd123451");
-
-
-
 }
 
 /*! Scheduler task configuration table */
 TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},
     {INTERVAL_1S, 0, AliveTicker},
-    //{INTERVAL_1S, 0, MoistureTask},
-    //{INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_5S, 0, debugInfo},
+    {INTERVAL_1S, 0, MoistureTask},
+    {INTERVAL_5S, 0, printMoisture},
+    {INTERVAL_2S, 0, debugInfo},
 };
 
 /* USER CODE END 0 */
@@ -119,10 +115,6 @@ TaskType Tasks[] = {
 int main(void) {
   /* USER CODE BEGIN 1 */
 
-  // this is for temporary sprintf stuff
-  char tmpbuf[64] = {
-      0,
-  };
   /* USER CODE END 1 */
 
   /* MCU
@@ -153,10 +145,8 @@ int main(void) {
   logSetFilter(LogDebug | LogError | LogInfo);
 
   // nice greetings
-  sprintf(tmpbuf, "WaterCtrl version %d", VERSION);
-  Log(LogInfo, tmpbuf);
-  sprintf(tmpbuf, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
-  Log(LogInfo, tmpbuf);
+  Log(LogInfo, "WaterCtrl version %d", VERSION);
+  Log(LogInfo, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
 
   HAL_Delay(1000);
 

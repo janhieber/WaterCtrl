@@ -29,8 +29,8 @@ extern UART_HandleTypeDef huart1;
  *  to the queue. Should always increment by SPI_XFER_SIZE
  *  to not shoot over the end!
  *  current start end end are defined in index vars! */
-static volatile uint8_t spiSendBuf;
-static volatile uint8_t spiRecvBuf;
+static volatile uint8_t* spiSendBuf;
+static volatile uint8_t* spiRecvBuf;
 
 /*! these are circular buffers for sending end receiving
  *  messages end with a newline ('\n') char */
@@ -110,7 +110,7 @@ void spiSend(uint8_t id, char *msg) {
                 &(msg[SPI_SENDQUEUE_SIZE - (spiSendQueueEnd + 1)]),
                 msglen - (SPI_SENDQUEUE_SIZE - (spiSendQueueEnd + 1)));
         // set new end
-        spiSendQueueEnd += remaining;
+        spiSendQueueEnd = remaining;
       } else {
         LogUart(LogError, "SPI send buf full! 1");
       }
@@ -201,6 +201,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
   // setup next XFER
   HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)spiSendBuf,
                              (uint8_t *)spiRecvBuf, SPI_XFER_SIZE);
+
 }
 
 /**
