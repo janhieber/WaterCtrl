@@ -101,7 +101,6 @@ void debugInfo(void) {
   // spiDebug(&huart1);
   Log(LogDebug, "asdasdas asasd123451");
 
-  Log(LogDebug, "asdasdas asasd123451");
 
 
 }
@@ -112,7 +111,7 @@ TaskType Tasks[] = {
     {INTERVAL_1S, 0, AliveTicker},
     //{INTERVAL_1S, 0, MoistureTask},
     //{INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_2S, 0, debugInfo},
+    {INTERVAL_5S, 0, debugInfo},
 };
 
 /* USER CODE END 0 */
