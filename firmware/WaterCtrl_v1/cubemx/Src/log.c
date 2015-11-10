@@ -12,6 +12,8 @@
   * @{
   */
 
+#include <stdarg.h>
+
 #include <log.h>
 #include <mxconstants.h>
 #include <spicomm.h>
@@ -19,10 +21,15 @@
 static LogDestination log_destination = LogDstSerConsole | LogDstRaspberryPi;
 static LogLevel log_filter = LogDebug | LogError | LogInfo;
 
-void Log(LogLevel loglevel, char *msg) {
-  if (unlikely(strlen(msg) > STR_MAX_SIZE)) return;
 
+void Log(LogLevel loglevel, const char* format, ...) {
   if (!(loglevel & log_filter)) return;
+
+  char msg[STR_MAX_SIZE];
+  va_list args;
+  va_start( args, format );
+  vsprintf( msg, format, args );
+  va_end( args );
 
   if (log_destination & LogDstSerConsole) {
     switch (loglevel) {
@@ -57,10 +64,14 @@ void Log(LogLevel loglevel, char *msg) {
   }
 }
 
-void LogUart(LogLevel loglevel, char *msg) {
-  if (unlikely(strlen(msg) > STR_MAX_SIZE)) return;
-
+void LogUart(LogLevel loglevel, const char* format, ...) {
   if (!(loglevel & log_filter)) return;
+
+  char msg[STR_MAX_SIZE];
+  va_list args;
+  va_start( args, format );
+  vsprintf( msg, format, args );
+  va_end( args );
 
   switch (loglevel) {
     case LogError:
