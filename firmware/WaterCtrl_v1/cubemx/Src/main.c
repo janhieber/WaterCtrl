@@ -107,7 +107,7 @@ TaskType Tasks[] = {
     {INTERVAL_1S, 0, AliveTicker},
     {INTERVAL_1S, 0, MoistureTask},
     {INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_1S, 0, debugInfo},
+    {INTERVAL_2S, 0, debugInfo},
 };
 
 /* USER CODE END 0 */
@@ -115,10 +115,6 @@ TaskType Tasks[] = {
 int main(void) {
   /* USER CODE BEGIN 1 */
 
-  // this is for temporary sprintf stuff
-  char tmpbuf[64] = {
-      0,
-  };
   /* USER CODE END 1 */
 
   /* MCU
@@ -144,16 +140,15 @@ int main(void) {
   // setup SPI
   spiQueueInit();
 
-  // setup logging
-  // logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
+  // setup logging, first UART, later with SPI
   logSetDestination(LogDstSerConsole);
   logSetFilter(LogDebug | LogError | LogInfo);
 
   // nice greetings
-  sprintf(tmpbuf, "WaterCtrl version %d", VERSION);
-  Log(LogInfo, tmpbuf);
-  sprintf(tmpbuf, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
-  Log(LogInfo, tmpbuf);
+  Log(LogInfo, "WaterCtrl version %d", VERSION);
+  Log(LogInfo, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
+
+  HAL_Delay(1000);
 
   // init modules
   initMoistureMeasure(&htim3);
@@ -167,10 +162,16 @@ int main(void) {
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+
+  // start watchdog
+  WatchdogStart(&hiwdg);
+
   Log(LogDebug, "reaching mainloop");
+
+  // enable SPI logging
+  logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
+
   while (true) {
-    // start watchdog
-    WatchdogStart(&hiwdg);
 
     // scheduling
     doScheduling();

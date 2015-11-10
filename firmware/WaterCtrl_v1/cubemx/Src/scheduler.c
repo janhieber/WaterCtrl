@@ -27,12 +27,8 @@ static uint8_t NumTasks = 0;
 
 void initScheduler(TaskType *Tasks, uint8_t count) {
   TaskPtr = Tasks;
-
   NumTasks = count;
-
-  char tmpbuf[40];
-  sprintf(tmpbuf, "Scheduler: %d tasks scheduled", NumTasks);
-  Log(LogDebug, tmpbuf);
+  Log(LogDebug, "Scheduler: %d tasks scheduled", NumTasks);
 }
 
 void doScheduling(void) {
