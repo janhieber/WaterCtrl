@@ -18,9 +18,10 @@ import configparser
     like pouring and database stuff
 """
 class app(threading.Thread):
-    def __init__(self, queue):
+    def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
-        self.queue = queue
+        self.sendQueue = sendQueue
+        self.recvQueue = recvQueue
         self.exit = False
         self.config = configparser.RawConfigParser()
         self.config.read('WaterCtrl.conf')
@@ -55,11 +56,15 @@ class app(threading.Thread):
             
             # queue some data for MessageBroker
             randomData = random.choice('abcdefghij')
-            self.queue.put(randomData)
+            #self.sendQueue.put(randomData)
             
             # check if we should exit
             if self.exit:
                 break
+            
+            while not self.recvQueue.empty():
+                print("REC: " + self.recvQueue.get())
+            
             
             # sleep random time 0.1 - 2.0 sec
             time.sleep(random.uniform(0.1, 2.0))
