@@ -66,6 +66,11 @@ class app(threading.Thread):
                 print("REC: " + self.recvQueue.get())
             
             
+            # send test data
+            bla = round(random.uniform(0, 1))
+            if bla == 0:
+                self.sendQueue.put("test bla")
+            
             # sleep random time 0.1 - 2.0 sec
             time.sleep(random.uniform(0.1, 2.0))
         

@@ -48,7 +48,7 @@ class app(threading.Thread):
         self.setup()
         nextCycle = time.time()
         recvComplete = False
-        sendData = "                "
+        
         while True:
             # process message queue
             #logging.info('process queue')
@@ -60,11 +60,29 @@ class app(threading.Thread):
             #    self.queue.task_done()
             
             recvComplete = False
+            sendComplete = False
             recvArray = [""]
-            while not recvComplete:
+            
+            while not (recvComplete and sendComplete):
                 recvData = ''
+                
                 # create sendbuffer
+                if not self.sendQueue.empty():
+                    sendData = self.sendQueue.get()
+                else:
+                    sendData = ""
+                    
+                # check if send queue is now empty
+                if self.sendQueue.empty():
+                    sendComplete = True;
+                
+                # convert string to byte array
                 sendbuf = [ord(c) for c in sendData]
+                
+                # fill with zeros
+                while len(sendbuf) < 16:
+                    sendbuf.append(0)
+                
                 # xfer data over SPI
                 recvbuf = self.SPI.xfer2(sendbuf)
                 # remove trailing zeros
@@ -76,6 +94,7 @@ class app(threading.Thread):
                         recvArray.append(''.join(chr(c) for c in recvbuf))
                     else:
                         recvArray[len(recvArray)-1] += ''.join(chr(c) for c in recvbuf)
+                        
                 # check if we are finnished
                 if sum(recvbuf) == 0:
                     recvComplete = True
