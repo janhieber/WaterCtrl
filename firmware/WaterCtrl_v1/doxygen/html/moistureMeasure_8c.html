@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('moistureMeasure_8c.html','');});
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;stm32f1xx_hal.h&quot;</code><br />
 <code>#include &lt;moistureMeasure.h&gt;</code><br />
+<code>#include &quot;stm32f1xx_hal_gpio.h&quot;</code><br />
 <code>#include &quot;stdio.h&quot;</code><br />
 <code>#include &quot;stdlib.h&quot;</code><br />
 </div>
@@ -99,6 +100,30 @@ $(document).ready(function(){initNavTree('moistureMeasure_8c.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ga55e535fdb39e724e243a798b980177cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga55e535fdb39e724e243a798b980177cd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PIN_A0</b>&#160;&#160;&#160;GPIO_PIN_1</td></tr>
+<tr class="separator:ga55e535fdb39e724e243a798b980177cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada548020bd6070662771c06eebe105ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gada548020bd6070662771c06eebe105ee"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PORT_A0</b>&#160;&#160;&#160;GPIOB</td></tr>
+<tr class="separator:gada548020bd6070662771c06eebe105ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga355ef8d8c7f52f54ec2c4a868b089bfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga355ef8d8c7f52f54ec2c4a868b089bfa"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PIN_A1</b>&#160;&#160;&#160;GPIO_PIN_10</td></tr>
+<tr class="separator:ga355ef8d8c7f52f54ec2c4a868b089bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31852675083db64f425d808ae3ea1137"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga31852675083db64f425d808ae3ea1137"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PORT_A1</b>&#160;&#160;&#160;GPIOB</td></tr>
+<tr class="separator:ga31852675083db64f425d808ae3ea1137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ef4c20dd6b84297c11be003d6f4455d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4ef4c20dd6b84297c11be003d6f4455d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PIN_A2</b>&#160;&#160;&#160;GPIO_PIN_11</td></tr>
+<tr class="separator:ga4ef4c20dd6b84297c11be003d6f4455d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bbb782c9dcbfecf0d28d8fadf1eccf0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7bbb782c9dcbfecf0d28d8fadf1eccf0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PORT_A2</b>&#160;&#160;&#160;GPIOB</td></tr>
+<tr class="separator:ga7bbb782c9dcbfecf0d28d8fadf1eccf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga33e3d832315b2438fcdad00216507963"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga33e3d832315b2438fcdad00216507963"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PIN_ENABLE</b>&#160;&#160;&#160;GPIO_PIN_15</td></tr>
+<tr class="separator:ga33e3d832315b2438fcdad00216507963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga288456444f55333c64bff8f4d0391f3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga288456444f55333c64bff8f4d0391f3d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_SENS_PORT_ENABLE</b>&#160;&#160;&#160;GPIOB</td></tr>
+<tr class="separator:ga288456444f55333c64bff8f4d0391f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7804d99a28ae152cabaef316cd21ad49"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7804d99a28ae152cabaef316cd21ad49"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL_MAX</b>&#160;&#160;&#160;0x08u</td></tr>
 <tr class="separator:ga7804d99a28ae152cabaef316cd21ad49"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,35 +134,38 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_STATE_ACTIVE</b>&#160;&#160;&#160;0x0001</td></tr>
 <tr class="separator:ga56f8c965c598452a5bfd969144d58549"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf854627bdc6221a26619477a930e729d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf854627bdc6221a26619477a930e729d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL0_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL0_ACTIVE</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:gaf854627bdc6221a26619477a930e729d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab81b49c6a0b14bc003863eaf996757ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab81b49c6a0b14bc003863eaf996757ca"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL1_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL1_ACTIVE</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:gab81b49c6a0b14bc003863eaf996757ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ecdc2eeccb8f5afac0a6741b5d31539"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6ecdc2eeccb8f5afac0a6741b5d31539"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL2_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL2_ACTIVE</b>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:ga6ecdc2eeccb8f5afac0a6741b5d31539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1277c325ebafd740e33392cf0b283d95"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1277c325ebafd740e33392cf0b283d95"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL3_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL3_ACTIVE</b>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:ga1277c325ebafd740e33392cf0b283d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga07b9a3962adbfd74275e5917e800bf34"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga07b9a3962adbfd74275e5917e800bf34"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL4_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL4_ACTIVE</b>&#160;&#160;&#160;4</td></tr>
 <tr class="separator:ga07b9a3962adbfd74275e5917e800bf34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5166a00780d9245d9e6066632c18ec7b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5166a00780d9245d9e6066632c18ec7b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL5_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL5_ACTIVE</b>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:ga5166a00780d9245d9e6066632c18ec7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7260fdc79457ce08803ca84584d00a27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7260fdc79457ce08803ca84584d00a27"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL6_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL6_ACTIVE</b>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:ga7260fdc79457ce08803ca84584d00a27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0b4f2b07984ff9d1e6a1ff7ddb21b2aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0b4f2b07984ff9d1e6a1ff7ddb21b2aa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL7_ACTIVE</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOISTURE_MEASURE_CHANNEL7_ACTIVE</b>&#160;&#160;&#160;7</td></tr>
 <tr class="separator:ga0b4f2b07984ff9d1e6a1ff7ddb21b2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga510f9945e7ea0a837a7368ccb976cad7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga510f9945e7ea0a837a7368ccb976cad7"></a>
-uint_fast64_t&#160;</td><td class="memItemRight" valign="bottom"><b>getFrequencyOfChannel</b> ()</td></tr>
-<tr class="separator:ga510f9945e7ea0a837a7368ccb976cad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05f58f994b4aeeeafe1197372880670f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MoistureMeasure.html#ga05f58f994b4aeeeafe1197372880670f">getFrequencyOfChannel</a> ()</td></tr>
+<tr class="memdesc:ga05f58f994b4aeeeafe1197372880670f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ISR's data.  <a href="group__MoistureMeasure.html#ga05f58f994b4aeeeafe1197372880670f">More...</a><br /></td></tr>
+<tr class="separator:ga05f58f994b4aeeeafe1197372880670f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6dd34425fbb60f7de39f70ea7b17f672"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6dd34425fbb60f7de39f70ea7b17f672"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetFrequencyOfChannel</b> ()</td></tr>
+<tr class="separator:ga6dd34425fbb60f7de39f70ea7b17f672"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac306477cfeeb89d9fb7c5aaab4d7d2fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MoistureMeasure.html#gac306477cfeeb89d9fb7c5aaab4d7d2fa">MeasureInit</a> (TIM_HandleTypeDef *ptrTimerRef, uint32_t channel)</td></tr>
 <tr class="memdesc:gac306477cfeeb89d9fb7c5aaab4d7d2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts Timer and enables interrupt.  <a href="group__MoistureMeasure.html#gac306477cfeeb89d9fb7c5aaab4d7d2fa">More...</a><br /></td></tr>
 <tr class="separator:gac306477cfeeb89d9fb7c5aaab4d7d2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,27 +177,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MoistureMeasure.html#ga5f3f4f49c56ba5d2b1843d59ab583239">DisableMeasureInterrupt</a> ()</td></tr>
 <tr class="memdesc:ga5f3f4f49c56ba5d2b1843d59ab583239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable timer interrupt. <br /></td></tr>
 <tr class="separator:ga5f3f4f49c56ba5d2b1843d59ab583239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga270d7e6760e4667a15876234525ffa0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga270d7e6760e4667a15876234525ffa0d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>startSensorCapture</b> (int channel)</td></tr>
+<tr class="memitem:ga270d7e6760e4667a15876234525ffa0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MoistureMeasure.html#ga270d7e6760e4667a15876234525ffa0d">startSensorCapture</a> (int channel)</td></tr>
+<tr class="memdesc:ga270d7e6760e4667a15876234525ffa0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts Timer and enables interrupt.  <a href="group__MoistureMeasure.html#ga270d7e6760e4667a15876234525ffa0d">More...</a><br /></td></tr>
 <tr class="separator:ga270d7e6760e4667a15876234525ffa0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaec3fb8ee83ed3222403ad1c0163291be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaec3fb8ee83ed3222403ad1c0163291be"></a>
-uint_fast64_t&#160;</td><td class="memItemRight" valign="bottom"><b>getMoisture</b> (int channel)</td></tr>
-<tr class="separator:gaec3fb8ee83ed3222403ad1c0163291be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga729825169cb0893c0b94132510eb1aca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga729825169cb0893c0b94132510eb1aca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>moiDisableSensor</b> ()</td></tr>
+<tr class="separator:ga729825169cb0893c0b94132510eb1aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad06d871e7083b9292c86480897a08380"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad06d871e7083b9292c86480897a08380"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>moiEnableSensor</b> ()</td></tr>
+<tr class="separator:gad06d871e7083b9292c86480897a08380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11f929816d49f79a88c790ab3f27f02d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga11f929816d49f79a88c790ab3f27f02d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>moiSetChannel</b> (int)</td></tr>
+<tr class="separator:ga11f929816d49f79a88c790ab3f27f02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6178c2c506c51145184eff0ea1783a91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6178c2c506c51145184eff0ea1783a91"></a>
+uint_fast64_t&#160;</td><td class="memItemRight" valign="bottom"><b>getMoisture</b> ()</td></tr>
+<tr class="separator:ga6178c2c506c51145184eff0ea1783a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac49abaa82a624c0511912c47a55596ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac49abaa82a624c0511912c47a55596ef"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>initMoistureMeasure</b> (TIM_HandleTypeDef *ptr)</td></tr>
 <tr class="separator:gac49abaa82a624c0511912c47a55596ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac3b936feda5796c4a637a1781bdb6304"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac3b936feda5796c4a637a1781bdb6304"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printMoisture</b> ()</td></tr>
 <tr class="separator:gac3b936feda5796c4a637a1781bdb6304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ae385b263051f82bee5ea222852f468"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3ae385b263051f82bee5ea222852f468"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoistureTask</b> ()</td></tr>
+<tr class="separator:ga3ae385b263051f82bee5ea222852f468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga915aec6b50585ac87225cb7bb5db78fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga915aec6b50585ac87225cb7bb5db78fd"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>frequency</b> [MOISTURE_MEASURE_CHANNEL_MAX]</td></tr>
-<tr class="separator:ga915aec6b50585ac87225cb7bb5db78fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac8551392f960ca1cab1fe569b0708c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaac8551392f960ca1cab1fe569b0708c1"></a>
+volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>frequency</b> [MOISTURE_MEASURE_CHANNEL_MAX]</td></tr>
+<tr class="separator:gaac8551392f960ca1cab1fe569b0708c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae9979b030a3e6ef0f9baf55b7b9df6ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae9979b030a3e6ef0f9baf55b7b9df6ad"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateRegister</b> = MOISTURE_MEASURE_STATE_INACTIVE</td></tr>
 <tr class="separator:gae9979b030a3e6ef0f9baf55b7b9df6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60ae3fd9b1476173a991700fd15f6502"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga60ae3fd9b1476173a991700fd15f6502"></a>
+uint&#160;</td><td class="memItemRight" valign="bottom"><b>activeChannel</b> = 0</td></tr>
+<tr class="separator:ga60ae3fd9b1476173a991700fd15f6502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2e44b3114dfc19bb9f9a57a5c6fe2fcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2e44b3114dfc19bb9f9a57a5c6fe2fcb"></a>
 TIM_HandleTypeDef *&#160;</td><td class="memItemRight" valign="bottom"><b>ptrTimer3Ref</b></td></tr>
 <tr class="separator:ga2e44b3114dfc19bb9f9a57a5c6fe2fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>

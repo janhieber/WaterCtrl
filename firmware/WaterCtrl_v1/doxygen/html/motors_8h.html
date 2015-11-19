@@ -80,6 +80,8 @@ $(document).ready(function(){initNavTree('motors_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">motors.h File Reference</div>  </div>
@@ -91,11 +93,41 @@ $(document).ready(function(){initNavTree('motors_8h.html','');});
 
 <p><a href="motors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga2f5aec3da9ad50a5f8b20aafd26bd512"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2f5aec3da9ad50a5f8b20aafd26bd512"></a>
+typedef enum _activeMotor&#160;</td><td class="memItemRight" valign="bottom"><b>eActiveMotor</b></td></tr>
+<tr class="separator:ga2f5aec3da9ad50a5f8b20aafd26bd512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga0d7b791cbc9c7531efae6dc77e7d15ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0d7b791cbc9c7531efae6dc77e7d15ca"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_activeMotor</b> { <br />
+&#160;&#160;<b>MOT_ACTIVE_NONE</b> = 0x00, 
+<b>MOT_ACTIVE_0</b>, 
+<b>MOT_ACTIVE_1</b>, 
+<b>MOT_ACTIVE_2</b>, 
+<br />
+&#160;&#160;<b>MOT_ACTIVE_3</b>, 
+<b>MOT_ACTIVE_4</b>, 
+<b>MOT_ACTIVE_INVALID</b> = 0xff
+<br />
+ }<tr class="separator:ga0d7b791cbc9c7531efae6dc77e7d15ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga50060772469636e80f3e636df63efde0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga50060772469636e80f3e636df63efde0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initMotors</b> (void)</td></tr>
-<tr class="separator:ga50060772469636e80f3e636df63efde0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f3c9c45c7ebb082d1cb7ee52789f463"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1f3c9c45c7ebb082d1cb7ee52789f463"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motInit</b> (void)</td></tr>
+<tr class="separator:ga1f3c9c45c7ebb082d1cb7ee52789f463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2acc9959137f43038ba0ce535a64571b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2acc9959137f43038ba0ce535a64571b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motTask100ms</b> ()</td></tr>
+<tr class="separator:ga2acc9959137f43038ba0ce535a64571b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac251e12d84c3dacd4d8993ad6651dbf2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac251e12d84c3dacd4d8993ad6651dbf2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motTask5s</b> ()</td></tr>
+<tr class="separator:gac251e12d84c3dacd4d8993ad6651dbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab191aef1d26ea5719a3029c896696e0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab191aef1d26ea5719a3029c896696e0d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>motControl</b> (int motor, int time, int max_level)</td></tr>
+<tr class="separator:gab191aef1d26ea5719a3029c896696e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Prototypes for motor module. </p>

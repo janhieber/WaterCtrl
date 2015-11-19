@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['hal_5fspi_5ftxrxcpltcallback',['HAL_SPI_TxRxCpltCallback',['../group__SPI.html#ga04e63f382f172164c8e7cae4ff5d883c',1,'spicomm.c']]],
-  ['hal_5ftim_5fic_5fcapturecallback',['HAL_TIM_IC_CaptureCallback',['../group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381',1,'isr_moisture.c']]]
+  ['fprintf',['fprintf',['../group__printf.html#ga714a7aeb0b480bc7cc85c1685964861f',1,'printf.c']]],
+  ['fputc',['fputc',['../group__printf.html#ga25c4b74226a8a3a0d6eef3a072be087b',1,'printf.c']]],
+  ['fputs',['fputs',['../group__printf.html#gad870e26ae50d712bb504aa4b067802f4',1,'printf.c']]]
 ];

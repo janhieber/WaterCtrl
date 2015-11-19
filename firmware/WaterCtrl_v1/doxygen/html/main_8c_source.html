@@ -86,296 +86,217 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/* Includes ------------------------------------------------------------------*/</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;stm32f1xx_hal.h&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">/* USER CODE BEGIN Includes */</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// DEFINES</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define VERSION (uint8_t)1</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// TOOLCHAIN INCLUDES</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// INCLUDES</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="spicomm_8h.html">spicomm.h</a>&gt;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="log_8h.html">log.h</a>&gt;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;moistureMeasure.h&gt;</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="motors_8h.html">motors.h</a>&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;iwdg.h&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;spi.h&quot;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;tim.h&quot;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &quot;usart.h&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &quot;gpio.h&quot;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/* USER CODE BEGIN Includes */</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/* ============ DEFINES ============== */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// GENERAL</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define VERSION (uint8_t)1</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">// TOOLCHAIN INCLUDES</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">/* USER CODE END Includes */</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">/* Private variables ---------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;SPI_HandleTypeDef hspi1;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;TIM_HandleTypeDef htim2;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;TIM_HandleTypeDef htim3;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;UART_HandleTypeDef huart1;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/* USER CODE BEGIN PV */</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// APP INCLUDES</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &lt;mxconstants.h&gt;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="stuff_8h.html">stuff.h</a>&gt;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="scheduler_8h.html">scheduler.h</a>&gt;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="spicomm_8h.html">spicomm.h</a>&gt;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="log_8h.html">log.h</a>&gt;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#include &lt;moistureMeasure.h&gt;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="motors_8h.html">motors.h</a>&gt;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">/* USER CODE END Includes */</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/* Private variables ---------------------------------------------------------*/</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/* USER CODE END PV */</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">/* Private function prototypes -----------------------------------------------*/</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> MX_GPIO_Init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> MX_SPI1_Init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> MX_TIM2_Init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> MX_TIM3_Init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> MX_USART1_UART_Init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">/* USER CODE BEGIN PFP */</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">/* Private function prototypes -----------------------------------------------*/</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/* USER CODE BEGIN PV */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/* Private variables ---------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">/* USER CODE END PV */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/* Private function prototypes -----------------------------------------------*/</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">/* USER CODE BEGIN PFP */</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">/* Private function prototypes -----------------------------------------------*/</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">/* USER CODE END PFP */</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">/* USER CODE END PFP */</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">/* USER CODE BEGIN 0 */</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">/* USER CODE BEGIN 0 */</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="group__Main.html#gaac7233dce0ef357b1ea507667a7b6e07">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#gaac7233dce0ef357b1ea507667a7b6e07">PrintChar</a>(<span class="keywordtype">char</span> c) { HAL_UART_Transmit(&amp;huart1, (uint8_t *)&amp;c, 1, 50); }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">/* USER CODE END 0 */</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="comment">/* USER CODE BEGIN 1 */</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="comment">/* USER CODE END 1 */</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="comment">/* MCU</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">   * Configuration----------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="comment">/* Reset of all peripherals, Initializes the Flash interface and the Systick.</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  HAL_Init();</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">/* Configure the system clock */</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a>();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="comment">/* Initialize all configured peripherals */</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  MX_GPIO_Init();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  MX_SPI1_Init();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  MX_TIM2_Init();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  MX_TIM3_Init();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  MX_USART1_UART_Init();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="comment">/* USER CODE BEGIN 2 */</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <a class="code" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a>(LogDstSerConsole);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a>(LogInfo, <span class="stringliteral">&quot;WaterCtrl version %d&quot;</span>, VERSION);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <a class="code" href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a>(LogInfo, <span class="stringliteral">&quot;System clock: %dMHz&quot;</span>, (uint8_t)(<a class="code" href="group__STM32F1xx__System__Private__Variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a> / 1000000));</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  initMoistureMeasure(&amp;htim3);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="comment">/* USER CODE END 2 */</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="group__Main.html#gaac7233dce0ef357b1ea507667a7b6e07">   90</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#gaac7233dce0ef357b1ea507667a7b6e07">PrintChar</a>(<span class="keywordtype">char</span> c) { HAL_UART_Transmit(&amp;<a class="code" href="group__SPI.html#ga2cf715bef37f7e8ef385a30974a5f0d5">huart1</a>, (uint8_t*)&amp;c, 1, 50); }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="group__Main.html#gaf162ba2aec62e045a0733d81246012e4">   95</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#gaf162ba2aec62e045a0733d81246012e4">resetIWDG</a>(<span class="keywordtype">void</span>) { <a class="code" href="group__Stuff.html#gac5665802df7401afeabcdfe09816614a">WatchdogReset</a>(&amp;hiwdg); }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="group__Main.html#gaa07b1ba2d5fc21506c8e3a4e7ed95ab4">  100</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#gaa07b1ba2d5fc21506c8e3a4e7ed95ab4">debugInfo</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="comment">// spiDebug(&amp;huart1);</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="group__Main.html#gaf1242dc735b666aee6dd884e04f7f053">  107</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#gaf1242dc735b666aee6dd884e04f7f053">SPIrecvProc</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">char</span> buf[SPI_XFER_SIZE];</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="group__SPI.html#ga1e164d454a07b0d5eb590e5dc7e9c70c">spiReceive</a>(buf)) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">LogUart</a>(LogInfo, <span class="stringliteral">&quot;SPI messages was received&quot;</span>);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="group__Main.html#gafb1a8a39f00ae98149c31c59cd0492b6">  115</a></span>&#160;<a class="code" href="structTaskType.html">TaskType</a> <a class="code" href="group__Main.html#gafb1a8a39f00ae98149c31c59cd0492b6">Tasks</a>[] = {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    {INTERVAL_1S, 0, <a class="code" href="group__Main.html#gaf162ba2aec62e045a0733d81246012e4">resetIWDG</a>},</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    {INTERVAL_1S, 0, <a class="code" href="group__Stuff.html#gaf57f752120d87609acaf864e00833488">AliveTicker</a>},</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    {INTERVAL_1S, 0, MoistureTask},</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    {INTERVAL_5S, 0, printMoisture},</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    {INTERVAL_2S, 0, <a class="code" href="group__Main.html#gaa07b1ba2d5fc21506c8e3a4e7ed95ab4">debugInfo</a>},</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    {INTERVAL_250MS, 0, <a class="code" href="group__Main.html#gaf1242dc735b666aee6dd884e04f7f053">SPIrecvProc</a>},</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">/* USER CODE END 0 */</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="comment">/* USER CODE BEGIN 1 */</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="comment">/* Infinite loop */</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">/* USER CODE BEGIN WHILE */</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <a class="code" href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a>(LogInfo, <span class="stringliteral">&quot;reaching mainloop&quot;</span>);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordflow">while</span> (1) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    HAL_Delay(1000);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    printMoisture();</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="comment">/* USER CODE END 1 */</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="comment">/* MCU</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">   * Configuration----------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">/* Reset of all peripherals, Initializes the Flash interface and the Systick.</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  HAL_Init();</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="comment">/* USER CODE END WHILE */</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="comment">/* USER CODE BEGIN 3 */</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="comment">/* USER CODE END 3 */</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">  147</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="comment">/* Configure the system clock */</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <a class="code" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a>();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <span class="comment">/* Initialize all configured peripherals */</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  MX_GPIO_Init();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  MX_IWDG_Init();</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  MX_SPI1_Init();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  MX_TIM2_Init();</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  MX_TIM3_Init();</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  MX_USART1_UART_Init();</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  RCC_OscInitTypeDef RCC_OscInitStruct;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  RCC_ClkInitTypeDef RCC_ClkInitStruct;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  RCC_OscInitStruct.HSEState = RCC_HSE_ON;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  HAL_RCC_OscConfig(&amp;RCC_OscInitStruct);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  HAL_RCC_ClockConfig(&amp;RCC_ClkInitStruct, FLASH_LATENCY_2);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="comment">/* USER CODE BEGIN 2 */</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="comment">// setup SPI</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <a class="code" href="group__SPI.html#ga9efb05b0b48169d9ad99cead17797f1b">spiQueueInit</a>();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="comment">// setup logging, first UART, later with SPI</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <a class="code" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a>(LogDstSerConsole);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <a class="code" href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">logSetFilter</a>(LogDebug | LogError | LogInfo);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="comment">// nice greetings</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <a class="code" href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a>(LogInfo, <span class="stringliteral">&quot;WaterCtrl version %d&quot;</span>, VERSION);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <a class="code" href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a>(LogInfo, <span class="stringliteral">&quot;System clock: %dMHz&quot;</span>, (uint8_t)(<a class="code" href="group__STM32F1xx__System__Private__Variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a> / 1000000));</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  HAL_Delay(1000);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="comment">// init modules</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  initMoistureMeasure(&amp;htim3);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  motInit();</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="comment">// init scheduling</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <a class="code" href="group__Scheduler.html#ga64288a3c56a6a20aeaf237c27090a3d0">initScheduler</a>(Tasks, ARRAYSIZE(Tasks));</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="comment">/* SysTick_IRQn interrupt configuration */</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">/* SPI1 init function */</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="keywordtype">void</span> MX_SPI1_Init(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  hspi1.Instance = SPI1;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  hspi1.Init.Mode = SPI_MODE_SLAVE;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  hspi1.Init.Direction = SPI_DIRECTION_2LINES;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  hspi1.Init.NSS = SPI_NSS_SOFT;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  hspi1.Init.TIMode = SPI_TIMODE_DISABLED;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  hspi1.Init.CRCPolynomial = 10;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  HAL_SPI_Init(&amp;hspi1);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">/* TIM2 init function */</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keywordtype">void</span> MX_TIM2_Init(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  TIM_ClockConfigTypeDef sClockSourceConfig;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  TIM_MasterConfigTypeDef sMasterConfig;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  TIM_OC_InitTypeDef sConfigOC;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  htim2.Instance = TIM2;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  htim2.Init.Prescaler = 0;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  htim2.Init.Period = 0;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  HAL_TIM_Base_Init(&amp;htim2);</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  HAL_TIM_ConfigClockSource(&amp;htim2, &amp;sClockSourceConfig);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  HAL_TIM_PWM_Init(&amp;htim2);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  HAL_TIMEx_MasterConfigSynchronization(&amp;htim2, &amp;sMasterConfig);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  sConfigOC.OCMode = TIM_OCMODE_PWM1;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  sConfigOC.Pulse = 0;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  HAL_TIM_PWM_ConfigChannel(&amp;htim2, &amp;sConfigOC, TIM_CHANNEL_2);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">/* TIM3 init function */</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="keywordtype">void</span> MX_TIM3_Init(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  TIM_MasterConfigTypeDef sMasterConfig;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  TIM_IC_InitTypeDef sConfigIC;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  htim3.Instance = TIM3;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  htim3.Init.Prescaler = 0;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  htim3.Init.Period = 0;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  HAL_TIM_IC_Init(&amp;htim3);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="comment">/* USER CODE END 2 */</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="comment">/* Infinite loop */</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="comment">/* USER CODE BEGIN WHILE */</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="comment">// start watchdog</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <a class="code" href="group__Stuff.html#ga3a3b194535b105a540ae6cebdf63e353">WatchdogStart</a>(&amp;hiwdg);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <a class="code" href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a>(LogDebug, <span class="stringliteral">&quot;reaching mainloop&quot;</span>);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="comment">// enable SPI logging</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <a class="code" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a>(LogDstSerConsole | LogDstRaspberryPi);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="comment">// scheduling</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="group__Scheduler.html#ga0a5e9fb0d89b46e3cf449f4fe313dae2">doScheduling</a>();</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">/* USER CODE END WHILE */</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="comment">/* USER CODE BEGIN 3 */</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="comment">/* USER CODE END 3 */</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">  199</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  RCC_OscInitTypeDef RCC_OscInitStruct;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  RCC_ClkInitTypeDef RCC_ClkInitStruct;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  RCC_OscInitStruct.OscillatorType =</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;      RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSE;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  RCC_OscInitStruct.HSEState = RCC_HSE_ON;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  RCC_OscInitStruct.LSIState = RCC_LSI_ON;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  HAL_RCC_OscConfig(&amp;RCC_OscInitStruct);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  HAL_RCC_ClockConfig(&amp;RCC_ClkInitStruct, FLASH_LATENCY_2);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <span class="comment">/* SysTick_IRQn interrupt configuration */</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment">/* USER CODE BEGIN 4 */</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">/* USER CODE END 4 */</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor">#ifdef USE_FULL_ASSERT</span></div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  HAL_TIMEx_MasterConfigSynchronization(&amp;htim3, &amp;sMasterConfig);</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  sConfigIC.ICPrescaler = TIM_ICPSC_DIV8;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  sConfigIC.ICFilter = 3;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  HAL_TIM_IC_ConfigChannel(&amp;htim3, &amp;sConfigIC, TIM_CHANNEL_3);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment">/* USART1 init function */</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keywordtype">void</span> MX_USART1_UART_Init(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  huart1.Instance = USART1;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  huart1.Init.BaudRate = 115200;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  huart1.Init.WordLength = UART_WORDLENGTH_8B;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  huart1.Init.StopBits = UART_STOPBITS_1;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  huart1.Init.Parity = UART_PARITY_NONE;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  huart1.Init.Mode = UART_MODE_TX_RX;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  huart1.Init.OverSampling = UART_OVERSAMPLING_16;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  HAL_UART_Init(&amp;huart1);</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;}</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keywordtype">void</span> MX_GPIO_Init(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  GPIO_InitTypeDef GPIO_InitStruct;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="comment">/* GPIO Ports Clock Enable */</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  __GPIOC_CLK_ENABLE();</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  __GPIOD_CLK_ENABLE();</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  __GPIOA_CLK_ENABLE();</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  __GPIOB_CLK_ENABLE();</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <span class="comment">/*Configure GPIO pin : PC13 */</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  GPIO_InitStruct.Pin = GPIO_PIN_13;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  HAL_GPIO_Init(GPIOC, &amp;GPIO_InitStruct);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  <span class="comment">/*Configure GPIO pins : PC14 PC15 */</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  GPIO_InitStruct.Pin = GPIO_PIN_14 | GPIO_PIN_15;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  HAL_GPIO_Init(GPIOC, &amp;GPIO_InitStruct);</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <span class="comment">/*Configure GPIO pin : PA0 */</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  GPIO_InitStruct.Pin = GPIO_PIN_0;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  <span class="comment">/*Configure GPIO pins : PA2 PA3 PA4 PA8</span></div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment">                           PA11 PA12 PA15 */</span></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_8 |</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                        GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_15;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;  HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;  <span class="comment">/*Configure GPIO pins : PB1 PB10 PB11 PB15</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment">                           PB9 */</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  GPIO_InitStruct.Pin =</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      GPIO_PIN_1 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_15 | GPIO_PIN_9;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  HAL_GPIO_Init(GPIOB, &amp;GPIO_InitStruct);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <span class="comment">/*Configure GPIO pins : PB2 PB12 PB13 PB14</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">                           PB3 PB4 PB5 PB6</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">                           PB7 PB8 */</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;  GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 |</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                        GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 |</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                        GPIO_PIN_7 | GPIO_PIN_8;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;  HAL_GPIO_Init(GPIOB, &amp;GPIO_InitStruct);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;}</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="comment">/* USER CODE BEGIN 4 */</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="comment">/* USER CODE END 4 */</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="preprocessor">#ifdef USE_FULL_ASSERT</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="keywordtype">void</span> assert_failed(uint8_t *file, uint32_t line) {</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  <span class="comment">/* USER CODE BEGIN 6 */</span></div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  <span class="comment">/* User can add his own implementation to report the file name and line</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">     number,</span></div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment">       ex: printf(&quot;Wrong parameters value: file %s on line %d\r\n&quot;, file, line)</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  <span class="comment">/* USER CODE END 6 */</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;}</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment">/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/</span></div>
-<div class="ttc" id="group__Logging_html_gaa5f1e819907ea056f541d68e85272cd2"><div class="ttname"><a href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a></div><div class="ttdeci">void Log(LogLevel loglevel, char *msg)</div><div class="ttdoc">Do logging. </div><div class="ttdef"><b>Definition:</b> <a href="log_8c_source.html#l00020">log.c:20</a></div></div>
-<div class="ttc" id="group__Main_html_gaac7233dce0ef357b1ea507667a7b6e07"><div class="ttname"><a href="group__Main.html#gaac7233dce0ef357b1ea507667a7b6e07">PrintChar</a></div><div class="ttdeci">void PrintChar(char c)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00092">main.c:92</a></div></div>
-<div class="ttc" id="group__Logging_html_gaa0b7f0e3704065f96cacc925211a5af3"><div class="ttname"><a href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a></div><div class="ttdeci">void logSetDestination(LogDestination destination)</div><div class="ttdoc">Set log desftination. </div><div class="ttdef"><b>Definition:</b> <a href="log_8c_source.html#l00057">log.c:57</a></div></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="keywordtype">void</span> assert_failed(uint8_t* file, uint32_t line) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="comment">/* USER CODE BEGIN 6 */</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <span class="comment">/* User can add his own implementation to report the file name and line</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="comment">     number,</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment">       ex: printf(&quot;Wrong parameters value: file %s on line %d\r\n&quot;, file, line)</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  <span class="comment">/* USER CODE END 6 */</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;}</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment">/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/</span></div>
+<div class="ttc" id="group__Main_html_gaf1242dc735b666aee6dd884e04f7f053"><div class="ttname"><a href="group__Main.html#gaf1242dc735b666aee6dd884e04f7f053">SPIrecvProc</a></div><div class="ttdeci">void SPIrecvProc(void)</div><div class="ttdoc">process SPI receive queue </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00107">main.c:107</a></div></div>
+<div class="ttc" id="group__Main_html_gaf162ba2aec62e045a0733d81246012e4"><div class="ttname"><a href="group__Main.html#gaf162ba2aec62e045a0733d81246012e4">resetIWDG</a></div><div class="ttdeci">void resetIWDG(void)</div><div class="ttdoc">task for resetting watchdog </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00095">main.c:95</a></div></div>
+<div class="ttc" id="structTaskType_html"><div class="ttname"><a href="structTaskType.html">TaskType</a></div><div class="ttdef"><b>Definition:</b> <a href="scheduler_8h_source.html#l00035">scheduler.h:35</a></div></div>
+<div class="ttc" id="group__Logging_html_gacbe761d90105f6366f76eedac6ee1b78"><div class="ttname"><a href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">LogUart</a></div><div class="ttdeci">void LogUart(LogLevel loglevel, const char *format,...)</div><div class="ttdoc">Do logging explicit on UART, not SPI. </div><div class="ttdef"><b>Definition:</b> <a href="log_8c_source.html#l00067">log.c:67</a></div></div>
+<div class="ttc" id="group__Main_html_gaac7233dce0ef357b1ea507667a7b6e07"><div class="ttname"><a href="group__Main.html#gaac7233dce0ef357b1ea507667a7b6e07">PrintChar</a></div><div class="ttdeci">void PrintChar(char c)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00090">main.c:90</a></div></div>
+<div class="ttc" id="scheduler_8h_html"><div class="ttname"><a href="scheduler_8h.html">scheduler.h</a></div><div class="ttdoc">Scheduler stuff. </div></div>
+<div class="ttc" id="group__Logging_html_gaa0b7f0e3704065f96cacc925211a5af3"><div class="ttname"><a href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a></div><div class="ttdeci">void logSetDestination(LogDestination destination)</div><div class="ttdoc">Set log desftination. </div><div class="ttdef"><b>Definition:</b> <a href="log_8c_source.html#l00092">log.c:92</a></div></div>
+<div class="ttc" id="group__Logging_html_gaaad3c3fa0023feed2de3d4d3384ed9af"><div class="ttname"><a href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a></div><div class="ttdeci">void Log(LogLevel loglevel, const char *format,...)</div><div class="ttdoc">Do logging. </div><div class="ttdef"><b>Definition:</b> <a href="log_8c_source.html#l00025">log.c:25</a></div></div>
 <div class="ttc" id="group__STM32F1xx__System__Private__Variables_html_gaa3cd3e43291e81e795d642b79b6088e6"><div class="ttname"><a href="group__STM32F1xx__System__Private__Variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a></div><div class="ttdeci">uint32_t SystemCoreClock</div><div class="ttdef"><b>Definition:</b> <a href="system__stm32f1xx_8c_source.html#l00142">system_stm32f1xx.c:142</a></div></div>
-<div class="ttc" id="group__Main_html_ga70af21c671abfcc773614a9a4f63d920"><div class="ttname"><a href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a></div><div class="ttdeci">void SystemClock_Config(void)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00147">main.c:147</a></div></div>
+<div class="ttc" id="group__Scheduler_html_ga64288a3c56a6a20aeaf237c27090a3d0"><div class="ttname"><a href="group__Scheduler.html#ga64288a3c56a6a20aeaf237c27090a3d0">initScheduler</a></div><div class="ttdeci">void initScheduler(TaskType *Tasks, uint8_t count)</div><div class="ttdoc">init the scheduler </div><div class="ttdef"><b>Definition:</b> <a href="scheduler_8c_source.html#l00028">scheduler.c:28</a></div></div>
+<div class="ttc" id="group__Main_html_ga70af21c671abfcc773614a9a4f63d920"><div class="ttname"><a href="group__Main.html#ga70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a></div><div class="ttdeci">void SystemClock_Config(void)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00199">main.c:199</a></div></div>
+<div class="ttc" id="group__Main_html_gafb1a8a39f00ae98149c31c59cd0492b6"><div class="ttname"><a href="group__Main.html#gafb1a8a39f00ae98149c31c59cd0492b6">Tasks</a></div><div class="ttdeci">TaskType Tasks[]</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00115">main.c:115</a></div></div>
+<div class="ttc" id="group__Scheduler_html_ga0a5e9fb0d89b46e3cf449f4fe313dae2"><div class="ttname"><a href="group__Scheduler.html#ga0a5e9fb0d89b46e3cf449f4fe313dae2">doScheduling</a></div><div class="ttdeci">void doScheduling(void)</div><div class="ttdoc">do the scheduling of tasks </div><div class="ttdef"><b>Definition:</b> <a href="scheduler_8c_source.html#l00034">scheduler.c:34</a></div></div>
+<div class="ttc" id="group__Stuff_html_gaf57f752120d87609acaf864e00833488"><div class="ttname"><a href="group__Stuff.html#gaf57f752120d87609acaf864e00833488">AliveTicker</a></div><div class="ttdeci">void AliveTicker(void)</div><div class="ttdoc">System alive indicator for LED. </div><div class="ttdef"><b>Definition:</b> <a href="stuff_8c_source.html#l00020">stuff.c:20</a></div></div>
+<div class="ttc" id="group__SPI_html_ga2cf715bef37f7e8ef385a30974a5f0d5"><div class="ttname"><a href="group__SPI.html#ga2cf715bef37f7e8ef385a30974a5f0d5">huart1</a></div><div class="ttdeci">UART_HandleTypeDef huart1</div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00044">usart.c:44</a></div></div>
 <div class="ttc" id="spicomm_8h_html"><div class="ttname"><a href="spicomm_8h.html">spicomm.h</a></div><div class="ttdoc">Functions for SPI. </div></div>
+<div class="ttc" id="group__Logging_html_ga969bdf5e22471c21e17f97307919c3b1"><div class="ttname"><a href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">logSetFilter</a></div><div class="ttdeci">void logSetFilter(LogLevel filter)</div><div class="ttdoc">Set log filter. </div><div class="ttdef"><b>Definition:</b> <a href="log_8c_source.html#l00096">log.c:96</a></div></div>
+<div class="ttc" id="group__Main_html_gaa07b1ba2d5fc21506c8e3a4e7ed95ab4"><div class="ttname"><a href="group__Main.html#gaa07b1ba2d5fc21506c8e3a4e7ed95ab4">debugInfo</a></div><div class="ttdeci">void debugInfo(void)</div><div class="ttdoc">task for printing debug stuff </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00100">main.c:100</a></div></div>
+<div class="ttc" id="group__SPI_html_ga9efb05b0b48169d9ad99cead17797f1b"><div class="ttname"><a href="group__SPI.html#ga9efb05b0b48169d9ad99cead17797f1b">spiQueueInit</a></div><div class="ttdeci">void spiQueueInit()</div><div class="ttdoc">Init SPI queues. </div><div class="ttdef"><b>Definition:</b> <a href="spicomm_8c_source.html#l00048">spicomm.c:48</a></div></div>
+<div class="ttc" id="group__Stuff_html_gac5665802df7401afeabcdfe09816614a"><div class="ttname"><a href="group__Stuff.html#gac5665802df7401afeabcdfe09816614a">WatchdogReset</a></div><div class="ttdeci">void WatchdogReset(IWDG_HandleTypeDef *hiwdg)</div><div class="ttdoc">Reset watchdog. </div><div class="ttdef"><b>Definition:</b> <a href="stuff_8c_source.html#l00029">stuff.c:29</a></div></div>
+<div class="ttc" id="group__Stuff_html_ga3a3b194535b105a540ae6cebdf63e353"><div class="ttname"><a href="group__Stuff.html#ga3a3b194535b105a540ae6cebdf63e353">WatchdogStart</a></div><div class="ttdeci">void WatchdogStart(IWDG_HandleTypeDef *hiwdg)</div><div class="ttdoc">Start watchdog. </div><div class="ttdef"><b>Definition:</b> <a href="stuff_8c_source.html#l00038">stuff.c:38</a></div></div>
+<div class="ttc" id="stuff_8h_html"><div class="ttname"><a href="stuff_8h.html">stuff.h</a></div><div class="ttdoc">some usefull stuff </div></div>
 <div class="ttc" id="motors_8h_html"><div class="ttname"><a href="motors_8h.html">motors.h</a></div><div class="ttdoc">Prototypes for motor module. </div></div>
 <div class="ttc" id="log_8h_html"><div class="ttname"><a href="log_8h.html">log.h</a></div><div class="ttdoc">Functions for logging messages and routing/filter them. </div></div>
+<div class="ttc" id="group__SPI_html_ga1e164d454a07b0d5eb590e5dc7e9c70c"><div class="ttname"><a href="group__SPI.html#ga1e164d454a07b0d5eb590e5dc7e9c70c">spiReceive</a></div><div class="ttdeci">bool spiReceive(char *buf)</div><div class="ttdoc">this functions checks for new Data </div><div class="ttdef"><b>Definition:</b> <a href="spicomm_8c_source.html#l00135">spicomm.c:135</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.8-->

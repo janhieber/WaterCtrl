@@ -88,19 +88,27 @@ $(document).ready(function(){initNavTree('log_8c.html','');});
 
 <p>Functions for logging messages and routing/filter them.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="log_8h_source.html">log.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdarg.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="log_8h_source.html">log.h</a>&gt;</code><br />
 <code>#include &lt;mxconstants.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="spicomm_8h_source.html">spicomm.h</a>&gt;</code><br />
 </div>
 <p><a href="log_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa5f1e819907ea056f541d68e85272cd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a> (LogLevel loglevel, char *msg)</td></tr>
-<tr class="memdesc:gaa5f1e819907ea056f541d68e85272cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging.  <a href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">More...</a><br /></td></tr>
-<tr class="separator:gaa5f1e819907ea056f541d68e85272cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a> (LogDestination destination)</td></tr>
+<tr class="memitem:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> loglevel, const char *format,...)</td></tr>
+<tr class="memdesc:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging.  <a href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">More...</a><br /></td></tr>
+<tr class="separator:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbe761d90105f6366f76eedac6ee1b78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">LogUart</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> loglevel, const char *format,...)</td></tr>
+<tr class="memdesc:gacbe761d90105f6366f76eedac6ee1b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging explicit on UART, not SPI.  <a href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">More...</a><br /></td></tr>
+<tr class="separator:gacbe761d90105f6366f76eedac6ee1b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a> (<a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a> destination)</td></tr>
 <tr class="memdesc:gaa0b7f0e3704065f96cacc925211a5af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set log desftination.  <a href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">More...</a><br /></td></tr>
 <tr class="separator:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga969bdf5e22471c21e17f97307919c3b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">logSetFilter</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> filter)</td></tr>
+<tr class="memdesc:ga969bdf5e22471c21e17f97307919c3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set log filter.  <a href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">More...</a><br /></td></tr>
+<tr class="separator:ga969bdf5e22471c21e17f97307919c3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions for logging messages and routing/filter them. </p>

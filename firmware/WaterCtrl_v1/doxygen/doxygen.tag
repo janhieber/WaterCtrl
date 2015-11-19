@@ -4,12 +4,33 @@
     <name>log.h</name>
     <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>log_8h</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>LogLevel</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaca1fd1d8935433e6ba2e3918214e07f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>LogDestination</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>ga4d96f303a62a42f0088fbafbb30c850c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>Log</name>
       <anchorfile>group__Logging.html</anchorfile>
-      <anchor>gaa5f1e819907ea056f541d68e85272cd2</anchor>
-      <arglist>(LogLevel loglevel, char *msg)</arglist>
+      <anchor>gaaad3c3fa0023feed2de3d4d3384ed9af</anchor>
+      <arglist>(LogLevel loglevel, const char *format,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>LogUart</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gacbe761d90105f6366f76eedac6ee1b78</anchor>
+      <arglist>(LogLevel loglevel, const char *format,...)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -18,11 +39,38 @@
       <anchor>gaa0b7f0e3704065f96cacc925211a5af3</anchor>
       <arglist>(LogDestination destination)</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>logSetFilter</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>ga969bdf5e22471c21e17f97307919c3b1</anchor>
+      <arglist>(LogLevel filter)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>motors.h</name>
     <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
     <filename>motors_8h</filename>
+  </compound>
+  <compound kind="file">
+    <name>scheduler.h</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <filename>scheduler_8h</filename>
+    <class kind="struct">TaskType</class>
+    <member kind="function">
+      <type>void</type>
+      <name>initScheduler</name>
+      <anchorfile>group__Scheduler.html</anchorfile>
+      <anchor>ga64288a3c56a6a20aeaf237c27090a3d0</anchor>
+      <arglist>(TaskType *Tasks, uint8_t count)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>doScheduling</name>
+      <anchorfile>group__Scheduler.html</anchorfile>
+      <anchor>ga0a5e9fb0d89b46e3cf449f4fe313dae2</anchor>
+      <arglist>(void)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>spicomm.h</name>
@@ -55,6 +103,13 @@
       <anchorfile>group__SPI.html</anchorfile>
       <anchor>gae7a5ae0fcd4d456fa8341756fd3f5c37</anchor>
       <arglist>(uint8_t id, char *msg)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>spiReceive</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga1e164d454a07b0d5eb590e5dc7e9c70c</anchor>
+      <arglist>(char *buf)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -348,9 +403,43 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>stuff.h</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Inc/</path>
+    <filename>stuff_8h</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>AliveTicker</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>gaf57f752120d87609acaf864e00833488</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>WatchdogReset</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>gac5665802df7401afeabcdfe09816614a</anchor>
+      <arglist>(IWDG_HandleTypeDef *hiwdg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>WatchdogStart</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>ga3a3b194535b105a540ae6cebdf63e353</anchor>
+      <arglist>(IWDG_HandleTypeDef *hiwdg)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>isr_moisture.c</name>
     <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>isr__moisture_8c</filename>
+    <includes id="log_8h" name="log.h" local="no" imported="no">log.h</includes>
+    <member kind="function">
+      <type>uint32_t</type>
+      <name>getFrequencyOfChannel</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga05f58f994b4aeeeafe1197372880670f</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>HAL_TIM_IC_CaptureCallback</name>
@@ -364,12 +453,20 @@
     <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>log_8c</filename>
     <includes id="log_8h" name="log.h" local="no" imported="no">log.h</includes>
+    <includes id="spicomm_8h" name="spicomm.h" local="no" imported="no">spicomm.h</includes>
     <member kind="function">
       <type>void</type>
       <name>Log</name>
       <anchorfile>group__Logging.html</anchorfile>
-      <anchor>gaa5f1e819907ea056f541d68e85272cd2</anchor>
-      <arglist>(LogLevel loglevel, char *msg)</arglist>
+      <anchor>gaaad3c3fa0023feed2de3d4d3384ed9af</anchor>
+      <arglist>(LogLevel loglevel, const char *format,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>LogUart</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gacbe761d90105f6366f76eedac6ee1b78</anchor>
+      <arglist>(LogLevel loglevel, const char *format,...)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -378,11 +475,25 @@
       <anchor>gaa0b7f0e3704065f96cacc925211a5af3</anchor>
       <arglist>(LogDestination destination)</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>logSetFilter</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>ga969bdf5e22471c21e17f97307919c3b1</anchor>
+      <arglist>(LogLevel filter)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>moistureMeasure.c</name>
     <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>moistureMeasure_8c</filename>
+    <member kind="function">
+      <type>uint32_t</type>
+      <name>getFrequencyOfChannel</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga05f58f994b4aeeeafe1197372880670f</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type>int</type>
       <name>MeasureInit</name>
@@ -403,6 +514,13 @@
       <anchorfile>group__MoistureMeasure.html</anchorfile>
       <anchor>ga5f3f4f49c56ba5d2b1843d59ab583239</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>startSensorCapture</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga270d7e6760e4667a15876234525ffa0d</anchor>
+      <arglist>(int channel)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -551,6 +669,27 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>scheduler.c</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <filename>scheduler_8c</filename>
+    <includes id="scheduler_8h" name="scheduler.h" local="no" imported="no">scheduler.h</includes>
+    <includes id="log_8h" name="log.h" local="no" imported="no">log.h</includes>
+    <member kind="function">
+      <type>void</type>
+      <name>initScheduler</name>
+      <anchorfile>group__Scheduler.html</anchorfile>
+      <anchor>ga64288a3c56a6a20aeaf237c27090a3d0</anchor>
+      <arglist>(TaskType *Tasks, uint8_t count)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>doScheduling</name>
+      <anchorfile>group__Scheduler.html</anchorfile>
+      <anchor>ga0a5e9fb0d89b46e3cf449f4fe313dae2</anchor>
+      <arglist>(void)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>spicomm.c</name>
     <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
     <filename>spicomm_8c</filename>
@@ -571,11 +710,32 @@
       <arglist>(uint8_t id, char *msg)</arglist>
     </member>
     <member kind="function">
+      <type>bool</type>
+      <name>spiReceive</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga1e164d454a07b0d5eb590e5dc7e9c70c</anchor>
+      <arglist>(char *buf)</arglist>
+    </member>
+    <member kind="function">
       <type>void</type>
       <name>HAL_SPI_TxRxCpltCallback</name>
       <anchorfile>group__SPI.html</anchorfile>
       <anchor>ga04e63f382f172164c8e7cae4ff5d883c</anchor>
       <arglist>(SPI_HandleTypeDef *hspi)</arglist>
+    </member>
+    <member kind="variable">
+      <type>SPI_HandleTypeDef</type>
+      <name>hspi1</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga9c6222bae4d0328dd843ae099623b40b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>UART_HandleTypeDef</type>
+      <name>huart1</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga2cf715bef37f7e8ef385a30974a5f0d5</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -617,6 +777,54 @@
       <anchorfile>stm32f1xx__it_8c.html</anchorfile>
       <anchor>a7139cd4baabbbcbab0c1fe6d7d4ae1cc</anchor>
       <arglist>(void)</arglist>
+    </member>
+    <member kind="variable">
+      <type>SPI_HandleTypeDef</type>
+      <name>hspi1</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga9c6222bae4d0328dd843ae099623b40b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>TIM_HandleTypeDef</type>
+      <name>htim2</name>
+      <anchorfile>stm32f1xx__it_8c.html</anchorfile>
+      <anchor>a2c80fd5510e2990a59a5c90d745c716c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>UART_HandleTypeDef</type>
+      <name>huart1</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga2cf715bef37f7e8ef385a30974a5f0d5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>stuff.c</name>
+    <path>/home/jan/WaterCtrl/firmware/WaterCtrl_v1/cubemx/Src/</path>
+    <filename>stuff_8c</filename>
+    <class kind="struct">fault_saved</class>
+    <member kind="function">
+      <type>void</type>
+      <name>AliveTicker</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>gaf57f752120d87609acaf864e00833488</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>WatchdogReset</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>gac5665802df7401afeabcdfe09816614a</anchor>
+      <arglist>(IWDG_HandleTypeDef *hiwdg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>WatchdogStart</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>ga3a3b194535b105a540ae6cebdf63e353</anchor>
+      <arglist>(IWDG_HandleTypeDef *hiwdg)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -666,6 +874,14 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>fault_saved</name>
+    <filename>structfault__saved.html</filename>
+  </compound>
+  <compound kind="struct">
+    <name>TaskType</name>
+    <filename>structTaskType.html</filename>
+  </compound>
   <compound kind="group">
     <name>CMSIS</name>
     <title>CMSIS</title>
@@ -684,12 +900,33 @@
     <name>Logging</name>
     <title>Logging</title>
     <filename>group__Logging.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>LogLevel</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gaca1fd1d8935433e6ba2e3918214e07f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>LogDestination</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>ga4d96f303a62a42f0088fbafbb30c850c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>Log</name>
       <anchorfile>group__Logging.html</anchorfile>
-      <anchor>gaa5f1e819907ea056f541d68e85272cd2</anchor>
-      <arglist>(LogLevel loglevel, char *msg)</arglist>
+      <anchor>gaaad3c3fa0023feed2de3d4d3384ed9af</anchor>
+      <arglist>(LogLevel loglevel, const char *format,...)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>LogUart</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>gacbe761d90105f6366f76eedac6ee1b78</anchor>
+      <arglist>(LogLevel loglevel, const char *format,...)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -697,6 +934,13 @@
       <anchorfile>group__Logging.html</anchorfile>
       <anchor>gaa0b7f0e3704065f96cacc925211a5af3</anchor>
       <arglist>(LogDestination destination)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>logSetFilter</name>
+      <anchorfile>group__Logging.html</anchorfile>
+      <anchor>ga969bdf5e22471c21e17f97307919c3b1</anchor>
+      <arglist>(LogLevel filter)</arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -717,11 +961,46 @@
       <anchor>gaac7233dce0ef357b1ea507667a7b6e07</anchor>
       <arglist>(char c)</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>resetIWDG</name>
+      <anchorfile>group__Main.html</anchorfile>
+      <anchor>gaf162ba2aec62e045a0733d81246012e4</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>debugInfo</name>
+      <anchorfile>group__Main.html</anchorfile>
+      <anchor>gaa07b1ba2d5fc21506c8e3a4e7ed95ab4</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>SPIrecvProc</name>
+      <anchorfile>group__Main.html</anchorfile>
+      <anchor>gaf1242dc735b666aee6dd884e04f7f053</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="variable">
+      <type>TaskType</type>
+      <name>Tasks</name>
+      <anchorfile>group__Main.html</anchorfile>
+      <anchor>gafb1a8a39f00ae98149c31c59cd0492b6</anchor>
+      <arglist>[]</arglist>
+    </member>
   </compound>
   <compound kind="group">
     <name>MoistureMeasure</name>
     <title>MoistureMeasure</title>
     <filename>group__MoistureMeasure.html</filename>
+    <member kind="function">
+      <type>uint32_t</type>
+      <name>getFrequencyOfChannel</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga05f58f994b4aeeeafe1197372880670f</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>HAL_TIM_IC_CaptureCallback</name>
@@ -749,6 +1028,13 @@
       <anchorfile>group__MoistureMeasure.html</anchorfile>
       <anchor>ga5f3f4f49c56ba5d2b1843d59ab583239</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>startSensorCapture</name>
+      <anchorfile>group__MoistureMeasure.html</anchorfile>
+      <anchor>ga270d7e6760e4667a15876234525ffa0d</anchor>
+      <arglist>(int channel)</arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -927,11 +1213,32 @@
       <arglist>(uint8_t id, char *msg)</arglist>
     </member>
     <member kind="function">
+      <type>bool</type>
+      <name>spiReceive</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga1e164d454a07b0d5eb590e5dc7e9c70c</anchor>
+      <arglist>(char *buf)</arglist>
+    </member>
+    <member kind="function">
       <type>void</type>
       <name>HAL_SPI_TxRxCpltCallback</name>
       <anchorfile>group__SPI.html</anchorfile>
       <anchor>ga04e63f382f172164c8e7cae4ff5d883c</anchor>
       <arglist>(SPI_HandleTypeDef *hspi)</arglist>
+    </member>
+    <member kind="variable">
+      <type>SPI_HandleTypeDef</type>
+      <name>hspi1</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga9c6222bae4d0328dd843ae099623b40b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>UART_HandleTypeDef</type>
+      <name>huart1</name>
+      <anchorfile>group__SPI.html</anchorfile>
+      <anchor>ga2cf715bef37f7e8ef385a30974a5f0d5</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -1012,6 +1319,26 @@
     </member>
   </compound>
   <compound kind="group">
+    <name>Scheduler</name>
+    <title>Scheduler</title>
+    <filename>group__Scheduler.html</filename>
+    <class kind="struct">TaskType</class>
+    <member kind="function">
+      <type>void</type>
+      <name>initScheduler</name>
+      <anchorfile>group__Scheduler.html</anchorfile>
+      <anchor>ga64288a3c56a6a20aeaf237c27090a3d0</anchor>
+      <arglist>(TaskType *Tasks, uint8_t count)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>doScheduling</name>
+      <anchorfile>group__Scheduler.html</anchorfile>
+      <anchor>ga0a5e9fb0d89b46e3cf449f4fe313dae2</anchor>
+      <arglist>(void)</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
     <name>Stm32f1xx_system</name>
     <title>Stm32f1xx_system</title>
     <filename>group__stm32f1xx__system.html</filename>
@@ -1027,7 +1354,30 @@
     <name>Stuff</name>
     <title>Stuff</title>
     <filename>group__Stuff.html</filename>
+    <subgroup>Scheduler</subgroup>
     <subgroup>syscalls</subgroup>
+    <class kind="struct">fault_saved</class>
+    <member kind="function">
+      <type>void</type>
+      <name>AliveTicker</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>gaf57f752120d87609acaf864e00833488</anchor>
+      <arglist>(void)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>WatchdogReset</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>gac5665802df7401afeabcdfe09816614a</anchor>
+      <arglist>(IWDG_HandleTypeDef *hiwdg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>WatchdogStart</name>
+      <anchorfile>group__Stuff.html</anchorfile>
+      <anchor>ga3a3b194535b105a540ae6cebdf63e353</anchor>
+      <arglist>(IWDG_HandleTypeDef *hiwdg)</arglist>
+    </member>
   </compound>
   <compound kind="group">
     <name>syscalls</name>

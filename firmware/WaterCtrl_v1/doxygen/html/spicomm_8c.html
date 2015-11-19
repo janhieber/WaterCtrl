@@ -101,9 +101,18 @@ Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SPI.html#ga9efb05b0b48169d9ad99cead17797f1b">spiQueueInit</a> ()</td></tr>
 <tr class="memdesc:ga9efb05b0b48169d9ad99cead17797f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init SPI queues. <br /></td></tr>
 <tr class="separator:ga9efb05b0b48169d9ad99cead17797f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa1915f59d12c36b3c1955a05186d46c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa1915f59d12c36b3c1955a05186d46c6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>spiDebug</b> (UART_HandleTypeDef *huart)</td></tr>
+<tr class="separator:gaa1915f59d12c36b3c1955a05186d46c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae7a5ae0fcd4d456fa8341756fd3f5c37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SPI.html#gae7a5ae0fcd4d456fa8341756fd3f5c37">spiSend</a> (uint8_t id, char *msg)</td></tr>
 <tr class="memdesc:gae7a5ae0fcd4d456fa8341756fd3f5c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds data to SPI send queue  <a href="group__SPI.html#gae7a5ae0fcd4d456fa8341756fd3f5c37">More...</a><br /></td></tr>
 <tr class="separator:gae7a5ae0fcd4d456fa8341756fd3f5c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e164d454a07b0d5eb590e5dc7e9c70c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SPI.html#ga1e164d454a07b0d5eb590e5dc7e9c70c">spiReceive</a> (char *buf)</td></tr>
+<tr class="memdesc:ga1e164d454a07b0d5eb590e5dc7e9c70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">this functions checks for new Data  <a href="group__SPI.html#ga1e164d454a07b0d5eb590e5dc7e9c70c">More...</a><br /></td></tr>
+<tr class="separator:ga1e164d454a07b0d5eb590e5dc7e9c70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3db7835e7e7ac335887f62fedf156926"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3db7835e7e7ac335887f62fedf156926"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>HAL_SPI_ErrorCallback</b> (SPI_HandleTypeDef *hspi)</td></tr>
+<tr class="separator:ga3db7835e7e7ac335887f62fedf156926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga04e63f382f172164c8e7cae4ff5d883c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga04e63f382f172164c8e7cae4ff5d883c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SPI.html#ga04e63f382f172164c8e7cae4ff5d883c">HAL_SPI_TxRxCpltCallback</a> (SPI_HandleTypeDef *hspi)</td></tr>
 <tr class="memdesc:ga04e63f382f172164c8e7cae4ff5d883c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI receive complete callback. <br /></td></tr>
@@ -111,9 +120,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga9c6222bae4d0328dd843ae099623b40b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9c6222bae4d0328dd843ae099623b40b"></a>
-SPI_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hspi1</b></td></tr>
+<tr class="memitem:ga9c6222bae4d0328dd843ae099623b40b"><td class="memItemLeft" align="right" valign="top">SPI_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SPI.html#ga9c6222bae4d0328dd843ae099623b40b">hspi1</a></td></tr>
 <tr class="separator:ga9c6222bae4d0328dd843ae099623b40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2cf715bef37f7e8ef385a30974a5f0d5"><td class="memItemLeft" align="right" valign="top">UART_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__SPI.html#ga2cf715bef37f7e8ef385a30974a5f0d5">huart1</a></td></tr>
+<tr class="separator:ga2cf715bef37f7e8ef385a30974a5f0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jan Hieber <a href="#" onclick="location.href='mai'+'lto:'+'mai'+'l@'+'jan'+'hi'+'ebe'+'r.'+'net'; return false;">mail@<span style="display: none;">.nosp@m.</span>janh<span style="display: none;">.nosp@m.</span>ieber<span style="display: none;">.nosp@m.</span>.net</a> </dd></dl>
