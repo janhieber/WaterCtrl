@@ -21,12 +21,13 @@
 #include "stm32f1xx_hal.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <string.h>
 
 /*! size of the SPI send queue */
 #define SPI_SENDQUEUE_SIZE (SPI_XFER_SIZE * 16)
 /*! size of the SPI receive queue */
-#define SPI_RECVQUEUE_SIZE (SPI_XFER_SIZE * 16)
+#define SPI_RECVQUEUE_SIZE 16
 
 /** @brief Init SPI queues
  */
@@ -38,6 +39,12 @@ void spiQueueInit();
  *      to avoid 0 when sending data other than ASCII
  */
 void spiSend(uint8_t id, char *msg);
+
+/** @brief this functions checks for new Data
+ *  @param buf the message will be stored here, size is SPI_XFER_SIZE
+ *  @return true if data is available, false if not
+ */
+bool spiReceive(char *buf);
 
 void spiDebug(UART_HandleTypeDef *huart);
 
