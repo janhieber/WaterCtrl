@@ -21,76 +21,76 @@
 static LogDestination log_destination = LogDstSerConsole | LogDstRaspberryPi;
 static LogLevel log_filter = LogDebug | LogError | LogInfo;
 
+void Log(LogLevel loglevel, const char *format, ...) {
+    if (!(loglevel & log_filter))
+        return;
 
-void Log(LogLevel loglevel, const char* format, ...) {
-  if (!(loglevel & log_filter)) return;
+    char msg[STR_MAX_SIZE];
+    va_list args;
+    va_start(args, format);
+    vsprintf(msg, format, args);
+    va_end(args);
 
-  char msg[STR_MAX_SIZE];
-  va_list args;
-  va_start( args, format );
-  vsprintf( msg, format, args );
-  va_end( args );
+    if (log_destination & LogDstSerConsole) {
+        switch (loglevel) {
+        case LogError:
+            printf("EE: %s\r\n", msg);
+            break;
+        case LogInfo:
+            printf("II: %s\r\n", msg);
+            break;
+        case LogDebug:
+            printf("DD: %s\r\n", msg);
+            break;
+        default:
+            break;
+        }
+    }
 
-  if (log_destination & LogDstSerConsole) {
+    if (log_destination & LogDstRaspberryPi) {
+        switch (loglevel) {
+        case LogError:
+            spiSend(0x01, msg);
+            break;
+        case LogInfo:
+            spiSend(0x02, msg);
+            break;
+        case LogDebug:
+            spiSend(0x03, msg);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void LogUart(LogLevel loglevel, const char *format, ...) {
+    if (!(loglevel & log_filter))
+        return;
+
+    char msg[STR_MAX_SIZE];
+    va_list args;
+    va_start(args, format);
+    vsprintf(msg, format, args);
+    va_end(args);
+
     switch (loglevel) {
-      case LogError:
+    case LogError:
         printf("EE: %s\r\n", msg);
         break;
-      case LogInfo:
+    case LogInfo:
         printf("II: %s\r\n", msg);
         break;
-      case LogDebug:
+    case LogDebug:
         printf("DD: %s\r\n", msg);
         break;
-      default:
-        break;
-    }
-  }
-
-  if (log_destination & LogDstRaspberryPi) {
-    switch (loglevel) {
-      case LogError:
-        spiSend(0x01, msg);
-        break;
-      case LogInfo:
-        spiSend(0x02, msg);
-        break;
-      case LogDebug:
-        spiSend(0x03, msg);
-        break;
-      default:
-        break;
-    }
-  }
-}
-
-void LogUart(LogLevel loglevel, const char* format, ...) {
-  if (!(loglevel & log_filter)) return;
-
-  char msg[STR_MAX_SIZE];
-  va_list args;
-  va_start( args, format );
-  vsprintf( msg, format, args );
-  va_end( args );
-
-  switch (loglevel) {
-    case LogError:
-      printf("EE: %s\r\n", msg);
-      break;
-    case LogInfo:
-      printf("II: %s\r\n", msg);
-      break;
-    case LogDebug:
-      printf("DD: %s\r\n", msg);
-      break;
     default:
-      break;
-  }
+        break;
+    }
 }
-
 
 void logSetDestination(LogDestination destination) {
-  log_destination = destination;
+    log_destination = destination;
 }
 
 void logSetFilter(LogLevel filter) { log_filter = filter; }

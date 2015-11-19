@@ -29,7 +29,7 @@ void motTask5s();
 
 int motControl(int motor, int time, int max_level);
 
-#endif  // MOTORS_H
+#endif // MOTORS_H
 
 /**
   * @}

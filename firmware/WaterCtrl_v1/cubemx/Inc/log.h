@@ -22,10 +22,9 @@ typedef enum { LogError = 0x01, LogInfo = 0x02, LogDebug = 0x04 } LogLevel;
 
 /*! these are the possible log destinations */
 typedef enum {
-  LogDstSerConsole = 0x01,
-  LogDstRaspberryPi = 0x02
+    LogDstSerConsole = 0x01,
+    LogDstRaspberryPi = 0x02
 } LogDestination;
-
 
 /** @brief Do logging
  *  @param loglevel The loglevel of enum type LogLevel
@@ -37,7 +36,7 @@ void Log(LogLevel loglevel, const char *format, ...);
  *  @param loglevel The loglevel of enum type LogLevel
  *  @param format message to send, printf style formatting
  */
-void LogUart(LogLevel loglevel, const char* format, ...);
+void LogUart(LogLevel loglevel, const char *format, ...);
 
 /** @brief Set log desftination
  *  @param destination The log destination as enum type of LogDestination
@@ -49,7 +48,7 @@ void logSetDestination(LogDestination destination);
  */
 void logSetFilter(LogLevel filter);
 
-#endif  // LOGGING_H
+#endif // LOGGING_H
 
 /**
   * @}

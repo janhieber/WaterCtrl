@@ -21,39 +21,25 @@ void motInit(void) {
     Log(LogInfo, "init motor control system");
 }
 
-void motTask100ms()
-{
+void motTask100ms() {}
 
-}
-
-int motControl(int motor, int time, int max_level)
-{
+int motControl(int motor, int time, int max_level) {
     int retval = -1;
-    if( (motor < MOT_ACTIVE_0) ||  (motor > MOT_ACTIVE_4))
-    {
-        Log(LogError,"wrong motor selected!");
-    }
-    else
-    {
+    if ((motor < MOT_ACTIVE_0) || (motor > MOT_ACTIVE_4)) {
+        Log(LogError, "wrong motor selected!");
+    } else {
         // calc a ramp
-        
     }
 
+    if (g_activeMotor != MOT_ACTIVE_NONE) {
+        // HAL_TIMEx_PWMN_Start(TIM2,)
 
-
-    if (g_activeMotor != MOT_ACTIVE_NONE)
-    {
-        //HAL_TIMEx_PWMN_Start(TIM2,)
-
-    }
-    else
-    {
+    } else {
         Log(LogInfo, "motor already active.");
     }
 
     return retval;
 }
-
 
 /**
   * @}

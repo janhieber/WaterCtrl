@@ -17,7 +17,6 @@
 
 #include <stdint.h>
 
-
 // intervals
 #define INTERVAL_ALWAYS 0
 #define INTERVAL_10MS 10
@@ -33,11 +32,10 @@
 
 /*! Define parameters to configure a task */
 typedef struct {
-  uint16_t Interval;   // how often the task will run
-  uint32_t LastTick;   // stores last tick the task was ran
-  void (*Func)(void);  // function ptr to task
+    uint16_t Interval;  // how often the task will run
+    uint32_t LastTick;  // stores last tick the task was ran
+    void (*Func)(void); // function ptr to task
 } TaskType;
-
 
 /**
  * @brief init the scheduler
@@ -46,15 +44,12 @@ typedef struct {
  */
 void initScheduler(TaskType *Tasks, uint8_t count);
 
-
 /**
  * @brief do the scheduling of tasks
  */
 void doScheduling(void);
 
 #endif // SCHEDULER_H
-
-
 
 /**
   * @}
