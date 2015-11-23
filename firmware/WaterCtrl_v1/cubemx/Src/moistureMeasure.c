@@ -143,23 +143,17 @@ int startSensorCapture(int Sensor)
 
 void printMoisture()
 {
-    char tmpbuf[40] = {0,};
-    sprintf(tmpbuf, "Measured channel 1: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 2: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 3: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 4: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 5: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 6: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL5_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 7: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL6_ACTIVE]);
-    Log(LogInfo, tmpbuf);
-    sprintf(tmpbuf, "Measured channel 8: %d Hz",  (int)frequency[MOISTURE_MEASURE_CHANNEL7_ACTIVE]);
-    Log(LogInfo, tmpbuf);
+    Log(LogInfo, "Measured channel 1: %d Hz",
+        (int)frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
+    Log(LogInfo, "Measured channel 2: %d Hz",
+        (int)frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
+    Log(LogInfo, "Measured channel 3: %d Hz",
+        (int)frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
+    Log(LogInfo, "Measured channel 4: %d Hz",
+        (int)frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
+    Log(LogInfo, "Measured channel 5: %d Hz",
+        (int)frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
+
 
 }
 

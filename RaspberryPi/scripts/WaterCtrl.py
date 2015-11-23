@@ -51,9 +51,9 @@ def main():
     # create threads
     global thread1
     global thread2
-    thread1 = ControlDaemon.app(sendQueue)
+    thread1 = ControlDaemon.app(sendQueue, recvQueue)
     thread1.setName('ControlDaemon')
-    thread2 = MessageBroker.app(sendQueue)
+    thread2 = MessageBroker.app(sendQueue, recvQueue)
     thread2.setName('MessageBroker')
     
     # start threads

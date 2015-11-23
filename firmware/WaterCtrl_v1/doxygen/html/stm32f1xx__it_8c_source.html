@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('stm32f1xx__it_8c_source.html','');});
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/* USER CODE END 0 */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/* External variables --------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">extern</span> SPI_HandleTypeDef hspi1;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">extern</span> TIM_HandleTypeDef htim2;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">extern</span> SPI_HandleTypeDef <a class="code" href="group__SPI.html#ga9c6222bae4d0328dd843ae099623b40b">hspi1</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">extern</span> TIM_HandleTypeDef <a class="code" href="stm32f1xx__it_8c.html#a2c80fd5510e2990a59a5c90d745c716c">htim2</a>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">extern</span> TIM_HandleTypeDef htim3;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">extern</span> UART_HandleTypeDef huart1;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">extern</span> UART_HandleTypeDef <a class="code" href="group__SPI.html#ga2cf715bef37f7e8ef385a30974a5f0d5">huart1</a>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/******************************************************************************/</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">/*            Cortex-M3 Processor Interruption and Exception Handlers         */</span> </div>
@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('stm32f1xx__it_8c_source.html','');});
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">/* USER CODE BEGIN TIM2_IRQn 0 */</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="comment">/* USER CODE END TIM2_IRQn 0 */</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  HAL_TIM_IRQHandler(&amp;htim2);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  HAL_TIM_IRQHandler(&amp;<a class="code" href="stm32f1xx__it_8c.html#a2c80fd5510e2990a59a5c90d745c716c">htim2</a>);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="comment">/* USER CODE BEGIN TIM2_IRQn 1 */</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="comment">/* USER CODE END TIM2_IRQn 1 */</span></div>
@@ -149,7 +149,7 @@ $(document).ready(function(){initNavTree('stm32f1xx__it_8c_source.html','');});
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="comment">/* USER CODE BEGIN SPI1_IRQn 0 */</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">/* USER CODE END SPI1_IRQn 0 */</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  HAL_SPI_IRQHandler(&amp;hspi1);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  HAL_SPI_IRQHandler(&amp;<a class="code" href="group__SPI.html#ga9c6222bae4d0328dd843ae099623b40b">hspi1</a>);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="comment">/* USER CODE BEGIN SPI1_IRQn 1 */</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="comment">/* USER CODE END SPI1_IRQn 1 */</span></div>
@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('stm32f1xx__it_8c_source.html','');});
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="comment">/* USER CODE BEGIN USART1_IRQn 0 */</span></div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="comment">/* USER CODE END USART1_IRQn 0 */</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  HAL_UART_IRQHandler(&amp;huart1);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  HAL_UART_IRQHandler(&amp;<a class="code" href="group__SPI.html#ga2cf715bef37f7e8ef385a30974a5f0d5">huart1</a>);</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="comment">/* USER CODE BEGIN USART1_IRQn 1 */</span></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="comment">/* USER CODE END USART1_IRQn 1 */</span></div>
@@ -175,7 +175,10 @@ $(document).ready(function(){initNavTree('stm32f1xx__it_8c_source.html','');});
 <div class="ttc" id="stm32f1xx__it_8c_html_ac8e51d2183b5230cbd5481f8867adce9"><div class="ttname"><a href="stm32f1xx__it_8c.html#ac8e51d2183b5230cbd5481f8867adce9">TIM3_IRQHandler</a></div><div class="ttdeci">void TIM3_IRQHandler(void)</div><div class="ttdoc">This function handles TIM3 global interrupt. </div><div class="ttdef"><b>Definition:</b> <a href="stm32f1xx__it_8c_source.html#l00091">stm32f1xx_it.c:91</a></div></div>
 <div class="ttc" id="stm32f1xx__it_8c_html_a9bbd8c17ce4f49adcca47d11f482aab6"><div class="ttname"><a href="stm32f1xx__it_8c.html#a9bbd8c17ce4f49adcca47d11f482aab6">SPI1_IRQHandler</a></div><div class="ttdeci">void SPI1_IRQHandler(void)</div><div class="ttdoc">This function handles SPI1 global interrupt. </div><div class="ttdef"><b>Definition:</b> <a href="stm32f1xx__it_8c_source.html#l00105">stm32f1xx_it.c:105</a></div></div>
 <div class="ttc" id="stm32f1xx__it_8h_html"><div class="ttname"><a href="stm32f1xx__it_8h.html">stm32f1xx_it.h</a></div><div class="ttdoc">This file contains the headers of the interrupt handlers. </div></div>
+<div class="ttc" id="group__SPI_html_ga9c6222bae4d0328dd843ae099623b40b"><div class="ttname"><a href="group__SPI.html#ga9c6222bae4d0328dd843ae099623b40b">hspi1</a></div><div class="ttdeci">SPI_HandleTypeDef hspi1</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00044">spi.c:44</a></div></div>
 <div class="ttc" id="stm32f1xx__it_8c_html_a38ad4725462bdc5e86c4ead4f04b9fc2"><div class="ttname"><a href="stm32f1xx__it_8c.html#a38ad4725462bdc5e86c4ead4f04b9fc2">TIM2_IRQHandler</a></div><div class="ttdeci">void TIM2_IRQHandler(void)</div><div class="ttdoc">This function handles TIM2 global interrupt. </div><div class="ttdef"><b>Definition:</b> <a href="stm32f1xx__it_8c_source.html#l00077">stm32f1xx_it.c:77</a></div></div>
+<div class="ttc" id="group__SPI_html_ga2cf715bef37f7e8ef385a30974a5f0d5"><div class="ttname"><a href="group__SPI.html#ga2cf715bef37f7e8ef385a30974a5f0d5">huart1</a></div><div class="ttdeci">UART_HandleTypeDef huart1</div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00044">usart.c:44</a></div></div>
+<div class="ttc" id="stm32f1xx__it_8c_html_a2c80fd5510e2990a59a5c90d745c716c"><div class="ttname"><a href="stm32f1xx__it_8c.html#a2c80fd5510e2990a59a5c90d745c716c">htim2</a></div><div class="ttdeci">TIM_HandleTypeDef htim2</div><div class="ttdef"><b>Definition:</b> <a href="tim_8c_source.html#l00044">tim.c:44</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.8-->

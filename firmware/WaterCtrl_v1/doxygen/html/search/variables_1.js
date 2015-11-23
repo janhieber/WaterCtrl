@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['systemcoreclock',['SystemCoreClock',['../group__STM32F1xx__System__Private__Variables.html#gaa3cd3e43291e81e795d642b79b6088e6',1,'system_stm32f1xx.c']]]
+  ['r',['r',['../group__printf.html#ga933442104e916763ad534cd32e42bbae',1,'printf.c']]]
 ];

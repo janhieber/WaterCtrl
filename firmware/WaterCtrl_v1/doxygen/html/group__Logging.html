@@ -90,42 +90,84 @@ $(document).ready(function(){initNavTree('group__Logging.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gaca1fd1d8935433e6ba2e3918214e07f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaca1fd1d8935433e6ba2e3918214e07f9"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>LogLevel</b> { <b>LogError</b> = 0x0, 
-<b>LogInfo</b> = 0x1, 
-<b>LogDebug</b> = 0x2
+<tr class="memitem:gaca1fd1d8935433e6ba2e3918214e07f9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> { <b>LogError</b> = 0x01, 
+<b>LogInfo</b> = 0x02, 
+<b>LogDebug</b> = 0x04
  }<tr class="separator:gaca1fd1d8935433e6ba2e3918214e07f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </td></tr>
-<tr class="memitem:ga4d96f303a62a42f0088fbafbb30c850c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4d96f303a62a42f0088fbafbb30c850c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>LogDestination</b> { <b>LogDstSerConsole</b> = 0x0, 
-<b>LogDstRaspberryPi</b> = 0x1, 
-<b>LogDstNoDestination</b> = 0x2
+<tr class="memitem:ga4d96f303a62a42f0088fbafbb30c850c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a> { <b>LogDstSerConsole</b> = 0x01, 
+<b>LogDstRaspberryPi</b> = 0x02
  }<tr class="separator:ga4d96f303a62a42f0088fbafbb30c850c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa5f1e819907ea056f541d68e85272cd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a> (LogLevel loglevel, char *msg)</td></tr>
-<tr class="memdesc:gaa5f1e819907ea056f541d68e85272cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging.  <a href="#gaa5f1e819907ea056f541d68e85272cd2">More...</a><br /></td></tr>
-<tr class="separator:gaa5f1e819907ea056f541d68e85272cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a> (LogDestination destination)</td></tr>
+<tr class="memitem:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> loglevel, const char *format,...)</td></tr>
+<tr class="memdesc:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging.  <a href="#gaaad3c3fa0023feed2de3d4d3384ed9af">More...</a><br /></td></tr>
+<tr class="separator:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbe761d90105f6366f76eedac6ee1b78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">LogUart</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> loglevel, const char *format,...)</td></tr>
+<tr class="memdesc:gacbe761d90105f6366f76eedac6ee1b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging explicit on UART, not SPI.  <a href="#gacbe761d90105f6366f76eedac6ee1b78">More...</a><br /></td></tr>
+<tr class="separator:gacbe761d90105f6366f76eedac6ee1b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a> (<a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a> destination)</td></tr>
 <tr class="memdesc:gaa0b7f0e3704065f96cacc925211a5af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set log desftination.  <a href="#gaa0b7f0e3704065f96cacc925211a5af3">More...</a><br /></td></tr>
 <tr class="separator:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga969bdf5e22471c21e17f97307919c3b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">logSetFilter</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> filter)</td></tr>
+<tr class="memdesc:ga969bdf5e22471c21e17f97307919c3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set log filter.  <a href="#ga969bdf5e22471c21e17f97307919c3b1">More...</a><br /></td></tr>
+<tr class="separator:ga969bdf5e22471c21e17f97307919c3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga4d96f303a62a42f0088fbafbb30c850c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>these are the possible log destinations </p>
+
+<p>Definition at line <a class="el" href="log_8h_source.html#l00024">24</a> of file <a class="el" href="log_8h_source.html">log.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaca1fd1d8935433e6ba2e3918214e07f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>these are the log levels for message </p>
+
+<p>Definition at line <a class="el" href="log_8h_source.html#l00021">21</a> of file <a class="el" href="log_8h_source.html">log.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gaa5f1e819907ea056f541d68e85272cd2"></a>
+<a class="anchor" id="gaaad3c3fa0023feed2de3d4d3384ed9af"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Log </td>
           <td>(</td>
-          <td class="paramtype">LogLevel&#160;</td>
+          <td class="paramtype"><a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a>&#160;</td>
           <td class="paramname"><em>loglevel</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>msg</em>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -139,16 +181,16 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">loglevel</td><td>The loglevel of enum type LogLevel </td></tr>
-    <tr><td class="paramname">msg</td><td>message to send as 0 terminated string </td></tr>
+    <tr><td class="paramname">format</td><td>message to send, printf style formatting </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="log_8c_source.html#l00020">20</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
+<p>Definition at line <a class="el" href="log_8c_source.html#l00025">25</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
 
-<p>References <a class="el" href="printf_8c_source.html#l00471">printf()</a>, and <a class="el" href="spicomm_8c_source.html#l00070">spiSend()</a>.</p>
+<p>References <a class="el" href="printf_8c_source.html#l00471">printf()</a>, <a class="el" href="spicomm_8c_source.html#l00076">spiSend()</a>, and <a class="el" href="printf_8c_source.html#l00401">vsprintf()</a>.</p>
 
-<p>Referenced by <a class="el" href="spicomm_8c_source.html#l00105">HAL_SPI_TxRxCpltCallback()</a>, and <a class="el" href="spicomm_8c_source.html#l00070">spiSend()</a>.</p>
+<p>Referenced by <a class="el" href="spicomm_8c_source.html#l00161">HAL_SPI_TxRxCpltCallback()</a>, <a class="el" href="scheduler_8c_source.html#l00028">initScheduler()</a>, <a class="el" href="moistureMeasure_8c_source.html#l00160">MeasureInit()</a>, and <a class="el" href="stuff_8c_source.html#l00038">WatchdogStart()</a>.</p>
 
 </div>
 </div>
@@ -159,7 +201,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void logSetDestination </td>
           <td>(</td>
-          <td class="paramtype">LogDestination&#160;</td>
+          <td class="paramtype"><a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a>&#160;</td>
           <td class="paramname"><em>destination</em></td><td>)</td>
           <td></td>
         </tr>
@@ -174,7 +216,80 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="log_8c_source.html#l00057">57</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
+<p>Definition at line <a class="el" href="log_8c_source.html#l00092">92</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga969bdf5e22471c21e17f97307919c3b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void logSetFilter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a>&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set log filter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filter</td><td>The log filter as enum type of LogDestination </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="log_8c_source.html#l00096">96</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gacbe761d90105f6366f76eedac6ee1b78"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LogUart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a>&#160;</td>
+          <td class="paramname"><em>loglevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Do logging explicit on UART, not SPI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">loglevel</td><td>The loglevel of enum type LogLevel </td></tr>
+    <tr><td class="paramname">format</td><td>message to send, printf style formatting </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="log_8c_source.html#l00067">67</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
+
+<p>References <a class="el" href="printf_8c_source.html#l00471">printf()</a>, and <a class="el" href="printf_8c_source.html#l00401">vsprintf()</a>.</p>
+
+<p>Referenced by <a class="el" href="main_8c_source.html#l00107">SPIrecvProc()</a>, and <a class="el" href="spicomm_8c_source.html#l00076">spiSend()</a>.</p>
 
 </div>
 </div>

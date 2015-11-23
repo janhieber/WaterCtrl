@@ -18,22 +18,31 @@ import configparser
     like pouring and database stuff
 """
 class app(threading.Thread):
-    def __init__(self, queue):
+    def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
-        self.queue = queue
+        self.sendQueue = sendQueue
+        self.recvQueue = recvQueue
         self.exit = False
         self.config = configparser.RawConfigParser()
         self.config.read('WaterCtrl.conf')
 
     def setup(self):
         # connect to db
-        self.db = mysql.connector.connect(
-            user = self.config.get('database', 'user'),
-            password = self.config.get('database', 'password'),
-            host = self.config.get('database', 'host'),
-            unix_socket = self.config.get('database', 'unix_socket'),
-            database = self.config.get('database', 'database')
-         )
+        if len(self.config.get('database', 'unix_socket')) == 0:
+            dbcfg = {
+                'user': self.config.get('database', 'user'),
+                'password': self.config.get('database', 'password'),
+                'host': self.config.get('database', 'host'),
+                'database': self.config.get('database', 'database')
+            }
+        else:
+            dbcfg = {
+                'user': self.config.get('database', 'user'),
+                'password': self.config.get('database', 'password'),
+                'unix_socket': self.config.get('database', 'unix_socket'),
+                'database': self.config.get('database', 'database')
+            }
+        self.db = mysql.connector.connect(**dbcfg)
                               
     def run(self):
         logging.info('Starting')
@@ -42,27 +51,36 @@ class app(threading.Thread):
             # open db cursor and query data
             self.dbc = self.db.cursor()
             query = ("SELECT * FROM bla")
-            self.dbc.execute(query)
+            #self.dbc.execute(query)
             self.dbc.close()
             
             # queue some data for MessageBroker
             randomData = random.choice('abcdefghij')
-            self.queue.put(randomData)
+            #self.sendQueue.put(randomData)
             
             # check if we should exit
             if self.exit:
                 break
             
+            while not self.recvQueue.empty():
+                print("REC: " + self.recvQueue.get())
+            
+            
+            # send test data
+            bla = round(random.uniform(0, 1))
+            if bla == 0:
+                self.sendQueue.put("test bla")
+            
             # sleep random time 0.1 - 2.0 sec
             time.sleep(random.uniform(0.1, 2.0))
         
         # manage exit
-        self.exit()
+        self.exit_()
         logging.info('Exiting')
         return
 
               
-    def exit(self):
+    def exit_(self):
         # close db connection
         self.dbc.close()
         self.db.close()

@@ -85,64 +85,82 @@ $(document).ready(function(){initNavTree('isr__moisture_8c_source.html','');});
 <div class="contents">
 <a href="isr__moisture_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;stm32f1xx_hal.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;uint_fast64_t getFrequencyOfChannel(<span class="keywordtype">int</span> channel);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;uint16_t IC3ReadValue1 = 0, IC3ReadValue2 = 0;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;uint16_t CaptureNumber = 0;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;uint32_t Capture = 0;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;uint_fast64_t TIM1Freq = 0;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;uint_fast64_t getFrequencyOfChannel(<span class="keywordtype">int</span> channel)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> TIM1Freq;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381">HAL_TIM_IC_CaptureCallback</a>(TIM_HandleTypeDef *htim)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">/* Clear TIM1 Capture compare interrupt pending bit */</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (TIM3 == htim-&gt;Instance)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span>(CaptureNumber == 0)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="comment">/* Get the Input Capture value */</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            htim-&gt;Lock = HAL_LOCKED;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            IC3ReadValue1 = htim-&gt;Instance-&gt;CCR3;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            htim-&gt;Lock = HAL_UNLOCKED;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            CaptureNumber = 1;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(CaptureNumber == 1)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="comment">/* Get the Input Capture value */</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            htim-&gt;Lock = HAL_LOCKED;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            IC3ReadValue2 = htim-&gt;Instance-&gt;CCR3;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            htim-&gt;Lock = HAL_UNLOCKED;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="comment">/* Capture computation */</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">if</span> (IC3ReadValue2 &gt; IC3ReadValue1)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                Capture = (IC3ReadValue2 - IC3ReadValue1);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (IC3ReadValue2 &lt; IC3ReadValue1)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                Capture = ((0xFFFF - IC3ReadValue1) + IC3ReadValue2);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                Capture = 0;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="comment">/* Frequency computation */</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            TIM1Freq = ((uint_fast64_t) <a class="code" href="group__STM32F1xx__System__Private__Variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a> /  Capture)*8ul;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            CaptureNumber = 0;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="ttc" id="group__STM32F1xx__System__Private__Variables_html_gaa3cd3e43291e81e795d642b79b6088e6"><div class="ttname"><a href="group__STM32F1xx__System__Private__Variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a></div><div class="ttdeci">uint32_t SystemCoreClock</div><div class="ttdef"><b>Definition:</b> <a href="system__stm32f1xx_8c_source.html#l00142">system_stm32f1xx.c:142</a></div></div>
-<div class="ttc" id="group__MoistureMeasure_html_ga77a2401a35ddd9bd0b8fc28331b81381"><div class="ttname"><a href="group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381">HAL_TIM_IC_CaptureCallback</a></div><div class="ttdeci">void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">This function handles TIM1 Capture Compare interrupt request. </div><div class="ttdef"><b>Definition:</b> <a href="isr__moisture_8c_source.html#l00030">isr_moisture.c:30</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="log_8h.html">log.h</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;uint32_t <a class="code" href="group__MoistureMeasure.html#ga05f58f994b4aeeeafe1197372880670f">getFrequencyOfChannel</a>();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> resetFrequencyOfChannel();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">volatile</span> uint32_t IC3ReadValue1 = 0, IC3ReadValue2 = 0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">volatile</span> uint32_t CaptureNumber = 0;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">volatile</span> uint32_t Capture = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">volatile</span> uint32_t TIM1Freq = 0;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define PERI_PRESCALAR 2</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define TIMER_PRESCALAR 10</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define TIMER_CLOCK SystemCoreClock/(PERI_PRESCALAR*TIMER_PRESCALAR)</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define IC_SAMPLE_FILTER 0x02u</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="group__MoistureMeasure.html#ga05f58f994b4aeeeafe1197372880670f">   28</a></span>&#160;uint32_t <a class="code" href="group__MoistureMeasure.html#ga05f58f994b4aeeeafe1197372880670f">getFrequencyOfChannel</a>()</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> TIM1Freq;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;uint32_t getCapture()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> Capture;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> resetFrequencyOfChannel()</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    CaptureNumber = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;   TIM1Freq = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381">   45</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381">HAL_TIM_IC_CaptureCallback</a>(TIM_HandleTypeDef *htim)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">/* Clear TIM1 Capture compare interrupt pending bit */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (TIM3 == htim-&gt;Instance)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span>(CaptureNumber == 0)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="comment">/* Get the Input Capture value */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            htim-&gt;Lock = HAL_LOCKED;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            IC3ReadValue1 = htim-&gt;Instance-&gt;CCR3;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            htim-&gt;Lock = HAL_UNLOCKED;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            CaptureNumber = 1;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(CaptureNumber == 1)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="comment">/* Get the Input Capture value */</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            htim-&gt;Lock = HAL_LOCKED;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            IC3ReadValue2 = htim-&gt;Instance-&gt;CCR3;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            htim-&gt;Lock = HAL_UNLOCKED;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="comment">/* Capture computation */</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">if</span> (IC3ReadValue2 &gt; IC3ReadValue1)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                Capture = (IC3ReadValue2 - IC3ReadValue1);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (IC3ReadValue2 &lt; IC3ReadValue1)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                Capture = ((0xFFFF - IC3ReadValue1) + IC3ReadValue2);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                Capture = 0;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="comment">/* Frequency computation */</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            TIM1Freq = ((uint32_t) TIMER_CLOCK /  Capture)*IC_SAMPLE_FILTER;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            CaptureNumber = 0;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="ttc" id="group__MoistureMeasure_html_ga77a2401a35ddd9bd0b8fc28331b81381"><div class="ttname"><a href="group__MoistureMeasure.html#ga77a2401a35ddd9bd0b8fc28331b81381">HAL_TIM_IC_CaptureCallback</a></div><div class="ttdeci">void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">This function handles TIM1 Capture Compare interrupt request. </div><div class="ttdef"><b>Definition:</b> <a href="isr__moisture_8c_source.html#l00045">isr_moisture.c:45</a></div></div>
+<div class="ttc" id="group__MoistureMeasure_html_ga05f58f994b4aeeeafe1197372880670f"><div class="ttname"><a href="group__MoistureMeasure.html#ga05f58f994b4aeeeafe1197372880670f">getFrequencyOfChannel</a></div><div class="ttdeci">uint32_t getFrequencyOfChannel()</div><div class="ttdoc">Get ISR&#39;s data. </div><div class="ttdef"><b>Definition:</b> <a href="isr__moisture_8c_source.html#l00028">isr_moisture.c:28</a></div></div>
+<div class="ttc" id="log_8h_html"><div class="ttname"><a href="log_8h.html">log.h</a></div><div class="ttdoc">Functions for logging messages and routing/filter them. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.8-->

@@ -11,6 +11,7 @@ var stm32f1xx__hal__conf_8h =
     [ "HAL_FLASH_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#a7112575efe3740911f19a13e6b170fee", null ],
     [ "HAL_GPIO_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#a86165f80d6078719ee0715afe13febf5", null ],
     [ "HAL_GPIO_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#a86165f80d6078719ee0715afe13febf5", null ],
+    [ "HAL_IWDG_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#a7c8601480b3c54ae1398a58d416fd202", null ],
     [ "HAL_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#a877ae99e8c47a609ea97c888912bf75f", null ],
     [ "HAL_PWR_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#ab51923c3716977d7923f49cc9d081aa8", null ],
     [ "HAL_RCC_MODULE_ENABLED", "stm32f1xx__hal__conf_8h.html#ac3dd74314ed62ac8575e2f9f48b3ac48", null ],

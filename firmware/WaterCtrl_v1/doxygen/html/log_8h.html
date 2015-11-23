@@ -95,25 +95,30 @@ $(document).ready(function(){initNavTree('log_8h.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gaca1fd1d8935433e6ba2e3918214e07f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaca1fd1d8935433e6ba2e3918214e07f9"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>LogLevel</b> { <b>LogError</b> = 0x0, 
-<b>LogInfo</b> = 0x1, 
-<b>LogDebug</b> = 0x2
+<tr class="memitem:gaca1fd1d8935433e6ba2e3918214e07f9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> { <b>LogError</b> = 0x01, 
+<b>LogInfo</b> = 0x02, 
+<b>LogDebug</b> = 0x04
  }<tr class="separator:gaca1fd1d8935433e6ba2e3918214e07f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </td></tr>
-<tr class="memitem:ga4d96f303a62a42f0088fbafbb30c850c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4d96f303a62a42f0088fbafbb30c850c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>LogDestination</b> { <b>LogDstSerConsole</b> = 0x0, 
-<b>LogDstRaspberryPi</b> = 0x1, 
-<b>LogDstNoDestination</b> = 0x2
+<tr class="memitem:ga4d96f303a62a42f0088fbafbb30c850c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a> { <b>LogDstSerConsole</b> = 0x01, 
+<b>LogDstRaspberryPi</b> = 0x02
  }<tr class="separator:ga4d96f303a62a42f0088fbafbb30c850c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa5f1e819907ea056f541d68e85272cd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">Log</a> (LogLevel loglevel, char *msg)</td></tr>
-<tr class="memdesc:gaa5f1e819907ea056f541d68e85272cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging.  <a href="group__Logging.html#gaa5f1e819907ea056f541d68e85272cd2">More...</a><br /></td></tr>
-<tr class="separator:gaa5f1e819907ea056f541d68e85272cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a> (LogDestination destination)</td></tr>
+<tr class="memitem:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">Log</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> loglevel, const char *format,...)</td></tr>
+<tr class="memdesc:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging.  <a href="group__Logging.html#gaaad3c3fa0023feed2de3d4d3384ed9af">More...</a><br /></td></tr>
+<tr class="separator:gaaad3c3fa0023feed2de3d4d3384ed9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbe761d90105f6366f76eedac6ee1b78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">LogUart</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> loglevel, const char *format,...)</td></tr>
+<tr class="memdesc:gacbe761d90105f6366f76eedac6ee1b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do logging explicit on UART, not SPI.  <a href="group__Logging.html#gacbe761d90105f6366f76eedac6ee1b78">More...</a><br /></td></tr>
+<tr class="separator:gacbe761d90105f6366f76eedac6ee1b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">logSetDestination</a> (<a class="el" href="group__Logging.html#ga4d96f303a62a42f0088fbafbb30c850c">LogDestination</a> destination)</td></tr>
 <tr class="memdesc:gaa0b7f0e3704065f96cacc925211a5af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set log desftination.  <a href="group__Logging.html#gaa0b7f0e3704065f96cacc925211a5af3">More...</a><br /></td></tr>
 <tr class="separator:gaa0b7f0e3704065f96cacc925211a5af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga969bdf5e22471c21e17f97307919c3b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">logSetFilter</a> (<a class="el" href="group__Logging.html#gaca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> filter)</td></tr>
+<tr class="memdesc:ga969bdf5e22471c21e17f97307919c3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set log filter.  <a href="group__Logging.html#ga969bdf5e22471c21e17f97307919c3b1">More...</a><br /></td></tr>
+<tr class="separator:ga969bdf5e22471c21e17f97307919c3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions for logging messages and routing/filter them. </p>
