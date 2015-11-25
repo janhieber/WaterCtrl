@@ -1,3 +1,5 @@
+![PCB finish1](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/MoistureMeasure/doc/finish1.jpg "PCB finish1")
+
 Here are the Eagle 6.x schematics and board file for
 the moistue measurement.
 
