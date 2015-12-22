@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="7.2.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -79,14 +79,12 @@
 <hole x="6.0325" y="10.4775" drill="1"/>
 <hole x="11.1125" y="29.5275" drill="3.2"/>
 <hole x="11.1125" y="2.8575" drill="3.2"/>
-<text x="16.51" y="22.86" size="5.08" layer="25">WaterCtrl</text>
-<text x="16.51" y="16.1925" size="1.778" layer="25">MoistureMeasure v1.1</text>
-<text x="16.51" y="20.6375" size="1.55" layer="25">github.com/janhieber/WaterCtrl</text>
+<text x="17.145" y="24.765" size="4.2" layer="25">WaterCtrl</text>
+<text x="17.145" y="19.3675" size="1.7" layer="25">MoistureMeasure v1.1</text>
+<text x="17.145" y="22.225" size="1.17" layer="25">github.com/janhieber/WaterCtrl</text>
 <text x="0.3175" y="15.875" size="1.27" layer="25">GND</text>
 <text x="0.9525" y="15.875" size="1.27" layer="26" rot="MR90">UB</text>
 <text x="2.8575" y="15.875" size="1.27" layer="26" rot="MR90">SEN</text>
-<dimension x1="0" y1="30.385" x2="49.53" y2="28.2575" x3="24.765" y3="34.6075" textsize="1.778" layer="47" dtype="horizontal" visible="yes"/>
-<dimension x1="47.53" y1="32.385" x2="46.99" y2="0" x3="53.6575" y3="16.1925" textsize="1.778" layer="47" dtype="vertical" visible="yes"/>
 </plain>
 <libraries>
 <library name="74xx-eu">
@@ -321,6 +319,9 @@ design rules under a new name.</description>
 <autorouter>
 <pass name="Default">
 <param name="RoutingGrid" value="50mil"/>
+<param name="AutoGrid" value="1"/>
+<param name="Efforts" value="0"/>
+<param name="TopRouterVariant" value="1"/>
 <param name="tpViaShape" value="round"/>
 <param name="PrefDir.1" value="|"/>
 <param name="PrefDir.2" value="0"/>
