@@ -20,7 +20,7 @@ volatile uint32_t CaptureNumber = 0;
 volatile uint32_t Capture = 0;
 volatile uint32_t TIM1Freq = 0;
 
-#define PERI_PRESCALAR 2
+#define PERI_PRESCALAR 1
 #define TIMER_PRESCALAR 10
 #define TIMER_CLOCK SystemCoreClock/(PERI_PRESCALAR*TIMER_PRESCALAR)
 #define IC_SAMPLE_FILTER 0x02u
