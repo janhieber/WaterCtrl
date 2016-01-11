@@ -1,75 +1,56 @@
-SET FOREIGN_KEY_CHECKS=0;
-
-
 
 CREATE TABLE Log
 (
-	id INTEGER NOT NULL,
-	log_date DATETIME,
-	log_entry TEXT,
-	state INTEGER,
-	PRIMARY KEY (id),
-	UNIQUE UQ_Log_id(id)
+	id integer PRIMARY KEY DEFAULT nextval('serial'),
+	log_date timestamp,
+	log_entry varchar(128),
+	state INTEGER
 ) 
 ;
 
 
 CREATE TABLE Motor
 (
-	id INTEGER NOT NULL,
-	duration INTEGER NOT NULL,
-	channel INTEGER,
-	PRIMARY KEY (id),
-	UNIQUE UQ_Motor_id(id)
+	id integer PRIMARY KEY DEFAULT nextval('serial'),
+	duration integer,
+	channel INTEGER
 ) 
 ;
 
 
 CREATE TABLE Plant
 (
-	id INTEGER NOT NULL,
+	id integer PRIMARY KEY DEFAULT nextval('serial'),
 	name VARCHAR(30),
-	description TEXT,
-	watering_interval INTEGER,
-	PRIMARY KEY (id),
-	UNIQUE UQ_Plant_id(id)
+	description varchar(128),
+	watering_interval INTEGER
 ) 
 ;
 
 
 CREATE TABLE Sensor
 (
-	id INTEGER NOT NULL,
+	id integer PRIMARY KEY DEFAULT nextval('serial'),
 	channel INTEGER,
-	frequency INTEGER,
-	PRIMARY KEY (id),
-	UNIQUE UQ_Sensor_id(id)
+	frequency INTEGER
 ) 
 ;
 
 
 CREATE TABLE User
 (
-	id INTEGER NOT NULL,
+	id integer PRIMARY KEY DEFAULT nextval('serial'),
 	name VARCHAR(20),
-	pssword VARCHAR(20),
-	PRIMARY KEY (id),
-	UNIQUE UQ_User_id(id)
+	pssword VARCHAR(20)
 ) 
 ;
 
 
 CREATE TABLE Watering
 (
-	id INTEGER NOT NULL,
-	watering_date DATETIME,
+	id integer PRIMARY KEY DEFAULT nextval('serial'),
+	watering_date timestamp,
 	duration INTEGER,
-	state INTEGER,
-	PRIMARY KEY (id),
-	UNIQUE UQ_Watering_id(id)
+	state INTEGER
 ) 
 ;
-
-
-
-SET FOREIGN_KEY_CHECKS=1;
