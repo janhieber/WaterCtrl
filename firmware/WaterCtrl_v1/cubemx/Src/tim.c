@@ -5,7 +5,7 @@
   *                      of the TIM instances.
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2015 STMicroelectronics
+  * COPYRIGHT(c) 2016 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -54,8 +54,8 @@ void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 0;
-  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.Period = 1800;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
   HAL_TIM_Base_Init(&htim2);
 
   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
@@ -68,7 +68,7 @@ void MX_TIM2_Init(void)
   HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig);
 
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0;
+  sConfigOC.Pulse = 10;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2);
@@ -96,6 +96,7 @@ void MX_TIM3_Init(void)
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV2;
   sConfigIC.ICFilter = 0x0;
   HAL_TIM_IC_ConfigChannel(&htim3, &sConfigIC, TIM_CHANNEL_3);
+
 }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
@@ -119,7 +120,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(TIM2_IRQn, 1, 0);
+    HAL_NVIC_SetPriority(TIM2_IRQn, 3, 0);
     HAL_NVIC_EnableIRQ(TIM2_IRQn);
   /* USER CODE BEGIN TIM2_MspInit 1 */
 

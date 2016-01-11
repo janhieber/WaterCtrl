@@ -33,7 +33,7 @@ int motControl(int motor, int time, int max_level) {
 
     if (g_activeMotor != MOT_ACTIVE_NONE) {
         // HAL_TIMEx_PWMN_Start(TIM2,)
-
+        HAL_TIMEx_PWMN_Start(TIM2,TIM_CHANNEL_2);
     } else {
         Log(LogInfo, "motor already active.");
     }

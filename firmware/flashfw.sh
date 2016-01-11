@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# kill openocd 
+pidof openocd | xargs kill -9
+
+sleep 1
+
 openocd \
     -s /usr/share/openocd/scripts \
     -f interface/stlink-v2.cfg \

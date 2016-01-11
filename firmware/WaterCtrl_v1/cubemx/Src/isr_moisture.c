@@ -20,6 +20,8 @@ volatile uint32_t CaptureNumber = 0;
 volatile uint32_t Capture = 0;
 volatile uint32_t TIM1Freq = 0;
 
+volatile uint16_t newPulseLength;
+
 #define PERI_PRESCALAR 1
 #define TIMER_PRESCALAR 10
 #define TIMER_CLOCK SystemCoreClock/(PERI_PRESCALAR*TIMER_PRESCALAR)
@@ -36,7 +38,7 @@ uint32_t getCapture()
 void resetFrequencyOfChannel()
 {
     CaptureNumber = 0;
-   TIM1Freq = 0;
+    TIM1Freq = 0;
 }
 
 /**
@@ -44,36 +46,25 @@ void resetFrequencyOfChannel()
  */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-
-    /* Clear TIM1 Capture compare interrupt pending bit */
-    if (TIM3 == htim->Instance)
-    {
-        if(CaptureNumber == 0)
-        {
+    if (TIM3 == htim->Instance)  {
+        if(CaptureNumber == 0) {
             /* Get the Input Capture value */
             htim->Lock = HAL_LOCKED;
             IC3ReadValue1 = htim->Instance->CCR3;
             htim->Lock = HAL_UNLOCKED;
             CaptureNumber = 1;
-        }
-        else if(CaptureNumber == 1)
-        {
+        } else if(CaptureNumber == 1) {
             /* Get the Input Capture value */
             htim->Lock = HAL_LOCKED;
             IC3ReadValue2 = htim->Instance->CCR3;
             htim->Lock = HAL_UNLOCKED;
 
             /* Capture computation */
-            if (IC3ReadValue2 > IC3ReadValue1)
-            {
+            if (IC3ReadValue2 > IC3ReadValue1) {
                 Capture = (IC3ReadValue2 - IC3ReadValue1);
-            }
-            else if (IC3ReadValue2 < IC3ReadValue1)
-            {
+            } else if (IC3ReadValue2 < IC3ReadValue1) {
                 Capture = ((0xFFFF - IC3ReadValue1) + IC3ReadValue2);
-            }
-            else
-            {
+            } else {
                 Capture = 0;
             }
             /* Frequency computation */
@@ -81,6 +72,15 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
             TIM1Freq = ((uint32_t) TIMER_CLOCK /  Capture)*IC_SAMPLE_FILTER;
             CaptureNumber = 0;
         }
+    } else if (TIM2 == htim->Instance) {
+        if (newPulseLength < 1800)
+            newPulseLength += 100;
+        else
+            newPulseLength = 0;
+
+        htim->Lock = HAL_LOCKED;
+        htim->Instance->CCR1 = newPulseLength;
+        htim->Lock = HAL_UNLOCKED;
     }
 }
 

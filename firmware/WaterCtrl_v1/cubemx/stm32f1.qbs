@@ -6,7 +6,7 @@ import Stm32Application
 Stm32Application {
 
     name: "WaterCtrl_v1"
-    type: "hex"
+    type: "bin"
 
     Group {
         name: "app"
@@ -40,18 +40,18 @@ Stm32Application {
     ]
 
     Rule {
-        id: hex
+        id: bin
         inputs: ["application"]
 
         Artifact {
-            fileTags: ["hex"]
+            fileTags: ["bin"]
             //filePath: ".obj/" + product.name + "/" + input.baseDir + "/" + input.fileName + ".bin"
             filePath: input.fileName + ".bin"
 
         }
 
         prepare: {
-//          var compilerPath = ModUtils.moduleProperty(product, "compilerPath");
+            //          var compilerPath = ModUtils.moduleProperty(product, "compilerPath");
 
             var objCopyPath = "arm-none-eabi-objcopy";
             var args = ["-O", "binary", input.filePath, output.filePath];
@@ -59,6 +59,24 @@ Stm32Application {
 
             cmd.description = "converting to hex: " + FileInfo.fileName(input.filePath);
             cmd.highlight = "linker";
+            print("binary converter")
+            return cmd;
+        }
+    }
+
+    Rule {
+        id: flash
+        inputs: ["application"]
+
+
+        prepare: {
+            var flashScript = "./flash.sh";
+            var args = [input.filePath];
+            var cmd = new Command(flashScript,args);
+
+            cmd.description = "Flash image to target";
+            cmd.highlight = "Flasher";
+            print("start flasher")
             return cmd;
         }
     }

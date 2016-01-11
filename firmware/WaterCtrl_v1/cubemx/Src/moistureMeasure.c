@@ -48,7 +48,7 @@
 #define MOISTURE_SENS_PIN_ENABLE GPIO_PIN_15
 #define MOISTURE_SENS_PORT_ENABLE GPIOB
 
-#define MOISTURE_MEASURE_CHANNEL_MAX 0x08u
+#define MOISTURE_MEASURE_CHANNEL_MAX 0x04u
 #define MOISTURE_MEASURE_STATE_INACTIVE 0x0000
 #define MOISTURE_MEASURE_STATE_ACTIVE 0x0001
 
@@ -180,23 +180,22 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 
     return retval;
 }
-void moiEnableSensor()
-{
+void moiEnableSensor() {
+    HAL_Delay(1);
     HAL_GPIO_WritePin(GPIOB,MOISTURE_SENS_PIN_ENABLE,GPIO_PIN_SET);
 }
-void moiDisableSensor()
-{
+void moiDisableSensor() {
     HAL_GPIO_WritePin(GPIOB,MOISTURE_SENS_PIN_ENABLE,GPIO_PIN_RESET);
 }
 
 void moiSetChannel(int channel)
 {
-    int tSensorSelect;
+    volatile int16_t tSensorSelect = 0;
     moiDisableSensor();
     DisableMeasureInterrupt();
     resetFrequencyOfChannel();
     tSensorSelect = MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2;
-    HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_RESET);
+
     switch (channel)
     {
     case MOISTURE_MEASURE_CHANNEL0_ACTIVE:
@@ -229,6 +228,7 @@ void moiSetChannel(int channel)
         break;
     }
     tSensorSelect &= (MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2);
+    HAL_GPIO_WritePin(GPIOB,(MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2),GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_SET);
     moiEnableSensor();
     EnableMeasureInterrupt();
@@ -254,7 +254,7 @@ void MoistureTask()
     {
         frequency[activeChannel] = getMoisture();
         activeChannel++;
-        if (activeChannel >= MOISTURE_MEASURE_CHANNEL_MAX)
+        if (activeChannel > MOISTURE_MEASURE_CHANNEL_MAX)
             activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
         moiSetChannel(activeChannel);
     }
