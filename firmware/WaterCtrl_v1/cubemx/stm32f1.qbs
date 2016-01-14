@@ -4,6 +4,9 @@ import qbs.FileInfo
 import Stm32Application
 
 Stm32Application {
+    files: [
+        "isr_motor.c",
+    ]
 
     name: "WaterCtrl_v1"
     type: "bin"

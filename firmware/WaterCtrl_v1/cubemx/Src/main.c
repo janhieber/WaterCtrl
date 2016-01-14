@@ -109,6 +109,7 @@ TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},    {INTERVAL_1S, 0, AliveTicker},
     {INTERVAL_500MS, 0, MoistureTask}, {INTERVAL_5S, 0, printMoisture},
     {INTERVAL_5S, 0, debugInfo},    {INTERVAL_250MS, 0, SPIrecvProc},
+    {INTERVAL_100MS, 0, motTask100ms},  {INTERVAL_1S, 0, motTask5s}
 };
 
 /* USER CODE END 0 */

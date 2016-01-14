@@ -77,7 +77,13 @@ uint activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
   * @see isr_moisture.c
   */
 extern uint32_t getFrequencyOfChannel();
-void resetFrequencyOfChannel();
+
+/**
+  * @brief  Reset ISR's data.
+  *
+  * @see isr_moisture.c
+  */
+extern void resetFrequencyOfChannel();
 
 
 /**
@@ -87,16 +93,6 @@ void resetFrequencyOfChannel();
   * @retval return value
   */
 int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
-
-/**
-  * @brief  Enable timer interrupt.
-  */
-void EnableMeasureInterrupt();
-
-/**
-  * @brief  Disable timer interrupt.
-  */
-void DisableMeasureInterrupt();
 
 /**
   * @brief  Starts Timer and enables interrupt.
@@ -114,9 +110,11 @@ void moiSetChannel(int);
 TIM_HandleTypeDef * ptrTimer3Ref;
 uint32_t TimerChannel = TIM_CHANNEL_3;
 
-uint_fast64_t getMoisture()
+uint_fast64_t getSensorFrequency(int sensor)
 {
-    return getFrequencyOfChannel();
+    if ((MOISTURE_MEASURE_CHANNEL0_ACTIVE <= sensor) \
+            &&(MOISTURE_MEASURE_CHANNEL_MAX >= sensor))
+    return frequency[sensor];
 }
 
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
@@ -142,8 +140,7 @@ int startSensorCapture(int Sensor)
     return Sensor;
 }
 
-void printMoisture()
-{
+void printMoisture() {
     Log(LogInfo, "Measured channel 1: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
     Log(LogInfo, "Measured channel 2: %d Hz",
@@ -154,34 +151,28 @@ void printMoisture()
         (int)frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
     Log(LogInfo, "Measured channel 5: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
-
-
 }
 
-int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
-{
+int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel) {
     int retval = -1;
 
     Log(LogDebug, "start measure");
 
     /* TIM enable counter */
-    if(ptrTimerRef)
-    {
-        if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, channel)))
-        {
+    if(ptrTimerRef) {
+        if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, channel))) {
             //printf("FAILED: timer start, erro: %d",retval);
             Log(LogError, "failed to start timer!");
         }
-
     }
-
-
     return retval;
 }
+
 void moiEnableSensor() {
     HAL_Delay(1);
     HAL_GPIO_WritePin(GPIOB,MOISTURE_SENS_PIN_ENABLE,GPIO_PIN_SET);
 }
+
 void moiDisableSensor() {
     HAL_GPIO_WritePin(GPIOB,MOISTURE_SENS_PIN_ENABLE,GPIO_PIN_RESET);
 }
@@ -190,7 +181,7 @@ void moiSetChannel(int channel)
 {
     volatile int16_t tSensorSelect = 0;
 
-    DisableMeasureInterrupt();
+    HAL_TIM_IC_Stop_IT(ptrTimer3Ref,TIM_CHANNEL_2);
     moiDisableSensor();
     resetFrequencyOfChannel();
     tSensorSelect = MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2;
@@ -229,20 +220,12 @@ void moiSetChannel(int channel)
     HAL_GPIO_WritePin(GPIOB,(MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2),GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_SET);
     moiEnableSensor();
-    EnableMeasureInterrupt();
+    HAL_TIM_IC_Start_IT(ptrTimer3Ref,TIM_CHANNEL_2);
 }
 
-void EnableMeasureInterrupt() {
-    HAL_TIM_IC_Start_IT(ptrTimer3Ref,TIM_CHANNEL_2);
-    return;
-}
-void DisableMeasureInterrupt() {
-    HAL_TIM_IC_Stop_IT(ptrTimer3Ref,TIM_CHANNEL_2);
-    return;
-}
 void MoistureTask() {
     if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
-        frequency[activeChannel] = getMoisture();
+        frequency[activeChannel] = getFrequencyOfChannel();
         activeChannel++;
         if (activeChannel > MOISTURE_MEASURE_CHANNEL_MAX)
             activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;

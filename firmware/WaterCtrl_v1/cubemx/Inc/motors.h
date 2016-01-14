@@ -23,6 +23,16 @@ typedef enum _activeMotor {
     MOT_ACTIVE_INVALID = 0xff
 } eActiveMotor;
 
+typedef enum _activeState {
+    MOT_STATE_IDLE = 0x00,
+    MOT_STATE_RAMPUP,
+    MOT_STATE_WAIT_UP,
+    MOT_STATE_HIGH,
+    MOT_STATE_WAIT_DOWN,
+    MOT_STATE_RAMPDOWN,
+    MOT_STATE_INVALID = 0xff
+} eActiveState;
+
 void motInit(TIM_HandleTypeDef *);
 
 void motTask100ms();

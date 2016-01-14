@@ -24,7 +24,7 @@ int initMoistureMeasure(TIM_HandleTypeDef*);
 
 int deinitMoistureMeasure(void);
 
-uint_fast64_t getMoisture();
+uint_fast64_t getSensorFrequency(int sensor);
 
 void printMoisture();
 

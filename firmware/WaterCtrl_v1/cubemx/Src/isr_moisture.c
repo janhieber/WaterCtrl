@@ -20,7 +20,6 @@ volatile uint32_t CaptureNumber = 0;
 volatile uint32_t Capture = 0;
 volatile uint32_t TIM1Freq = 0;
 
-volatile uint16_t newPulseLength;
 
 #define PERI_PRESCALAR 1
 #define TIMER_CLOCK (SystemCoreClock/((uint32_t)PERI_PRESCALAR))
@@ -73,19 +72,4 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
         }
     }
 }
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (TIM2 == htim->Instance) {
-        if (newPulseLength < 1800)
-            newPulseLength += 100;
-        else
-            newPulseLength = 100;
 
-        htim->Lock = HAL_LOCKED;
-        htim->Instance->CCR2 = newPulseLength;
-        htim->Lock = HAL_UNLOCKED;
-    }
-}
-
-/**
-  * @}
-  */
