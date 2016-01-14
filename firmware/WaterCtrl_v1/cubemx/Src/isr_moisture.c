@@ -23,9 +23,8 @@ volatile uint32_t TIM1Freq = 0;
 volatile uint16_t newPulseLength;
 
 #define PERI_PRESCALAR 1
-#define TIMER_PRESCALAR 10
-#define TIMER_CLOCK SystemCoreClock/(PERI_PRESCALAR*TIMER_PRESCALAR)
-#define IC_SAMPLE_FILTER 0x02u
+#define TIMER_CLOCK (SystemCoreClock/((uint32_t)PERI_PRESCALAR))
+#define IC_SAMPLE_FILTER 0x04u
 
 uint32_t getFrequencyOfChannel()
 {
@@ -69,21 +68,23 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
             }
             /* Frequency computation */
 
-            TIM1Freq = ((uint32_t) TIMER_CLOCK /  Capture)*IC_SAMPLE_FILTER;
+            TIM1Freq = ((uint32_t) TIMER_CLOCK /  Capture)*(uint32_t)IC_SAMPLE_FILTER;
             CaptureNumber = 0;
         }
-    } else if (TIM2 == htim->Instance) {
+    }
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (TIM2 == htim->Instance) {
         if (newPulseLength < 1800)
             newPulseLength += 100;
         else
-            newPulseLength = 0;
+            newPulseLength = 100;
 
         htim->Lock = HAL_LOCKED;
-        htim->Instance->CCR1 = newPulseLength;
+        htim->Instance->CCR2 = newPulseLength;
         htim->Lock = HAL_UNLOCKED;
     }
 }
-
 
 /**
   * @}

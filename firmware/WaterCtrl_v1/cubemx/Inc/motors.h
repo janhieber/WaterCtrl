@@ -11,6 +11,8 @@
 #ifndef MOTORS_H
 #define MOTORS_H
 
+#include <stm32f1xx_hal.h>
+
 typedef enum _activeMotor {
     MOT_ACTIVE_NONE = 0x00,
     MOT_ACTIVE_0,
@@ -21,13 +23,13 @@ typedef enum _activeMotor {
     MOT_ACTIVE_INVALID = 0xff
 } eActiveMotor;
 
-void motInit(void);
+void motInit(TIM_HandleTypeDef *);
 
 void motTask100ms();
 
 void motTask5s();
 
-int motControl(int motor, int time, int max_level);
+int motControlStart(eActiveMotor motor, int time, int max_level);
 
 #endif // MOTORS_H
 

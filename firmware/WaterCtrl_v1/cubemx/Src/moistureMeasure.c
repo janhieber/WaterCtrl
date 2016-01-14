@@ -64,10 +64,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 
-volatile uint32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX];
+volatile uint32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX+1];
 
 uint16_t stateRegister = MOISTURE_MEASURE_STATE_INACTIVE;
-uint activeChannel = 0;
+uint activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -125,6 +125,7 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
     stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
 
     ptrTimer3Ref = ptr;
+
     startSensorCapture(activeChannel);
 
     return 0;
@@ -161,9 +162,6 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel)
 {
     int retval = -1;
 
-    Log(LogDebug, "enable INT");
-    EnableMeasureInterrupt();
-
     Log(LogDebug, "start measure");
 
     /* TIM enable counter */
@@ -191,13 +189,13 @@ void moiDisableSensor() {
 void moiSetChannel(int channel)
 {
     volatile int16_t tSensorSelect = 0;
-    moiDisableSensor();
+
     DisableMeasureInterrupt();
+    moiDisableSensor();
     resetFrequencyOfChannel();
     tSensorSelect = MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2;
 
-    switch (channel)
-    {
+    switch (channel) {
     case MOISTURE_MEASURE_CHANNEL0_ACTIVE:
         tSensorSelect &= ~(MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2);
         break;
@@ -234,32 +232,22 @@ void moiSetChannel(int channel)
     EnableMeasureInterrupt();
 }
 
-void EnableMeasureInterrupt()
-{
-    HAL_NVIC_ClearPendingIRQ(TIM3_IRQn);
-    HAL_NVIC_EnableIRQ(TIM3_IRQn);
-
+void EnableMeasureInterrupt() {
+    HAL_TIM_IC_Start_IT(ptrTimer3Ref,TIM_CHANNEL_2);
     return;
 }
-void DisableMeasureInterrupt()
-{
-    HAL_NVIC_ClearPendingIRQ(TIM3_IRQn);
-    HAL_NVIC_DisableIRQ(TIM3_IRQn);
-
+void DisableMeasureInterrupt() {
+    HAL_TIM_IC_Stop_IT(ptrTimer3Ref,TIM_CHANNEL_2);
     return;
 }
-void MoistureTask()
-{
-    if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE)
-    {
+void MoistureTask() {
+    if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
         frequency[activeChannel] = getMoisture();
         activeChannel++;
         if (activeChannel > MOISTURE_MEASURE_CHANNEL_MAX)
             activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
         moiSetChannel(activeChannel);
-    }
-    else
-    {
+    } else {
         LogUart(LogError, "MOI inactive state");
     }
 }

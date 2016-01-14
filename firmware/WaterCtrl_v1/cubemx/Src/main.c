@@ -108,7 +108,7 @@ void SPIrecvProc(void) {
 TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},    {INTERVAL_1S, 0, AliveTicker},
     {INTERVAL_500MS, 0, MoistureTask}, {INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_2S, 0, debugInfo},    {INTERVAL_250MS, 0, SPIrecvProc},
+    {INTERVAL_5S, 0, debugInfo},    {INTERVAL_250MS, 0, SPIrecvProc},
 };
 
 /* USER CODE END 0 */
@@ -153,7 +153,7 @@ int main(void)
 
     // init modules
     initMoistureMeasure(&htim3);
-    motInit();
+    motInit(&htim2);
 
     // init scheduling
     initScheduler(Tasks, ARRAYSIZE(Tasks));
