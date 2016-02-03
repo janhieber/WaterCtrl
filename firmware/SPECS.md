@@ -8,14 +8,18 @@ Identifiers (1st byte):
 - 0x03 - Debug message as ASCII string
 - 0x10 - Motor control command
   - 2. byte: motor number
-  - 3. byte: motor speed
+  - 3. byte: ramp up time
   - 4. byte: time to run
+  - 5. byte: ramp down time
+  - 6. byte: max speed: 0-100% (of PWM)
 - 0x11 - Motor control response
-  - 2. byte: 0x00 = done
+  - 2. byte: motor number
+  - 3. byte: 0xab = done | 0xac = error
 - 0x12 - Moisture measure request
   - 2. byte: sensor number
 - 0x13 - Moisture measure value
-  - 2. byte: moisture value as 8bit unsigned
+  - 2. byte: sensor number
+  - 3. byte: moisture value scaled to 8bit unsigned (kHz)
 
 
 
