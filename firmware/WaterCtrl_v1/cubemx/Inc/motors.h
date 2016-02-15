@@ -30,6 +30,7 @@ typedef enum _activeState {
     MOT_STATE_HIGH,
     MOT_STATE_WAIT_DOWN,
     MOT_STATE_RAMPDOWN,
+    MOT_STATE_DONE,
     MOT_STATE_INVALID = 0xff
 } eActiveState;
 
@@ -37,7 +38,7 @@ void motInit(TIM_HandleTypeDef *);
 
 void motTask100ms();
 
-void motTask5s();
+void motTask1s();
 
 int motControlStart(eActiveMotor motor, int time, int max_level);
 

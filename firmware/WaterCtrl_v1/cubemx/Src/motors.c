@@ -17,9 +17,6 @@
 #define MOT_PWM_PIN_A2 GPIO_PIN_0
 #define MOT_PWM_PORT_A2 GPIOA
 
-#define MOT_PWM_PIN_ENABLE GPIO_PIN_15
-#define MOT_PWM_PORT_ENABLE GPIOB
-
 #include <log.h>
 #include <motors.h>
 
@@ -32,6 +29,7 @@ static TIM_HandleTypeDef * ptrTimer;
 /* Private function prototypes -----------------------------------------------*/
 extern uint16_t setState(eActiveState state);
 extern uint16_t getPulse();
+extern void setPulse(uint16_t maxPulse);
 /* Private functions ---------------------------------------------------------*/
 
 const char * getStateString(){
@@ -48,6 +46,8 @@ const char * getStateString(){
         return "RAMPDOWN";
     case MOT_STATE_WAIT_DOWN:
         return "WAIT_DOWN";
+    case MOT_STATE_DONE:
+        return "DONE";
     case MOT_STATE_INVALID:
         return "INVALID";
     default:
@@ -66,11 +66,18 @@ void motInit(TIM_HandleTypeDef * ref) {
     motControlStart(1,10,80);
 }
 
-void motTask5s() {
-    Log(LogDebug,"state : %s",getStateString());
-    Log(LogDebug,"motor : %d",g_activeMotor);
-    Log(LogDebug,"counter : %d",g_activeCounter);
-    Log(LogDebug,"pulse : %d",getPulse());
+void motTask1s() {
+    static uint16_t counter;
+    //Log(LogDebug,"state : %s",getStateString());
+    //Log(LogDebug,"motor : %d",g_activeMotor);
+    //Log(LogDebug,"counter : %d",g_activeCounter);
+    //Log(LogDebug,"pulse : %d",getPulse());
+
+    if (g_activeMotor == MOT_ACTIVE_NONE)
+    {
+        motControlStart((counter % 5)+1,10,70 );
+        counter++;
+    }
 }
 
 void motTask100ms() {
@@ -79,6 +86,7 @@ void motTask100ms() {
         switch (g_activeState) {
         case MOT_STATE_IDLE:
             g_activeState = MOT_STATE_RAMPUP;
+            setPulse(g_maxPulse);
             break;
         case MOT_STATE_RAMPUP:
             setState(MOT_STATE_RAMPUP);
@@ -86,10 +94,12 @@ void motTask100ms() {
             g_activeState = MOT_STATE_WAIT_UP;
             break;
         case MOT_STATE_WAIT_UP:
-            if (g_maxPulse <= getPulse())
+            if (g_maxPulse <= getPulse()) {
                 g_activeState = MOT_STATE_HIGH;
+            }
             break;
         case MOT_STATE_HIGH:
+            setState(MOT_STATE_HIGH);
             g_activeCounter--;
             if (g_activeCounter <= 0 )
                 g_activeState = MOT_STATE_RAMPDOWN;
@@ -99,11 +109,15 @@ void motTask100ms() {
             g_activeState = MOT_STATE_WAIT_DOWN;
             break;
         case MOT_STATE_WAIT_DOWN:
-            if (10 >= getPulse()) {
-                g_activeState = MOT_STATE_IDLE;
-                g_activeMotor = MOT_ACTIVE_NONE;
+            if (0 == getPulse()) {
+                g_activeState = MOT_STATE_DONE;
+
                 HAL_TIM_PWM_Stop_IT(ptrTimer,TIM_CHANNEL_2);
             }
+            break;
+        case MOT_STATE_DONE:
+            g_activeMotor = MOT_ACTIVE_NONE;
+            g_activeState = MOT_STATE_IDLE;
             break;
         default:
             break;
@@ -119,8 +133,8 @@ int motControlStart(eActiveMotor motor, int time, int max_level) {
 
         if (g_activeMotor != motor) {
             g_activeMotor = motor;
-            HAL_GPIO_WritePin(GPIOA,MOT_PWM_PIN_A2,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(MOT_PWM_PORT_A2,MOT_PWM_PIN_A2,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(MOT_PWM_PORT_A1,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_RESET);
             switch (g_activeMotor) {
             case MOT_ACTIVE_0:
                 break;

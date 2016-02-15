@@ -39,14 +39,10 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define MOISTURE_SENS_PIN_A0 GPIO_PIN_1
-#define MOISTURE_SENS_PORT_A0 GPIOB
 #define MOISTURE_SENS_PIN_A1 GPIO_PIN_10
-#define MOISTURE_SENS_PORT_A1 GPIOB
 #define MOISTURE_SENS_PIN_A2 GPIO_PIN_11
-#define MOISTURE_SENS_PORT_A2 GPIOB
 
 #define MOISTURE_SENS_PIN_ENABLE GPIO_PIN_15
-#define MOISTURE_SENS_PORT_ENABLE GPIOB
 
 #define MOISTURE_MEASURE_CHANNEL_MAX 0x04u
 #define MOISTURE_MEASURE_STATE_INACTIVE 0x0000
@@ -124,6 +120,8 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 
     ptrTimer3Ref = ptr;
 
+    memset(frequency,0,sizeof(frequency));
+
     startSensorCapture(activeChannel);
 
     return 0;
@@ -169,7 +167,7 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel) {
 }
 
 void moiEnableSensor() {
-    HAL_Delay(1);
+    HAL_Delay(20);
     HAL_GPIO_WritePin(GPIOB,MOISTURE_SENS_PIN_ENABLE,GPIO_PIN_SET);
 }
 
