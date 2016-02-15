@@ -5,6 +5,9 @@
  *  @author Jan Hieber <mail@janhieber.net>
  */
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /** @addtogroup MotorControl
   * @{
   */
@@ -17,8 +20,10 @@
 #define MOT_PWM_PIN_A2 GPIO_PIN_0
 #define MOT_PWM_PORT_A2 GPIOA
 
+#include <spicomm.h>
 #include <log.h>
 #include <motors.h>
+#include <broker.h>
 
 static eActiveState g_activeState = MOT_STATE_IDLE;
 static eActiveMotor g_activeMotor = MOT_ACTIVE_INVALID;
@@ -31,27 +36,27 @@ extern uint16_t setState(eActiveState state);
 extern uint16_t getPulse();
 extern void setPulse(uint16_t maxPulse);
 /* Private functions ---------------------------------------------------------*/
+static void motBrokerMessage(char *buf, uint8_t length);
+const char * getStateString();
 
-const char * getStateString(){
-    switch (g_activeState) {
-    case MOT_STATE_IDLE:
-        return "IDLE";
-    case MOT_STATE_RAMPUP:
-        return "RAMPUP";
-    case MOT_STATE_WAIT_UP:
-        return "WAIT_UP";
-    case MOT_STATE_HIGH:
-        return "HIGH";
-    case MOT_STATE_RAMPDOWN:
-        return "RAMPDOWN";
-    case MOT_STATE_WAIT_DOWN:
-        return "WAIT_DOWN";
-    case MOT_STATE_DONE:
-        return "DONE";
-    case MOT_STATE_INVALID:
-        return "INVALID";
+void motBrokerMessage(char *buf, uint8_t length)
+{
+    char send[SPI_XFER_SIZE];
+    switch(buf[0]) {
+    case BRK_MSG_SPI_ID_MOT:
+        if (-1 != (send[0] = motControlStart(buf[1],buf[3],buf[5])))
+        {
+            send[1] = 0xab;
+        } else {
+            send[1] = 0xac;
+        }
+        send[0] = buf[1];
+        spiSend(BRK_MSG_SPI_ID_MOT_RSP,send);
+        break;
+    case BRK_MSG_SPI_ID_MOT_RSP:
+        break;
     default:
-        return "unknown";
+        break;
     }
 }
 
@@ -64,6 +69,8 @@ void motInit(TIM_HandleTypeDef * ref) {
     HAL_TIM_Base_Start_IT(ptrTimer);
 
     motControlStart(1,10,80);
+
+    registerMessage(BRK_MSG_SPI_ID_MOT,motBrokerMessage);
 }
 
 void motTask1s() {
@@ -163,7 +170,29 @@ int motControlStart(eActiveMotor motor, int time, int max_level) {
 
     return retval;
 }
-#include <stm32f1xx_hal.h>
+
+const char * getStateString(){
+    switch (g_activeState) {
+    case MOT_STATE_IDLE:
+        return "IDLE";
+    case MOT_STATE_RAMPUP:
+        return "RAMPUP";
+    case MOT_STATE_WAIT_UP:
+        return "WAIT_UP";
+    case MOT_STATE_HIGH:
+        return "HIGH";
+    case MOT_STATE_RAMPDOWN:
+        return "RAMPDOWN";
+    case MOT_STATE_WAIT_DOWN:
+        return "WAIT_DOWN";
+    case MOT_STATE_DONE:
+        return "DONE";
+    case MOT_STATE_INVALID:
+        return "INVALID";
+    default:
+        return "unknown";
+    }
+}
 /**
   * @}
   */

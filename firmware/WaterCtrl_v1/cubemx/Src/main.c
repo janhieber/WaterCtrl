@@ -59,6 +59,7 @@
 #include <log.h>
 #include <moistureMeasure.h>
 #include <motors.h>
+#include <broker.h>
 
 /* USER CODE END Includes */
 
@@ -108,7 +109,7 @@ void SPIrecvProc(void) {
 TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},    {INTERVAL_1S, 0, AliveTicker},
     {INTERVAL_500MS, 0, MoistureTask}, {INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_5S, 0, debugInfo},    {INTERVAL_250MS, 0, SPIrecvProc},
+    {INTERVAL_5S, 0, debugInfo},    {INTERVAL_250MS, 0, BrokerTask250ms},
     {INTERVAL_100MS, 0, motTask100ms},  {INTERVAL_1S, 0, motTask1s}
 };
 

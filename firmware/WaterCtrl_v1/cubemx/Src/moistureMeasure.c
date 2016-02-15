@@ -27,14 +27,18 @@
   * @{
   */
 
-#include "stm32f1xx_hal.h"
-
-#include <moistureMeasure.h>
-#include "stm32f1xx_hal_gpio.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "stdint.h"
+#include "stdbool.h"
 
+#include "stm32f1xx_hal.h"
+#include "stm32f1xx_hal_gpio.h"
 
+#include <log.h>
+#include <spicomm.h>
+#include <moistureMeasure.h>
+#include <broker.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -60,7 +64,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 
-volatile uint32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX+1];
+volatile uint_fast32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX+1];
 
 uint16_t stateRegister = MOISTURE_MEASURE_STATE_INACTIVE;
 uint activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
@@ -98,6 +102,7 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
   */
 int startSensorCapture(int channel);
 
+static void moiBrokerMessage(char * buf, uint8_t length);
 void moiDisableSensor();
 void moiEnableSensor();
 void moiSetChannel(int);
@@ -106,11 +111,13 @@ void moiSetChannel(int);
 TIM_HandleTypeDef * ptrTimer3Ref;
 uint32_t TimerChannel = TIM_CHANNEL_3;
 
-uint_fast64_t getSensorFrequency(int sensor)
+uint32_t getSensorFrequency(int sensor)
 {
     if ((MOISTURE_MEASURE_CHANNEL0_ACTIVE <= sensor) \
             &&(MOISTURE_MEASURE_CHANNEL_MAX >= sensor))
-    return frequency[sensor];
+        return frequency[sensor];
+    else
+        return 0;
 }
 
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
@@ -120,9 +127,11 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 
     ptrTimer3Ref = ptr;
 
-    memset(frequency,0,sizeof(frequency));
+    //memset(frequency,0,sizeof(frequency));
 
     startSensorCapture(activeChannel);
+
+    registerMessage(BRK_MSG_SPI_ID_SENS_VALUE,moiBrokerMessage);
 
     return 0;
 }
@@ -219,6 +228,22 @@ void moiSetChannel(int channel)
     HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_SET);
     moiEnableSensor();
     HAL_TIM_IC_Start_IT(ptrTimer3Ref,TIM_CHANNEL_2);
+}
+
+void moiBrokerMessage(char *buf, uint8_t length)
+{
+    char send[SPI_XFER_SIZE];
+    switch(buf[0]) {
+    case BRK_MSG_SPI_ID_SENS_VALUE:
+        send[1] = (uint8_t)getSensorFrequency(buf[1])/(uint8_t)1000;
+        send[0] = buf[1];
+        spiSend(BRK_MSG_SPI_ID_SENS_VALUE_RSP,send);
+        break;
+    case BRK_MSG_SPI_ID_SENS_VALUE_RSP:
+        break;
+    default:
+        break;
+    }
 }
 
 void MoistureTask() {
