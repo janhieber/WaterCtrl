@@ -27,19 +27,27 @@ bool registerMessage(uint8_t id, message* fct)
 
 void BrokerTask250ms()
 {
+    int params = 0;
+    int runner = 1;
     char buf[SPI_XFER_SIZE];
+
     if (spiReceive(buf)) {
         LogUart(LogInfo, "SPI messages was received");
-
         do {
-            int runner = 0;
-            while (runner < MAX_NBR_OF_CLIENTS) {
-                if (listIds[runner] == buf[0] ) {
-                    listFcts[runner](&buf[1],buf[0]);
-                    break;
-                }
+            if (buf[runner] != 0)
+                params++;
+            else
+                break;
+        } while (1);
+
+        runner = 0;
+        while (runner < MAX_NBR_OF_CLIENTS) {
+            if (listIds[runner] == buf[0] ) {
+                listFcts[runner](&buf[1],params);
+                break;
             }
-        }while(0);
+            runner++;
+        }
     }
 }
 

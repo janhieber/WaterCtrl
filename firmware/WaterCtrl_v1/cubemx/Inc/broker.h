@@ -20,6 +20,9 @@
 #define BRK_MSG_SPI_ID_SENS_VALUE (uint8_t)0x12u
 #define BRK_MSG_SPI_ID_SENS_VALUE_RSP (uint8_t)0x13u
 
+#define BRK_ERR_NO_ERR (uint8_t)0x00u
+#define BRK_ERR_MSG_PARAM_INVALID (uint8_t)0x01u
+#define BRK_ERR_MOTOR_START_FAILED (uint8_t)0x02u
 
 #define MAX_NBR_OF_CLIENTS 16
 

@@ -13,6 +13,17 @@
 
 #include <stm32f1xx_hal.h>
 
+#define MOT_PWM_PIN_A0 GPIO_PIN_14
+#define MOT_PWM_PORT_A0 GPIOC
+#define MOT_PWM_PIN_A1 GPIO_PIN_15
+#define MOT_PWM_PORT_A1 GPIOC
+#define MOT_PWM_PIN_A2 GPIO_PIN_0
+#define MOT_PWM_PORT_A2 GPIOA
+
+#define MOT_PWM_FREQ 100 //Hz
+#define MOT_PWM_RELOAD_CNTR (uint32_t)20000
+
+
 typedef enum _activeMotor {
     MOT_ACTIVE_NONE = 0x00,
     MOT_ACTIVE_0,
@@ -34,13 +45,20 @@ typedef enum _activeState {
     MOT_STATE_INVALID = 0xff
 } eActiveState;
 
+typedef struct _stMotCfg{
+    uint8_t up_time;
+    uint8_t down_time;
+    uint8_t high_time;
+    uint8_t max_level;
+}stMotCfg;
+
 void motInit(TIM_HandleTypeDef *);
 
 void motTask100ms();
 
 void motTask1s();
 
-int motControlStart(eActiveMotor motor, int time, int max_level);
+int motControlStart(eActiveMotor motor, stMotCfg * cfg);
 
 #endif // MOTORS_H
 

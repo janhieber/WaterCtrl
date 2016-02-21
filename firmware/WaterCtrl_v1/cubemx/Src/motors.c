@@ -1,6 +1,26 @@
 /** @file motors.c
  *  @brief Prototypes for motor module
  *
+ *  * Uses TIM2 to generate moderate pwm output based on AHP frequency.
+ *
+ *  @todo:
+ * 	Make input pin configurable. We need to measure 8 sensor inputs
+ * 	Find algorithm which less stress the output
+ * 	- lower measurement period time
+ * 	- combine capture inputs to gain more precision/range
+ *
+ * 	Multiplex inputs
+ * 	- GPIO for input selection
+ * 	- disable capture while inputs switch
+ *
+ * 	@attention:
+ * 	Concurrent access to global frequency by interrupt and output loop!
+ *
+ * 	Questions for implementation:
+ * 	1. which frequency range is expected -> prescaler
+ * 	2. How to implement self stopping measure interval?
+ * 		a. How to stop the measurement between channels
+ *  3. Calculate delta pulse length to linear ramp up/down
  *  @author Dropedout
  *  @author Jan Hieber <mail@janhieber.net>
  */
@@ -13,12 +33,6 @@
   */
 
 /* Private define ------------------------------------------------------------*/
-#define MOT_PWM_PIN_A0 GPIO_PIN_14
-#define MOT_PWM_PORT_A0 GPIOC
-#define MOT_PWM_PIN_A1 GPIO_PIN_15
-#define MOT_PWM_PORT_A1 GPIOC
-#define MOT_PWM_PIN_A2 GPIO_PIN_0
-#define MOT_PWM_PORT_A2 GPIOA
 
 #include <spicomm.h>
 #include <log.h>
@@ -32,27 +46,82 @@ static int32_t g_activeCounter = 0;
 static TIM_HandleTypeDef * ptrTimer;
 
 /* Private function prototypes -----------------------------------------------*/
-extern uint16_t setState(eActiveState state);
-extern uint16_t getPulse();
+extern void setState(eActiveState state);
 extern void setPulse(uint16_t maxPulse);
+extern void setPulseStepDown(uint8_t step);
+extern void setPulseStepUp(uint8_t step);
+
+extern eActiveState getState(eActiveState state);
+extern uint16_t getPulse();
+
 /* Private functions ---------------------------------------------------------*/
 static void motBrokerMessage(char *buf, uint8_t length);
 const char * getStateString();
 
+int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
+    int retval = -1;
+    if ((motor < MOT_ACTIVE_0) || (motor > MOT_ACTIVE_4)) {
+        Log(LogError, "wrong motor selected!");
+    } else {
+        if (g_activeMotor != motor) {
+            g_activeCounter = cfg->high_time*10;
+            g_maxPulse = cfg->max_level;
+            setPulseStepUp(MOT_PWM_RELOAD_CNTR/(cfg->up_time*MOT_PWM_FREQ));
+            setPulseStepDown(MOT_PWM_RELOAD_CNTR/(cfg->down_time*MOT_PWM_FREQ));
+            g_activeMotor = motor;
+            switch (g_activeMotor) {
+            case MOT_ACTIVE_0:
+                break;
+            case MOT_ACTIVE_1:
+                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0,GPIO_PIN_SET);
+                break;
+            case MOT_ACTIVE_2:
+                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A1,GPIO_PIN_SET);
+                break;
+            case MOT_ACTIVE_3:
+                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_SET);
+                break;
+            case MOT_ACTIVE_4:
+                HAL_GPIO_WritePin(GPIOA,MOT_PWM_PIN_A2,GPIO_PIN_SET);
+                break;
+            default:
+                break;
+                retval = g_activeMotor;
+            }
+        } else {
+            Log(LogInfo, "motor already active.");
+        }
+    }
+    return retval;
+}
+
 void motBrokerMessage(char *buf, uint8_t length)
 {
+    stMotCfg cfg = {0,0,0,0};
     char send[SPI_XFER_SIZE];
     switch(buf[0]) {
     case BRK_MSG_SPI_ID_MOT:
-        if (-1 != (send[0] = motControlStart(buf[1],buf[3],buf[5])))
-        {
-            send[1] = 0xab;
-        } else {
-            send[1] = 0xac;
-        }
+    {
+        send[1] = 0xac;
         send[0] = buf[1];
+        if (length == 5) {
+            cfg.max_level = buf[5];
+            cfg.high_time = buf[3];
+            cfg.up_time = buf[2];
+            cfg.down_time = buf[4];
+
+            if (-1 !=  motControlStart(buf[1],&cfg))
+            {
+                send[1] = 0xab;
+            } else {
+                send[2] = BRK_ERR_MOTOR_START_FAILED;
+            }
+        } else {
+            send[2] = BRK_ERR_MSG_PARAM_INVALID;
+        }
         spiSend(BRK_MSG_SPI_ID_MOT_RSP,send);
         break;
+    }
     case BRK_MSG_SPI_ID_MOT_RSP:
         break;
     default:
@@ -68,21 +137,24 @@ void motInit(TIM_HandleTypeDef * ref) {
 
     HAL_TIM_Base_Start_IT(ptrTimer);
 
-    motControlStart(1,10,80);
-
     registerMessage(BRK_MSG_SPI_ID_MOT,motBrokerMessage);
 }
 
 void motTask1s() {
+    stMotCfg cfg =  {0,0,0,0};
     static uint16_t counter;
-    //Log(LogDebug,"state : %s",getStateString());
-    //Log(LogDebug,"motor : %d",g_activeMotor);
-    //Log(LogDebug,"counter : %d",g_activeCounter);
-    //Log(LogDebug,"pulse : %d",getPulse());
+    Log(LogDebug,"state : %s",getStateString());
+    Log(LogDebug,"motor : %d",g_activeMotor);
+    Log(LogDebug,"counter : %d",g_activeCounter);
+    Log(LogDebug,"pulse : %d",getPulse());
 
     if (g_activeMotor == MOT_ACTIVE_NONE)
     {
-        motControlStart((counter % 5)+1,10,70 );
+        cfg.down_time = 10;
+        cfg.up_time = 10;
+        cfg.high_time = 5;
+        cfg.max_level = 90;
+        motControlStart(/*(counter % 5)+*/1,&cfg);
         counter++;
     }
 }
@@ -118,57 +190,19 @@ void motTask100ms() {
         case MOT_STATE_WAIT_DOWN:
             if (0 == getPulse()) {
                 g_activeState = MOT_STATE_DONE;
-
                 HAL_TIM_PWM_Stop_IT(ptrTimer,TIM_CHANNEL_2);
             }
             break;
         case MOT_STATE_DONE:
             g_activeMotor = MOT_ACTIVE_NONE;
             g_activeState = MOT_STATE_IDLE;
+            HAL_GPIO_WritePin(MOT_PWM_PORT_A2,MOT_PWM_PIN_A2,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(MOT_PWM_PORT_A1,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_RESET);
             break;
         default:
             break;
         }
     }
-}
-
-int motControlStart(eActiveMotor motor, int time, int max_level) {
-    int retval = -1;
-    if ((motor < MOT_ACTIVE_0) || (motor > MOT_ACTIVE_4)) {
-        Log(LogError, "wrong motor selected!");
-    } else {
-
-        if (g_activeMotor != motor) {
-            g_activeMotor = motor;
-            HAL_GPIO_WritePin(MOT_PWM_PORT_A2,MOT_PWM_PIN_A2,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(MOT_PWM_PORT_A1,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_RESET);
-            switch (g_activeMotor) {
-            case MOT_ACTIVE_0:
-                break;
-            case MOT_ACTIVE_1:
-                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0,GPIO_PIN_SET);
-                break;
-            case MOT_ACTIVE_2:
-                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A1,GPIO_PIN_SET);
-                break;
-            case MOT_ACTIVE_3:
-                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_SET);
-                break;
-            case MOT_ACTIVE_4:
-                HAL_GPIO_WritePin(GPIOA,MOT_PWM_PIN_A2,GPIO_PIN_SET);
-                break;
-            default:
-                break;
-            }
-            g_activeCounter = time*10;
-            g_maxPulse = max_level;
-
-        } else {
-            Log(LogInfo, "motor already active.");
-        }
-    }
-
-    return retval;
 }
 
 const char * getStateString(){
