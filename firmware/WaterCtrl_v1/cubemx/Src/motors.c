@@ -42,6 +42,8 @@
 static eActiveState g_activeState = MOT_STATE_IDLE;
 static eActiveMotor g_activeMotor = MOT_ACTIVE_INVALID;
 static uint16_t g_maxPulse = 0;
+static uint32_t g_stepUp = MOT_PWM_RELOAD_CNTR;
+static uint32_t g_stepDown = MOT_PWM_RELOAD_CNTR;
 static int32_t g_activeCounter = 0;
 static TIM_HandleTypeDef * ptrTimer;
 
@@ -51,7 +53,7 @@ extern void setPulse(uint16_t maxPulse);
 extern void setPulseStepDown(uint8_t step);
 extern void setPulseStepUp(uint8_t step);
 
-extern eActiveState getState(eActiveState state);
+extern eActiveState getState();
 extern uint16_t getPulse();
 
 /* Private functions ---------------------------------------------------------*/
@@ -66,27 +68,44 @@ int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
         if (g_activeMotor != motor) {
             g_activeCounter = cfg->high_time*10;
             g_maxPulse = cfg->max_level;
-            setPulseStepUp(MOT_PWM_RELOAD_CNTR/(cfg->up_time*MOT_PWM_FREQ));
-            setPulseStepDown(MOT_PWM_RELOAD_CNTR/(cfg->down_time*MOT_PWM_FREQ));
-            g_activeMotor = motor;
-            switch (g_activeMotor) {
-            case MOT_ACTIVE_0:
-                break;
-            case MOT_ACTIVE_1:
-                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0,GPIO_PIN_SET);
-                break;
-            case MOT_ACTIVE_2:
-                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A1,GPIO_PIN_SET);
-                break;
-            case MOT_ACTIVE_3:
-                HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_SET);
-                break;
-            case MOT_ACTIVE_4:
-                HAL_GPIO_WritePin(GPIOA,MOT_PWM_PIN_A2,GPIO_PIN_SET);
-                break;
-            default:
-                break;
+
+            if ((MOT_MAX_FLANK_TIME > cfg->up_time )
+                    && (MOT_MAX_FLANK_TIME > cfg->down_time )) {
+                if (0 == cfg->up_time)
+                    g_stepUp = (MOT_PWM_RELOAD_CNTR * g_maxPulse)/100;
+                else
+                    g_stepUp = ((MOT_PWM_RELOAD_CNTR/(cfg->up_time*MOT_PWM_FREQ))*g_maxPulse)/100;
+
+                if (0 == cfg->down_time)
+                    g_stepDown = (MOT_PWM_RELOAD_CNTR * g_maxPulse)/100;
+                else
+                    g_stepDown = ((MOT_PWM_RELOAD_CNTR/(cfg->up_time*MOT_PWM_FREQ))*g_maxPulse)/100;
+
+                g_activeMotor = motor;
+
+                switch (g_activeMotor) {
+                case MOT_ACTIVE_0:
+                    break;
+                case MOT_ACTIVE_1:
+                    HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0,GPIO_PIN_SET);
+                    break;
+                case MOT_ACTIVE_2:
+                    HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A1,GPIO_PIN_SET);
+                    break;
+                case MOT_ACTIVE_3:
+                    HAL_GPIO_WritePin(GPIOC,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_SET);
+                    break;
+                case MOT_ACTIVE_4:
+                    HAL_GPIO_WritePin(GPIOA,MOT_PWM_PIN_A2,GPIO_PIN_SET);
+                    break;
+                default:
+                    break;
+                }
+
                 retval = g_activeMotor;
+            } else {
+                //Log(LogError, "bad up: %d or down: %d time!",cfg->up_time,cfg->down_time);
+                Log(LogError,"bad timing parameter");
             }
         } else {
             Log(LogInfo, "motor already active.");
@@ -150,11 +169,11 @@ void motTask1s() {
 
     if (g_activeMotor == MOT_ACTIVE_NONE)
     {
-        cfg.down_time = 10;
-        cfg.up_time = 10;
-        cfg.high_time = 5;
-        cfg.max_level = 90;
-        motControlStart(/*(counter % 5)+*/1,&cfg);
+        cfg.down_time = 5;
+        cfg.up_time = 5;
+        cfg.high_time = 10;
+        cfg.max_level = 100;
+        motControlStart((counter % 2)+1,&cfg);
         counter++;
     }
 }
@@ -164,8 +183,10 @@ void motTask100ms() {
     {
         switch (g_activeState) {
         case MOT_STATE_IDLE:
-            g_activeState = MOT_STATE_RAMPUP;
             setPulse(g_maxPulse);
+            setPulseStepUp(g_stepUp);
+            setPulseStepDown(g_stepDown);
+            g_activeState = MOT_STATE_RAMPUP;
             break;
         case MOT_STATE_RAMPUP:
             setState(MOT_STATE_RAMPUP);
@@ -173,7 +194,7 @@ void motTask100ms() {
             g_activeState = MOT_STATE_WAIT_UP;
             break;
         case MOT_STATE_WAIT_UP:
-            if (g_maxPulse <= getPulse()) {
+            if (MOT_STATE_HIGH == getState()) {
                 g_activeState = MOT_STATE_HIGH;
             }
             break;
@@ -188,7 +209,7 @@ void motTask100ms() {
             g_activeState = MOT_STATE_WAIT_DOWN;
             break;
         case MOT_STATE_WAIT_DOWN:
-            if (0 == getPulse()) {
+            if (MOT_STATE_IDLE == getState()) {
                 g_activeState = MOT_STATE_DONE;
                 HAL_TIM_PWM_Stop_IT(ptrTimer,TIM_CHANNEL_2);
             }

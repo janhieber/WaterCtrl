@@ -20,8 +20,9 @@
 #define MOT_PWM_PIN_A2 GPIO_PIN_0
 #define MOT_PWM_PORT_A2 GPIOA
 
-#define MOT_PWM_FREQ 100 //Hz
+#define MOT_PWM_FREQ (uint32_t)100 //Hz
 #define MOT_PWM_RELOAD_CNTR (uint32_t)20000
+#define MOT_MAX_FLANK_TIME (uint32_t)(MOT_PWM_RELOAD_CNTR/MOT_PWM_FREQ)
 
 
 typedef enum _activeMotor {
