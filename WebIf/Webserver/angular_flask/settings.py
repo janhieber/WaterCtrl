@@ -3,8 +3,9 @@ DEBUG = True
 SECRET_KEY = 'temporary_secret_key'  # make sure to change this
 
 DBUSER = 'waterctrl_user'
-DBPASSWD = 'W@t3rC!rl'
+DBPASSWD = 'Wfmd22nGixsP'
 DBSCHEMA = 'waterctrl'
 DBHOST = '127.0.0.1'
+DBPORT = '5432'
 
-SQLALCHEMY_DATABASE_URI = 'mysql://' + DBUSER + ':' + DBPASSWD + '@' + DBHOST + '/' + DBSCHEMA
+SQLALCHEMY_DATABASE_URI = 'postgresql://' + DBUSER + ':' + DBPASSWD + '@' + DBHOST + ":" + DBPORT + '/' + DBSCHEMA
