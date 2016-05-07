@@ -85,6 +85,7 @@ class app(threading.Thread):
                 
                 # xfer data over SPI
                 recvbuf = self.SPI.xfer2(sendbuf)
+                
                 # remove trailing zeros
                 while len(recvbuf) > 0 and recvbuf[-1] == 0:
                     recvbuf.pop()

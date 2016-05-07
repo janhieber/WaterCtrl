@@ -16,6 +16,15 @@
 	                <input type="text" id="inputDuration" ng-model="motor.duration"/>
 	            </div>
 	        </div>
+			<div class="control-group">
+	            <label class="control-label" for="inputSensor">Sensor:</label>
+	            <div class="controls">
+	            	<select id="inputSensor" ng-model="motor.sensor_id">
+	            		<option value="">please select a sensor</option>
+				        <option ng-repeat="sensor in sensors.objects" ng-selected="(motor.sensor_id === ($index + 1))" value="{{$index + 1}}">sensor: channel {{sensor.channel}} - frequency {{sensor.frequency}}</option>
+				    </select>
+	            </div>
+	        </div>
 	        <div class="control-group">
 	            <div class="controls">
 	            	<a ng-click="cancel()" class="btn btn-small btn-primary">cancel</a>

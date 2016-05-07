@@ -27,7 +27,7 @@ class Sensor(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   channel = db.Column(db.Integer)
   frequency = db.Column(db.Integer)
-  
+
   def __init__(self, channel, frequency):
     self.channel = channel
     self.frequency = frequency
@@ -36,10 +36,12 @@ class Motor(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   channel = db.Column(db.Integer)
   duration = db.Column(db.Integer)
+  sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
   
-  def __init__(self, channel, duration):
+  def __init__(self, channel, duration, sensor_id):
     self.channel = channel
     self.duration = duration
+    self.sensor_id = sensor_id
 
 class Plant(db.Model):
   id = db.Column(db.Integer, primary_key = True)

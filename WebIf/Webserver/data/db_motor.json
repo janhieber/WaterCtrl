@@ -2,27 +2,33 @@
 	"motor": [
 		{
 			"channel": 1,
-			"duration": 10
+			"duration": 10,
+			"sensor_id": 1
 		},
 		{
 			"channel": 2,
-			"duration": 20
+			"duration": 20,
+			"sensor_id": 1
 		},
 		{
 			"channel": 3,
-			"duration": 30
+			"duration": 30,
+			"sensor_id": 2
 		},
 		{
 			"channel": 4,
-			"duration": 40
+			"duration": 40,
+			"sensor_id": 2
 		},
 		{
 			"channel": 5,
-			"duration": 50
+			"duration": 50,
+			"sensor_id": 3
 		},
 		{
 			"channel": 6,
-			"duration": 60
+			"duration": 60,
+			"sensor_id": 3
 		}
 	]
 }

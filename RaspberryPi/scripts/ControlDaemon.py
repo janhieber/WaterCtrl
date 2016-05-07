@@ -7,9 +7,9 @@ import queue
 import time
 import random
 import logging
-import mysql.connector
 import configparser
-
+import psycopg2
+import sys
 
 
 """
@@ -18,6 +18,7 @@ import configparser
     like pouring and database stuff
 """
 class app(threading.Thread):
+
     def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
         self.sendQueue = sendQueue
@@ -26,34 +27,84 @@ class app(threading.Thread):
         self.config = configparser.RawConfigParser()
         self.config.read('WaterCtrl.conf')
 
+
     def setup(self):
+
+        # query config values
+        self.cycleTime = self.config.getfloat('ControlDaemon', 'cycleTime')
+
         # connect to db
-        if len(self.config.get('database', 'unix_socket')) == 0:
-            dbcfg = {
-                'user': self.config.get('database', 'user'),
-                'password': self.config.get('database', 'password'),
-                'host': self.config.get('database', 'host'),
-                'database': self.config.get('database', 'database')
-            }
-        else:
-            dbcfg = {
-                'user': self.config.get('database', 'user'),
-                'password': self.config.get('database', 'password'),
-                'unix_socket': self.config.get('database', 'unix_socket'),
-                'database': self.config.get('database', 'database')
-            }
-        self.db = mysql.connector.connect(**dbcfg)
-                              
+        dbcfg = {
+            'user': self.config.get('database', 'user'),
+            'password': self.config.get('database', 'password'),
+            'host': self.config.get('database', 'unix_socket'),
+            'database': self.config.get('database', 'database')
+        }
+
+        # get a connection, if a connect cannot be made an exception will be raised here
+        self.db = psycopg2.connect(**dbcfg)
+        logging.info('Database connected.')
+
+
+    def getAllSensors(self):
+        logging.info('Read sensor values from database.')
+
+        # open db cursor and query data
+        self.dbc = self.db.cursor()
+        query = ("SELECT id, channel, frequency FROM sensor")
+        self.dbc.execute(query)
+
+        # retrieve the channels from the database
+        records = self.dbc.fetchall()
+        self.dbc.close()
+
+        return records
+
+
+    def getMotorsForSensorChannel(self, sensorId):
+        logging.info('Read motor values from database.')
+
+        # open db cursor and query data
+        self.dbc = self.db.cursor()
+        query = ("SELECT id, channel, duration FROM motor WHERE sensor_id = %s" % (sensorId, ))
+        self.dbc.execute(query)
+
+        # retrieve the channels from the database
+        records = self.dbc.fetchall()
+        self.dbc.close()
+
+        return records
+
+
     def run(self):
         logging.info('Starting')
         self.setup()
+        nextCycle = time.time()
+
         while True:
-            # open db cursor and query data
-            self.dbc = self.db.cursor()
-            query = ("SELECT * FROM bla")
-            #self.dbc.execute(query)
-            self.dbc.close()
-            
+
+            # read sensor and motor channels from database
+            sensors = self.getAllSensors()
+            logging.info('Received sensors from database: %s', sensors)
+
+            for sensor in sensors:
+                logging.info('Checking sensor: %s', sensor[1])
+                
+                
+                
+                # read sensor frequency
+                
+                # check sensor frequency against database value
+                # ??? need to sleep while reading sensor value???
+                
+                # start motor if needed
+                # ??? need to sleep while starting motor???
+                
+                # motors only needed if watering is required
+                motors = self.getMotorsForSensorChannel(sensor[0])
+                logging.info('Received motors from database: %s', motors)
+
+
             # queue some data for MessageBroker
             randomData = random.choice('abcdefghij')
             #self.sendQueue.put(randomData)
@@ -70,9 +121,12 @@ class app(threading.Thread):
             bla = round(random.uniform(0, 1))
             if bla == 0:
                 self.sendQueue.put("test bla")
-            
-            # sleep random time 0.1 - 2.0 sec
-            time.sleep(random.uniform(0.1, 2.0))
+
+            # wait for next cycle
+            nextCycle = nextCycle + self.cycleTime
+            sleeptime = nextCycle - time.time()
+            if sleeptime >= 0.0:
+                time.sleep(nextCycle - time.time())
         
         # manage exit
         self.exit_()
