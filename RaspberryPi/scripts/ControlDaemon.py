@@ -51,7 +51,7 @@ class app(threading.Thread):
 
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ("SELECT id, channel, frequency FROM sensor")
+        query = ('SELECT id, channel, frequency FROM sensor')
         self.dbc.execute(query)
 
         # retrieve the channels from the database
@@ -61,25 +61,70 @@ class app(threading.Thread):
         return records
 
 
-    def getMotorsForSensorChannel(self, sensorId):
+    def getMotorsForSensorId(self, sensorId):
         logging.info('Read motor values from database.')
 
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ("SELECT id, channel, duration FROM motor WHERE sensor_id = %s" % (sensorId, ))
-        self.dbc.execute(query)
+        query = ('SELECT id, channel, duration, sensor_id FROM motor WHERE sensor_id = %s')
+        self.dbc.execute(query, (sensorId, ))
 
         # retrieve the channels from the database
         records = self.dbc.fetchall()
         self.dbc.close()
 
         return records
+        
+    
+    def getPlantsForMotorId(self, motorId):
+        logging.info('Read plants from database.')
 
+        # open db cursor and query data
+        self.dbc = self.db.cursor()
+        query = ('SELECT id, name, description, watering_interval, motor_id FROM plant WHERE motor_id = %s')
+        self.dbc.execute(query, (motorId, ))
+
+        # retrieve the channels from the database
+        records = self.dbc.fetchall()
+        self.dbc.close()
+
+        return records
+        
+    
+    # insert log entry to database
+    # log states are:
+    #   0: error
+    #   1: warning
+    #   2: success
+    def insertLogEntry(self, logMessage, logState):
+        logging.info('Insert log entry to database. Status: %s, Message: %s', logState, logMessage)
+        
+        # open db cursor and query data
+        self.dbc = self.db.cursor()
+        query = ('INSERT INTO log (log_entry, log_state, log_date) VALUES (%s, %s, %s)')
+        self.dbc.execute(query, (logMessage, logState, time.strftime('%Y-%m-%d %H:%M:%S')))
+        self.db.commit()
+        self.dbc.close()
 
     def run(self):
         logging.info('Starting')
         self.setup()
         nextCycle = time.time()
+
+        # sensor[0] = id
+        # sensor[1] = channel
+        # sensor[2] = frequency
+        
+        # motor[0] = id
+        # motor[1] = channel
+        # motor[2] = duration
+        # motor[3] = sensor_id
+        
+        # plant[0] = id
+        # plant[1] = name
+        # plant[2] = description
+        # plant[3] = watering_interval
+        # plant[4] = motor_id
 
         while True:
 
@@ -90,19 +135,32 @@ class app(threading.Thread):
             for sensor in sensors:
                 logging.info('Checking sensor: %s', sensor[1])
                 
-                
-                
+            
                 # read sensor frequency
                 
                 # check sensor frequency against database value
                 # ??? need to sleep while reading sensor value???
                 
-                # start motor if needed
-                # ??? need to sleep while starting motor???
+                sensorvalue = 200
                 
-                # motors only needed if watering is required
-                motors = self.getMotorsForSensorChannel(sensor[0])
-                logging.info('Received motors from database: %s', motors)
+                # if measured value is smaller than value from database, watering is needed
+                if sensorvalue <= sensor[2]:
+                    # motors only needed if watering is required
+                    motors = self.getMotorsForSensorId(sensor[0])
+                    logging.info('Received motors for sensor %s from database: %s', sensor[1], motors)
+                    
+                    # start motor if needed
+                    # ??? need to sleep while starting motor???
+                    for motor in motors:
+                        logging.info('Start watering for motor: %s', motor[1])
+                        
+                        # read plants for logging entries
+                        plants = self.getPlantsForMotorId(motor[0])
+                        logging.info('Received plants for motor %s from database: %s', motor[1], plants)
+                        
+                        #self.insertLogEntry('stubbed text', 2)
+                    
+                
 
 
             # queue some data for MessageBroker

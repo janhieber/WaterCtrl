@@ -12,7 +12,7 @@ class User(db.Model):
 
 class Log(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	log_entry = db.Column(db.String(20))
+	log_entry = db.Column(db.String(200))
 	log_state = db.Column(db.Integer)
 	log_date = db.Column(db.DateTime)
 	
@@ -48,14 +48,12 @@ class Plant(db.Model):
   name = db.Column(db.String(20))
   description = db.Column(db.Text)
   watering_interval = db.Column(db.Integer)
-  sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
   motor_id = db.Column(db.Integer, db.ForeignKey('motor.id'))
 
-  def __init__(self, name, description, watering_interval, sensor_id, motor_id):
+  def __init__(self, name, description, watering_interval, motor_id):
     self.name = name
     self.description = description
     self.watering_interval = watering_interval
-    self.sensor_id = sensor_id
     self.motor_id = motor_id
 
 class Watering(db.Model):
