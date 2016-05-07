@@ -66,3 +66,15 @@
 # libreoffice
 *.csv#
 
+
+# IntelliJ
+out/
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Python
+*.pyc
