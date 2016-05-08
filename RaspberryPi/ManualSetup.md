@@ -115,7 +115,51 @@ We will use PostgreSQL.
 ```shell
 sudo apt-get install postgresql postgresql-contrib postgresql-client php5-pgsql python3-postgresql
 ```
-	
+
+### Configure PostgreSQL:
+When creating the user, a password will be assigned.  
+We name this user *pi*, because when you are logged in as shell user *pi*,
+PostgreSQL translates the username and grants you permissions.
+
+```shell
+sudo su - postgres
+createuser -P pi
+createdb -O pi waterctrl
+exit
+
+```
+
+### Access from outside
+If you want to manage our DB from outside
+with a GUI like [pgadmin](http://www.pgadmin.org), you can make
+the database accessible over network.  
+Be careful, that means that everybody in your home network can connect
+to the database!
+
+Edit `/etc/postgresql/9.4/main/pg_hba.conf`:  
+Add `host all all 192.168.0.0/24 md5` to allow a whole network.  
+Add `host all all 192.168.0.123/32 md5` to allow a specific IP.
+
+Further information: [http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html](http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html)
+
+Then change  
+`listen_addresses = 'localhost'`  
+to  
+`listen_addresses = '*'`  
+in `/etc/postgresql/9.4/main/postgresql.conf`
+
+If you forgot to set a password for the SQL user before:
+```shell
+echo "ALTER ROLE pi WITH PASSWORD 'secure123'" | psql
+```
+
+Restart PostgreSQL
+```shell
+sudo service postgresql restart
+```
+
+
+
 
 ### Create a database
 
@@ -125,7 +169,7 @@ sudo apt-get install postgresql postgresql-contrib postgresql-client php5-pgsql 
 	GRANT ALL ON waterctrl.* TO 'waterctrl_user'@'localhost';
 	FLUSH PRIVILEGES;
 
-## Install required dependencies
+## Install dependencies for webinterface
 
 TODO: change to PostgreSQL
 
@@ -215,6 +259,8 @@ Make the script executable `chmod +x /etc/init.d/webinterface`.
 Finally, update the daemons `sudo update-rc.d webinterface defaults`.
 
 Now you can start the webserver via the command `service webinterface start`.
+
+
 
 ## Create tables for database
 TODO: rewrite to PostgreSQL

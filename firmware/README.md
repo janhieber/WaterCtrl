@@ -1,5 +1,6 @@
 # Flash current firmware
-We copy the current firmware into this folder, see the .bin files.
+We copy some releases to the *bin* folder.
+Download the latest and flash as follows:
 
 To flash these firmares with Linux or OSX use the flash script:
 ```bash
@@ -12,21 +13,27 @@ In the menu you can select a file to flash.
 
 
 # Dev environment
-We use [Coocox](http://www.coocox.org/software.html) for development with ARM GCC embedded.
+Download and install System Workbench from [openstm32](http://www.openstm32.org/HomePage)
 
-*Before we used Eclipse with GNU ARM Eclipse plugins, but the Eclipse workspace
-and project are many files which are difficult to handle with git and sync with others.
-Also the setup was complicated and the configuration for flashing and debugging are complicated and vary from
-system to system.  
-This is why we now use Coocox, a little sad about the fact that it does not work
-under Linux (for now) but so shall it be.*
-
-You will also need [ARM GCC embedded](https://launchpad.net/gcc-arm-embedded/+download) toolchain.
-
-If you want to change things at the lowest level you will also need the initialisation
-code generator [STM32CubeMX](http://www.st.com/web/catalog/tools/FM147/CL1794/SC961/SS1743/PF259242?sc=microxplorer).
+or:  
+Integrate System Workbench in your existing Eclipse. Read on the [openstm32](http://www.openstm32.org/HomePage)
+website how to do this. This is the better solution as the shipped Eclipse is
+a bit out of date.
 
 
+Open System Workbench/Eclipse and create a workspace or use your existing.  
+Do _not_ use a workspace withing this git repo!
+
+Click *File* > *Import* > *Existing Project into Workspace*  
+Browse to the git repo and select *firmware/WaterCtrl_v1* folder.
+
+Uncheck *Copy projects into workspace* and click *Finish*.  
+Now you have your project in the project explorer and can work with it
+and sync your changes to git.
+
+Click the green play/run button to flash the software. Debug also works.
+
+Have fun!
 
 
 # CPU Pins
@@ -55,17 +62,4 @@ code generator [STM32CubeMX](http://www.st.com/web/catalog/tools/FM147/CL1794/SC
 |42      |PB6            |I/O   |TIM4_CH1      |          |
 |46      |PB9            |Output|GPIO_Output   |LED_ERR   |
 
-
-# How is the project organised?
-First, the project is a default Coocox project. You will find a subfolder named
-*cubemx*, in this folder is the STM32CubeMX project and the generated source code.  
-Most of the code and the generated project file are of no use to us, we simply ignore them.  
-For the files we use, we create a *group* in the Coocox project view and add the files.  
-This way we can simply regenerate the code without any problems or conflict with Coocox.  
-
-
-
-# Special configuration
-In Coocox go to Edit -> Preferences -> General -> Editors -> Text Editors and check *insert spaces for tabs*.
-   We use tabs with 4 spaces
 
