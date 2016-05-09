@@ -99,12 +99,27 @@ class app(threading.Thread):
     def insertLogEntry(self, logMessage, logState):
         logging.info('Insert log entry to database. Status: %s, Message: %s', logState, logMessage)
         
-        # open db cursor and query data
+        # open db cursor and insert data
         self.dbc = self.db.cursor()
         query = ('INSERT INTO log (log_entry, log_state, log_date) VALUES (%s, %s, %s)')
         self.dbc.execute(query, (logMessage, logState, time.strftime('%Y-%m-%d %H:%M:%S')))
         self.db.commit()
         self.dbc.close()
+        
+    # insert watering entry to database
+    # watering states are:
+    #   0: nok
+    #   1: ok
+    def insertWateringEntry(self, wateringDuration, wateringState, plantId):
+        logging.info('Insert watering entry to database. Duration: %s, State: %s, Plant Id: %s', wateringDuration, wateringState, plantId)
+        
+        # open db cursor and insert data
+        self.dbc = self.db.cursor()
+        query = ('INSERT INTO watering (watering_date, watering_duration, watering_state, plant_id) VALUES (%s, %s, %s, %s)')
+        self.dbc.execute(query, (time.strftime('%Y-%m-%d %H:%M:%S'), wateringDuration, wateringState, plantId))
+        self.db.commit()
+        self.dbc.close()
+    
 
     def run(self):
         logging.info('Starting')
@@ -153,12 +168,21 @@ class app(threading.Thread):
                     # ??? need to sleep while starting motor???
                     for motor in motors:
                         logging.info('Start watering for motor: %s', motor[1])
+                        #self.insertLogEntry('stubbed text', 2)
                         
                         # read plants for logging entries
                         plants = self.getPlantsForMotorId(motor[0])
                         logging.info('Received plants for motor %s from database: %s', motor[1], plants)
                         
-                        #self.insertLogEntry('stubbed text', 2)
+                        
+                        
+                        for plant in plants:
+                            logging.info('Checking plant: %s', plant[1])
+                            # check if watering was ok
+                            # query sensor values from arm for check
+                            #self.insertWateringEntry(motor[2], 1, plant[0])
+                        
+                            
                     
                 
 
