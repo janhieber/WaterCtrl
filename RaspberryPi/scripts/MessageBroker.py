@@ -98,6 +98,7 @@ class app(threading.Thread):
                         
                 # check if we are finnished
                 if sum(recvbuf) == 0:
+                    logging.info("Received message: %s", recvArray)
                     recvComplete = True
                 else:
                     time.sleep(0.01)

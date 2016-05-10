@@ -31,6 +31,9 @@ Uncheck *Copy projects into workspace* and click *Finish*.
 Now you have your project in the project explorer and can work with it
 and sync your changes to git.
 
+Modify the last line in the file *WaterCtrl_v1.cfg*.
+Should be: *reset_config none separate*
+
 Click the green play/run button to flash the software. Debug also works.
 
 Have fun!
