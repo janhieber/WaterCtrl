@@ -145,7 +145,8 @@ int main(void)
 
     // setup logging, first UART, later with SPI
     logSetDestination(LogDstSerConsole);
-    logSetFilter(LogDebug | LogError | LogInfo);
+    //logSetFilter(LogDebug | LogError | LogInfo);
+    logSetFilter(LogError | LogInfo);
 
     // nice greetings
     Log(LogInfo, "WaterCtrl version %d", VERSION);
