@@ -152,6 +152,7 @@ class app(threading.Thread):
                 
             
                 # read sensor frequency
+                self.sendQueue.put([0x12])
                 
                 # check sensor frequency against database value
                 # ??? need to sleep while reading sensor value???
@@ -188,7 +189,7 @@ class app(threading.Thread):
 
 
             # queue some data for MessageBroker
-            randomData = random.choice('abcdefghij')
+            #randomData = random.choice('abcdefghij')
             #self.sendQueue.put(randomData)
             
             # check if we should exit
@@ -200,9 +201,9 @@ class app(threading.Thread):
             
             
             # send test data
-            bla = round(random.uniform(0, 1))
-            if bla == 0:
-                self.sendQueue.put("test bla")
+            #bla = round(random.uniform(0, 1))
+            #if bla == 0:
+            #    self.sendQueue.put("test bla")
 
             # wait for next cycle
             nextCycle = nextCycle + self.cycleTime

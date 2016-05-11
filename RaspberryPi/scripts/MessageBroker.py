@@ -67,21 +67,31 @@ class app(threading.Thread):
                 recvData = ''
                 
                 # create sendbuffer
+                #sendbuf = self.sendQueue.get()
                 if not self.sendQueue.empty():
-                    sendData = self.sendQueue.get()
+                    #sendData = self.sendQueue.get()
+                    #sendbuf = self.sendQueue.get()
+                    self.sendQueue.get()
+                    sendbuf = [0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
                 else:
-                    sendData = ""
+                    sendbuf = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
                     
                 # check if send queue is now empty
                 if self.sendQueue.empty():
                     sendComplete = True;
                 
                 # convert string to byte array
-                sendbuf = [ord(c) for c in sendData]
+                #sendbuf = [ord(c) for c in sendData]
                 
+                for x in range(len(sendbuf), 16):
+                    print(x)
+                    sendbuf[x] = 0x00
+              
+              
                 # fill with zeros
-                while len(sendbuf) < 16:
-                    sendbuf.append(0)
+                #while len(sendbuf) < 16:
+                    #sendbuf.append(0)
+                    #sendbuf += b'\x00'
                 
                 # xfer data over SPI
                 recvbuf = self.SPI.xfer2(sendbuf)
