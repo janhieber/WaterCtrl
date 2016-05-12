@@ -164,9 +164,11 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
         return;
 
     // check last received bytes
-    bool notEmpty = false;
-    for (uint32_t i = 0; i < SPI_XFER_SIZE; i++)
+    volatile bool notEmpty = false;
+    for (uint32_t i = 0; i < SPI_XFER_SIZE; i++) {
         notEmpty = spiRecvQueue[spiRecvQueueIdx][i] != 0 ? true : notEmpty;
+        break;
+    }
 
     // if we received nothing, let the recv buffer as is
     if (notEmpty) {
@@ -179,8 +181,10 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
             spiRecvQueueIdx++;
         // check if next segment is empty to receive data
         notEmpty = false;
-        for (uint32_t i = 0; i < SPI_XFER_SIZE; i++)
+        for (uint32_t i = 0; i < SPI_XFER_SIZE; i++) {
             notEmpty = spiRecvQueue[spiRecvQueueIdx][i] != 0 ? true : notEmpty;
+            break;
+        }
         // if there is data, receive buf is too small
         if (notEmpty)
             Log(LogError, "SPI receive buf too small!");

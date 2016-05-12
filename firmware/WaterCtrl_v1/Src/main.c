@@ -152,7 +152,7 @@ int main(void)
     Log(LogInfo, "WaterCtrl version %d", VERSION);
     Log(LogInfo, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
 
-    HAL_Delay(1000);
+    //HAL_Delay(1000);
 
     // init modules
     initMoistureMeasure(&htim3);
