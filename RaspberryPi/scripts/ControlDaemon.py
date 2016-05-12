@@ -16,8 +16,30 @@ import sys
     This is the main control daemon.
     It controls all high level functions
     like pouring and database stuff
+
+    0x01 - Error message as ASCII string
+    0x02 - Info message as ASCII string
+    0x03 - Debug message as ASCII string
+    0x10 - Motor control command
+        2. byte: motor number
+        3. byte: ramp up time
+        4. byte: time to run
+        5. byte: ramp down time
+        6. byte: max speed: 0-100% (of PWM)
+    0x11 - Motor control response
+        2. byte: motor number
+        3. byte: 0xab = done | 0xac = error
+    0x12 - Moisture measure request
+        2. byte: sensor number
+    0x13 - Moisture measure value
+        2. byte: sensor number
+        3. byte: moisture value scaled to 8bit unsigned (kHz)
 """
 class app(threading.Thread):
+    SPI_EMPTY = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    SPI_READ_SENSORS = [0x12, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    SPI_START_MOTOR = [0x10, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
 
     def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
@@ -31,7 +53,8 @@ class app(threading.Thread):
     def setup(self):
 
         # query config values
-        self.cycleTime = self.config.getfloat('ControlDaemon', 'cycleTime')
+        self.cycleTime = self.config.getfloat('general', 'cycleTime')
+        self.wateringCycleTime = self.config.getfloat('ControlDaemon', 'wateringCycleTime')
 
         # connect to db
         dbcfg = {
@@ -74,8 +97,8 @@ class app(threading.Thread):
         self.dbc.close()
 
         return records
-        
-    
+
+
     def getPlantsForMotorId(self, motorId):
         logging.info('Read plants from database.')
 
@@ -89,8 +112,8 @@ class app(threading.Thread):
         self.dbc.close()
 
         return records
-        
-    
+
+
     # insert log entry to database
     # log states are:
     #   0: error
@@ -98,43 +121,44 @@ class app(threading.Thread):
     #   2: success
     def insertLogEntry(self, logMessage, logState):
         logging.info('Insert log entry to database. Status: %s, Message: %s', logState, logMessage)
-        
+
         # open db cursor and insert data
         self.dbc = self.db.cursor()
         query = ('INSERT INTO log (log_entry, log_state, log_date) VALUES (%s, %s, %s)')
         self.dbc.execute(query, (logMessage, logState, time.strftime('%Y-%m-%d %H:%M:%S')))
         self.db.commit()
         self.dbc.close()
-        
+
     # insert watering entry to database
     # watering states are:
     #   0: nok
     #   1: ok
     def insertWateringEntry(self, wateringDuration, wateringState, plantId):
         logging.info('Insert watering entry to database. Duration: %s, State: %s, Plant Id: %s', wateringDuration, wateringState, plantId)
-        
+
         # open db cursor and insert data
         self.dbc = self.db.cursor()
         query = ('INSERT INTO watering (watering_date, watering_duration, watering_state, plant_id) VALUES (%s, %s, %s, %s)')
         self.dbc.execute(query, (time.strftime('%Y-%m-%d %H:%M:%S'), wateringDuration, wateringState, plantId))
         self.db.commit()
         self.dbc.close()
-    
+
 
     def run(self):
         logging.info('Starting')
         self.setup()
         nextCycle = time.time()
+        nextWateringCycle = time.time()
 
         # sensor[0] = id
         # sensor[1] = channel
         # sensor[2] = frequency
-        
+
         # motor[0] = id
         # motor[1] = channel
         # motor[2] = duration
         # motor[3] = sensor_id
-        
+
         # plant[0] = id
         # plant[1] = name
         # plant[2] = description
@@ -143,63 +167,70 @@ class app(threading.Thread):
 
         while True:
 
-            # read sensor and motor channels from database
-            sensors = self.getAllSensors()
-            logging.info('Received sensors from database: %s', sensors)
 
-            for sensor in sensors:
-                logging.info('Checking sensor: %s', sensor[1])
-                
-            
-                # read sensor frequency
-                self.sendQueue.put([0x12])
-                
-                # check sensor frequency against database value
-                # ??? need to sleep while reading sensor value???
-                
-                sensorvalue = 200
-                
-                # if measured value is smaller than value from database, watering is needed
-                if sensorvalue <= sensor[2]:
-                    # motors only needed if watering is required
-                    motors = self.getMotorsForSensorId(sensor[0])
-                    logging.info('Received motors for sensor %s from database: %s', sensor[1], motors)
-                    
-                    # start motor if needed
-                    # ??? need to sleep while starting motor???
-                    for motor in motors:
-                        logging.info('Start watering for motor: %s', motor[1])
-                        #self.insertLogEntry('stubbed text', 2)
-                        
-                        # read plants for logging entries
-                        plants = self.getPlantsForMotorId(motor[0])
-                        logging.info('Received plants for motor %s from database: %s', motor[1], plants)
-                        
-                        
-                        
-                        for plant in plants:
-                            logging.info('Checking plant: %s', plant[1])
-                            # check if watering was ok
-                            # query sensor values from arm for check
-                            #self.insertWateringEntry(motor[2], 1, plant[0])
-                        
-                            
-                    
-                
+            # watering implementation has different cycle time
+            # wait for next cycle
+            if nextWateringCycle - time.time() <= 0.0:
+                # set time for next watering cycle
+                nextWateringCycle = nextWateringCycle + self.wateringCycleTime
+
+                # read sensor and motor channels from database
+                sensors = self.getAllSensors()
+                logging.info('Received sensors from database: %s', sensors)
+
+                for sensor in sensors:
+                    logging.info('Checking sensor: %s', sensor[1])
+
+
+                    # read sensor frequency
+                    self.sendQueue.put(self.SPI_READ_SENSORS)
+
+                    # check sensor frequency against database value
+                    # ??? need to sleep while reading sensor value???
+
+                    sensorvalue = 200
+
+                    # if measured value is smaller than value from database, watering is needed
+                    if sensorvalue <= sensor[2]:
+                        # motors only needed if watering is required
+                        motors = self.getMotorsForSensorId(sensor[0])
+                        logging.info('Received motors for sensor %s from database: %s', sensor[1], motors)
+
+                        # start motor if needed
+                        # ??? need to sleep while starting motor???
+                        for motor in motors:
+                            logging.info('Start watering for motor: %s', motor[1])
+                            #self.insertLogEntry('stubbed text', 2)
+
+                            # read plants for logging entries
+                            plants = self.getPlantsForMotorId(motor[0])
+                            logging.info('Received plants for motor %s from database: %s', motor[1], plants)
+
+
+
+                            for plant in plants:
+                                logging.info('Checking plant: %s', plant[1])
+                                # check if watering was ok
+                                # query sensor values from arm for check
+                                #self.insertWateringEntry(motor[2], 1, plant[0])
+
+
+
+
 
 
             # queue some data for MessageBroker
             #randomData = random.choice('abcdefghij')
             #self.sendQueue.put(randomData)
-            
+
             # check if we should exit
             if self.exit:
                 break
-            
+
             while not self.recvQueue.empty():
                 print("REC: " + self.recvQueue.get())
-            
-            
+
+
             # send test data
             #bla = round(random.uniform(0, 1))
             #if bla == 0:

@@ -19,6 +19,8 @@ import spidev
     It controls the SPI communication
 """
 class app(threading.Thread):
+    SPI_EMPTY = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
     def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
         self.sendQueue = sendQueue
@@ -40,7 +42,7 @@ class app(threading.Thread):
         self.SPI.max_speed_hz = self.config.getint('SPI', 'baudrate')
         
         # query config values
-        self.cycleTime = self.config.getfloat('MessageBroker', 'cycleTime')
+        self.cycleTime = self.config.getfloat('general', 'cycleTime')
         self.xfer_size = self.config.getint('SPI', 'xfer_size')
             
     def run(self):
@@ -70,32 +72,30 @@ class app(threading.Thread):
                 #sendbuf = self.sendQueue.get()
                 if not self.sendQueue.empty():
                     #sendData = self.sendQueue.get()
-                    #sendbuf = self.sendQueue.get()
-                    self.sendQueue.get()
-                    sendbuf = [0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+                    sendbuf = self.sendQueue.get()
                 else:
-                    sendbuf = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-                    
+                    sendbuf = self.SPI_EMPTY
+
                 # check if send queue is now empty
                 if self.sendQueue.empty():
                     sendComplete = True;
-                
+
                 # convert string to byte array
                 #sendbuf = [ord(c) for c in sendData]
-                
-                for x in range(len(sendbuf), 16):
-                    print(x)
-                    sendbuf[x] = 0x00
-              
-              
+
+                #for x in range(len(sendbuf), 16):
+                #    print(x)
+                #    sendbuf[x] = 0x00
+
+
                 # fill with zeros
                 #while len(sendbuf) < 16:
                     #sendbuf.append(0)
                     #sendbuf += b'\x00'
-                
+
                 # xfer data over SPI
                 recvbuf = self.SPI.xfer2(sendbuf)
-                
+
                 # remove trailing zeros
                 while len(recvbuf) > 0 and recvbuf[-1] == 0:
                     recvbuf.pop()
@@ -105,7 +105,7 @@ class app(threading.Thread):
                         recvArray.append(''.join(chr(c) for c in recvbuf))
                     else:
                         recvArray[len(recvArray)-1] += ''.join(chr(c) for c in recvbuf)
-                        
+
                 # check if we are finnished
                 if sum(recvbuf) == 0:
                     logging.info("Received message: %s", recvArray)
