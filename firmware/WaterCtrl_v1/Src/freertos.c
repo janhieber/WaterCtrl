@@ -141,7 +141,7 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
 
 	// this is a auto generated dummy, so suspend it
-	osThreadSuspend(NULL);
+	//osThreadSuspend(NULL);
 
   /* Infinite loop */
   for(;;)
@@ -156,6 +156,14 @@ void StartDefaultTask(void const * argument)
 
 	osDelay(200);
 	SpiSend(&buf);
+
+
+	osDelay(3000);
+	MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
+	cmd->motor = 1;
+	cmd->time = 2;
+	cmd->speed = 50;
+	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 
   }
   /* USER CODE END StartDefaultTask */
