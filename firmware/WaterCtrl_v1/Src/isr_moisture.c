@@ -9,7 +9,6 @@
   */
 
 #include "stm32f1xx_hal.h"
-#include <log.h>
 
 uint32_t getFrequencyOfChannel();
 void resetFrequencyOfChannel();

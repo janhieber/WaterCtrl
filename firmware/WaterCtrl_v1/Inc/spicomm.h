@@ -33,6 +33,8 @@ typedef struct SpiBuffer {
 } SpiBuffer;
 
 
+void initSpi(void);
+void procSpiBroker(void const * argument);
 
 bool SpiSend(SpiBuffer* data);
 

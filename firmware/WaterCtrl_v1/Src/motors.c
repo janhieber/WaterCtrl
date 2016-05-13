@@ -35,7 +35,6 @@
 /* Private define ------------------------------------------------------------*/
 
 #include <spicomm.h>
-#include <log.h>
 #include <motors.h>
 #include <broker.h>
 #include "cmsis_os.h"
@@ -47,10 +46,10 @@
 #define SYSNAME "Motors"
 
 osMessageQId motorCtrlQueue;
-osMessageQDef(_motorCtrlQueue, 20, MotorCmd);
+osMessageQDef(motorCtrlQueue, 20, MotorCmd*);
 
-osPoolDef(_motorCtrlPool, 20, MotorCmd);
 osPoolId  motorCtrlPool;
+osPoolDef(motorCtrlPool, 20, MotorCmd);
 
 
 
@@ -132,6 +131,7 @@ int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
     return retval;
 }
 
+/*
 void motBrokerMessage(char *buf, uint8_t length)
 {
     stMotCfg cfg = {0,0,0,0};
@@ -164,15 +164,15 @@ void motBrokerMessage(char *buf, uint8_t length)
     default:
         break;
     }
-}
+}*/
 
 void motInit(TIM_HandleTypeDef * ref) {
 	INITBEGIN;
 
 
 
-	motorCtrlQueue = osMessageCreate(osMessageQ(_motorCtrlQueue), NULL);
-	motorCtrlPool = osPoolCreate(osPool(_motorCtrlPool));
+	motorCtrlQueue = osMessageCreate(osMessageQ(motorCtrlQueue), NULL);
+	motorCtrlPool = osPoolCreate(osPool(motorCtrlPool));
 
 
 	INITEND;
@@ -199,23 +199,38 @@ void procMotor(void const * argument){
 
 	while(true) {
 
+
+
 		// here we check for incoming commands from SPI
+		evt.value.p = 0;
 		evt = osMessageGet(motorCtrlQueue, osWaitForever);
 
 		// we got one
 		if (evt.status == osEventMessage) {
 			MotorCmd* cmd = (MotorCmd*)evt.value.p;
-			II("motor nr:%u time:%u speed:%u", cmd->motor, cmd->time, cmd->speed);
+			I("motor nr:%u time:%u speed:%u ", cmd->motor, cmd->time, cmd->speed);
+
+			// start motor here
+			osDelay(cmd->time * 1000);
+			// stop motor here
+
+			I("motor finish");
+			SpiBuffer buf;
+			buf.d[0] = SPI_ID_MOTOR_RESP;
+			buf.d[1] = MOTOR_RESP_FINISH;
+			SpiSend(&buf);
+
 
 			osPoolFree(motorCtrlPool, cmd);
 
 
 		}
+	}
 }
 
 
 
-
+/*
 void motTask1s() {
     stMotCfg cfg =  {0,0,0,0};
     static uint16_t counter;
@@ -233,8 +248,9 @@ void motTask1s() {
         motControlStart((counter % 2)+1,&cfg);
         counter++;
     }
-}
+}*/
 
+	/*
 void motTask100ms() {
     if (g_activeMotor != MOT_ACTIVE_NONE)
     {
@@ -281,7 +297,7 @@ void motTask100ms() {
             break;
         }
     }
-}
+}*/
 
 const char * getStateString(){
     switch (g_activeState) {

@@ -9,7 +9,6 @@
   */
 
 #include "stm32f1xx_hal.h"
-#include <log.h>
 #include "motors.h"
 
 uint32_t newPulseLength;
@@ -44,7 +43,8 @@ eActiveState getState() {
     return isrState;
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+// if you read this, call me. Jan
+void custom_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (TIM2 == htim->Instance) {
         switch (isrState) {
         case MOT_STATE_RAMPUP:

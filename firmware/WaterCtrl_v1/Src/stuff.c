@@ -15,6 +15,8 @@
 #include <usart.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "cmsis_os.h"
+#include "iwdg.h"
 
 /**
  * @brief System alive indicator for LED
@@ -34,21 +36,14 @@ void procAliveTicker(void const * argument) {
  * Process for resetting watchdog
  */
 void procWatchdog(void const * argument) {
-#ifdef USEWATCHDOG
 	uint32_t wakeTime = osKernelSysTick();
-
 	HAL_IWDG_Start(&hiwdg);
-
 
 	PROCRUNNING;
 	while (true) {
 		HAL_IWDG_Refresh(&hiwdg);
 		osDelayUntil(&wakeTime, 1000);
 	}
-#else
-    while(true)
-    	osThreadSuspend(NULL);
-#endif
 }
 
 
@@ -64,9 +59,11 @@ void procBoot(void const * argument) {
 	// check if watchdog resetted us the last time
 	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) != RESET) {
 		__HAL_RCC_CLEAR_RESET_FLAGS();
-		EE("system resumed from watchdog reset!");
+		E("system resumed from watchdog reset!");
 	}
 
+	// here we handle initial stuff after booting
+	// for example, we can tell the RPI that we are just bootet!
 
 
 	while (true) {

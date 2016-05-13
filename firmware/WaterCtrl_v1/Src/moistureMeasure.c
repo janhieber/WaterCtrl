@@ -35,7 +35,7 @@
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_hal_gpio.h"
 
-#include <log.h>
+
 #include <spicomm.h>
 #include <moistureMeasure.h>
 #include <broker.h>
@@ -102,7 +102,7 @@ int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
   */
 int startSensorCapture(int channel);
 
-static void moiBrokerMessage(char * buf, uint8_t length);
+//static void moiBrokerMessage(char * buf, uint8_t length);
 void moiDisableSensor();
 void moiEnableSensor();
 void moiSetChannel(int);
@@ -131,9 +131,11 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 
     startSensorCapture(activeChannel);
 
-    registerMessage(BRK_MSG_SPI_ID_SENS_VALUE,moiBrokerMessage);
+    //registerMessage(BRK_MSG_SPI_ID_SENS_VALUE,moiBrokerMessage);
 
     return 0;
+
+
 }
 
 int startSensorCapture(int Sensor)
@@ -230,6 +232,7 @@ void moiSetChannel(int channel)
     HAL_TIM_IC_Start_IT(ptrTimer3Ref,TIM_CHANNEL_2);
 }
 
+/*
 void moiBrokerMessage(char *buf, uint8_t length)
 {
     char send[SPI_XFER_SIZE];
@@ -244,8 +247,9 @@ void moiBrokerMessage(char *buf, uint8_t length)
     default:
         break;
     }
-}
+}*/
 
+/*
 void MoistureTask() {
     if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
         frequency[activeChannel] = getFrequencyOfChannel();
@@ -256,7 +260,7 @@ void MoistureTask() {
     } else {
         LogUart(LogError, "MOI inactive state");
     }
-}
+}*/
 
 /**
   * @}

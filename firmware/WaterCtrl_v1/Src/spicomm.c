@@ -21,6 +21,8 @@
 #include "usart.h"
 #include "spi.h"
 #include "cmsis_os.h"
+#include "motors.h"
+#include "moistureMeasure.h"
 
 
 #define SYSNAME "SpiBroker"
@@ -32,8 +34,8 @@ static const SpiBuffer sendDummy = {0, };
 static osMessageQId spiSendQueue;
 static osMessageQId spiRecvQueue;
 // definitions of queues
-osMessageQDef(_spiSendQueue, SPI_SENDQUEUE_SIZE, SpiBuffer);
-osMessageQDef(_spiRecvQueue, SPI_RECVQUEUE_SIZE, SpiBuffer);
+osMessageQDef(_spiSendQueue, SPI_SENDQUEUE_SIZE, SpiBuffer*);
+osMessageQDef(_spiRecvQueue, SPI_RECVQUEUE_SIZE, SpiBuffer*);
 
 // pools for data
 static osPoolId  spiSendPool;
@@ -42,8 +44,11 @@ osPoolDef(_spiSendPool, SPI_SENDQUEUE_SIZE, SpiBuffer);
 osPoolDef(_spiRecvPool, SPI_RECVQUEUE_SIZE, SpiBuffer);
 
 
+// here we store the buffers for the current transfer
+volatile SpiBuffer* send = NULL;
+volatile SpiBuffer* recv = NULL;
 
-void initSpi() {
+void initSpi(void) {
 	INITBEGIN;
 
 	// init queues
@@ -54,24 +59,20 @@ void initSpi() {
 	spiSendPool = osPoolCreate(osPool(_spiSendPool));
 	spiRecvPool = osPoolCreate(osPool(_spiRecvPool));
 
-	// init dummy, we send it when there is nothing to send
-	for(uint8_t i=0; i<SPI_XFER_SIZE; i++)
-		sendDummy[i] = 0;
 
 
 	INITEND;
 }
 
 void procSpiBroker(void const * argument){
-
 	PROCRUNNING;
 
-
     // start transfer system
-	{
-		SpiBuffer* recvBuf = (SpiBuffer*)osPoolAlloc(spiRecvPool);
-		HAL_SPI_TransmitReceive_IT(&hspi1, &sendDummy, recvBuf, SPI_XFER_SIZE);
-	}
+	// get empty receive buffer
+	recv = (SpiBuffer*)osPoolAlloc(spiRecvPool);
+	// send dummy in first message
+	send = (SpiBuffer*)&sendDummy;
+	HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t*)send->d, (uint8_t*)recv->d, SPI_XFER_SIZE);
 
 
     osEvent evt;
@@ -87,6 +88,7 @@ void procSpiBroker(void const * argument){
 
 			switch(recvMsg->d[0]){
 			case SPI_ID_MOTOR_CTRL:
+				D("motor command received");
 				// pack the message in an MotorCmd and send it to Motor system
 				MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
 				cmd->motor = recvMsg->d[1];
@@ -96,14 +98,14 @@ void procSpiBroker(void const * argument){
 				break;
 
 			case SPI_ID_MOIST_REQ:
-
+				D("moisture request received");
 
 				break;
 
 			case SPI_ID_NOP:
 				break;
 			default:
-				EE("unknown data received");
+				E("unknown data received");
 				break;
 			}
 
@@ -139,7 +141,7 @@ static bool bufferEmpty(SpiBuffer* buf) {
 
 
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi) {
-    EE("ErrorCode: 0x%08x", (unsigned int)hspi->ErrorCode);
+    E("ErrorCode: 0x%08x", (unsigned int)hspi->ErrorCode);
 }
 
 /** @brief SPI receive complete callback
@@ -150,39 +152,31 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 	if(hspi != &hspi1)
 		return;
 
-	// here we store the buffers for new transfer
-	SpiBuffer* send = NULL;
-	SpiBuffer* recv = NULL;
 
 	// receive stuff
 	{
-		// get the last used recvbuffer
-		SpiBuffer* lastRecvBuf = hspi->pRxBuffPtr;
-
 		// check if we received data on last transfer
-		if(!bufferEmpty(lastRecvBuf)){
-			// not empty, so put the pointer to the buffer in the queue
+		if(!bufferEmpty((SpiBuffer*)recv)){
+			// not empty, so post the pointer to the buffer in the queue
 			// for further processing
-			osEvent evt;
-			evt.value.p = lastRecvBuf;
-			osMessagePut(spiRecvQueue);
+			if(osMessagePut(spiRecvQueue, (uint32_t)recv, 0) != osOK)
+				E("SPI recv queue is full!");
 
 			// get new receive buffer for next message
 			recv = (SpiBuffer*)osPoolAlloc(spiRecvPool);
-		}else{
-			// so the message was empty, in this case we simply reuse it
-			recv = lastRecvBuf;
 		}
+
+		// if message was empty, we simply reuse the buffer
 	}
 
 	// send stuff
 	{
-		// check which buffer was send the last time and free it
-		SpiBuffer* lastSendBuf = hspi->pTxBuffPtr;
-		osPoolFree(spiSendPool, lastSendBuf);
+		// free the last send buffer
+		osPoolFree(spiSendPool, (SpiBuffer*)send);
 
 		// check if there is new data to send
-		send = &sendDummy;
+		send = (SpiBuffer*)&sendDummy;
+
 		osEvent evt = osMessageGet(spiSendQueue, 0);
 		if (evt.status == osEventMessage) {
 			send = (SpiBuffer*)evt.value.p;
@@ -190,7 +184,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 	}
 
     // start next transfer
-    HAL_SPI_TransmitReceive_IT(&hspi1, send, recv, SPI_XFER_SIZE);
+    HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t*)send->d, (uint8_t*)recv->d, SPI_XFER_SIZE);
 }
 
 /**

@@ -65,11 +65,17 @@
 
 
 /*! array size calculation */
-#define ARRAYSIZE(x) (sizeof(x) / sizeof((x)[0]))
+#define ARRAYSIZE(a) (sizeof(a) / sizeof(*(a)))
+
 
 /*! optimizations */
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
+#ifdef __GNUC__
+#define likely(x)       __builtin_expect(!!(x), 1)
+#define unlikely(x)     __builtin_expect(!!(x), 0)
+#else
+#define likely(x)       (x)
+#define unlikely(x)     (x)
+#endif
 
 
 
@@ -92,29 +98,37 @@
 #define VER_MAJOR (uint8_t)00
 #define VER_MINOR (uint8_t)01
 
+int printf_(const char *format, ...);
+int sprintf_(char *buffer, const char *format, ...);
 
+#define printf(...) printf_(__VA_ARGS__)
+#define sprintf(...) sprintf_(__VA_ARGS__)
 
 // debug messages
-#define D(...)		printf_("DD %s:%s: ", SYSNAME, __func__); \
+#define D(...)		{printf_("DD %s: ",  __func__); \
 					printf_(__VA_ARGS__); \
-					printf_("\r\n");
+					printf_("\r\n");}
 // info messages
-#define I(...)		printf_("II %s:%s: ", SYSNAME, __func__); \
+#define I(...)		{printf_("II %s: ",  __func__); \
 					printf_(__VA_ARGS__); \
-					printf_("\r\n");
+					printf_("\r\n");}
 // warning messages
-#define W(...)		printf_("WW %s:%s: ", SYSNAME, __func__); \
+#define W(...)		{printf_("WW %s: ",  __func__); \
 					printf_(__VA_ARGS__); \
-					printf_("\r\n");
+					printf_("\r\n");}
 // error messages
-#define E(...)		printf_("EE %s:%s: ", SYSNAME, __func__); \
+#define E(...)		{printf_("EE %s: ",  __func__); \
 					printf_(__VA_ARGS__); \
-					printf_("\r\n");
+					printf_("\r\n");}
 
+#define CHECKPOOL(x) if(x == NULL){ E("no memory available in pool"); }
 
 // this is a dummy for the old log functions,
 // we recode them some time later
 #define Log(...)
+#define LogInfo
+#define LogDebug
+#define LogError
 
 
 // protocoll definitions for SPI transfer
@@ -133,6 +147,9 @@
 
 #define MESSAGE_PING 0x01
 #define MESSAGE_PONG 0x02
+
+#define MOTOR_RESP_FINISH 0xab
+#define MOTOR_RESP_ERROR 0xac
 
 /* USER CODE END Private defines */
 

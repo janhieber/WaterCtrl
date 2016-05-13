@@ -16,7 +16,7 @@
 
 #include <stm32f1xx_hal.h>
 
-#include <log.h>
+
 #include <mxconstants.h>
 #include <stdint.h>
 

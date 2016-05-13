@@ -38,6 +38,9 @@
 
 /* USER CODE BEGIN 0 */
 
+#include "spicomm.h"
+#include "mxconstants.h"
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -59,7 +62,7 @@ void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
 
-	EE("Hardfault!!");
+	E("Hardfault!!");
 
 	SpiBuffer buf;
 	buf.d[0] = SPI_ID_ERROR;

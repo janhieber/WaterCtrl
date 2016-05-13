@@ -38,6 +38,13 @@
 
 /* USER CODE BEGIN Includes */     
 
+
+#include "spicomm.h"
+#include "motors.h"
+#include "moistureMeasure.h"
+#include "stuff.h"
+#include "tim.h"
+
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -67,7 +74,7 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName);
 /* USER CODE BEGIN 4 */
 void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
 {
-	EE("Stack overflow!");
+	E("Stack overflow!");
 
 	SpiBuffer buf;
 	buf.d[0] = SPI_ID_ERROR;
@@ -85,12 +92,26 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
+
+	// setup logging, first UART, later with SPI
+	//logSetDestination(LogDstSerConsole);
+	//logSetFilter(LogDebug | LogError | LogInfo);
+	//logSetFilter(LogError | LogInfo);
+
+	// nice greetings
+	printf_("\r\n\r\nWaterCtrl version v%u.%u [%s]\r\n", VER_MAJOR, VER_MINOR, __DATE__);
+	printf_("System clock: %dMHz\r\n", (uint8_t)(SystemCoreClock / 1000000));
+	printf_(":: Booting system ...\r\n");
+
+	// this is only until we checked if the rest works
+	HAL_NVIC_DisableIRQ(TIM2_IRQn);
+	HAL_NVIC_DisableIRQ(TIM3_IRQn);
+
     // setup SPI
     initSpi();
-
-    // init modules
     initMoistureMeasure(&htim3);
     motInit(&htim2);
+
 
 
   /* USER CODE END Init */
@@ -115,22 +136,27 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_THREADS */
 
 
-  osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 128);
+#ifdef USEWATCHDOG
+  osThreadDef(Watchdog, procWatchdog, osPriorityAboveNormal, 0, 64);
+  WatchdogHandle = osThreadCreate(osThread(Watchdog), NULL);
+#endif
+
+
+  osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
   AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
-  osThreadDef(Watchdog, procWatchdog, osPriorityAboveNormal, 0, 128);
-  WatchdogHandle = osThreadCreate(osThread(Watchdog), NULL);
+  osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 0, 64);
+  //SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
-  osThreadDef(SpiBroker, procSpiBroker, osPriorityHigh, 0, 128);
-  SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
-
-  osThreadDef(Motor, procMotor, osPriorityHigh, 0, 128);
+  osThreadDef(Motor, procMotor, osPriorityHigh, 0, 64);
   MotorHandle = osThreadCreate(osThread(Motor), NULL);
 
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+
+  printf_(":: Starting threads ...\r\n");
+
   /* USER CODE END RTOS_QUEUES */
 }
 
@@ -151,7 +177,7 @@ void StartDefaultTask(void const * argument)
 	buf.d[1] = MESSAGE_PING;
 
 
-    osDelay(1200);
+    osDelay(800);
 	SpiSend(&buf);
 
 	osDelay(200);

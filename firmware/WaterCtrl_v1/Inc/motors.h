@@ -12,6 +12,7 @@
 #define MOTORS_H
 
 #include <stm32f1xx_hal.h>
+#include "cmsis_os.h"
 
 #define MOT_PWM_PIN_A0 GPIO_PIN_14
 #define MOT_PWM_PORT_A0 GPIOC

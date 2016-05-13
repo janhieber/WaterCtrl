@@ -57,7 +57,6 @@
 #include <stuff.h>
 #include <scheduler.h>
 #include <spicomm.h>
-#include <log.h>
 #include <moistureMeasure.h>
 #include <motors.h>
 #include <broker.h>
@@ -81,39 +80,6 @@ void MX_FREERTOS_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
-/*! this is for printf.c to handle output */
-void PrintChar(char c) { HAL_UART_Transmit(&huart1, (uint8_t *)&c, 1, 50); }
-
-/*!
- * @brief task for resetting watchdog
- */
-void resetIWDG(void) { WatchdogReset(&hiwdg); }
-
-/*!
- * @brief task for printing debug stuff
- */
-void debugInfo(void) {
-    // spiDebug(&huart1);
-}
-
-/*!
- * @brief process SPI receive queue
- */
-void SPIrecvProc(void) {
-    char buf[SPI_XFER_SIZE];
-    if (spiReceive(buf)) {
-        LogUart(LogInfo, "SPI messages was received");
-    }
-}
-
-/*! Scheduler task configuration table */
-TaskType Tasks[] = {
-    {INTERVAL_1S, 0, resetIWDG},    {INTERVAL_1S, 0, AliveTicker},
-    {INTERVAL_500MS, 0, MoistureTask}, {INTERVAL_5S, 0, printMoisture},
-    {INTERVAL_5S, 0, debugInfo},    {INTERVAL_250MS, 0, BrokerTask250ms},
-    {INTERVAL_100MS, 0, motTask100ms},  {INTERVAL_1S, 0, motTask1s}
-};
 
 /* USER CODE END 0 */
 
@@ -141,20 +107,6 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
-
-
-    // setup logging, first UART, later with SPI
-    logSetDestination(LogDstSerConsole);
-    //logSetFilter(LogDebug | LogError | LogInfo);
-    logSetFilter(LogError | LogInfo);
-
-    // nice greetings
-    Log(LogInfo, "WaterCtrl version %d", VERSION);
-    Log(LogInfo, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
-
-
-
-
 
   /* USER CODE END 2 */
 

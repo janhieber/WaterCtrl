@@ -1,9 +1,11 @@
 #MicroXplorer Configuration settings - do not modify
 FREERTOS.INCLUDE_vTaskDelayUntil=1
-FREERTOS.IPParameters=Tasks01,configUSE_PREEMPTION,configCHECK_FOR_STACK_OVERFLOW,INCLUDE_vTaskDelayUntil
+FREERTOS.IPParameters=Tasks01,configUSE_PREEMPTION,configCHECK_FOR_STACK_OVERFLOW,INCLUDE_vTaskDelayUntil,configMINIMAL_STACK_SIZE,configUSE_TRACE_FACILITY
 FREERTOS.Tasks01=defaultTask,0,128,StartDefaultTask,Default
 FREERTOS.configCHECK_FOR_STACK_OVERFLOW=1
+FREERTOS.configMINIMAL_STACK_SIZE=64
 FREERTOS.configUSE_PREEMPTION=0
+FREERTOS.configUSE_TRACE_FACILITY=0
 File.Version=6
 IWDG.IPParameters=Prescaler
 IWDG.Prescaler=IWDG_PRESCALER_16
