@@ -25,6 +25,18 @@
 #define MOT_MAX_FLANK_TIME (uint32_t)(MOT_PWM_RELOAD_CNTR/MOT_PWM_FREQ)
 
 
+
+extern osMessageQId motorCtrlQueue;
+extern osPoolId  motorCtrlPool;
+
+
+
+typedef struct MotorCmd {
+	uint8_t motor;
+	uint8_t time;
+	uint8_t speed;
+}MotorCmd;
+
 typedef enum _activeMotor {
     MOT_ACTIVE_NONE = 0x00,
     MOT_ACTIVE_0,
@@ -60,6 +72,8 @@ void motTask100ms();
 void motTask1s();
 
 int motControlStart(eActiveMotor motor, stMotCfg * cfg);
+
+void procMotor(void const * argument);
 
 #endif // MOTORS_H
 

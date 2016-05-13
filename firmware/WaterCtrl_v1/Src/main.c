@@ -32,6 +32,7 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
+#include "cmsis_os.h"
 #include "iwdg.h"
 #include "spi.h"
 #include "tim.h"
@@ -72,6 +73,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -140,8 +142,6 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 
-    // setup SPI
-    spiQueueInit();
 
     // setup logging, first UART, later with SPI
     logSetDestination(LogDstSerConsole);
@@ -152,32 +152,25 @@ int main(void)
     Log(LogInfo, "WaterCtrl version %d", VERSION);
     Log(LogInfo, "System clock: %dMHz", (uint8_t)(SystemCoreClock / 1000000));
 
-    //HAL_Delay(1000);
 
-    // init modules
-    initMoistureMeasure(&htim3);
-    motInit(&htim2);
 
-    // init scheduling
-    initScheduler(Tasks, ARRAYSIZE(Tasks));
+
 
   /* USER CODE END 2 */
+
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+  
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-    // start watchdog
-    WatchdogStart(&hiwdg);
-
-    Log(LogDebug, "reaching mainloop");
-
-    // enable SPI logging
-    logSetDestination(LogDstSerConsole | LogDstRaspberryPi);
-
     while (true) {
 
-        // scheduling
-            doScheduling();
 
   /* USER CODE END WHILE */
 
@@ -204,7 +197,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
@@ -216,7 +210,7 @@ void SystemClock_Config(void)
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
   /* SysTick_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
 }
 
 /* USER CODE BEGIN 4 */

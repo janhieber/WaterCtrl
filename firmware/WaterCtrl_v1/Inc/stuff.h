@@ -13,9 +13,9 @@
 
 #include <stm32f1xx_hal.h>
 
-void AliveTicker(void);
-void WatchdogReset(IWDG_HandleTypeDef *hiwdg);
-void WatchdogStart(IWDG_HandleTypeDef *hiwdg);
+void procAliveTicker(void const * argument);
+void procWatchdog(void const * argument);
+
 
 #endif // STUFF_H
 

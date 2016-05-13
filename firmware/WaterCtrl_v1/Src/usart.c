@@ -70,7 +70,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 
   /* USER CODE END USART1_MspInit 0 */
     /* Peripheral clock enable */
-    __USART1_CLK_ENABLE();
+    __HAL_RCC_USART1_CLK_ENABLE();
   
     /**USART1 GPIO Configuration    
     PA9     ------> USART1_TX
@@ -78,7 +78,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     */
     GPIO_InitStruct.Pin = GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = GPIO_PIN_10;
@@ -86,8 +86,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(USART1_IRQn, 3, 0);
+    /* Peripheral interrupt init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 10, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
@@ -104,7 +104,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
   /* USER CODE END USART1_MspDeInit 0 */
     /* Peripheral clock disable */
-    __USART1_CLK_DISABLE();
+    __HAL_RCC_USART1_CLK_DISABLE();
   
     /**USART1 GPIO Configuration    
     PA9     ------> USART1_TX

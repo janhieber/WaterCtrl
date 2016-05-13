@@ -52,11 +52,6 @@ void MX_IWDG_Init(void)
 
 }
 
-void HAL_IWDG_MspInit(IWDG_HandleTypeDef* hiwdg)
-{
-
-} 
-
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */

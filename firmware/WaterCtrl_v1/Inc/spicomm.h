@@ -24,29 +24,18 @@
 #include <stdbool.h>
 #include <string.h>
 
-/*! size of the SPI send queue */
-#define SPI_SENDQUEUE_SIZE (SPI_XFER_SIZE * 16)
-/*! size of the SPI receive queue */
-#define SPI_RECVQUEUE_SIZE 16
+#define SPI_XFER_SIZE 6 // in bytes
+#define SPI_SENDQUEUE_SIZE 20 // in buffer elements
+#define SPI_RECVQUEUE_SIZE 20 // in buffer elements
 
-/** @brief Init SPI queues
- */
-void spiQueueInit();
+typedef struct SpiBuffer {
+	uint8_t d[SPI_XFER_SIZE];
+} SpiBuffer;
 
-/** @brief adds data to SPI send queue
- *  @param id message ID as byte as specified in firmware/SPECS.md
- *  @param msg message to send as 0 terminated string. Becareful
- *      to avoid 0 when sending data other than ASCII
- */
-void spiSend(uint8_t id, char *msg);
 
-/** @brief this functions checks for new Data
- *  @param buf the message will be stored here, size is SPI_XFER_SIZE
- *  @return true if data is available, false if not
- */
-bool spiReceive(char *buf);
 
-void spiDebug(UART_HandleTypeDef *huart);
+bool SpiSend(SpiBuffer* data);
+
 
 #endif /* SPICOMM_H_ */
 

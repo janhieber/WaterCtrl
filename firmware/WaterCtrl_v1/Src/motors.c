@@ -38,6 +38,23 @@
 #include <log.h>
 #include <motors.h>
 #include <broker.h>
+#include "cmsis_os.h"
+
+
+
+
+
+#define SYSNAME "Motors"
+
+osMessageQId motorCtrlQueue;
+osMessageQDef(_motorCtrlQueue, 20, MotorCmd);
+
+osPoolDef(_motorCtrlPool, 20, MotorCmd);
+osPoolId  motorCtrlPool;
+
+
+
+
 
 static eActiveState g_activeState = MOT_STATE_IDLE;
 static eActiveMotor g_activeMotor = MOT_ACTIVE_INVALID;
@@ -59,6 +76,7 @@ extern uint16_t getPulse();
 /* Private functions ---------------------------------------------------------*/
 static void motBrokerMessage(char *buf, uint8_t length);
 const char * getStateString();
+
 
 int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
     int retval = -1;
@@ -149,8 +167,20 @@ void motBrokerMessage(char *buf, uint8_t length)
 }
 
 void motInit(TIM_HandleTypeDef * ref) {
+	INITBEGIN;
+
+
+
+	motorCtrlQueue = osMessageCreate(osMessageQ(_motorCtrlQueue), NULL);
+	motorCtrlPool = osPoolCreate(osPool(_motorCtrlPool));
+
+
+	INITEND;
+	return;
+
+
     g_activeMotor = MOT_ACTIVE_NONE;
-    Log(LogInfo, "init motor control system");
+    //Log(LogInfo, "init motor control system");
 
     ptrTimer = ref;
 
@@ -158,6 +188,33 @@ void motInit(TIM_HandleTypeDef * ref) {
 
     registerMessage(BRK_MSG_SPI_ID_MOT,motBrokerMessage);
 }
+
+
+
+
+void procMotor(void const * argument){
+	PROCRUNNING;
+
+	osEvent evt;
+
+	while(true) {
+
+		// here we check for incoming commands from SPI
+		evt = osMessageGet(motorCtrlQueue, osWaitForever);
+
+		// we got one
+		if (evt.status == osEventMessage) {
+			MotorCmd* cmd = (MotorCmd*)evt.value.p;
+			II("motor nr:%u time:%u speed:%u", cmd->motor, cmd->time, cmd->speed);
+
+			osPoolFree(motorCtrlPool, cmd);
+
+
+		}
+}
+
+
+
 
 void motTask1s() {
     stMotCfg cfg =  {0,0,0,0};
