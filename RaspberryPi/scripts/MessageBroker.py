@@ -19,7 +19,7 @@ import spidev
     It controls the SPI communication
 """
 class app(threading.Thread):
-    SPI_EMPTY = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    SPI_EMPTY = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
 
     def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
@@ -69,9 +69,7 @@ class app(threading.Thread):
                 recvData = ''
                 
                 # create sendbuffer
-                #sendbuf = self.sendQueue.get()
                 if not self.sendQueue.empty():
-                    #sendData = self.sendQueue.get()
                     sendbuf = self.sendQueue.get()
                 else:
                     sendbuf = self.SPI_EMPTY
@@ -80,25 +78,13 @@ class app(threading.Thread):
                 if self.sendQueue.empty():
                     sendComplete = True;
 
-                # convert string to byte array
-                #sendbuf = [ord(c) for c in sendData]
-
-                #for x in range(len(sendbuf), 16):
-                #    print(x)
-                #    sendbuf[x] = 0x00
-
-
-                # fill with zeros
-                #while len(sendbuf) < 16:
-                    #sendbuf.append(0)
-                    #sendbuf += b'\x00'
-
                 # xfer data over SPI
                 recvbuf = self.SPI.xfer2(sendbuf)
 
                 # remove trailing zeros
                 while len(recvbuf) > 0 and recvbuf[-1] == 0:
                     recvbuf.pop()
+
                 if len(recvbuf) > 0:
                     # decode messages
                     if recvbuf[0] >= 0x01 and recvbuf[0] <= 0x13:
@@ -106,12 +92,13 @@ class app(threading.Thread):
                     else:
                         recvArray[len(recvArray)-1] += ''.join(chr(c) for c in recvbuf)
 
-                # check if we are finnished
+                # check if we are finished
                 if sum(recvbuf) == 0:
                     logging.info("Received message: %s", recvArray)
                     recvComplete = True
                 else:
                     time.sleep(0.01)
+
                 # check for error
                 if recvComplete == False and all(x==recvbuf[0] for x in recvbuf):
                     logging.error('SPI: received identical data, this may be a SPI error')
