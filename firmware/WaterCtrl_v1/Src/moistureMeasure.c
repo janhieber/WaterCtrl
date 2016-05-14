@@ -127,7 +127,7 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 
     ptrTimer3Ref = ptr;
 
-    //memset(frequency,0,sizeof(frequency));
+    memset(frequency,0,sizeof(frequency));
 
     startSensorCapture(activeChannel);
 

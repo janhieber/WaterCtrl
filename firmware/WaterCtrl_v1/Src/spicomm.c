@@ -105,7 +105,9 @@ void procSpiBroker(void const * argument){
 			case SPI_ID_NOP:
 				break;
 			default:
-				E("unknown data received");
+				E("unknown data received %s",recvMsg->d);
+				recvMsg->d[1] = 0x31;
+				SpiSend(recvMsg);
 				break;
 			}
 
@@ -152,6 +154,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 	if(hspi != &hspi1)
 		return;
 
+	D("Transmit receive callback");
 
 	// receive stuff
 	{

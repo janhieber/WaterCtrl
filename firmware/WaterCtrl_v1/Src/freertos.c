@@ -44,6 +44,7 @@
 #include "moistureMeasure.h"
 #include "stuff.h"
 #include "tim.h"
+#include "mxconstants.h"
 
 /* USER CODE END Includes */
 
@@ -109,8 +110,8 @@ void MX_FREERTOS_Init(void) {
 
     // setup SPI
     initSpi();
-    initMoistureMeasure(&htim3);
-    motInit(&htim2);
+    //initMoistureMeasure(&htim3);
+    //motInit(&htim2);
 
 
 
@@ -130,8 +131,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 
@@ -146,10 +147,10 @@ void MX_FREERTOS_Init(void) {
   AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
   osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 0, 64);
-  //SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
+  SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
-  osThreadDef(Motor, procMotor, osPriorityHigh, 0, 64);
-  MotorHandle = osThreadCreate(osThread(Motor), NULL);
+  //osThreadDef(Motor, procMotor, osPriorityHigh, 0, 64);
+  //MotorHandle = osThreadCreate(osThread(Motor), NULL);
 
   /* USER CODE END RTOS_THREADS */
 
@@ -190,6 +191,8 @@ void StartDefaultTask(void const * argument)
 	cmd->time = 2;
 	cmd->speed = 50;
 	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
+
+	D("Default task");
 
   }
   /* USER CODE END StartDefaultTask */

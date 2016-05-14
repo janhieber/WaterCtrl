@@ -147,11 +147,11 @@ void TIM3_IRQHandler(void)
 void SPI1_IRQHandler(void)
 {
   /* USER CODE BEGIN SPI1_IRQn 0 */
-
+	//portENTER_SWITCHING_ISR();
   /* USER CODE END SPI1_IRQn 0 */
   HAL_SPI_IRQHandler(&hspi1);
   /* USER CODE BEGIN SPI1_IRQn 1 */
-
+  //portEXIT_SWITCHING_ISR();
   /* USER CODE END SPI1_IRQn 1 */
 }
 
