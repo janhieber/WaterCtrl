@@ -101,7 +101,7 @@ class app(threading.Thread):
 
                 # check for error
                 if recvComplete == False and all(x==recvbuf[0] for x in recvbuf):
-                    logging.error('SPI: received identical data, this may be a SPI error')
+                    logging.error('SPI: received identical data, this may be a SPI error: %s',recvbuf)
                     recvComplete = True
 
             # put to queue
