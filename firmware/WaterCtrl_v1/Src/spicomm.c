@@ -28,7 +28,7 @@
 #define SYSNAME "SpiBroker"
 
 
-static const SpiBuffer sendDummy = {0, };
+static const SpiBuffer sendDummy = {{0x00,} };
 
 // handles for queues
 static osMessageQId spiSendQueue;
@@ -106,7 +106,7 @@ void procSpiBroker(void const * argument){
 				break;
 			default:
 				E("unknown data received %s",recvMsg->d);
-				recvMsg->d[1] = 0x31;
+				recvMsg->d[1] = osKernelSysTick();
 				SpiSend(recvMsg);
 				break;
 			}
@@ -135,8 +135,9 @@ bool SpiSend(SpiBuffer* data){
 
 static bool bufferEmpty(SpiBuffer* buf) {
 	for(uint8_t i=0; i<SPI_XFER_SIZE; i++){
-		if(buf->d[i] == 0)
+		if(buf->d[i] == 0xFFu) {
 			return true;
+		}
 	}
 	return false;
 }
@@ -144,6 +145,32 @@ static bool bufferEmpty(SpiBuffer* buf) {
 
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi) {
     E("ErrorCode: 0x%08x", (unsigned int)hspi->ErrorCode);
+	switch(hspi->ErrorCode) {
+	case HAL_SPI_ERROR_OVR:
+		// setup next XFER
+		// at least we free this pool element
+		osPoolFree(spiRecvPool, (SpiBuffer*)recv);
+		osPoolFree(spiSendPool, (SpiBuffer*)send);
+		// get empty receive buffer
+		recv = (SpiBuffer*)osPoolAlloc(spiRecvPool);
+		// check if there is new data to send
+		osEvent evt = osMessageGet(spiSendQueue, 0);
+		if (evt.status == osEventMessage) {
+			//send data of queued item
+			send = (SpiBuffer*)evt.value.p;
+		} else {
+			// send dummy data
+			send = (SpiBuffer*)&sendDummy;
+		}
+		HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)send->d,
+				(uint8_t *)recv->d, SPI_XFER_SIZE);
+		I("SPI: Restart tranfer");
+
+		break;
+	default:
+		I("SPI: error ignored");
+		break;
+	}
 }
 
 /** @brief SPI receive complete callback
@@ -162,6 +189,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 		if(!bufferEmpty((SpiBuffer*)recv)){
 			// not empty, so post the pointer to the buffer in the queue
 			// for further processing
+			D("received: %s",recv->d);
 			if(osMessagePut(spiRecvQueue, (uint32_t)recv, 0) != osOK)
 				E("SPI recv queue is full!");
 
@@ -174,15 +202,18 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 
 	// send stuff
 	{
+		D("last send: %s",send->d);
 		// free the last send buffer
 		osPoolFree(spiSendPool, (SpiBuffer*)send);
 
 		// check if there is new data to send
-		send = (SpiBuffer*)&sendDummy;
-
 		osEvent evt = osMessageGet(spiSendQueue, 0);
 		if (evt.status == osEventMessage) {
+			//send data of queued item
 			send = (SpiBuffer*)evt.value.p;
+		} else {
+			// send dummy data
+			send = (SpiBuffer*)&sendDummy;
 		}
 	}
 
