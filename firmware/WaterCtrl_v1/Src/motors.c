@@ -49,11 +49,7 @@ osMessageQId motorCtrlQueue;
 osMessageQDef(motorCtrlQueue, 20, MotorCmd*);
 
 osPoolId  motorCtrlPool;
-osPoolDef(motorCtrlPool, 20, MotorCmd);
-
-
-
-
+osPoolDef(motorCtrlPool, 21, MotorCmd);
 
 static eActiveState g_activeState = MOT_STATE_IDLE;
 static eActiveMotor g_activeMotor = MOT_ACTIVE_INVALID;

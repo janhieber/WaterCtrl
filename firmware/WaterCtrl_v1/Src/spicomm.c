@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "cmsis_os.h"
+
 #include <spicomm.h>
 #include <mxconstants.h>
 #include "usart.h"
@@ -41,8 +43,8 @@ osMessageQDef(_spiRecvQueue, SPI_RECVQUEUE_SIZE, SpiBuffer*);
 // pools for data
 static osPoolId  spiSendPool;
 static osPoolId  spiRecvPool;
-osPoolDef(_spiSendPool, SPI_SENDQUEUE_SIZE, SpiBuffer);
-osPoolDef(_spiRecvPool, SPI_RECVQUEUE_SIZE, SpiBuffer);
+osPoolDef(_spiSendPool, SPI_SENDQUEUE_SIZE*2, SpiBuffer);
+osPoolDef(_spiRecvPool, SPI_RECVQUEUE_SIZE*2, SpiBuffer);
 
 
 // here we store the buffers for the current transfer
@@ -102,11 +104,7 @@ void procSpiBroker(void const * argument){
 				D("moisture request received");
 
 				break;
-
 			case SPI_ID_NOP:
-//				recvMsg->d[0] = 0x33;
-//				recvMsg->d[1] = osKernelSysTick();
-//				SpiSend(recvMsg);
 				break;
 			case SPI_ID_ERROR:
 				E("Restart transfer after error");
@@ -139,13 +137,20 @@ void procSpiBroker(void const * argument){
  * This is for external use by other functions.
  */
 bool SpiSend(SpiBuffer* data){
+	osStatus ret;
 	// allocate space
 	SpiBuffer* buf = (SpiBuffer*)osPoolAlloc(spiSendPool);
 	// copy data
 	memcpy(buf, data, sizeof(SpiBuffer));
 	// send to queue
-	osMessagePut(spiSendQueue, (uint32_t)buf, 250);
-
+	if ( osOK != (ret = osMessagePut(spiSendQueue, (uint32_t)buf, 0)) )
+	{
+		//drop last message
+		//osPoolFree(spiSendPool,buf);
+		//osMessageGet(spiSendQueue,0);
+		E("Failed put to queue: 0x%08x",osOK);
+	}
+	osPoolFree(spiSendPool,buf);
 	return true;
 }
 

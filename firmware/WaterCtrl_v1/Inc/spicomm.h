@@ -25,8 +25,8 @@
 #include <string.h>
 
 #define SPI_XFER_SIZE 6 // in bytes
-#define SPI_SENDQUEUE_SIZE 20 // in buffer elements
-#define SPI_RECVQUEUE_SIZE 20 // in buffer elements
+#define SPI_SENDQUEUE_SIZE 10 // in buffer elements
+#define SPI_RECVQUEUE_SIZE 10 // in buffer elements
 
 typedef struct SpiBuffer {
 	uint8_t d[SPI_XFER_SIZE];

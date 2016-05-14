@@ -110,8 +110,8 @@ void MX_FREERTOS_Init(void) {
 
     // setup SPI
     initSpi();
-    initMoistureMeasure(&htim3);
-    initMotorControl(&htim2);
+    //initMoistureMeasure(&htim3);
+    //initMotorControl(&htim2);
 
 
 
@@ -178,7 +178,7 @@ void StartDefaultTask(void const * argument)
 	buf.d[1] = MESSAGE_PING;
 
 
-    osDelay(1000);
+    osDelay(3000);
 	SpiSend(&buf);
 
 	//osDelay(3000);
