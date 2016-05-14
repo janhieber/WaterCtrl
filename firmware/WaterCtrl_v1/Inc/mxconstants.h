@@ -54,7 +54,7 @@
 #define STR_MAX_SIZE 128
 
 /*! SPI transfer size in bytes */
-#define SPI_XFER_SIZE 16
+#define SPI_XFER_SIZE 6
 
 // printf.c
 signed int printf(const char *pFormat, ...);

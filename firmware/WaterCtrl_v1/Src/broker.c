@@ -19,6 +19,7 @@ bool registerMessage(uint8_t id, message* fct)
         listFcts[registrationCounter] = fct;
         listIds[registrationCounter] = id;
         retval = true;
+        registrationCounter++;
     } else {
 
     }
@@ -29,25 +30,29 @@ void BrokerTask250ms()
 {
     int params = 0;
     int runner = 1;
+    char id = 0;
     char buf[SPI_XFER_SIZE];
 
     if (spiReceive(buf)) {
-        LogUart(LogInfo, "SPI messages was received");
-        do {
-            if (buf[runner] != 0)
-                params++;
-            else
-                break;
-        } while (1);
+        LogUart(LogInfo, "broker: SPI messages was received");
+//        do {
+//            if (buf[runner] != 0)
+//                params++;
+//            else
+//                break;
+//        } while (1);
 
+        id = buf[0];
         runner = 0;
         while (runner < MAX_NBR_OF_CLIENTS) {
-            if (listIds[runner] == buf[0] ) {
-                listFcts[runner](&buf[1],params);
+            if (listIds[runner] == id ) {
+                listFcts[runner](&id,params);
                 break;
             }
             runner++;
         }
+        snprintf(buf,SPI_XFER_SIZE,"%s","ACK");
+        spiSend(buf[1],buf);
     }
 }
 

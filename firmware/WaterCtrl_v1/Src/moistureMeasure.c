@@ -235,6 +235,7 @@ void moiBrokerMessage(char *buf, uint8_t length)
     char send[SPI_XFER_SIZE];
     switch(buf[0]) {
     case BRK_MSG_SPI_ID_SENS_VALUE:
+    	Log(LogInfo,"sensor request received!");
         send[1] = (uint8_t)getSensorFrequency(buf[1])/(uint8_t)1000;
         send[0] = buf[1];
         spiSend(BRK_MSG_SPI_ID_SENS_VALUE_RSP,send);

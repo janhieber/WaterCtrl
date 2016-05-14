@@ -50,13 +50,13 @@ void Log(LogLevel loglevel, const char *format, ...) {
     if (log_destination & LogDstRaspberryPi) {
         switch (loglevel) {
         case LogError:
-            spiSend(0x01, msg);
+            //spiSend(0x01, msg);
             break;
         case LogInfo:
-            spiSend(0x02, msg);
+            //spiSend(0x02, msg);
             break;
         case LogDebug:
-            spiSend(0x03, msg);
+            //spiSend(0x03, msg);
             break;
         default:
             break;

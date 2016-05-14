@@ -110,7 +110,7 @@ TaskType Tasks[] = {
     {INTERVAL_1S, 0, resetIWDG},    {INTERVAL_1S, 0, AliveTicker},
     {INTERVAL_500MS, 0, MoistureTask}, {INTERVAL_5S, 0, printMoisture},
     {INTERVAL_5S, 0, debugInfo},    {INTERVAL_250MS, 0, BrokerTask250ms},
-    {INTERVAL_100MS, 0, motTask100ms},  {INTERVAL_1S, 0, motTask1s}
+    {INTERVAL_100MS, 0, motTask100ms} /*,  {INTERVAL_1S, 0, motTask1s}*/
 };
 
 /* USER CODE END 0 */
@@ -145,8 +145,8 @@ int main(void)
 
     // setup logging, first UART, later with SPI
     logSetDestination(LogDstSerConsole);
-    //logSetFilter(LogDebug | LogError | LogInfo);
-    logSetFilter(LogError | LogInfo);
+    logSetFilter(LogDebug | LogError | LogInfo);
+    //logSetFilter(LogError | LogInfo);
 
     // nice greetings
     Log(LogInfo, "WaterCtrl version %d", VERSION);
