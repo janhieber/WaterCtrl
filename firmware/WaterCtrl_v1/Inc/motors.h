@@ -66,7 +66,7 @@ typedef struct _stMotCfg{
     uint8_t max_level;
 }stMotCfg;
 
-void motInit(TIM_HandleTypeDef *);
+void initMotorControl(TIM_HandleTypeDef *);
 
 void motTask100ms();
 

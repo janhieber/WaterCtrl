@@ -110,8 +110,8 @@ void MX_FREERTOS_Init(void) {
 
     // setup SPI
     initSpi();
-    //initMoistureMeasure(&htim3);
-    //motInit(&htim2);
+    initMoistureMeasure(&htim3);
+    initMotorControl(&htim2);
 
 
 
@@ -131,8 +131,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 
@@ -178,19 +178,15 @@ void StartDefaultTask(void const * argument)
 	buf.d[1] = MESSAGE_PING;
 
 
-    osDelay(800);
+    osDelay(1000);
 	SpiSend(&buf);
 
-	osDelay(200);
-	SpiSend(&buf);
-
-
-	osDelay(3000);
-	MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
-	cmd->motor = 1;
-	cmd->time = 2;
-	cmd->speed = 50;
-	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
+	//osDelay(3000);
+	//MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
+	//cmd->motor = 1;
+	//cmd->time = 2;
+	//cmd->speed = 50;
+	//osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 
 	D("Default task");
 

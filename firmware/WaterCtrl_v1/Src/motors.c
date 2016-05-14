@@ -166,7 +166,7 @@ void motBrokerMessage(char *buf, uint8_t length)
     }
 }*/
 
-void motInit(TIM_HandleTypeDef * ref) {
+void initMotorControl(TIM_HandleTypeDef * ref) {
 	INITBEGIN;
 
 

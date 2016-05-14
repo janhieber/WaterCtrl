@@ -29,6 +29,7 @@
 
 
 static const SpiBuffer sendDummy = {{0x00,} };
+static const SpiBuffer sendError = {{SPI_ID_ERROR,}};
 
 // handles for queues
 static osMessageQId spiSendQueue;
@@ -103,11 +104,27 @@ void procSpiBroker(void const * argument){
 				break;
 
 			case SPI_ID_NOP:
+//				recvMsg->d[0] = 0x33;
+//				recvMsg->d[1] = osKernelSysTick();
+//				SpiSend(recvMsg);
+				break;
+			case SPI_ID_ERROR:
+				E("Restart transfer after error");
+				// setup next XFER
+				// at least we free this pool element
+				osPoolFree(spiRecvPool, (SpiBuffer*)recv);
+				osPoolFree(spiSendPool, (SpiBuffer*)send);
+				osDelay(100);
+				// get empty receive buffer
+				recv = (SpiBuffer*)osPoolAlloc(spiRecvPool);
+				send = (SpiBuffer*)&send;
+
+				HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)send->d,
+						(uint8_t *)recv->d, SPI_XFER_SIZE);
 				break;
 			default:
 				E("unknown data received %s",recvMsg->d);
-				recvMsg->d[1] = osKernelSysTick();
-				SpiSend(recvMsg);
+
 				break;
 			}
 
@@ -147,23 +164,8 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi) {
     E("ErrorCode: 0x%08x", (unsigned int)hspi->ErrorCode);
 	switch(hspi->ErrorCode) {
 	case HAL_SPI_ERROR_OVR:
-		// setup next XFER
-		// at least we free this pool element
-		osPoolFree(spiRecvPool, (SpiBuffer*)recv);
-		osPoolFree(spiSendPool, (SpiBuffer*)send);
-		// get empty receive buffer
-		recv = (SpiBuffer*)osPoolAlloc(spiRecvPool);
-		// check if there is new data to send
-		osEvent evt = osMessageGet(spiSendQueue, 0);
-		if (evt.status == osEventMessage) {
-			//send data of queued item
-			send = (SpiBuffer*)evt.value.p;
-		} else {
-			// send dummy data
-			send = (SpiBuffer*)&sendDummy;
-		}
-		HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)send->d,
-				(uint8_t *)recv->d, SPI_XFER_SIZE);
+		// send error to broker to force restart
+		osMessagePut(spiRecvQueue,(uint32_t)&sendError,0);
 		I("SPI: Restart tranfer");
 
 		break;
@@ -181,7 +183,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 	if(hspi != &hspi1)
 		return;
 
-	D("Transmit receive callback");
+	//D("Transmit receive callback");
 
 	// receive stuff
 	{
@@ -189,7 +191,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 		if(!bufferEmpty((SpiBuffer*)recv)){
 			// not empty, so post the pointer to the buffer in the queue
 			// for further processing
-			D("received: %s",recv->d);
+			//D("received: 0x%02x 0x%02x",recv->d[0],recv->d[1]);
 			if(osMessagePut(spiRecvQueue, (uint32_t)recv, 0) != osOK)
 				E("SPI recv queue is full!");
 
@@ -202,7 +204,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
 
 	// send stuff
 	{
-		D("last send: %s",send->d);
+		//D("last send: 0x%02x 0x%02x",send->d[0],send->d[1]);
 		// free the last send buffer
 		osPoolFree(spiSendPool, (SpiBuffer*)send);
 
