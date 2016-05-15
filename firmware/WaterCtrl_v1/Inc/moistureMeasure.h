@@ -28,7 +28,7 @@ void MoistureTask();
 
 typedef struct SensorCmd {
 	uint8_t sensor;
-	uint8_t value;
+	uint16_t value;
 }stSensorCmd;
 
 void procSensor(void const * argument);

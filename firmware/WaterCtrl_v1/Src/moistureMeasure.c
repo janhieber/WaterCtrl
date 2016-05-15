@@ -75,10 +75,10 @@ osPoolDef(_sensorPool, 32, stSensorCmd*);
 /* Private variables ---------------------------------------------------------*/
 
 
-volatile uint_fast32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX+1];
+uint_fast32_t frequency[MOISTURE_MEASURE_CHANNEL_MAX+1];
 
-volatile uint16_t stateRegister = MOISTURE_MEASURE_STATE_INACTIVE;
-volatile uint activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
+uint16_t stateRegister = MOISTURE_MEASURE_STATE_INACTIVE;
+uint activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -132,9 +132,11 @@ uint32_t TimerChannel = TIM_CHANNEL_3;
 
 uint32_t getSensorFrequency(int sensor)
 {
-    if ((MOISTURE_MEASURE_CHANNEL0_ACTIVE <= sensor) \
-            &&(MOISTURE_MEASURE_CHANNEL_MAX >= sensor))
-        return frequency[sensor];
+	uint32_t channel = 0;
+	channel = sensor - 1 ;
+    if ((MOISTURE_MEASURE_CHANNEL0_ACTIVE <= channel) \
+            &&(MOISTURE_MEASURE_CHANNEL_MAX >= channel))
+        return frequency[channel];
     else
         return 0;
 }
@@ -149,7 +151,7 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 	// init data pools
 	sensorPool = osPoolCreate(osPool(_sensorPool));
     ptrTimer3Ref = ptr;
-    memset(&frequency,0,sizeof(frequency));
+    memset(frequency,0,sizeof(frequency));
 
     startSensorCapture(activeChannel);
     INITEND;
@@ -169,15 +171,15 @@ int startSensorCapture(int Sensor) {
 }
 
 void printMoisture() {
-	I( "Measured channel 1: %d Hz",
+	D( "Measured channel 1: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
-    I( "Measured channel 2: %d Hz",
+    D( "Measured channel 2: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
-    I( "Measured channel 3: %d Hz",
+    D( "Measured channel 3: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
-    I( "Measured channel 4: %d Hz",
+    D( "Measured channel 4: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
-    I( "Measured channel 5: %d Hz",
+    D( "Measured channel 5: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
 }
 
@@ -278,11 +280,17 @@ void procSensor(void const * argument) {
 			SpiBuffer spi;
 			memset(&spi,0,sizeof(spi));
 			stSensorCmd *cmd = event.value.p;
-			cmd->value = getSensorFrequency(cmd->sensor);
-			spi.d[1] = cmd->value;
+			cmd->value = getSensorFrequency(cmd->sensor)/(uint16_t)1000;
+			//spi.d[4] = (uint8_t)(cmd->value);
+			//spi.d[3] = (uint8_t)(cmd->value>>8);
+			//spi.d[2] = (uint8_t)(cmd->value>>16);
+			//spi.d[1] = (uint8_t)(cmd->value>>24);
+			//spi.d[1] = cmd->sensor;
+			memcpy(&spi.d[1],cmd,sizeof(cmd));
 			spi.d[0] = BRK_MSG_SPI_ID_SENS_VALUE_RSP;
-			SpiSend(&cmd);
-			printMoisture();
+			D("RESP: sens: 0x%02x value: %d",cmd->sensor,cmd->value);
+			SpiSend(&spi);
+			//printMoisture();
 			break;
 		}
 		case osEventTimeout: {
