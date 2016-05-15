@@ -26,15 +26,15 @@ void printMoisture();
 
 void MoistureTask();
 
-extern osMessageQId sensorCtrlQueue;
-extern osPoolId  sensorCtrlPool;
-
 typedef struct SensorCmd {
 	uint8_t sensor;
 	uint8_t value;
 }stSensorCmd;
 
 void procSensor(void const * argument);
+
+extern osMessageQId sensorQueue;
+extern osPoolId  sensorPool;
 
 #endif // MOISTUREMEASURE_H
 

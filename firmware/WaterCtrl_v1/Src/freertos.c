@@ -107,11 +107,11 @@ void MX_FREERTOS_Init(void) {
 
 	// this is only until we checked if the rest works
 	HAL_NVIC_DisableIRQ(TIM2_IRQn);
-	HAL_NVIC_DisableIRQ(TIM3_IRQn);
+	//HAL_NVIC_DisableIRQ(TIM3_IRQn);
 
     // setup SPI
     initSpi();
-    //initMoistureMeasure(&htim3);
+    initMoistureMeasure(&htim3);
     //initMotorControl(&htim2);
 
 
@@ -132,8 +132,11 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
+  SensorHandle = osThreadCreate(osThread(Sensor), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 
@@ -152,8 +155,7 @@ void MX_FREERTOS_Init(void) {
 
   //osThreadDef(Motor, procMotor, osPriorityHigh, 0, 64);
   //MotorHandle = osThreadCreate(osThread(Motor), NULL);
-  //osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
-  //SensorHandle = osThreadCreate(osThread(Sensor), NULL);
+
 
   /* USER CODE END RTOS_THREADS */
 
@@ -192,10 +194,10 @@ void StartDefaultTask(void const * argument)
 //	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 //	osPoolFree(motorCtrlPool,cmd);
 
-//	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorCtrlPool);
-//	sens_cmd->sensor = 1;
-//	osMessagePut(sensorCtrlQueue,(uint32_t)sens_cmd,0);
-//	osPoolAlloc(sensorCtrlPool);
+	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
+	sens_cmd->sensor = 1;
+	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
+	osPoolFree(sensorPool,sens_cmd);
 
 	counter++;
 	D("Default task: %d",counter);

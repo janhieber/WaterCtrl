@@ -112,7 +112,7 @@ int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
 				}
 
 				retval = g_activeMotor;
-				D("motor (%d) active");
+				D("motor (%d) active",g_activeMotor);
 			} else {
 				//Log(LogError, "bad up: %d or down: %d time!",cfg->up_time,cfg->down_time);
 				E("bad timing parameter");
@@ -229,7 +229,7 @@ void motTask1s() {
 	static uint16_t counter;
 	D("state : %s",getStateString());
 	D("motor : %d",g_activeMotor);
-	D("counter : %d",g_activeCounter);
+	D("counter : %d",(int)g_activeCounter);
 	D("pulse : %d",getPulse());
 
 	if (g_activeMotor == MOT_ACTIVE_NONE)
