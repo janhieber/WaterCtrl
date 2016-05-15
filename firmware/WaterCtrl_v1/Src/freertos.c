@@ -184,7 +184,7 @@ void StartDefaultTask(void const * argument)
 
 
     osDelay(3000);
-	SpiSend(&buf);
+	//SpiSend(&buf);
 
 	//osDelay(3000);
 //	MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
@@ -194,10 +194,10 @@ void StartDefaultTask(void const * argument)
 //	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 //	osPoolFree(motorCtrlPool,cmd);
 
-//	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
-//	sens_cmd->sensor = 3;
-//	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
-//	osPoolFree(sensorPool,sens_cmd);
+	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
+	sens_cmd->sensor = 3;
+	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
+	osPoolFree(sensorPool,sens_cmd);
 
 	counter++;
 	D("Default task: %d",counter);

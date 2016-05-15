@@ -281,12 +281,9 @@ void procSensor(void const * argument) {
 			memset(&spi,0,sizeof(spi));
 			stSensorCmd *cmd = event.value.p;
 			cmd->value = getSensorFrequency(cmd->sensor)/(uint16_t)1000;
-			//spi.d[4] = (uint8_t)(cmd->value);
-			//spi.d[3] = (uint8_t)(cmd->value>>8);
-			//spi.d[2] = (uint8_t)(cmd->value>>16);
-			//spi.d[1] = (uint8_t)(cmd->value>>24);
-			//spi.d[1] = cmd->sensor;
-			memcpy(&spi.d[1],cmd,sizeof(cmd));
+			spi.d[3] = (uint8_t)(cmd->value);
+			spi.d[2] = (uint8_t)(cmd->value>>8);
+			spi.d[1] = cmd->sensor;
 			spi.d[0] = BRK_MSG_SPI_ID_SENS_VALUE_RSP;
 			D("RESP: sens: 0x%02x value: %d",cmd->sensor,cmd->value);
 			SpiSend(&spi);
