@@ -35,10 +35,21 @@
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_hal_gpio.h"
 
+#include <cmsis_os.h>
 
 #include <spicomm.h>
 #include <moistureMeasure.h>
 #include <broker.h>
+
+
+
+#define SYSNAME "Sensor"
+
+osMessageQId sensorCtrlQueue;
+osMessageQDef(sensorCtrlQueue, 16, stSensorCmd);
+
+osPoolId  sensorCtrlPool;
+osPoolDef(sensorCtrlPool, 32, stSensorCmd);
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -121,7 +132,7 @@ uint32_t getSensorFrequency(int sensor)
 }
 
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
-    Log(LogInfo, "init moisture measure system");
+    I( "init moisture measure system");
 
     stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
 
@@ -131,11 +142,7 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 
     startSensorCapture(activeChannel);
 
-    //registerMessage(BRK_MSG_SPI_ID_SENS_VALUE,moiBrokerMessage);
-
     return 0;
-
-
 }
 
 int startSensorCapture(int Sensor)
@@ -150,35 +157,35 @@ int startSensorCapture(int Sensor)
 }
 
 void printMoisture() {
-    Log(LogInfo, "Measured channel 1: %d Hz",
+	I( "Measured channel 1: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL0_ACTIVE]);
-    Log(LogInfo, "Measured channel 2: %d Hz",
+    I( "Measured channel 2: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL1_ACTIVE]);
-    Log(LogInfo, "Measured channel 3: %d Hz",
+    I( "Measured channel 3: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL2_ACTIVE]);
-    Log(LogInfo, "Measured channel 4: %d Hz",
+    I( "Measured channel 4: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL3_ACTIVE]);
-    Log(LogInfo, "Measured channel 5: %d Hz",
+    I( "Measured channel 5: %d Hz",
         (int)frequency[MOISTURE_MEASURE_CHANNEL4_ACTIVE]);
 }
 
 int MeasureInit(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel) {
     int retval = -1;
 
-    Log(LogDebug, "start measure");
+    D("start measure");
 
     /* TIM enable counter */
     if(ptrTimerRef) {
         if (HAL_OK != (retval = HAL_TIM_IC_Start_IT(ptrTimerRef, channel))) {
             //printf("FAILED: timer start, erro: %d",retval);
-            Log(LogError, "failed to start timer!");
+            E( "failed to start timer!");
         }
     }
     return retval;
 }
 
 void moiEnableSensor() {
-    HAL_Delay(20);
+    //osDelay(20);
     HAL_GPIO_WritePin(GPIOB,MOISTURE_SENS_PIN_ENABLE,GPIO_PIN_SET);
 }
 
@@ -249,7 +256,7 @@ void moiBrokerMessage(char *buf, uint8_t length)
     }
 }*/
 
-/*
+
 void MoistureTask() {
     if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
         frequency[activeChannel] = getFrequencyOfChannel();
@@ -258,9 +265,38 @@ void MoistureTask() {
             activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
         moiSetChannel(activeChannel);
     } else {
-        LogUart(LogError, "MOI inactive state");
+        E( "MOI inactive state");
     }
-}*/
+}
+
+void procSensor(void const * argument) {
+	PROCRUNNING;
+	osEvent event;
+	do {
+		event = osMessageGet(sensorCtrlQueue,500);
+		switch(event.status) {
+		case osEventMessage: {
+			SpiBuffer spi;
+			memset(&spi,0,sizeof(spi));
+			stSensorCmd *cmd = event.value.p;
+			cmd->value = getSensorFrequency(cmd->sensor);
+			spi.d[1] = cmd->value;
+			spi.d[0] = BRK_MSG_SPI_ID_SENS_VALUE_RSP;
+			SpiSend(&cmd);
+			printMoisture();
+			break;
+		}
+		case osEventTimeout: {
+			MoistureTask();
+			break;
+		}
+		default:
+			MoistureTask();
+			break;
+
+		}
+	}while(1);
+}
 
 /**
   * @}

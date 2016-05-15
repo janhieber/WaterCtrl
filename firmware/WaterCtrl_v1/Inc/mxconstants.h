@@ -92,7 +92,8 @@
 #define INITEND		printf_(" [DONE]\r\n")
 /** use before endless loop in process */
 #define PROCRUNNING	printf_("  :: %s running\r\n", __func__)
-
+/** use before endless loop in process */
+#define FUNCRUNNING	printf_("  :: %s caled\r\n", __func__)
 
 
 #define VER_MAJOR (uint8_t)00
