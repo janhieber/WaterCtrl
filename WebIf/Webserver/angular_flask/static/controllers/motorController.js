@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('wateringApp')
-.controller('MotorListCtrl', ['$scope', 'MotorsFactory', '$state', 
-  function ($scope, MotorsFactory, $state) {
+.controller('MotorListCtrl', ['$scope', 'MotorsFactory', 'SensorFactory', '$state',
+  function ($scope, MotorsFactory, SensorFactory, $state) {
 
       // callback for ng-click 'editMotor':
       $scope.editMotor = function (motorId) {
@@ -21,8 +21,8 @@ angular.module('wateringApp')
 
       $scope.motors = MotorsFactory.query();
   }])
-.controller('MotorDetailCtrl', ['$scope', 'MotorFactory', 'MotorsFactory', '$state', '$stateParams',
-  function ($scope, MotorFactory, MotorsFactory, $state, $stateParams) {
+.controller('MotorDetailCtrl', ['$scope', 'MotorFactory', 'MotorsFactory', 'SensorsFactory', '$state', '$stateParams',
+  function ($scope, MotorFactory, MotorsFactory, SensorsFactory, $state, $stateParams) {
 
       // callback for ng-click 'updateMotor':
       $scope.updateMotor = function () {
@@ -37,9 +37,11 @@ angular.module('wateringApp')
       };
 
       $scope.motor = MotorFactory.show({id: $stateParams.id});
+
+      $scope.sensors = SensorsFactory.query();
   }])
-.controller('MotorCreationCtrl', ['$scope', 'MotorsFactory', '$state',
-  function ($scope, MotorsFactory, $state) {
+.controller('MotorCreationCtrl', ['$scope', 'MotorsFactory', 'SensorsFactory', '$state',
+  function ($scope, MotorsFactory, SensorsFactory, $state) {
 
       // callback for ng-click 'createNewMotor':
       $scope.createNewMotor = function () {
@@ -52,6 +54,8 @@ angular.module('wateringApp')
       $scope.cancel = function () {
           $state.go('motor-list');
       };
+
+      $scope.sensors = SensorsFactory.query();
   }])
 .controller('MotorDeleteCtrl', ['$scope', 'MotorFactory', 'MotorsFactory', '$state', '$stateParams',
   function ($scope, MotorFactory, MotorsFactory, $state, $stateParams) {

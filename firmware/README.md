@@ -1,39 +1,43 @@
-# Firmware
-This is the firmware for the STM32.
-
 # Flash current firmware
-We copy the current firmware into this folder, see the .bin files.
+We copy some releases to the *bin* folder.
+Download the latest and flash as follows:
 
-To flash these firmares with Linux or OSX use the following command:
+To flash these firmares with Linux or OSX use the flash script:
 ```bash
-openocd -s /usr/share/openocd/scripts -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -c "reset_config none separate" -c "init" -c "reset halt" -c "flash write_image erase WaterCtrl_V1.bin 0x08000000" -c "reset run" -c shutdown
+./flashfw.sh <fwfile.bin>
 ```
 
-When using Windows, download the ST-Link utility. In the menu you can select a file to flash.
+When using Windows, download the [ST-Link utility](http://www.st.com/web/en/catalog/tools/PF258168).  
+In the menu you can select a file to flash.
 
 
-# ToDo
-There should be low level functionality only.  
-*Every high level control is done by the rPi.*
-- [ ] Sensor measurement
-- [ ] motor control
-- [ ] UART logging/debugging
-- [ ] SPI for rPi communication
-- [ ] watchdog for rPi
-
-
-# Note
-I use this folder as eclipse workspace.
 
 # Dev environment
+Download and install System Workbench from [openstm32](http://www.openstm32.org/HomePage)
 
-Read [Dev Environment.pdf](https://raw.githubusercontent.com/janhieber/WaterCtrl/master/firmware/docu/Dev%20Environment.pdf)
-to setup Eclipse for the STM32.
+or:  
+Integrate System Workbench in your existing Eclipse. Read on the [openstm32](http://www.openstm32.org/HomePage)
+website how to do this. This is the better solution as the shipped Eclipse is
+a bit out of date.
 
-Now switch your workspace to "firmware" folder of this project.  
 
-No you should be able to build the project.  
-In external tools there is a flash entry.
+Open System Workbench/Eclipse and create a workspace or use your existing.  
+Do _not_ use a workspace withing this git repo!
+
+Click *File* > *Import* > *Existing Project into Workspace*  
+Browse to the git repo and select *firmware/WaterCtrl_v1* folder.
+
+Uncheck *Copy projects into workspace* and click *Finish*.  
+Now you have your project in the project explorer and can work with it
+and sync your changes to git.
+
+Modify the last line in the file *WaterCtrl_v1.cfg*.
+Should be: *reset_config none separate*
+
+Click the green play/run button to flash the software. Debug also works.
+
+Have fun!
+
 
 # CPU Pins
 
@@ -60,4 +64,5 @@ In external tools there is a flash entry.
 |37      |PA14           |I/O   |SYS_JTCK-SWCLK|          |
 |42      |PB6            |I/O   |TIM4_CH1      |          |
 |46      |PB9            |Output|GPIO_Output   |LED_ERR   |
+
 

@@ -7,18 +7,12 @@ Otherwise write the latest image to the sdcard and configure as follows.
 
 ## Write image to SD
 ### Linux / OSX
-Open a terminal and type
-```bash
-sudo su
-```
-Now you should have root privileges.
-Go to your downloads folder and write the image with dd to your SD card:
+Download the current image file from [http://share.janhieber.net/WaterCtrl/](http://share.janhieber.net/WaterCtrl/)  
+In a terminal go to your downloads folder and write the image to SDCard:
 ```bash
 cd downloads
-dd if=WaterCtrl_rpi.img of=/dev/mmcblk0 bs=4M
+sudo su
+gunzip -c DATE-sdcard.img.gz | dd of=/dev/mmcblk0
 sync
 ```
-
-### Windows
-Use Win32DiskImager to write the image file on the SD card.
 

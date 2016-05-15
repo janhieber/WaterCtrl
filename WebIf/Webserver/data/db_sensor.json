@@ -11,18 +11,6 @@
 		{
 			"channel": 3,
 			"frequency": 300
-		},
-		{
-			"channel": 4,
-			"frequency": 400
-		},
-		{
-			"channel": 5,
-			"frequency": 500
-		},
-		{
-			"channel": 6,
-			"frequency": 600
 		}
 	]
 }

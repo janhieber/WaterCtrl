@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('wateringApp')
-.controller('PlantListCtrl', ['$scope', 'PlantsFactory', 'SensorFactory', 'MotorFactory', '$state', 
-  function ($scope, PlantsFactory, SensorFactory, MotorFactory, $state) {
+.controller('PlantListCtrl', ['$scope', 'PlantsFactory', 'MotorFactory', '$state', 
+  function ($scope, PlantsFactory, MotorFactory, $state) {
 
       // callback for ng-click 'editPlant':
       $scope.editPlant = function (plantId) {
@@ -21,8 +21,8 @@ angular.module('wateringApp')
 
       $scope.plants = PlantsFactory.query();
   }])
-.controller('PlantDetailCtrl', ['$scope', 'PlantFactory', 'PlantsFactory', 'SensorsFactory', 'MotorsFactory', '$state', '$stateParams',
-  function ($scope, PlantFactory, PlantsFactory, SensorsFactory, MotorsFactory, $state, $stateParams) {
+.controller('PlantDetailCtrl', ['$scope', 'PlantFactory', 'PlantsFactory', 'MotorsFactory', '$state', '$stateParams',
+  function ($scope, PlantFactory, PlantsFactory, MotorsFactory, $state, $stateParams) {
 
       // callback for ng-click 'updatePlant':
       $scope.updatePlant = function () {
@@ -38,11 +38,10 @@ angular.module('wateringApp')
 
       $scope.plant = PlantFactory.show({id: $stateParams.id});
       
-      $scope.sensors = SensorsFactory.query();
       $scope.motors = MotorsFactory.query();
   }])
-.controller('PlantCreationCtrl', ['$scope', 'PlantsFactory', 'SensorsFactory', 'MotorsFactory', '$state',
-  function ($scope, PlantsFactory, SensorsFactory, MotorsFactory ,$state) {
+.controller('PlantCreationCtrl', ['$scope', 'PlantsFactory', 'MotorsFactory', '$state',
+  function ($scope, PlantsFactory, MotorsFactory ,$state) {
 
       // callback for ng-click 'createNewPlant':
       $scope.createNewPlant = function () {
@@ -56,7 +55,6 @@ angular.module('wateringApp')
           $state.go('plant-list');
       };
       
-      $scope.sensors = SensorsFactory.query();
       $scope.motors = MotorsFactory.query();
   }])
 .controller('PlantDeleteCtrl', ['$scope', 'PlantFactory', 'PlantsFactory', '$state', '$stateParams',

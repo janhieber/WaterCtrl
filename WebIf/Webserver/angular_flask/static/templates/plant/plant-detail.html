@@ -23,14 +23,6 @@
 	            </div>
 	        </div>
 	        <div class="control-group">
-	            <label class="control-label" for="inputSensor">Sensor:</label>
-	            <div class="controls">
-	                <select id="inputSensor" ng-model="plant.sensor_id">
-				        <option ng-repeat="sensor in sensors.objects" ng-selected="(plant.sensor_id === ($index + 1))" value="{{$index + 1}}">sensor: channel {{sensor.channel}} - frequency {{sensor.frequency}}</option>
-				    </select>
-	            </div>
-	        </div>
-	        <div class="control-group">
 	            <label class="control-label" for="inputMotor">Motor:</label>
 	            <div class="controls">
 	                <select id="inputMotor" ng-model="plant.motor_id">

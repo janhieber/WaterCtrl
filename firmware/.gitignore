@@ -1,4 +1,1 @@
-# ignore all eclipse runtime files
-.metadata/.plugins/org.eclipse.*
-*.log
-
+/build-WaterCtrl_v1-*
