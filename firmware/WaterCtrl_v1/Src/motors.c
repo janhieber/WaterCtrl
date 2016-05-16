@@ -165,15 +165,13 @@ void initMotorControl(TIM_HandleTypeDef * ref) {
 	motorCtrlQueue = osMessageCreate(osMessageQ(motorCtrlQueue), NULL);
 	motorCtrlPool = osPoolCreate(osPool(motorCtrlPool));
 
-	INITEND;
-	return;
-
 	g_activeMotor = MOT_ACTIVE_NONE;
-	//Log(LogInfo, "init motor control system");
 
 	ptrTimer = ref;
 
 	HAL_TIM_Base_Start_IT(ptrTimer);
+	INITEND;
+	return;
 }
 
 
@@ -185,14 +183,16 @@ void procMotor(void const * argument){
 	int counter=0;
 	osEvent evt;
 	stMotCfg cfg;
+	bool run = true;
 
-	while(true) {
+	do {
 		// here we check for incoming commands from SPI
 		evt.value.p = 0;
 		evt = osMessageGet(motorCtrlQueue, 100);
 
 		// we got one
-		if (evt.status == osEventMessage) {
+		switch (evt.status) {
+		case osEventMessage: {
 			MotorCmd* cmd = (MotorCmd*)evt.value.p;
 			I("motor nr:%u time:%u speed:%u ", cmd->motor, cmd->time, cmd->speed);
 
@@ -210,15 +210,22 @@ void procMotor(void const * argument){
 			SpiSend(&buf);
 
 			osPoolFree(motorCtrlPool, cmd);
+			break;
 		}
-		else {
+		case osEventTimeout: {
 			D("message timeout");
 			motTask100ms();
 			if(counter%10==0)
 				motTask1s();
 			counter++;
+			break;
 		}
-	}
+		default:
+			E("something went wrong. event status %d",evt.status);
+			run = false;
+			break;
+		}
+	}while(run);
 }
 
 

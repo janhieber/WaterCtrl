@@ -93,21 +93,10 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
 
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-
-
-	// setup logging, first UART, later with SPI
-	//logSetDestination(LogDstSerConsole);
-	//logSetFilter(LogDebug | LogError | LogInfo);
-	//logSetFilter(LogError | LogInfo);
-
 	// nice greetings
 	printf_("\r\n\r\nWaterCtrl version v%u.%u [%s]\r\n", VER_MAJOR, VER_MINOR, __DATE__);
 	printf_("System clock: %dMHz\r\n", (uint8_t)(SystemCoreClock / 1000000));
 	printf_(":: Booting system ...\r\n");
-
-	// this is only until we checked if the rest works
-	HAL_NVIC_DisableIRQ(TIM2_IRQn);
-	//HAL_NVIC_DisableIRQ(TIM3_IRQn);
 
     // setup SPI
     initSpi();
@@ -132,8 +121,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 32);
+  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
   SensorHandle = osThreadCreate(osThread(Sensor), NULL);
@@ -150,10 +139,10 @@ void MX_FREERTOS_Init(void) {
   //osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
   //AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
-  osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 0, 64);
+  osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
   SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
-  //osThreadDef(Motor, procMotor, osPriorityHigh, 0, 64);
+  //osThreadDef(Motor, procMotor, osPriorityHigh, 1, 64);
   //MotorHandle = osThreadCreate(osThread(Motor), NULL);
 
 

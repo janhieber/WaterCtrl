@@ -288,6 +288,7 @@ void procSensor(void const * argument) {
 			D("RESP: sens: 0x%02x value: %d",cmd->sensor,cmd->value);
 			SpiSend(&spi);
 			//printMoisture();
+			osPoolFree(sensorPool, cmd);
 			break;
 		}
 		case osEventTimeout: {
