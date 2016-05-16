@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides:          waterctrl
-# Required-Start:    $remote_fs $syslog
+# Required-Start:    $remote_fs $syslog $postgresql webinterface
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
@@ -30,6 +30,7 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
 do_start () {
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
     start-stop-daemon --start --background --chdir $DIR --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS
+    #start-stop-daemon --start --quiet  --chdir $DIR --chuid $DAEMON_USER  --make-pidfile --pidfile $PIDFILE --background --startas /bin/bash -- -c "exec $DAEMON $DAEMON_OPTS >> /tmp/waterctrl.log 2>&1"
     log_end_msg $?
 }
 do_stop () {
