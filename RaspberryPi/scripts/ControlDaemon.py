@@ -37,11 +37,15 @@ import sys
 """
 class app(threading.Thread):
     SPI_EMPTY = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    
     SPI_READ_SENSOR_1 = [0x12, 0x01, 0x00, 0x00, 0x00, 0x00]
     SPI_READ_SENSOR_2 = [0x12, 0x02, 0x00, 0x00, 0x00, 0x00]
     SPI_READ_SENSOR_3 = [0x12, 0x03, 0x00, 0x00, 0x00, 0x00]
     SPI_READ_SENSOR_4 = [0x12, 0x04, 0x00, 0x00, 0x00, 0x00]
     SPI_READ_SENSOR_5 = [0x12, 0x05, 0x00, 0x00, 0x00, 0x00]
+    
+    SPI_RECEIVE_SENSOR_VALUE = 19
+    
     SPI_START_MOTOR_1 = [0x10, 0x01, 0x01, 0x30, 0x01, 0x99]
     SPI_START_MOTOR_2 = [0x10, 0x02, 0x01, 0x30, 0x01, 0x99]
     SPI_START_MOTOR_3 = [0x10, 0x03, 0x01, 0x30, 0x01, 0x99]
@@ -224,25 +228,19 @@ class app(threading.Thread):
 
 
 
-
-
-
-            # queue some data for MessageBroker
-            #randomData = random.choice('abcdefghij')
-            #self.sendQueue.put(randomData)
-
             # check if we should exit
             if self.exit:
                 break
 
-            while not self.recvQueue.empty():
-                print("REC: " + self.recvQueue.get())
+            # process receive queue
+            recvbuf = self.recvQueue.get()
+            
+            if len(recvbuf) == 6:
+                # temp code for receiving sensor values:
+                if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
+                    sixteenBitNumber = 256*recvbuf[2] + recvbuf[3];
+                    logging.info('Sensor %s, Value: %s', recvbuf[1], sixteenBitNumber)
 
-
-            # send test data
-            #bla = round(random.uniform(0, 1))
-            #if bla == 0:
-            #    self.sendQueue.put("test bla")
 
             # wait for next cycle
             nextCycle = nextCycle + self.cycleTime
