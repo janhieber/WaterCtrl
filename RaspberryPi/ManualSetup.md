@@ -260,6 +260,12 @@ Finally, update the daemons `sudo update-rc.d webinterface defaults`.
 
 Now you can start the webserver via the command `service webinterface start`.
 
+Same must be done accordingly for the background control daemon. Please use file `waterctrl` .
+
+Install service via `insserv` instead of `update-rc.d` to ensure service start after webinterface and postgresql.
+```
+sudo insserv -d waterctrl
+```
 
 
 ## Create tables for database
