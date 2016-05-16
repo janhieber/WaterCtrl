@@ -101,7 +101,7 @@ void MX_FREERTOS_Init(void) {
     // setup SPI
     initSpi();
     initMoistureMeasure(&htim3);
-    //initMotorControl(&htim2);
+    initMotorControl(&htim2);
 
 
 
@@ -142,8 +142,8 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
   SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
-  //osThreadDef(Motor, procMotor, osPriorityHigh, 1, 64);
-  //MotorHandle = osThreadCreate(osThread(Motor), NULL);
+  osThreadDef(Motor, procMotor, osPriorityHigh, 1, 64);
+  MotorHandle = osThreadCreate(osThread(Motor), NULL);
 
 
   /* USER CODE END RTOS_THREADS */

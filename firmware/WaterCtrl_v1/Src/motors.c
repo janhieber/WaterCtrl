@@ -213,7 +213,6 @@ void procMotor(void const * argument){
 			break;
 		}
 		case osEventTimeout: {
-			D("message timeout");
 			motTask100ms();
 			if(counter%10==0)
 				motTask1s();
@@ -232,26 +231,26 @@ void procMotor(void const * argument){
 
 
 void motTask1s() {
-	stMotCfg cfg =  {0,0,0,0};
-	static uint16_t counter;
+	//stMotCfg cfg =  {0,0,0,0};
+	//static uint16_t counter;
 	D("state : %s",getStateString());
 	D("motor : %d",g_activeMotor);
 	D("counter : %d",(int)g_activeCounter);
 	D("pulse : %d",getPulse());
 
-	if (g_activeMotor == MOT_ACTIVE_NONE)
-	{
-		cfg.down_time = 5;
-		cfg.up_time = 5;
-		cfg.high_time = 10;
-		cfg.max_level = 100;
-		motControlStart((counter % 2)+1,&cfg);
-		counter++;
-	}
+	//if (g_activeMotor == MOT_ACTIVE_NONE)
+	//{
+	//	cfg.down_time = 5;
+	//	cfg.up_time = 5;
+	//	cfg.high_time = 10;
+	//	cfg.max_level = 100;
+	//	motControlStart((counter % 2)+1,&cfg);
+	//	counter++;
+	//}
 }
 
 void motTask100ms() {
-	FUNCRUNNING;
+	//FUNCRUNNING;
 	if (g_activeMotor != MOT_ACTIVE_NONE)
 	{
 		switch (g_activeState) {
