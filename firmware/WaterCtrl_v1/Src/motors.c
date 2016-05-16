@@ -112,7 +112,7 @@ int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
 				}
 
 				retval = g_activeMotor;
-				D("motor (%d) active");
+				D("motor (%d) active",g_activeMotor);
 			} else {
 				//Log(LogError, "bad up: %d or down: %d time!",cfg->up_time,cfg->down_time);
 				E("bad timing parameter");
@@ -165,15 +165,13 @@ void initMotorControl(TIM_HandleTypeDef * ref) {
 	motorCtrlQueue = osMessageCreate(osMessageQ(motorCtrlQueue), NULL);
 	motorCtrlPool = osPoolCreate(osPool(motorCtrlPool));
 
-	INITEND;
-	return;
-
 	g_activeMotor = MOT_ACTIVE_NONE;
-	//Log(LogInfo, "init motor control system");
 
 	ptrTimer = ref;
 
 	HAL_TIM_Base_Start_IT(ptrTimer);
+	INITEND;
+	return;
 }
 
 
@@ -185,14 +183,16 @@ void procMotor(void const * argument){
 	int counter=0;
 	osEvent evt;
 	stMotCfg cfg;
+	bool run = true;
 
-	while(true) {
+	do {
 		// here we check for incoming commands from SPI
 		evt.value.p = 0;
 		evt = osMessageGet(motorCtrlQueue, 100);
 
 		// we got one
-		if (evt.status == osEventMessage) {
+		switch (evt.status) {
+		case osEventMessage: {
 			MotorCmd* cmd = (MotorCmd*)evt.value.p;
 			I("motor nr:%u time:%u speed:%u ", cmd->motor, cmd->time, cmd->speed);
 
@@ -210,41 +210,47 @@ void procMotor(void const * argument){
 			SpiSend(&buf);
 
 			osPoolFree(motorCtrlPool, cmd);
+			break;
 		}
-		else {
-			D("message timeout");
+		case osEventTimeout: {
 			motTask100ms();
 			if(counter%10==0)
 				motTask1s();
 			counter++;
+			break;
 		}
-	}
+		default:
+			E("something went wrong. event status %d",evt.status);
+			run = false;
+			break;
+		}
+	}while(run);
 }
 
 
 
 
 void motTask1s() {
-	stMotCfg cfg =  {0,0,0,0};
-	static uint16_t counter;
+	//stMotCfg cfg =  {0,0,0,0};
+	//static uint16_t counter;
 	D("state : %s",getStateString());
 	D("motor : %d",g_activeMotor);
-	D("counter : %d",g_activeCounter);
+	D("counter : %d",(int)g_activeCounter);
 	D("pulse : %d",getPulse());
 
-	if (g_activeMotor == MOT_ACTIVE_NONE)
-	{
-		cfg.down_time = 5;
-		cfg.up_time = 5;
-		cfg.high_time = 10;
-		cfg.max_level = 100;
-		motControlStart((counter % 2)+1,&cfg);
-		counter++;
-	}
+	//if (g_activeMotor == MOT_ACTIVE_NONE)
+	//{
+	//	cfg.down_time = 5;
+	//	cfg.up_time = 5;
+	//	cfg.high_time = 10;
+	//	cfg.max_level = 100;
+	//	motControlStart((counter % 2)+1,&cfg);
+	//	counter++;
+	//}
 }
 
 void motTask100ms() {
-	FUNCRUNNING;
+	//FUNCRUNNING;
 	if (g_activeMotor != MOT_ACTIVE_NONE)
 	{
 		switch (g_activeState) {

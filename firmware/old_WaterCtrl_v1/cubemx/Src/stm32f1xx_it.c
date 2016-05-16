@@ -41,7 +41,10 @@
 
 /* External variables --------------------------------------------------------*/
 extern SPI_HandleTypeDef hspi1;
+<<<<<<< HEAD:firmware/WaterCtrl_V1/Src/stm32f1xx_it.c
+=======
 extern TIM_HandleTypeDef htim2;
+>>>>>>> master:firmware/old_WaterCtrl_v1/cubemx/Src/stm32f1xx_it.c
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
 
@@ -72,6 +75,8 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+<<<<<<< HEAD:firmware/WaterCtrl_V1/Src/stm32f1xx_it.c
+=======
 * @brief This function handles TIM2 global interrupt.
 */
 void TIM2_IRQHandler(void)
@@ -86,6 +91,7 @@ void TIM2_IRQHandler(void)
 }
 
 /**
+>>>>>>> master:firmware/old_WaterCtrl_v1/cubemx/Src/stm32f1xx_it.c
 * @brief This function handles TIM3 global interrupt.
 */
 void TIM3_IRQHandler(void)

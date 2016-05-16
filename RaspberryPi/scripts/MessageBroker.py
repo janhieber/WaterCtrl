@@ -49,66 +49,32 @@ class app(threading.Thread):
         logging.info('Starting')
         self.setup()
         nextCycle = time.time()
-        recvComplete = False
         
         while True:
-            # process message queue
-            #logging.info('process queue')
-            #while not self.sendQueue.empty():
-            #    # get queued data
-            #    sendData = self.sendQueue.get()
-            #    logging.info("sending %s" % (sendData))
-            #    # mark data as done
-            #    self.queue.task_done()
-            
-            recvComplete = False
-            sendComplete = False
-            recvArray = [""]
-            
-            while not (recvComplete and sendComplete):
-                recvData = ''
+            # create sendbuffer
+            if not self.sendQueue.empty():
+                sendbuf = self.sendQueue.get()
+            else:
+                sendbuf = self.SPI_EMPTY
                 
-                # create sendbuffer
-                if not self.sendQueue.empty():
-                    sendbuf = self.sendQueue.get()
-                else:
-                    sendbuf = self.SPI_EMPTY
-
-                # check if send queue is now empty
-                if self.sendQueue.empty():
-                    sendComplete = True;
-
-                # xfer data over SPI
-                recvbuf = self.SPI.xfer2(sendbuf)
-
-                # remove trailing zeros
-                while len(recvbuf) > 0 and recvbuf[-1] == 0:
-                    recvbuf.pop()
-
-                if len(recvbuf) > 0:
-                    # decode messages
-                    if recvbuf[0] >= 0x01 and recvbuf[0] <= 0x13:
-                        recvArray.append(''.join(chr(c) for c in recvbuf))
-                    else:
-                        recvArray[len(recvArray)-1] += ''.join(chr(c) for c in recvbuf)
-
-                # check if we are finished
-                if sum(recvbuf) == 0:
-                    logging.info("Received message: %s", recvArray)
-                    recvComplete = True
-                else:
-                    time.sleep(0.01)
-
+            # xfer data over SPI
+            recvbuf = self.SPI.xfer2(sendbuf)
+            
+            # 6 bytes should be received
+            if len(recvbuf) == 6:
                 # check for error
-                if recvComplete == False and all(x==recvbuf[0] for x in recvbuf):
+                if recvbuf[0] != 0 and all(x==recvbuf[0] for x in recvbuf):
                     logging.error('SPI: received identical data, this may be a SPI error: %s',recvbuf)
-                    recvComplete = True
+                # only process messages not like SPI_EMPTY
+                elif recvbuf != self.SPI_EMPTY:
+                    # 0x01 and 0x02 are messages for messagebroker, so no forwarding
+                    if recvbuf[0] == 1 or recvbuf[0] == 2:
+                        logging.info("Received message: %s", recvbuf)
+                    else: 
+                        logging.info("Received message: %s", recvbuf)
+                        self.recvQueue.put(recvbuf)
 
-            # put to queue
-            for msg in recvArray:
-                if len(msg) > 0:
-                    self.recvQueue.put(msg.strip())
-                
+            
             # check if we should exit
             if self.exit:
                 break

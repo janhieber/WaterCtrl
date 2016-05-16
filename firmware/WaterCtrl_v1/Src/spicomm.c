@@ -26,9 +26,7 @@
 #include "motors.h"
 #include "moistureMeasure.h"
 
-
 #define SYSNAME "SpiBroker"
-
 
 static const SpiBuffer sendDummy = {{0x00,} };
 static const SpiBuffer sendError = {{SPI_ID_ERROR,}};
@@ -102,15 +100,9 @@ void procSpiBroker(void const * argument){
 			}
 			case SPI_ID_MOIST_REQ:  {
 				D("moisture request received");
-
-				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorCtrlPool);
+				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
 				cmd->sensor = recvMsg->d[1];
-				osMessagePut(sensorCtrlPool,(uint32_t)cmd,0);
-
-				SpiBuffer buf;
-				buf.d[0] = SPI_ID_MOIST_VALUE;
-				buf.d[1] = 70;
-				SpiSend(&buf);
+				osMessagePut(sensorQueue,(uint32_t)cmd,0);
 				break;
 			}
 			case SPI_ID_NOP:
@@ -156,8 +148,8 @@ bool SpiSend(SpiBuffer* data){
 	{
 		//drop last message
 		//osPoolFree(spiSendPool,buf);
-		//osMessageGet(spiSendQueue,0);
-		E("Failed put to queue: 0x%08x",osOK);
+		osMessageGet(spiSendQueue,0);
+		E("Failed put to queue: 0x%08x",buf);
 	}
 	osPoolFree(spiSendPool,buf);
 	return true;

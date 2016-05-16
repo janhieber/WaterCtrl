@@ -43,7 +43,6 @@ eActiveState getState() {
     return isrState;
 }
 
-// if you read this, call me. Jan
 void custom_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (TIM2 == htim->Instance) {
         switch (isrState) {

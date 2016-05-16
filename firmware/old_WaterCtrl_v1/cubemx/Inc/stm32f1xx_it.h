@@ -46,7 +46,10 @@
 /* Exported functions ------------------------------------------------------- */
 
 void SysTick_Handler(void);
+<<<<<<< HEAD:firmware/WaterCtrl_V1/Inc/stm32f1xx_it.h
+=======
 void TIM2_IRQHandler(void);
+>>>>>>> master:firmware/old_WaterCtrl_v1/cubemx/Inc/stm32f1xx_it.h
 void TIM3_IRQHandler(void);
 void SPI1_IRQHandler(void);
 void USART1_IRQHandler(void);

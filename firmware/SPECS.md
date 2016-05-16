@@ -16,6 +16,9 @@ Protocol:
   - 2. byte: sensor number
 - 0x13 - Moisture measure value
   - 2. byte: sensor number
-  - 3. byte: moisture value scaled to 8bit unsigned in kHz (0-255kHz)
+  - 3. byte: moisture value scaled to 16bit unsigned in kHz (0-800kHz)
+  - 4. byte: moisture value scaled to 16bit unsigend (LSB)
 
+Example Sesnor response in python:
+ ['', '\x13\x03\x03\x06']
 
