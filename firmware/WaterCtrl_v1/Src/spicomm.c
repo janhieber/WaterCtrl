@@ -100,15 +100,9 @@ void procSpiBroker(void const * argument){
 			}
 			case SPI_ID_MOIST_REQ:  {
 				D("moisture request received");
-
 				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
 				cmd->sensor = recvMsg->d[1];
 				osMessagePut(sensorQueue,(uint32_t)cmd,0);
-
-				SpiBuffer buf;
-				buf.d[0] = SPI_ID_MOIST_VALUE;
-				buf.d[1] = 70;
-				SpiSend(&buf);
 				break;
 			}
 			case SPI_ID_NOP:
@@ -155,7 +149,7 @@ bool SpiSend(SpiBuffer* data){
 		//drop last message
 		//osPoolFree(spiSendPool,buf);
 		osMessageGet(spiSendQueue,0);
-		E("Failed put to queue: 0x%08x",osOK);
+		E("Failed put to queue: 0x%08x",buf);
 	}
 	osPoolFree(spiSendPool,buf);
 	return true;
