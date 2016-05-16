@@ -96,17 +96,40 @@ git clone https://github.com/janhieber/WaterCtrl.git
 ```shell
 sudo apt-get install python3-spidev 
 ```
-### Install MariaDB
+### Install PostgreSql
 ```shell
-sudo apt-get install mariadb-server mariadb-client python3-mysql.connector
+sudo apt-get install postgresql-9.4 python-psycopg2 python3-postgresql libpq-dev
+```
+
+### Change the “ident” methods to “md5” methods
+```shell
+sudo vi /etc/postgresql/9.4/main/pg_hba.conf
+```
+
+pg_hba.conf on the bottom should look like this:
+```shell
+# "local" is for Unix domain socket connections only
+local   all         all                               md5
+# IPv4 local connections:
+host    all         all         127.0.0.1/32          md5
+# IPv6 local connections:
+host    all         all         ::1/128               md5
 ```
 
 ### Create WaterCtrl database
 ```shell
-cd ~/WaterCtrl/RaspberryPi/scripts
-mysql -u root -p < create_db.sql
+sudo passwd postgres
+sudo su - postgres
+createdb waterctrl
+psql -U postgres -d waterctrl -a -f /home/pi/WaterCtrl/RaspberryPi/scripts/create_db.sql
+exit
 ```
 
+### Install Python libs
+```shell
+cd /home/pi/WaterCtrl/WebIf/Webserver/
+sudo pip install -r requirements.txt
+```
 
 
 
