@@ -26,9 +26,7 @@
 #include "motors.h"
 #include "moistureMeasure.h"
 
-
 #define SYSNAME "SpiBroker"
-
 
 static const SpiBuffer sendDummy = {{0x00,} };
 static const SpiBuffer sendError = {{SPI_ID_ERROR,}};
@@ -90,7 +88,7 @@ void procSpiBroker(void const * argument){
 			SpiBuffer* recvMsg = (SpiBuffer*)evt.value.p;
 
 			switch(recvMsg->d[0]){
-			case SPI_ID_MOTOR_CTRL:
+			case SPI_ID_MOTOR_CTRL: {
 				D("motor command received");
 				// pack the message in an MotorCmd and send it to Motor system
 				MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
@@ -99,11 +97,20 @@ void procSpiBroker(void const * argument){
 				cmd->speed = recvMsg->d[3];
 				osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 				break;
-
-			case SPI_ID_MOIST_REQ:
+			}
+			case SPI_ID_MOIST_REQ:  {
 				D("moisture request received");
 
+				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
+				cmd->sensor = recvMsg->d[1];
+				osMessagePut(sensorQueue,(uint32_t)cmd,0);
+
+				SpiBuffer buf;
+				buf.d[0] = SPI_ID_MOIST_VALUE;
+				buf.d[1] = 70;
+				SpiSend(&buf);
 				break;
+			}
 			case SPI_ID_NOP:
 				break;
 			case SPI_ID_ERROR:
@@ -139,7 +146,7 @@ void procSpiBroker(void const * argument){
 bool SpiSend(SpiBuffer* data){
 	osStatus ret;
 	// allocate space
-	SpiBuffer* buf = (SpiBuffer*)osPoolAlloc(spiSendPool);
+	SpiBuffer *buf = (SpiBuffer*)osPoolAlloc(spiSendPool);
 	// copy data
 	memcpy(buf, data, sizeof(SpiBuffer));
 	// send to queue
@@ -147,7 +154,7 @@ bool SpiSend(SpiBuffer* data){
 	{
 		//drop last message
 		//osPoolFree(spiSendPool,buf);
-		//osMessageGet(spiSendQueue,0);
+		osMessageGet(spiSendQueue,0);
 		E("Failed put to queue: 0x%08x",osOK);
 	}
 	osPoolFree(spiSendPool,buf);

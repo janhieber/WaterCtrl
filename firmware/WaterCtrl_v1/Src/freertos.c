@@ -57,6 +57,7 @@ osThreadId AliveTickerHandle;
 osThreadId WatchdogHandle;
 osThreadId SpiBrokerHandle;
 osThreadId MotorHandle;
+osThreadId SensorHandle;
 
 /* USER CODE END Variables */
 
@@ -106,11 +107,11 @@ void MX_FREERTOS_Init(void) {
 
 	// this is only until we checked if the rest works
 	HAL_NVIC_DisableIRQ(TIM2_IRQn);
-	HAL_NVIC_DisableIRQ(TIM3_IRQn);
+	//HAL_NVIC_DisableIRQ(TIM3_IRQn);
 
     // setup SPI
     initSpi();
-    //initMoistureMeasure(&htim3);
+    initMoistureMeasure(&htim3);
     //initMotorControl(&htim2);
 
 
@@ -131,8 +132,11 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
+  SensorHandle = osThreadCreate(osThread(Sensor), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 
@@ -143,14 +147,15 @@ void MX_FREERTOS_Init(void) {
 #endif
 
 
-  osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
-  AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
+  //osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
+  //AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
   osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 0, 64);
   SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
   //osThreadDef(Motor, procMotor, osPriorityHigh, 0, 64);
   //MotorHandle = osThreadCreate(osThread(Motor), NULL);
+
 
   /* USER CODE END RTOS_THREADS */
 
@@ -164,9 +169,9 @@ void MX_FREERTOS_Init(void) {
 /* StartDefaultTask function */
 void StartDefaultTask(void const * argument)
 {
-
+	PROCRUNNING;
   /* USER CODE BEGIN StartDefaultTask */
-
+	uint32_t counter = 0;
 	// this is a auto generated dummy, so suspend it
 	//osThreadSuspend(NULL);
 
@@ -179,16 +184,23 @@ void StartDefaultTask(void const * argument)
 
 
     osDelay(3000);
-	SpiSend(&buf);
+	//SpiSend(&buf);
 
 	//osDelay(3000);
-	//MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
-	//cmd->motor = 1;
-	//cmd->time = 2;
-	//cmd->speed = 50;
-	//osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
+//	MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
+//	cmd->motor = 1;
+//	cmd->time = 2;
+//	cmd->speed = 50;
+//	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
+//	osPoolFree(motorCtrlPool,cmd);
 
-	D("Default task");
+	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
+	sens_cmd->sensor = 3;
+	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
+	osPoolFree(sensorPool,sens_cmd);
+
+	counter++;
+	D("Default task: %d",counter);
 
   }
   /* USER CODE END StartDefaultTask */
