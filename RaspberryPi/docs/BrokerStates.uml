@@ -2,18 +2,19 @@
 title Statemachine Broker
 
 state send {
-[*] --> Queue
-Queue --> SPIrequest : start timer
-SPIrequest --> [*]
+[*] -> Queue
+Queue -> SPIrequest : start timer
+SPIrequest -> [*]
 }
 state poll {
 [*]  --> SPIdummy
+SPIdummy : Wait cycle time before send
 SPIdummy --> SPIread
 SPIread --> FailedSend : SPI timeout
 SPIread --> CheckQueue : message
 CheckQueue : search message in queue
 CheckQueue --> SPIresponse : message found in queue
-SPIresponse --> SPIdummy : message not found
+SPIresponse -> SPIdummy : message not found
 SPIresponse : send evResponse
 
 FailedSend --> SPIdummy : (retry > 0)
@@ -31,12 +32,11 @@ Timeout : send evTimeout
 Timeout : delete item from queue
 }
 
-[*] -> idle
-idle -> send : evRequest()
-send -> poll 
-poll -up-> idle : Queue empty
-
-
-
+[*] -> poll
+poll --> send : evRequest()
+poll -> timer_alert : evTimer
+timer_alert -> poll
+send --> poll 
+poll -up-> failure
 
 @enduml
