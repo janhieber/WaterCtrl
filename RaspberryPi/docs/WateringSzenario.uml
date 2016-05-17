@@ -1,0 +1,63 @@
+@startuml
+left to right direction
+title Use Cases WaterCtrl
+
+
+:**User**\nWants to do nothing\nMust configurate: as user
+:**Plant**\nWants to be taken care off\nWants to be controlled: as plant
+
+rectangle WaterCtrl{
+usecase Watering as "**Watering**
+Process of pumping water into the pot
+and monitor moisture during active pump.
+--
+In rare case, the pump flods to much water
+the moisture shall get high and stopping
+pump is advised."
+
+usecase Control as "**Control**
+Cyclic moisture check with alerting
+--
+Alert reaction can be SMS, Email, Pump
+depending on plant."
+
+usecase Plot as "**Plot**
+Visual Moisture and Pumps
+--
+Diagram over hours, days (years)"
+
+usecase config as "**Configuration**
+Setup basics.
+--
+Email, Phone, number of sensors and pumps. "
+
+usecase sconfig as "**Sensor Configuration**
+Setup all previous selected sensors.
+--
+Wet, Dry Treshold. Sensor Type."
+
+usecase mconfig as "**Pump Configuration**
+Setup all previously selected pumps.
+--
+Rise-Fall-time, Time on High, PWM duty in
+percent."
+
+usecase pconfig as "**Plant Configuration**
+Bring all configurations together.
+--
+Set dry/wet alarm action. Set sensor and pump."
+
+config -> sconfig 
+sconfig -> mconfig 
+mconfig -> pconfig
+
+Control <-> Watering
+}
+
+user -- config
+user -- Plot
+
+Watering -- plant
+
+
+@enduml
