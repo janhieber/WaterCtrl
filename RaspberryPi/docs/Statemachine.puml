@@ -1,0 +1,55 @@
+@startuml
+
+
+state READ_FROM_DB {
+    state "Read sensors" as sensors: save values from database in array\n\
+    # sensor[0] = id\n\
+    # sensor[1] = channel\n\
+    # sensor[2] = frequency
+
+    state "Read motors" as motors: save values from database in array\n\
+    # motor[0] = id\n\
+    # motor[1] = channel\n\
+    # motor[2] = duration\n\
+    # motor[3] = sensor_id
+
+    state "Read plants" as plants: save values from database in array\n\
+    # plant[0] = id\n\
+    # plant[1] = name\n\
+    # plant[2] = description\n\
+    # plant[3] = watering_interval\n\
+    # plant[4] = motor_id
+
+    sensors --> motors
+    motors --> plants
+}
+READ_FROM_DB: Read persisted values from postgresql database
+
+state SEND_READ_SENSOR_X_VALUE: send read sensor command via spi to stm
+
+state RECEIVE_SENSOR_X_VALUE: receive the sensor value via spi from stm
+
+state CHECK_SENSOR_X_VALUE: check value from stm against database
+
+state SEND_START_MOTOR_X: send start motor command via spi to stm
+
+state RECEIVE_MOTOR_X: receive motor control response via spi from stm
+
+state WRITE_WATERING: write watering entry to database
+
+[*] --> READ_FROM_DB
+READ_FROM_DB --> SEND_READ_SENSOR_X_VALUE
+SEND_READ_SENSOR_X_VALUE --> [*]
+
+[*] --> RECEIVE_SENSOR_X_VALUE
+RECEIVE_SENSOR_X_VALUE --> CHECK_SENSOR_X_VALUE
+CHECK_SENSOR_X_VALUE --> SEND_START_MOTOR_X: stm < database
+CHECK_SENSOR_X_VALUE --> [*]: stm > database
+
+[*] --> RECEIVE_MOTOR_X
+RECEIVE_MOTOR_X --> SEND_START_MOTOR_X: motor run not ok
+RECEIVE_MOTOR_X --> WRITE_WATERING: motor run ok
+WRITE_WATERING --> [*]
+
+
+@enduml
