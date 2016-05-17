@@ -1,0 +1,29 @@
+@startuml
+title Statemachine Control
+[*] -> active
+state active {
+'CONTROL
+[*] -> RequestAllSensor
+RequestAllSensor : wait(cycle)
+RequestAllSensor : send evRequest
+RequestAllSensor --> WaitForResponse
+WaitForResponse -> ReadDb : evResponse
+ReadDb : check threshold
+ReadDb : Sensor to plant lookup
+ReadDb -> Alert
+ReadDb --> RequestAllSensor
+Alert : find alarm action
+Alert : Send evAlert(plant,action)
+Alert --> RequestAllSensor
+--
+' WATERING
+[*] --> WaitForAlert
+WaitForAlert -> CheckAlert
+CheckAlert -> Pump
+Pump: send evRequest()
+Pump -> Monitor
+Monitor : ReadDbSensor
+Monitor --> WaitForAlert
+}
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+Top to bottom direction
+
+rectangle Python { 
+component [**MessageBroker**\nMessage Queue\nTimeout Watch] as broker
+[Control]
+[**Watering**\nPumpSatemachine] --> broker
+Control --> [psycopg2]
+[WebIf] --> [psycopg2]
+
+broker -> [spidev]
+[Watchdog] -> [spidev]
+}
+
+interface SPI as spi
+rectangle STM32 {
+spi -- [stm32]
+[motors]
+[moisture]
+[watchdog]
+}
+() SQL as sql
+database postgresql as db {
+
+sql -- [engine]
+}
+
+[psycopg2] -- sql
+[spidev] -- spi
+
+note left of Control
+Read treshold from DB
+Read Sensor from SPI
+Alert
+Write DB
+end note
+
+@enduml
+

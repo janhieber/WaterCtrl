@@ -50,8 +50,8 @@ Set dry/wet alarm action. Set sensor and pump."
 config -> sconfig 
 sconfig -> mconfig 
 mconfig -> pconfig
-
-Control <-> Watering
+Control-> config
+Watering <-> Control
 }
 
 user -- config
