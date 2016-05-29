@@ -65,4 +65,17 @@ angular.module('wateringApp')
         update: { method: 'PUT', params: {id: '@id'} },
         delete: { method: 'DELETE', params: {id: '@id'} }
     })
+})
+.factory('SensorResponsesFactory', function ($resource) {
+    return $resource('/api/sensor_response', {}, {
+        query: { method: 'GET' },
+        create: { method: 'POST' }
+    })
+})
+.factory('SensorResponseFactory', function ($resource) {
+    return $resource('/api/sensor_response/:id', {}, {
+        show: { method: 'GET' },
+        update: { method: 'PUT', params: {id: '@id'} },
+        delete: { method: 'DELETE', params: {id: '@id'} }
+    })
 });

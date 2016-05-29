@@ -227,6 +227,17 @@ class app(threading.Thread):
         self.dbc.execute(query, (logMessage, logState, time.strftime('%Y-%m-%d %H:%M:%S')))
         self.db.commit()
         self.dbc.close()
+        
+    # insert sensor response to database
+    def insertSensorResponseEntry(self, sensorChannel, sensorValue):
+        logging.info('Insert sensor response to database. Channel: %s, Frequency: %s', sensorChannel, sensorValue)
+
+        # open db cursor and insert data
+        self.dbc = self.db.cursor()
+        query = ('INSERT INTO sensor_response (sensor_channel, frequency, measure_date) VALUES (%s, %s, %s)')
+        self.dbc.execute(query, (sensorChannel, sensorValue, time.strftime('%Y-%m-%d %H:%M:%S')))
+        self.db.commit()
+        self.dbc.close()
 
     # insert watering entry to database
     # watering states are:
@@ -250,6 +261,7 @@ class app(threading.Thread):
     def on_enter_RECEIVE_SENSOR_1(self, value1, value2):
         sixteenBitValue = 256*value1 + value2;
         logging.info('Sensor 1 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(1, sixteenBitValue)
         self.lastSensorValue = sixteenBitValue
         self.check_sensor()
         
@@ -270,6 +282,7 @@ class app(threading.Thread):
     def on_enter_RECEIVE_SENSOR_2(self, value1, value2):
         sixteenBitValue = 256*value1 + value2;
         logging.info('Sensor 2 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(2, sixteenBitValue)
         self.lastSensorValue = sixteenBitValue
         self.check_sensor()
         
@@ -290,6 +303,7 @@ class app(threading.Thread):
     def on_enter_RECEIVE_SENSOR_3(self, value1, value2):
         sixteenBitValue = 256*value1 + value2;
         logging.info('Sensor 3 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(3, sixteenBitValue)
         self.lastSensorValue = sixteenBitValue
         self.check_sensor()
         
@@ -310,6 +324,7 @@ class app(threading.Thread):
     def on_enter_RECEIVE_SENSOR_4(self, value1, value2):
         sixteenBitValue = 256*value1 + value2;
         logging.info('Sensor 4 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(4, sixteenBitValue)
         self.lastSensorValue = sixteenBitValue
         self.check_sensor()
         
@@ -330,6 +345,7 @@ class app(threading.Thread):
     def on_enter_RECEIVE_SENSOR_5(self, value1, value2):
         sixteenBitValue = 256*value1 + value2;
         logging.info('Sensor 5 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(5, sixteenBitValue)
         self.lastSensorValue = sixteenBitValue
         self.check_sensor()
         

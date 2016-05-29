@@ -1,0 +1,24 @@
+<div class="page-header">
+	<h1>Sensor Frequencies</h1>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Channel</th>
+					<th>Frequency</th>
+					<th>Timestamp</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="sensor_response in sensor_responses.objects | orderBy:'-measure_date'">
+					<td>{{sensor_response.sensor_channel}}</td>
+					<td>{{sensor_response.frequency}}</td>
+					<td>{{sensor_response.measure_date}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

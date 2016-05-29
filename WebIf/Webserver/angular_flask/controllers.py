@@ -43,10 +43,6 @@ def rest_pages(model_name, item_id=None):
                 'angular_flask/templates/index.html').read())
     abort(404)
 
-@app.route('/users.json')
-def users():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'users.json')
 
 # special file handlers and error handlers
 @app.route('/favicon.ico')

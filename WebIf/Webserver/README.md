@@ -22,10 +22,11 @@ Angular frontend and a Flask / python backend.
 > python manage.py seed_db --seedfile 'data/db_sensor.json'
 > python manage.py seed_db --seedfile 'data/db_plant.json'
 > python manage.py seed_db --seedfile 'data/db_watering.json'
+> python manage.py seed_db --seedfile 'data/db_sensor_response.json'
 
 6. provided password is '1234', encrypted with CryptoJS and secret key: '#WaterCtrlS3cret'
 
 7. check out your site
-> http://localhost:5000/
+> http://localhost:80/
 
 8. if you like this project, give it a star :)

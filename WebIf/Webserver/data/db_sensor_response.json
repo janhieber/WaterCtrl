@@ -1,0 +1,19 @@
+{ 
+	"sensor_response": [
+		{
+			"sensor_channel": 1,
+			"frequency": 100,
+			"measure_date": "2014-01-23 12:00:00"
+		},
+		{
+			"sensor_channel": 2,
+			"frequency": 200,
+			"measure_date": "2014-01-23 12:00:00"
+		},
+		{
+			"sensor_channel": 3,
+			"frequency": 300,
+			"measure_date": "2014-01-23 12:00:00"
+		}
+	]
+}
