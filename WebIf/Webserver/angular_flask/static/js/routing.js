@@ -80,15 +80,6 @@ angular.module('wateringApp')
 					authorizedRoles: [USER_ROLES.admin]
 				}
 			})
-			// SENSOR_RESPONSE
-			.state('sensor-frequencies', {
-				url: '/sensor-frequencies',
-				templateUrl: 'static/templates/sensor-response/sensor-response.html',
-				controller: 'SensorResponseCtrl',
-				data: {
-					authorizedRoles: [USER_ROLES.admin]
-				}
-			})
 			// PLANT
 			.state('plant-list', {
 				url: '/plant-list',
@@ -118,6 +109,15 @@ angular.module('wateringApp')
 				url: "/plant-delete/:id",
 				templateUrl: 'static/templates/plant/plant-delete.html', 
 				controller: 'PlantDeleteCtrl',
+				data: {
+					authorizedRoles: [USER_ROLES.admin]
+				}
+			})
+			// SENSOR_RESPONSE
+			.state('sensor-frequencies', {
+				url: '/sensor-frequencies',
+				templateUrl: 'static/templates/sensor-response/sensor-response.html',
+				controller: 'SensorResponseCtrl',
 				data: {
 					authorizedRoles: [USER_ROLES.admin]
 				}

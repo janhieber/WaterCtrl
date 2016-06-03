@@ -270,7 +270,7 @@ class app(threading.Thread):
         logging.info('Value from sensor 1 is: %s', self.lastSensorValue)
         logging.info('Frequency from db is: %s', frequency)
         
-        if(frequency > self.lastSensorValue):
+        if(frequency < self.lastSensorValue):
             self.start_motor()
         else:
             self.value_checked()
@@ -291,7 +291,7 @@ class app(threading.Thread):
         logging.info('Value from sensor 2 is: %s', self.lastSensorValue)
         logging.info('Frequency from db is: %s', frequency)
         
-        if(frequency > self.lastSensorValue):
+        if(frequency < self.lastSensorValue):
             self.start_motor()
         else:
             self.value_checked()
@@ -364,7 +364,7 @@ class app(threading.Thread):
         self.SPI_START_MOTOR_1[2] = self.lastDuration
         logging.info('Sending message: %s', self.SPI_START_MOTOR_1)
         self.sendQueue.put(self.SPI_START_MOTOR_1)
-        time.sleep(self.lastDuration)
+        time.sleep(self.lastDuration+1)
         
     #0xab = 171 = done/finish | 0xac = 172 = error
     def on_enter_RECEIVE_MOTOR_1(self, response):
@@ -383,7 +383,7 @@ class app(threading.Thread):
         self.SPI_START_MOTOR_2[2] = self.lastDuration
         logging.info('Sending message: %s', self.SPI_START_MOTOR_2)
         self.sendQueue.put(self.SPI_START_MOTOR_2)
-        time.sleep(self.lastDuration)
+        time.sleep(self.lastDuration+1)
         
     #0xab = 171 = done/finish | 0xac = 172 = error
     def on_enter_RECEIVE_MOTOR_2(self, response):
@@ -401,7 +401,7 @@ class app(threading.Thread):
         self.SPI_START_MOTOR_3[2] = self.lastDuration
         logging.info('Sending message: %s', self.SPI_START_MOTOR_3)
         self.sendQueue.put(self.SPI_START_MOTOR_3)
-        time.sleep(self.lastDuration)
+        time.sleep(self.lastDuration+1)
         
     #0xab = 171 = done/finish | 0xac = 172 = error
     def on_enter_RECEIVE_MOTOR_3(self, response):
@@ -419,7 +419,7 @@ class app(threading.Thread):
         self.SPI_START_MOTOR_4[2] = self.lastDuration
         logging.info('Sending message: %s', self.SPI_START_MOTOR_4)
         self.sendQueue.put(self.SPI_START_MOTOR_4)
-        time.sleep(self.lastDuration)
+        time.sleep(self.lastDuration+1)
         
     #0xab = 171 = done/finish | 0xac = 172 = error
     def on_enter_RECEIVE_MOTOR_4(self, response):
@@ -437,7 +437,7 @@ class app(threading.Thread):
         self.SPI_START_MOTOR_5[2] = self.lastDuration
         logging.info('Sending message: %s', self.SPI_START_MOTOR_5)
         self.sendQueue.put(self.SPI_START_MOTOR_5)
-        time.sleep(self.lastDuration)
+        time.sleep(self.lastDuration+1)
         
     #0xab = 171 = done/finish | 0xac = 172 = error
     def on_enter_RECEIVE_MOTOR_5(self, response):
