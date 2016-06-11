@@ -41,6 +41,7 @@
 
 #include "spicomm.h"
 #include "motors.h"
+#include "sensor.h"
 #include "moistureMeasure.h"
 #include "stuff.h"
 #include "tim.h"

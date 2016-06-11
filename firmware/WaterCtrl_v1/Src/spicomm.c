@@ -24,7 +24,7 @@
 #include "spi.h"
 #include "cmsis_os.h"
 #include "motors.h"
-#include "moistureMeasure.h"
+#include "sensor.h"
 
 #define SYSNAME "SpiBroker"
 

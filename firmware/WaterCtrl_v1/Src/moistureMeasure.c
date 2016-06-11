@@ -43,15 +43,10 @@
 
 
 
-#define SYSNAME "Sensor"
+#define SYSNAME "Moisture"
 
 /* Private typedef -----------------------------------------------------------*/
-osMessageQId sensorQueue;
 
-osMessageQDef(_sensorQueue, 16, stSensorCmd*);
-
-osPoolId  sensorPool;
-osPoolDef(_sensorPool, 32, stSensorCmd*);
 /* Private define ------------------------------------------------------------*/
 #define MOISTURE_SENS_PIN_A0 GPIO_PIN_1
 #define MOISTURE_SENS_PIN_A1 GPIO_PIN_10
@@ -130,7 +125,7 @@ void moiSetChannel(int);
 TIM_HandleTypeDef * ptrTimer3Ref;
 uint32_t TimerChannel = TIM_CHANNEL_3;
 
-uint32_t getSensorFrequency(int sensor)
+uint32_t getMoinstureFrequency(int sensor)
 {
 	uint32_t channel = 0;
 	channel = sensor - 1 ;
@@ -143,13 +138,9 @@ uint32_t getSensorFrequency(int sensor)
 
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 	INITBEGIN;
-    I( "init moisture measure system");
-    stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
-	// init queues
-	sensorQueue = osMessageCreate(osMessageQ(_sensorQueue), NULL);
 
-	// init data pools
-	sensorPool = osPoolCreate(osPool(_sensorPool));
+    stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
+
     ptrTimer3Ref = ptr;
     memset(frequency,0,sizeof(frequency));
 
@@ -256,7 +247,7 @@ void moiSetChannel(int channel)
     SetSensorSelectPin();
 }
 
-void MoistureTask() {
+void SensorTask() {
     if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
         frequency[activeChannel] = getFrequencyOfChannel();
         activeChannel++;
@@ -268,44 +259,6 @@ void MoistureTask() {
     }
 }
 
-void procSensor(void const * argument) {
-	PROCRUNNING;
-	osEvent event;
-	bool run = true;
-	do {
-		event = osMessageGet(sensorQueue,1000);
-		switch(event.status) {
-		case osEventMessage: {
-			D("message: 0x%02x",event.value.p);
-			SpiBuffer spi;
-			memset(&spi,0,sizeof(spi));
-			stSensorCmd *cmd = event.value.p;
-			cmd->value = getSensorFrequency(cmd->sensor)/(uint16_t)1000;
-			spi.d[3] = (uint8_t)(cmd->value);
-			spi.d[2] = (uint8_t)(cmd->value>>8);
-			spi.d[1] = cmd->sensor;
-			spi.d[0] = BRK_MSG_SPI_ID_SENS_VALUE_RSP;
-			D("RESP: sens: 0x%02x value: %d",cmd->sensor,cmd->value);
-			SpiSend(&spi);
-			//printMoisture();
-			osPoolFree(sensorPool, cmd);
-			break;
-		}
-		case osEventTimeout: {
-			MoistureTask();
-			break;
-		}
-		case osErrorOS:
-			E("osErrorOS");
-			run = false;
-			break;
-		default:
-			//MoistureTask();
-			break;
-
-		}
-	}while(run);
-}
 
 /**
   * @}

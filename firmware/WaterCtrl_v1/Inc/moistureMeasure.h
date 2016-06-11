@@ -24,18 +24,6 @@ uint32_t getSensorFrequency(int sensor);
 
 void printMoisture();
 
-void MoistureTask();
-
-typedef struct SensorCmd {
-	uint8_t sensor;
-	uint16_t value;
-}stSensorCmd;
-
-void procSensor(void const * argument);
-
-extern osMessageQId sensorQueue;
-extern osPoolId  sensorPool;
-
 #endif // MOISTUREMEASURE_H
 
 /**
