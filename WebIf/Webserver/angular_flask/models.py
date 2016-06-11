@@ -31,6 +31,28 @@ class Sensor(db.Model):
   def __init__(self, channel, frequency):
     self.channel = channel
     self.frequency = frequency
+    
+class SensorResponse(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    sensor_channel = db.Column(db.Integer)
+    frequency = db.Column(db.Integer)
+    measure_date =  db.Column(db.DateTime)
+    
+    @property
+    def serialize(self):
+      """Return object data in easily serializeable format"""
+      return {
+  	  'id'               : self.id,
+      'sensor_channel'   : self.sensor_channel,
+      'frequency'        : self.frequency,
+  	  'measure_date'    : dump_datetime(self.watering_date)
+  	}
+
+      def __init__(self, sensor_channel, frequency, measure_date=None):
+        if measure_date is None:
+          measure_date = datetime.utcnow()
+        self.sensor_channel = sensor_channel
+        self.frequency = frequency
 
 class Motor(db.Model):
   id = db.Column(db.Integer, primary_key = True)
@@ -86,8 +108,8 @@ class Watering(db.Model):
 
 
 # models for which we want to create API endpoints
-app.config['API_MODELS'] = {'user': User, 'log': Log, 'sensor': Sensor, 'motor': Motor, 'plant': Plant, 'watering': Watering}
+app.config['API_MODELS'] = {'user': User, 'log': Log, 'sensor': Sensor, 'motor': Motor, 'plant': Plant, 'watering': Watering, 'sensor_response': SensorResponse}
 
 # models for which we want to create CRUD-style URL endpoints,
 # and pass the routing onto our AngularJS application
-app.config['CRUD_URL_MODELS'] = {'user': User, 'log': Log, 'sensor': Sensor, 'motor': Motor, 'plant': Plant, 'watering': Watering}
+app.config['CRUD_URL_MODELS'] = {'user': User, 'log': Log, 'sensor': Sensor, 'motor': Motor, 'plant': Plant, 'watering': Watering, 'sensor_response': SensorResponse}

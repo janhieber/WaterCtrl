@@ -113,6 +113,15 @@ angular.module('wateringApp')
 					authorizedRoles: [USER_ROLES.admin]
 				}
 			})
+			// SENSOR_RESPONSE
+			.state('sensor-frequencies', {
+				url: '/sensor-frequencies',
+				templateUrl: 'static/templates/sensor-response/sensor-response.html',
+				controller: 'SensorResponseCtrl',
+				data: {
+					authorizedRoles: [USER_ROLES.admin]
+				}
+			})
 			// WATERING
 			.state('watering', {
 				url: "/watering",

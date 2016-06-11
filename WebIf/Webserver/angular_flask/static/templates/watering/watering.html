@@ -18,7 +18,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="watering in waterings">
+				<tr ng-repeat="watering in waterings | orderBy:'-watering_date'">
 					<td>{{watering.id}}</td>
 					<td>{{watering.plant_id}}</td>
 					<td>{{watering.watering_duration}}</td>

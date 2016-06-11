@@ -10,6 +10,8 @@ import logging
 import configparser
 import psycopg2
 import sys
+from transitions import *
+
 
 
 """
@@ -36,7 +38,6 @@ import sys
         3. byte: moisture value scaled to 8bit unsigned (kHz)
 """
 class app(threading.Thread):
-    SPI_EMPTY = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
     
     SPI_READ_SENSOR_1 = [0x12, 0x01, 0x00, 0x00, 0x00, 0x00]
     SPI_READ_SENSOR_2 = [0x12, 0x02, 0x00, 0x00, 0x00, 0x00]
@@ -44,14 +45,14 @@ class app(threading.Thread):
     SPI_READ_SENSOR_4 = [0x12, 0x04, 0x00, 0x00, 0x00, 0x00]
     SPI_READ_SENSOR_5 = [0x12, 0x05, 0x00, 0x00, 0x00, 0x00]
     
-    SPI_RECEIVE_SENSOR_VALUE = 19
+    SPI_START_MOTOR_1 = [0x10, 0x01, 0x1E, 0x64, 0x00, 0x00]
+    SPI_START_MOTOR_2 = [0x10, 0x02, 0x1E, 0x64, 0x00, 0x00]
+    SPI_START_MOTOR_3 = [0x10, 0x03, 0x1E, 0x64, 0x00, 0x00]
+    SPI_START_MOTOR_4 = [0x10, 0x04, 0x1E, 0x64, 0x00, 0x00]
+    SPI_START_MOTOR_5 = [0x10, 0x05, 0x1E, 0x64, 0x00, 0x00]
     
-    SPI_START_MOTOR_1 = [0x10, 0x01, 0x01, 0x30, 0x01, 0x99]
-    SPI_START_MOTOR_2 = [0x10, 0x02, 0x01, 0x30, 0x01, 0x99]
-    SPI_START_MOTOR_3 = [0x10, 0x03, 0x01, 0x30, 0x01, 0x99]
-    SPI_START_MOTOR_4 = [0x10, 0x04, 0x01, 0x30, 0x01, 0x99]
-    SPI_START_MOTOR_5 = [0x10, 0x05, 0x01, 0x30, 0x01, 0x99]
-
+    SPI_RECEIVE_SENSOR_VALUE = 19
+    SPI_RECEIVE_MOTOR_RESPONSE = 17
 
     def __init__(self, sendQueue, recvQueue):
         threading.Thread.__init__(self)
@@ -60,8 +61,8 @@ class app(threading.Thread):
         self.exit = False
         self.config = configparser.RawConfigParser()
         self.config.read('WaterCtrl.conf')
-
-
+        
+        
     def setup(self):
 
         # query config values
@@ -81,43 +82,129 @@ class app(threading.Thread):
         logging.info('Database connected.')
 
 
-    def getAllSensors(self):
-        logging.info('Read sensor values from database.')
-
+    def createConfigurationFromDb(self):
+        logging.info('Initialize configuration from the database.')
+        
+        self.configuration = []
+        
         # open db cursor and query data
         self.dbc = self.db.cursor()
         query = ('SELECT id, channel, frequency FROM sensor')
         self.dbc.execute(query)
 
-        # retrieve the channels from the database
-        records = self.dbc.fetchall()
+        # retrieve the sensors from the database
+        sensors = self.dbc.fetchall()
         self.dbc.close()
+        
+        for sensor in sensors:
+            sensor = list(sensor)
+            
+            # open db cursor and query data
+            self.dbc = self.db.cursor()
+            query = ('SELECT id, channel, duration, sensor_id FROM motor WHERE sensor_id = %s')
+            self.dbc.execute(query, (sensor[1], ))
 
-        return records
+            # retrieve the motors from the database
+            motors = self.dbc.fetchall()
+            self.dbc.close()
+            
+            sensor.append(motors)
+            self.configuration.append(sensor)
+           
+    
+    #[
+        #[1, 1, 100, [(1, 1, 10, 1), (2, 2, 20, 1)]], 
+        #[2, 2, 200, [(3, 3, 30, 2), (4, 4, 40, 2)]], 
+        #[3, 3, 300, [(5, 5, 50, 3), (6, 6, 60, 3)]]
+    #]
+    def createStateMachine(self):
+        logging.info('STATEMACHINE: Creating StateMaching...')
+        
+        states = []
+        transitions = []
+        
+        states.append(State('SLEEP'))
+        
+        for sensorIndex, sensor in enumerate(self.configuration):
+            # Add sensor states
+            states.append(State('READ_SENSOR_'+str(sensor[1])))
+            states.append(State('RECEIVE_SENSOR_'+str(sensor[1])))
+            states.append(State('CHECK_VALUE_'+str(sensor[1])))
+            
+            # Add sensor transitions
+            if(sensorIndex == 0):
+                transitions.append(['read_sensor', 'SLEEP', 'READ_SENSOR_'+str(sensor[1])])
 
+            transitions.append(['receive_sensor', 'READ_SENSOR_'+str(sensor[1]), 'RECEIVE_SENSOR_'+str(sensor[1])])
+            transitions.append(['check_sensor', 'RECEIVE_SENSOR_'+str(sensor[1]), 'CHECK_VALUE_'+str(sensor[1])])
+            
+            if(sensorIndex == len(self.configuration)-1):
+                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[1]), 'SLEEP'])
+            else:
+                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[1]), 'READ_SENSOR_'+str(sensor[1]+1)])
+        
+            motors = sensor[3]
+            for motorIndex, motor in enumerate(motors):
+                # Add motor states
+                states.append(State('START_MOTOR_'+str(motor[1])))
+                states.append(State('RECEIVE_MOTOR_'+str(motor[1])))
+            
+                # Add motor transistions
+                if(motorIndex == 0):
+                    transitions.append(['start_motor', 'CHECK_VALUE_'+str(sensor[1]), 'START_MOTOR_'+str(motor[1])])
+ 
+                transitions.append(['receive_motor', 'START_MOTOR_'+str(motor[1]), 'RECEIVE_MOTOR_'+str(motor[1])])
+                
+                if(motorIndex != len(motors)-1):
+                    transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'START_MOTOR_'+str(motor[1]+1)])
+                else:
+                    if(sensorIndex == len(self.configuration)-1):
+                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'SLEEP'])
+                    else:
+                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'READ_SENSOR_'+str(sensor[1]+1)])
+            
+        # Initialize the state machine
+        self.machine = Machine(model=self, states=states, auto_transitions=False, initial='SLEEP')
 
-    def getMotorsForSensorId(self, sensorId):
-        logging.info('Read motor values from database.')
-
+        for transition in transitions:
+            self.machine.add_transition(transition[0], transition[1], transition[2])
+  
+        logging.info('STATEMACHINE: Finished creating StateMachine!')
+  
+          
+    def getSensorFrequencyForSensorChannel(self, sensorChannel):
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT id, channel, duration, sensor_id FROM motor WHERE sensor_id = %s')
-        self.dbc.execute(query, (sensorId, ))
+        query = ('SELECT frequency FROM sensor WHERE channel = %s')
+        self.dbc.execute(query, (sensorChannel, ))
 
         # retrieve the channels from the database
-        records = self.dbc.fetchall()
+        frequency = self.dbc.fetchone()
         self.dbc.close()
 
-        return records
+        return frequency[0]
+      
+     
+    def getMotorDurationForMotorChannel(self, motorChannel):
+        # open db cursor and query data
+        self.dbc = self.db.cursor()
+        query = ('SELECT duration FROM motor WHERE channel = %s') 
+        self.dbc.execute(query, (motorChannel, ))
 
+        # retrieve the channels from the database
+        duration = self.dbc.fetchone()
+        self.dbc.close()
 
-    def getPlantsForMotorId(self, motorId):
+        return duration[0]
+        
+
+    def getPlantIdsForMotorChannel(self, motorChannel):
         logging.info('Read plants from database.')
 
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT id, name, description, watering_interval, motor_id FROM plant WHERE motor_id = %s')
-        self.dbc.execute(query, (motorId, ))
+        query = ('SELECT id FROM plant WHERE motor_id = (SELECT id FROM motor where channel = %s)')
+        self.dbc.execute(query, (motorChannel, ))
 
         # retrieve the channels from the database
         records = self.dbc.fetchall()
@@ -140,6 +227,17 @@ class app(threading.Thread):
         self.dbc.execute(query, (logMessage, logState, time.strftime('%Y-%m-%d %H:%M:%S')))
         self.db.commit()
         self.dbc.close()
+        
+    # insert sensor response to database
+    def insertSensorResponseEntry(self, sensorChannel, sensorValue):
+        logging.info('Insert sensor response to database. Channel: %s, Frequency: %s', sensorChannel, sensorValue)
+
+        # open db cursor and insert data
+        self.dbc = self.db.cursor()
+        query = ('INSERT INTO sensor_response (sensor_channel, frequency, measure_date) VALUES (%s, %s, %s)')
+        self.dbc.execute(query, (sensorChannel, sensorValue, time.strftime('%Y-%m-%d %H:%M:%S')))
+        self.db.commit()
+        self.dbc.close()
 
     # insert watering entry to database
     # watering states are:
@@ -154,6 +252,203 @@ class app(threading.Thread):
         self.dbc.execute(query, (time.strftime('%Y-%m-%d %H:%M:%S'), wateringDuration, wateringState, plantId))
         self.db.commit()
         self.dbc.close()
+
+
+    def on_enter_READ_SENSOR_1(self):
+        logging.info('Sending message: %s', self.SPI_READ_SENSOR_1)
+        self.sendQueue.put(self.SPI_READ_SENSOR_1)
+        
+    def on_enter_RECEIVE_SENSOR_1(self, value1, value2):
+        sixteenBitValue = 256*value1 + value2;
+        logging.info('Sensor 1 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(1, sixteenBitValue)
+        self.lastSensorValue = sixteenBitValue
+        self.check_sensor()
+        
+    def on_enter_CHECK_VALUE_1(self):
+        frequency = self.getSensorFrequencyForSensorChannel(1)
+        logging.info('Value from sensor 1 is: %s', self.lastSensorValue)
+        logging.info('Frequency from db is: %s', frequency)
+        
+        if(frequency < self.lastSensorValue):
+            self.start_motor()
+        else:
+            self.value_checked()
+        
+    def on_enter_READ_SENSOR_2(self):
+        logging.info('Sending message: %s', self.SPI_READ_SENSOR_2)
+        self.sendQueue.put(self.SPI_READ_SENSOR_2)
+        
+    def on_enter_RECEIVE_SENSOR_2(self, value1, value2):
+        sixteenBitValue = 256*value1 + value2;
+        logging.info('Sensor 2 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(2, sixteenBitValue)
+        self.lastSensorValue = sixteenBitValue
+        self.check_sensor()
+        
+    def on_enter_CHECK_VALUE_2(self):
+        frequency = self.getSensorFrequencyForSensorChannel(1)
+        logging.info('Value from sensor 2 is: %s', self.lastSensorValue)
+        logging.info('Frequency from db is: %s', frequency)
+        
+        if(frequency < self.lastSensorValue):
+            self.start_motor()
+        else:
+            self.value_checked()
+    
+    def on_enter_READ_SENSOR_3(self):
+        logging.info('Sending message: %s', self.SPI_READ_SENSOR_3)
+        self.sendQueue.put(self.SPI_READ_SENSOR_3)
+    
+    def on_enter_RECEIVE_SENSOR_3(self, value1, value2):
+        sixteenBitValue = 256*value1 + value2;
+        logging.info('Sensor 3 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(3, sixteenBitValue)
+        self.lastSensorValue = sixteenBitValue
+        self.check_sensor()
+        
+    def on_enter_CHECK_VALUE_3(self):
+        frequency = self.getSensorFrequencyForSensorChannel(1)
+        logging.info('Value from sensor 3 is: %s', self.lastSensorValue)
+        logging.info('Frequency from db is: %s', frequency)
+        
+        if(frequency < self.lastSensorValue):
+            self.start_motor()
+        else:
+            self.value_checked()
+    
+    def on_enter_READ_SENSOR_4(self):
+        logging.info('Sending message: %s', self.SPI_READ_SENSOR_4)
+        self.sendQueue.put(self.SPI_READ_SENSOR_4)
+        
+    def on_enter_RECEIVE_SENSOR_4(self, value1, value2):
+        sixteenBitValue = 256*value1 + value2;
+        logging.info('Sensor 4 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(4, sixteenBitValue)
+        self.lastSensorValue = sixteenBitValue
+        self.check_sensor()
+        
+    def on_enter_CHECK_VALUE_4(self):
+        frequency = self.getSensorFrequencyForSensorChannel(1)
+        logging.info('Value from sensor 4 is: %s', self.lastSensorValue)
+        logging.info('Frequency from db is: %s', frequency)
+        
+        if(frequency < self.lastSensorValue):
+            self.start_motor()
+        else:
+            self.value_checked()
+    
+    def on_enter_READ_SENSOR_5(self):
+        logging.info('Sending message: %s', self.SPI_READ_SENSOR_5)
+        self.sendQueue.put(self.SPI_READ_SENSOR_5)
+        
+    def on_enter_RECEIVE_SENSOR_5(self, value1, value2):
+        sixteenBitValue = 256*value1 + value2;
+        logging.info('Sensor 5 value: %s', sixteenBitValue)
+        self.insertSensorResponseEntry(5, sixteenBitValue)
+        self.lastSensorValue = sixteenBitValue
+        self.check_sensor()
+        
+    def on_enter_CHECK_VALUE_5(self):
+        frequency = self.getSensorFrequencyForSensorChannel(1)
+        logging.info('Value from sensor 5 is: %s', self.lastSensorValue)
+        logging.info('Frequency from db is: %s', frequency)
+        
+        if(frequency < self.lastSensorValue):
+            self.start_motor()
+        else:
+            self.value_checked()
+            
+    def on_enter_START_MOTOR_1(self):
+        self.lastDuration = self.getMotorDurationForMotorChannel(1)
+        self.SPI_START_MOTOR_1[2] = self.lastDuration
+        logging.info('Sending message: %s', self.SPI_START_MOTOR_1)
+        self.sendQueue.put(self.SPI_START_MOTOR_1)
+        time.sleep(self.lastDuration+1)
+        
+    #0xab = 171 = done/finish | 0xac = 172 = error
+    def on_enter_RECEIVE_MOTOR_1(self, response):
+        plantIds = self.getPlantIdsForMotorChannel(1)
+        if(response == 171):
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 1, plantId)
+        else:
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 0, plantId)
+        self.process_receive_motor()
+        
+        
+    def on_enter_START_MOTOR_2(self):
+        self.lastDuration = self.getMotorDurationForMotorChannel(2)
+        self.SPI_START_MOTOR_2[2] = self.lastDuration
+        logging.info('Sending message: %s', self.SPI_START_MOTOR_2)
+        self.sendQueue.put(self.SPI_START_MOTOR_2)
+        time.sleep(self.lastDuration+1)
+        
+    #0xab = 171 = done/finish | 0xac = 172 = error
+    def on_enter_RECEIVE_MOTOR_2(self, response):
+        plantIds = self.getPlantIdsForMotorChannel(2)
+        if(response == 171):
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 1, plantId)
+        else:
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 0, plantId)
+        self.process_receive_motor()
+    
+    def on_enter_START_MOTOR_3(self):
+        self.lastDuration = self.getMotorDurationForMotorChannel(3)
+        self.SPI_START_MOTOR_3[2] = self.lastDuration
+        logging.info('Sending message: %s', self.SPI_START_MOTOR_3)
+        self.sendQueue.put(self.SPI_START_MOTOR_3)
+        time.sleep(self.lastDuration+1)
+        
+    #0xab = 171 = done/finish | 0xac = 172 = error
+    def on_enter_RECEIVE_MOTOR_3(self, response):
+        plantIds = self.getPlantIdsForMotorChannel(3)
+        if(response == 171):
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 1, plantId)
+        else:
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 0, plantId)
+        self.process_receive_motor()
+        
+    def on_enter_START_MOTOR_4(self):
+        self.lastDuration = self.getMotorDurationForMotorChannel(4)
+        self.SPI_START_MOTOR_4[2] = self.lastDuration
+        logging.info('Sending message: %s', self.SPI_START_MOTOR_4)
+        self.sendQueue.put(self.SPI_START_MOTOR_4)
+        time.sleep(self.lastDuration+1)
+        
+    #0xab = 171 = done/finish | 0xac = 172 = error
+    def on_enter_RECEIVE_MOTOR_4(self, response):
+        plantIds = self.getPlantIdsForMotorChannel(4)
+        if(response == 171):
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 1, plantId)
+        else:
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 0, plantId)
+        self.process_receive_motor()
+        
+    def on_enter_START_MOTOR_5(self):
+        self.lastDuration = self.getMotorDurationForMotorChannel(5)
+        self.SPI_START_MOTOR_5[2] = self.lastDuration
+        logging.info('Sending message: %s', self.SPI_START_MOTOR_5)
+        self.sendQueue.put(self.SPI_START_MOTOR_5)
+        time.sleep(self.lastDuration+1)
+        
+    #0xab = 171 = done/finish | 0xac = 172 = error
+    def on_enter_RECEIVE_MOTOR_5(self, response):
+        plantIds = self.getPlantIdsForMotorChannel(5)
+        if(response == 171):
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 1, plantId)
+        else:
+            for plantId in plantIds:
+                self.insertWateringEntry(self.lastDuration, 0, plantId)
+        self.process_receive_motor()
 
 
     def run(self):
@@ -176,56 +471,19 @@ class app(threading.Thread):
         # plant[2] = description
         # plant[3] = watering_interval
         # plant[4] = motor_id
+        
+        
 
         while True:
-
-
             # watering implementation has different cycle time
             # wait for next cycle
             if nextWateringCycle - time.time() <= 0.0:
                 # set time for next watering cycle
                 nextWateringCycle = nextWateringCycle + self.wateringCycleTime
-
-                # read sensor and motor channels from database
-                sensors = self.getAllSensors()
-                logging.info('Received sensors from database: %s', sensors)
-
-                for sensor in sensors:
-                    logging.info('Checking sensor: %s', sensor[1])
-
-
-                    # read sensor frequency
-                    self.sendQueue.put(self.SPI_READ_SENSOR_1)
-
-                    # check sensor frequency against database value
-                    # ??? need to sleep while reading sensor value???
-
-                    sensorvalue = 200
-
-                    # if measured value is smaller than value from database, watering is needed
-                    if sensorvalue <= sensor[2]:
-                        # motors only needed if watering is required
-                        motors = self.getMotorsForSensorId(sensor[0])
-                        logging.info('Received motors for sensor %s from database: %s', sensor[1], motors)
-
-                        # start motor if needed
-                        # ??? need to sleep while starting motor???
-                        for motor in motors:
-                            logging.info('Start watering for motor: %s', motor[1])
-                            #self.insertLogEntry('stubbed text', 2)
-
-                            # read plants for logging entries
-                            plants = self.getPlantsForMotorId(motor[0])
-                            logging.info('Received plants for motor %s from database: %s', motor[1], plants)
-
-
-
-                            for plant in plants:
-                                logging.info('Checking plant: %s', plant[1])
-                                # check if watering was ok
-                                # query sensor values from arm for check
-                                #self.insertWateringEntry(motor[2], 1, plant[0])
-
+                
+                self.createConfigurationFromDb()
+                self.createStateMachine()
+                self.read_sensor()
 
 
             # check if we should exit
@@ -233,13 +491,16 @@ class app(threading.Thread):
                 break
 
             # process receive queue
-            recvbuf = self.recvQueue.get()
+            if (not self.recvQueue.empty()):
+                recvbuf = self.recvQueue.get()
             
-            if len(recvbuf) == 6:
-                # temp code for receiving sensor values:
-                if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
-                    sixteenBitNumber = 256*recvbuf[2] + recvbuf[3];
-                    logging.info('Sensor %s, Value: %s', recvbuf[1], sixteenBitNumber)
+                if len(recvbuf) == 6:
+                    if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
+                        self.receive_sensor(recvbuf[2], recvbuf[3])
+                    elif recvbuf[0] == self.SPI_RECEIVE_MOTOR_RESPONSE:
+                        self.receive_motor(recvbuf[1])
+                        
+                        
 
 
             # wait for next cycle
