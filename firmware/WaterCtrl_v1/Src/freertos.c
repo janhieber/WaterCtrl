@@ -121,8 +121,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 32);
-  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 32);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
   SensorHandle = osThreadCreate(osThread(Sensor), NULL);
@@ -136,8 +136,8 @@ void MX_FREERTOS_Init(void) {
 #endif
 
 
-  //osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
-  //AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
+  osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
+  AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
   osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
   SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
@@ -183,10 +183,10 @@ void StartDefaultTask(void const * argument)
 //	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 //	osPoolFree(motorCtrlPool,cmd);
 
-	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
-	sens_cmd->sensor = 3;
-	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
-	osPoolFree(sensorPool,sens_cmd);
+//	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
+//	sens_cmd->sensor = 3;
+//	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
+//	osPoolFree(sensorPool,sens_cmd);
 
 	counter++;
 	D("Default task: %d",counter);
