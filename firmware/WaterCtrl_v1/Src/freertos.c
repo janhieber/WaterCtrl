@@ -121,7 +121,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 32);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
@@ -189,7 +189,7 @@ void StartDefaultTask(void const * argument)
 //	osPoolFree(sensorPool,sens_cmd);
 
 	counter++;
-	D("Default task: %d",counter);
+	D("Default task: %x",counter);
 
   }
   /* USER CODE END StartDefaultTask */
