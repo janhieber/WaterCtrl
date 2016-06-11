@@ -110,13 +110,17 @@ int StopTimer(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
 
 /**
   * @brief  Starts Timer and enables interrupt.
-  * @param  ptrTimerRef Timer to use
   * @param  channel Channel to use
   * @retval return value
   */
 int startSensorCapture(int channel);
 
-//static void moiBrokerMessage(char * buf, uint8_t length);
+/**
+  * @brief  Stop timer and set state to inactive.
+  * @retval return value
+  */
+int stopSensorCapture();
+
 void ClearSensorSelectPin();
 void SetSensorSelectPin();
 void moiSetChannel(int);
@@ -129,6 +133,10 @@ uint32_t getMoinstureFrequency(int sensor)
 {
 	uint32_t channel = 0;
 	channel = sensor - 1 ;
+	startSensorCapture(channel);
+	while(stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
+		osDelay(250);
+	}
     if ((MOISTURE_MEASURE_CHANNEL0_ACTIVE <= channel) \
             &&(MOISTURE_MEASURE_CHANNEL_MAX >= channel))
         return frequency[channel];
@@ -139,7 +147,7 @@ uint32_t getMoinstureFrequency(int sensor)
 int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 	INITBEGIN;
 
-    stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
+    stateRegister &= MOISTURE_MEASURE_STATE_INACTIVE;
 
     ptrTimer3Ref = ptr;
     memset(frequency,0,sizeof(frequency));
@@ -150,16 +158,35 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 }
 
 int startSensorCapture(int Sensor) {
-    StopTimer(ptrTimer3Ref,TimerChannel);
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	StopTimer(ptrTimer3Ref,TimerChannel);
 
     // select input
     moiSetChannel(Sensor);
 
+    GPIO_InitStruct.Pin = FREQ_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
+
     StartTimer(ptrTimer3Ref,TimerChannel);
+
     stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
 
     return Sensor;
 }
+
+int stopSensorCapture() {
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	StopTimer(ptrTimer3Ref,TimerChannel);
+
+    stateRegister &= MOISTURE_MEASURE_STATE_INACTIVE;
+
+    return 0;
+}
+
 
 void printMoisture() {
 	D( "Measured channel 1: %d Hz",
@@ -241,21 +268,26 @@ void moiSetChannel(int channel)
 
         break;
     }
+    activeChannel = channel;
     tSensorSelect &= (MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2);
     HAL_GPIO_WritePin(GPIOB,(MOISTURE_SENS_PIN_A0|MOISTURE_SENS_PIN_A1|MOISTURE_SENS_PIN_A2),GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_SET);
     SetSensorSelectPin();
 }
 
-void SensorTask() {
+void MoistureTask() {
+
     if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
-        frequency[activeChannel] = getFrequencyOfChannel();
-        activeChannel++;
-        if (activeChannel > MOISTURE_MEASURE_CHANNEL_MAX)
-            activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
-        startSensorCapture(activeChannel);
+    	// stop measurement after 1 s
+    	frequency[activeChannel] = getFrequencyOfChannel();
+    	stopSensorCapture();
+//        frequency[activeChannel] = getFrequencyOfChannel();
+//        activeChannel++;
+//        if (activeChannel > MOISTURE_MEASURE_CHANNEL_MAX)
+//            activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
+//        startSensorCapture(activeChannel);
     } else {
-        //E( "MOI inactive state");
+        D( "MOI inactive state");
     }
 }
 

@@ -59,7 +59,7 @@ void procSensor(void const * argument) {
 			break;
 		}
 		case osEventTimeout: {
-			SensorTask();
+			MoistureTask();
 			break;
 		}
 		case osErrorOS:
