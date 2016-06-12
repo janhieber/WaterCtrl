@@ -47,7 +47,7 @@ DHT22_RESULT DHT22_Init(TIM_HandleTypeDef* handle);
  */
 DHT22_RESULT DHT22_DeInit(TIM_HandleTypeDef* handle);
 
-uint32_t getDHT22_Temperature();
-uint32_t getDHT22_Humidity();
+int32_t getDHT22_Temperature();
+int32_t getDHT22_Humidity();
 
 #endif /* INC_DHT22_H_ */

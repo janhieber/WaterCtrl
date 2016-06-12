@@ -24,6 +24,8 @@ uint32_t getSensorFrequency(int sensor);
 
 void printMoisture();
 
+void MoistureTask();
+
 #endif // MOISTUREMEASURE_H
 
 /**

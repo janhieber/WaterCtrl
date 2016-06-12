@@ -103,6 +103,7 @@ void MX_FREERTOS_Init(void) {
     initSpi();
     initMoistureMeasure(&htim3);
     initMotorControl(&htim2);
+    InitSensors();
 
 
 
@@ -122,8 +123,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
+  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
   SensorHandle = osThreadCreate(osThread(Sensor), NULL);
@@ -137,8 +138,8 @@ void MX_FREERTOS_Init(void) {
 #endif
 
 
-  osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
-  AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
+  //osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
+  //AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
   osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
   SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);

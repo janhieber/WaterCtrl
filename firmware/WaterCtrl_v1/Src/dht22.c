@@ -20,9 +20,11 @@
  * This structure hold all the variables necessary for communication with the sensor
  */
 typedef struct{
+	int16_t temp;
+	int16_t hum;
 	uint8_t				bitsRX[5];
-	float 				temp;
-	float				hum;
+	//float 				temp;
+	//float				hum;
 	uint8_t				crcErrorFlag;
 	DHT22_STATE			state;
 	TIM_HandleTypeDef*	timHandle;
@@ -163,18 +165,18 @@ void DHT22_InterruptHandler(DHT22_HandleTypeDef* handle) {
 
 	handle->lastVal = val;
 
-	float time = 1000000.0 * val2 / freq;
+	uint32_t time = 10000000 * val2 / freq;
 
 	if (handle->bitPos < 0) {
-		if (time > 155.0 && time < 165.0) {
+		if (time > 1550 && time < 1650) {
 			handle->bitPos = 0;
 		}
 	} else if (handle->bitPos >= 0 && handle->bitPos < 40) {
-		if (time > 78.0 && time < 97.0) {
+		if (time > 780 && time < 970) {
 			handle->bitsRX[handle->bitPos / 8] &= ~(1
 					<< (7 - handle->bitPos % 8));
 			handle->bitPos++;
-		} else if (time > 120.0 && time < 145.0) {
+		} else if (time > 1200 && time < 1450) {
 			handle->bitsRX[handle->bitPos / 8] |= 1 << (7 - handle->bitPos % 8);
 			handle->bitPos++;
 		} else {
@@ -203,7 +205,7 @@ void DHT22_InterruptHandler(DHT22_HandleTypeDef* handle) {
 				temp10 |= handle->bitsRX[2] << 8;
 				temp10 |= handle->bitsRX[3];
 			}
-			handle->temp = 0.1 * temp10;
+			handle->temp = temp10;
 
 			int16_t hum10 = 0;
 			if ((handle->bitsRX[0] & 0x80) == 0x80) {
@@ -214,7 +216,7 @@ void DHT22_InterruptHandler(DHT22_HandleTypeDef* handle) {
 				hum10 |= handle->bitsRX[0] << 8;
 				hum10 |= handle->bitsRX[1];
 			}
-			handle->hum = 0.1 * hum10;
+			handle->hum = hum10;
 		} else {
 			handle->crcErrorFlag = 1;
 		}
@@ -241,12 +243,12 @@ DHT22_RESULT DHT22_ReadData(DHT22_HandleTypeDef* handle) {
 }
 
 
-uint32_t getDHT22_Temperature() {
+int32_t getDHT22_Temperature() {
 	DHT22_ReadData(&dht);
-	return dht.temp*(uint32_t)10;
+	return dht.temp;
 }
 
-uint32_t getDHT22_Humidity() {
+int32_t getDHT22_Humidity() {
 	DHT22_ReadData(&dht);
-	return dht.temp*(uint32_t)10;
+	return dht.hum;
 }

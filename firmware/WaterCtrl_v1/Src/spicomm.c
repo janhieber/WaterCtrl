@@ -98,9 +98,11 @@ void procSpiBroker(void const * argument){
 				osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 				break;
 			}
-			case SPI_ID_MOIST_REQ:  {
+			case SPI_ID_SEN_TYP_REQ:
+			case SPI_ID_SEN_MEA_REQ:  {
 				D("moisture request received");
 				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
+				cmd->cmd = recvMsg->d[0];
 				cmd->sensor = recvMsg->d[1];
 				osMessagePut(sensorQueue,(uint32_t)cmd,0);
 				break;

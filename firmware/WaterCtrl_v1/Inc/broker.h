@@ -15,11 +15,6 @@
 #ifndef BROKER_H
 #define BROKER_H
 
-#define BRK_MSG_SPI_ID_MOT (uint8_t)0x10u
-#define BRK_MSG_SPI_ID_MOT_RSP (uint8_t)0x11u
-#define BRK_MSG_SPI_ID_SENS_VALUE (uint8_t)0x12u
-#define BRK_MSG_SPI_ID_SENS_VALUE_RSP (uint8_t)0x13u
-
 #define BRK_ERR_NO_ERR (uint8_t)0x00u
 #define BRK_ERR_MSG_PARAM_INVALID (uint8_t)0x01u
 #define BRK_ERR_MOTOR_START_FAILED (uint8_t)0x02u
