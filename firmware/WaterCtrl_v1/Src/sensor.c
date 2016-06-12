@@ -42,6 +42,8 @@ void procSensor(void const * argument) {
 	osEvent event;
 	bool run = true;
 
+	//sensorConfig[2] = 1;
+
 	do {
 		event = osMessageGet(sensorQueue,1000);
 		switch(event.status) {
@@ -59,8 +61,8 @@ void procSensor(void const * argument) {
 					cmd->value1 = getSensorFrequency(cmd->sensor)/(int16_t)1000;
 					break;
 				case SENS_DHT22:
-					cmd->value1 = getDHT22_Temperature();
-					cmd->value2 = getDHT22_Humidity();
+					cmd->value1 = getDHT22_Temperature(cmd->sensor);
+					cmd->value2 = getDHT22_Humidity(cmd->sensor);
 					break;
 				default:
 					break;
@@ -83,7 +85,7 @@ void procSensor(void const * argument) {
 			D("RESP: sens: 0x%02x cmd: 0x%02x value1: %d value2: %d",cmd->sensor,cmd->cmd,cmd->value1,cmd->value2);
 			SpiSend(&spi);
 			//printMoisture();
-			osPoolFree(sensorPool, cmd);
+			osPoolFree(sensorPool, event.value.p);
 			break;
 		}
 		case osEventTimeout: {
@@ -107,6 +109,8 @@ void SetSensorSelectPin() {
 void ClearSensorSelectPin() {
 	HAL_GPIO_WritePin(SEN_ENABLE_GPIO_Port,SEN_ENABLE_Pin,GPIO_PIN_RESET);
 }
+
+
 void SetSensorChannel(int channel){
 
 	volatile int16_t tSensorSelect = 0;
@@ -145,6 +149,12 @@ void SetSensorChannel(int channel){
 	HAL_GPIO_WritePin(GPIOB,(SEN_A0_Pin|SEN_A1_Pin|SEN_A2_Pin),GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB,tSensorSelect,GPIO_PIN_SET);
 	SetSensorSelectPin();
+}
+
+void ClearSensorChannel(){
+
+	ClearSensorSelectPin();
+
 }
 
 void InitSensors() {

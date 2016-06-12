@@ -37,11 +37,8 @@
 
 #include <cmsis_os.h>
 
-#include <spicomm.h>
 #include <moistureMeasure.h>
 #include <sensor.h>
-
-
 
 #define SYSNAME "Moisture"
 
@@ -158,6 +155,8 @@ int startSensorCapture(int channel) {
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
+
+	setSensorType(SENS_MOISTURE);
 
 	StartTimer(ptrTimer3Ref,TimerChannel);
 

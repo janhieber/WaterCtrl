@@ -13,32 +13,9 @@
 
 #include "mxconstants.h"
 #include "dht22.h"
+#include "sensor.h"
 
 #define SYSNAME "DHT22"
-
-/**
- * This structure hold all the variables necessary for communication with the sensor
- */
-typedef struct{
-	int16_t temp;
-	int16_t hum;
-	uint8_t				bitsRX[5];
-	//float 				temp;
-	//float				hum;
-	uint8_t				crcErrorFlag;
-	DHT22_STATE			state;
-	TIM_HandleTypeDef*	timHandle;
-	TIM_IC_InitTypeDef	timICHandle;
-	uint32_t			timChannel;
-	uint16_t			gpioPin;
-	GPIO_TypeDef*		gpioPort;
-	int					bitPos;
-	IRQn_Type			timerIRQn;
-	uint32_t			gpioAlternateFunction;
-	uint16_t			lastVal;
-	void				(*errorCallback)(DHT22_RESULT);
-} DHT22_HandleTypeDef;
-
 
 /**
  * Reads the current temperature and humidity from the sensor
@@ -80,7 +57,8 @@ void DHT22_SetPinOUT(DHT22_HandleTypeDef* handle) {
 	HAL_NVIC_DisableIRQ(handle->timerIRQn);
 	GPIO_InitTypeDef GPIO_InitStruct;
 	GPIO_InitStruct.Pin = handle->gpioPin;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+//	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 	HAL_GPIO_Init(handle->gpioPort, &GPIO_InitStruct);
@@ -89,10 +67,12 @@ void DHT22_SetPinOUT(DHT22_HandleTypeDef* handle) {
 void DHT22_SetPinIN(DHT22_HandleTypeDef* handle) {
 	GPIO_InitTypeDef GPIO_InitStruct;
 	GPIO_InitStruct.Pin = handle->gpioPin;
-	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+	//GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 	//GPIO_InitStruct.Alternate = handle->gpioAlternateFunction;
+	setSensorType(SENS_DHT22);
 	HAL_GPIO_Init(handle->gpioPort, &GPIO_InitStruct);
 	HAL_NVIC_EnableIRQ(handle->timerIRQn);
 	HAL_NVIC_SetPriority(handle->timerIRQn, 0, 0);
@@ -106,6 +86,8 @@ DHT22_RESULT DHT22_Init(TIM_HandleTypeDef* handle) {
 	dht.timChannel = TIM_CHANNEL_3;
 	dht.timHandle = handle;
 	//dht.timHandle.Instance = TIM3;
+
+	D("&dht: %p",&dht);
 
 #if 0
 	dht.timHandle->Init.Period = 0xFFFF;
@@ -135,6 +117,8 @@ DHT22_RESULT DHT22_DeInit(TIM_HandleTypeDef* handle) {
 DHT22_RESULT DHT22_InitiateTransfer(DHT22_HandleTypeDef* handle) {
 
 	DHT22_SetPinOUT(handle);
+	HAL_GPIO_WritePin(handle->gpioPort, handle->gpioPin, GPIO_PIN_SET);
+	osDelay(4000);
 	HAL_GPIO_WritePin(handle->gpioPort, handle->gpioPin, GPIO_PIN_RESET);
 	osDelay(2);
 	handle->bitPos = -1;
@@ -231,6 +215,7 @@ DHT22_RESULT DHT22_ReadData(DHT22_HandleTypeDef* handle) {
 
 	osDelay(1000);
 
+	D("temp: %d, hum: %d, crc: %d",handle->temp,handle->hum,handle->crcErrorFlag);
 	if(handle->crcErrorFlag==1){
 		return DHT22_CRC_ERROR;
 	}
@@ -239,16 +224,21 @@ DHT22_RESULT DHT22_ReadData(DHT22_HandleTypeDef* handle) {
 	}else{
 		handle->state=DHT22_READY;
 	}
+
 	return DHT22_OK;
 }
 
 
-int32_t getDHT22_Temperature() {
+int32_t getDHT22_Temperature(uint8_t sensor) {
+	SetSensorChannel(sensor -1);
 	DHT22_ReadData(&dht);
+	ClearSensorChannel();
 	return dht.temp;
 }
 
-int32_t getDHT22_Humidity() {
+int32_t getDHT22_Humidity(uint8_t sensor) {
+	SetSensorChannel(sensor -1);
 	DHT22_ReadData(&dht);
+	ClearSensorChannel();
 	return dht.hum;
 }

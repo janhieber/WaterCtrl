@@ -43,6 +43,7 @@
 #include "motors.h"
 #include "sensor.h"
 #include "moistureMeasure.h"
+#include "dht22.h"
 #include "stuff.h"
 #include "tim.h"
 #include "mxconstants.h"
@@ -102,8 +103,10 @@ void MX_FREERTOS_Init(void) {
     // setup SPI
     initSpi();
     initMoistureMeasure(&htim3);
+    DHT22_Init(&htim3);
     initMotorControl(&htim2);
     InitSensors();
+
 
 
 
@@ -123,8 +126,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
-  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 1, 64);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
   SensorHandle = osThreadCreate(osThread(Sensor), NULL);

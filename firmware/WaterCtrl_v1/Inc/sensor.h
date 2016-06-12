@@ -40,9 +40,15 @@ typedef struct SensorCmd {
   * @retval return value
   */
 void SetSensorChannel(int channel);
+void ClearSensorChannel();
 
 void InitSensors();
 
 void DeinitSensors();
+
+/*
+ * isr functions
+ */
+extern void setSensorType(uint8_t);
 
 #endif /* SENSOR_H_ */
