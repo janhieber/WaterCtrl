@@ -7,7 +7,7 @@
 	        <div class="control-group">
 	            <label class="control-label" for="inputChannel">Channel:</label>
 	            <div class="controls">
-	                <input type="text" id="inputChannel" ng-model="motor.channel"/>
+	                <input type="text" id="inputChannel" ng-model="motor.motor_channel"/>
 	            </div>
 	        </div>
 	        <div class="control-group">
@@ -19,9 +19,9 @@
 			<div class="control-group">
 	            <label class="control-label" for="inputSensor">Sensor:</label>
 	            <div class="controls">
-	            	<select id="inputSensor" ng-model="motor.sensor_id">
+	            	<select id="inputSensor" ng-model="motor.sensor_channel">
 	            		<option value="">please select a sensor</option>
-				        <option ng-repeat="sensor in sensors.objects" ng-selected="(motor.sensor_id === ($index + 1))" value="{{$index + 1}}">sensor: channel {{sensor.channel}} - frequency {{sensor.frequency}}</option>
+				        <option ng-repeat="sensor in sensors.objects" ng-selected="(motor.sensor_channel === ($index + 1))" value="{{$index + 1}}">sensor: channel {{sensor.sensor_channel}} - frequency {{sensor.frequency}}</option>
 				    </select>
 	            </div>
 	        </div>

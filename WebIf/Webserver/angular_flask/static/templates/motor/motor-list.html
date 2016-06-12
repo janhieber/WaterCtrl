@@ -14,12 +14,12 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="motor in motors.objects">
-					<td>{{motor.channel}}</td>
+					<td>{{motor.motor_channel}}</td>
 					<td>{{motor.duration}}</td>
-					<td>{{motor.sensor_id}}</td>
+					<td>{{motor.sensor_channel}}</td>
 					<td>
-						<button type="button" class="btn btn-primary" ng-click="editMotor(motor.id)">Edit</button>
-						<button type="button" class="btn btn-primary" ng-click="deleteMotor(motor.id)">Delete</button>
+						<button type="button" class="btn btn-primary" ng-click="editMotor(motor.motor_channel)">Edit</button>
+						<button type="button" class="btn btn-primary" ng-click="deleteMotor(motor.motor_channel)">Delete</button>
 					</td>
 				</tr>
 			</tbody>

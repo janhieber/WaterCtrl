@@ -10,6 +10,7 @@ import logging
 import configparser
 import psycopg2
 import sys
+import datetime
 from transitions import *
 
 
@@ -64,6 +65,12 @@ class app(threading.Thread):
         
         
     def setup(self):
+        
+        # query active and inactive times
+        self.wateringActiveTime = datetime.datetime.strptime(self.config.get('ControlDaemon', 'wateringActiveTime'), "%H:%M").time()
+        self.wateringInactiveTime = datetime.datetime.strptime(self.config.get('ControlDaemon', 'wateringInactiveTime'), "%H:%M").time()
+        logging.info('Configured Active Time: %s', self.wateringActiveTime)
+        logging.info('Configured Inactive Time: %s', self.wateringInactiveTime)
 
         # query config values
         self.cycleTime = self.config.getfloat('general', 'cycleTime')
@@ -89,7 +96,7 @@ class app(threading.Thread):
         
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT id, channel, frequency FROM sensor')
+        query = ('SELECT sensor_channel, frequency FROM sensor ORDER BY sensor_channel')
         self.dbc.execute(query)
 
         # retrieve the sensors from the database
@@ -101,8 +108,8 @@ class app(threading.Thread):
             
             # open db cursor and query data
             self.dbc = self.db.cursor()
-            query = ('SELECT id, channel, duration, sensor_id FROM motor WHERE sensor_id = %s')
-            self.dbc.execute(query, (sensor[1], ))
+            query = ('SELECT motor_channel, duration, sensor_channel FROM motor WHERE sensor_channel = %s ORDER BY motor_channel')
+            self.dbc.execute(query, (sensor[0], ))
 
             # retrieve the motors from the database
             motors = self.dbc.fetchall()
@@ -111,12 +118,7 @@ class app(threading.Thread):
             sensor.append(motors)
             self.configuration.append(sensor)
            
-    
-    #[
-        #[1, 1, 100, [(1, 1, 10, 1), (2, 2, 20, 1)]], 
-        #[2, 2, 200, [(3, 3, 30, 2), (4, 4, 40, 2)]], 
-        #[3, 3, 300, [(5, 5, 50, 3), (6, 6, 60, 3)]]
-    #]
+
     def createStateMachine(self):
         logging.info('STATEMACHINE: Creating StateMaching...')
         
@@ -127,42 +129,42 @@ class app(threading.Thread):
         
         for sensorIndex, sensor in enumerate(self.configuration):
             # Add sensor states
-            states.append(State('READ_SENSOR_'+str(sensor[1])))
-            states.append(State('RECEIVE_SENSOR_'+str(sensor[1])))
-            states.append(State('CHECK_VALUE_'+str(sensor[1])))
+            states.append(State('READ_SENSOR_'+str(sensor[0])))
+            states.append(State('RECEIVE_SENSOR_'+str(sensor[0])))
+            states.append(State('CHECK_VALUE_'+str(sensor[0])))
             
             # Add sensor transitions
             if(sensorIndex == 0):
-                transitions.append(['read_sensor', 'SLEEP', 'READ_SENSOR_'+str(sensor[1])])
+                transitions.append(['read_sensor', 'SLEEP', 'READ_SENSOR_'+str(sensor[0])])
 
-            transitions.append(['receive_sensor', 'READ_SENSOR_'+str(sensor[1]), 'RECEIVE_SENSOR_'+str(sensor[1])])
-            transitions.append(['check_sensor', 'RECEIVE_SENSOR_'+str(sensor[1]), 'CHECK_VALUE_'+str(sensor[1])])
+            transitions.append(['receive_sensor', 'READ_SENSOR_'+str(sensor[0]), 'RECEIVE_SENSOR_'+str(sensor[0])])
+            transitions.append(['check_sensor', 'RECEIVE_SENSOR_'+str(sensor[0]), 'CHECK_VALUE_'+str(sensor[0])])
             
             if(sensorIndex == len(self.configuration)-1):
-                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[1]), 'SLEEP'])
+                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[0]), 'SLEEP'])
             else:
-                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[1]), 'READ_SENSOR_'+str(sensor[1]+1)])
+                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[0]), 'READ_SENSOR_'+str(sensor[0]+1)])
         
-            motors = sensor[3]
+            motors = sensor[2]
             for motorIndex, motor in enumerate(motors):
                 # Add motor states
-                states.append(State('START_MOTOR_'+str(motor[1])))
-                states.append(State('RECEIVE_MOTOR_'+str(motor[1])))
+                states.append(State('START_MOTOR_'+str(motor[0])))
+                states.append(State('RECEIVE_MOTOR_'+str(motor[0])))
             
                 # Add motor transistions
                 if(motorIndex == 0):
-                    transitions.append(['start_motor', 'CHECK_VALUE_'+str(sensor[1]), 'START_MOTOR_'+str(motor[1])])
+                    transitions.append(['start_motor', 'CHECK_VALUE_'+str(sensor[0]), 'START_MOTOR_'+str(motor[0])])
  
-                transitions.append(['receive_motor', 'START_MOTOR_'+str(motor[1]), 'RECEIVE_MOTOR_'+str(motor[1])])
+                transitions.append(['receive_motor', 'START_MOTOR_'+str(motor[0]), 'RECEIVE_MOTOR_'+str(motor[0])])
                 
                 if(motorIndex != len(motors)-1):
-                    transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'START_MOTOR_'+str(motor[1]+1)])
+                    transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[0]), 'START_MOTOR_'+str(motor[0]+1)])
                 else:
                     if(sensorIndex == len(self.configuration)-1):
-                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'SLEEP'])
+                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[0]), 'SLEEP'])
                     else:
-                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'READ_SENSOR_'+str(sensor[1]+1)])
-            
+                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[0]), 'READ_SENSOR_'+str(sensor[0]+1)])
+
         # Initialize the state machine
         self.machine = Machine(model=self, states=states, auto_transitions=False, initial='SLEEP')
 
@@ -175,7 +177,7 @@ class app(threading.Thread):
     def getSensorFrequencyForSensorChannel(self, sensorChannel):
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT frequency FROM sensor WHERE channel = %s')
+        query = ('SELECT frequency FROM sensor WHERE sensor_channel = %s')
         self.dbc.execute(query, (sensorChannel, ))
 
         # retrieve the channels from the database
@@ -188,7 +190,7 @@ class app(threading.Thread):
     def getMotorDurationForMotorChannel(self, motorChannel):
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT duration FROM motor WHERE channel = %s') 
+        query = ('SELECT duration FROM motor WHERE motor_channel = %s') 
         self.dbc.execute(query, (motorChannel, ))
 
         # retrieve the channels from the database
@@ -203,7 +205,7 @@ class app(threading.Thread):
 
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT id FROM plant WHERE motor_id = (SELECT id FROM motor where channel = %s)')
+        query = ('SELECT id FROM plant WHERE motor_channel = %s')
         self.dbc.execute(query, (motorChannel, ))
 
         # retrieve the channels from the database
@@ -456,58 +458,70 @@ class app(threading.Thread):
         self.setup()
         nextCycle = time.time()
         nextWateringCycle = time.time()
+        showInactiveLoggingOutput = True
 
-        # sensor[0] = id
-        # sensor[1] = channel
-        # sensor[2] = frequency
+        # sensor[0] = sensor_channel
+        # sensor[1] = frequency
 
-        # motor[0] = id
-        # motor[1] = channel
-        # motor[2] = duration
-        # motor[3] = sensor_id
+        # motor[0] = motor_channel
+        # motor[1] = duration
+        # motor[2] = sensor_channel
 
         # plant[0] = id
         # plant[1] = name
         # plant[2] = description
         # plant[3] = watering_interval
-        # plant[4] = motor_id
+        # plant[4] = motor_channel
+        
+        self.createConfigurationFromDb()
+        self.createStateMachine()
         
         
-
         while True:
-            # watering implementation has different cycle time
-            # wait for next cycle
-            if nextWateringCycle - time.time() <= 0.0:
-                # set time for next watering cycle
-                nextWateringCycle = nextWateringCycle + self.wateringCycleTime
+            
+            # check if watering cycle time is inactive
+            timeNow = datetime.datetime.now().time()
+
+            if timeNow > self.wateringInactiveTime or timeNow < self.wateringActiveTime and self.is_SLEEP():
+                if(showInactiveLoggingOutput):
+                    logging.info("Watering cycle is inactive. Starts at: %s", self.wateringActiveTime)
+                    showInactiveLoggingOutput = False
+
+            else:
+                # watering implementation has different cycle time
+                # wait for next cycle
+                if nextWateringCycle - time.time() <= 0.0:
+                    # set time for next watering cycle
+                    nextWateringCycle = nextWateringCycle + self.wateringCycleTime
+                    
+                    logging.info('NEXT CYLCE: %s', nextWateringCycle - time.time())
+                    
+                    self.createConfigurationFromDb()
+                    self.createStateMachine()
+                    self.read_sensor()
+
+                # process receive queue
+                if (not self.recvQueue.empty()):
+                    recvbuf = self.recvQueue.get()
+            
+                    if len(recvbuf) == 6:
+                        if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
+                            self.receive_sensor(recvbuf[2], recvbuf[3])
+                        elif recvbuf[0] == self.SPI_RECEIVE_MOTOR_RESPONSE:
+                            self.receive_motor(recvbuf[1])
                 
-                self.createConfigurationFromDb()
-                self.createStateMachine()
-                self.read_sensor()
-
-
+                # wait for next cycle
+                nextCycle = nextCycle + self.cycleTime
+                sleeptime = nextCycle - time.time()
+                
+                if sleeptime >= 0.0:
+                    time.sleep(sleeptime)
+                    
+                showInactiveLoggingOutput = True
+                
             # check if we should exit
             if self.exit:
                 break
-
-            # process receive queue
-            if (not self.recvQueue.empty()):
-                recvbuf = self.recvQueue.get()
-            
-                if len(recvbuf) == 6:
-                    if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
-                        self.receive_sensor(recvbuf[2], recvbuf[3])
-                    elif recvbuf[0] == self.SPI_RECEIVE_MOTOR_RESPONSE:
-                        self.receive_motor(recvbuf[1])
-                        
-                        
-
-
-            # wait for next cycle
-            nextCycle = nextCycle + self.cycleTime
-            sleeptime = nextCycle - time.time()
-            if sleeptime >= 0.0:
-                time.sleep(nextCycle - time.time())
         
         # manage exit
         self.exit_()
@@ -517,7 +531,6 @@ class app(threading.Thread):
               
     def exit_(self):
         # close db connection
-        self.dbc.close()
         self.db.close()
 
 

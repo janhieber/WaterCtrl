@@ -4,37 +4,25 @@
 			"name": "plant 1",
 			"description": "description 1",
 			"watering_interval": 10,
-			"motor_id": 1
+			"motor_channel": 1
 		},
 		{
 			"name": "plant 2",
 			"description": "description 2",
 			"watering_interval": 20,
-			"motor_id": 2
+			"motor_channel": 2
 		},
 		{
 			"name": "plant 3",
 			"description": "description 3",
 			"watering_interval": 30,
-			"motor_id": 3
+			"motor_channel": 3
 		},
 		{
 			"name": "plant 4",
 			"description": "description 4",
 			"watering_interval": 40,
-			"motor_id": 4
-		},
-		{
-			"name": "plant 5",
-			"description": "description 5",
-			"watering_interval": 50,
-			"motor_id": 5
-		},
-		{
-			"name": "plant 6",
-			"description": "description 6",
-			"watering_interval": 60,
-			"motor_id": 6
+			"motor_channel": 4
 		}
 	]
 }

@@ -24,12 +24,11 @@ class Log(db.Model):
 		self.log_date = log_date
 
 class Sensor(db.Model):
-  id = db.Column(db.Integer, primary_key = True)
-  channel = db.Column(db.Integer)
+  sensor_channel = db.Column(db.Integer, primary_key = True, unique=True)
   frequency = db.Column(db.Integer)
 
-  def __init__(self, channel, frequency):
-    self.channel = channel
+  def __init__(self, sensor_channel, frequency):
+    self.sensor_channel = sensor_channel
     self.frequency = frequency
     
 class SensorResponse(db.Model):
@@ -55,28 +54,27 @@ class SensorResponse(db.Model):
         self.frequency = frequency
 
 class Motor(db.Model):
-  id = db.Column(db.Integer, primary_key = True)
-  channel = db.Column(db.Integer)
+  motor_channel = db.Column(db.Integer, primary_key = True, unique=True)
   duration = db.Column(db.Integer)
-  sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
+  sensor_channel = db.Column(db.Integer, db.ForeignKey('sensor.sensor_channel'))
   
-  def __init__(self, channel, duration, sensor_id):
-    self.channel = channel
+  def __init__(self, motor_channel, duration, sensor_channel):
+    self.motor_channel = motor_channel
     self.duration = duration
-    self.sensor_id = sensor_id
+    self.sensor_channel = sensor_channel
 
 class Plant(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   name = db.Column(db.String(20))
   description = db.Column(db.Text)
   watering_interval = db.Column(db.Integer)
-  motor_id = db.Column(db.Integer, db.ForeignKey('motor.id'))
+  motor_channel = db.Column(db.Integer, db.ForeignKey('motor.motor_channel'))
 
-  def __init__(self, name, description, watering_interval, motor_id):
+  def __init__(self, name, description, watering_interval, motor_channel):
     self.name = name
     self.description = description
     self.watering_interval = watering_interval
-    self.motor_id = motor_id
+    self.motor_channel = motor_channel
 
 class Watering(db.Model):
   id = db.Column(db.Integer, primary_key = True)

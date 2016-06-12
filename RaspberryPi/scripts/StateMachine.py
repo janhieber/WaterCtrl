@@ -39,7 +39,7 @@ class StateMachine(object):
         
         # open db cursor and query data
         self.dbc = self.db.cursor()
-        query = ('SELECT id, channel, frequency FROM sensor')
+        query = ('SELECT sensor_channel, frequency FROM sensor ORDER BY sensor_channel')
         self.dbc.execute(query)
 
         # retrieve the sensors from the database
@@ -51,8 +51,8 @@ class StateMachine(object):
             
             # open db cursor and query data
             self.dbc = self.db.cursor()
-            query = ('SELECT id, channel, duration, sensor_id FROM motor WHERE sensor_id = %s')
-            self.dbc.execute(query, (sensor[1], ))
+            query = ('SELECT motor_channel, duration, sensor_channel FROM motor WHERE sensor_channel = %s ORDER BY motor_channel')
+            self.dbc.execute(query, (sensor[0], ))
 
             # retrieve the motors from the database
             motors = self.dbc.fetchall()
@@ -61,11 +61,7 @@ class StateMachine(object):
             sensor.append(motors)
             self.configuration.append(sensor)
            
-    
-    #[
-        #[1, 1, 100, [(1, 1, 10, 1), (2, 2, 20, 1)]], 
-        #[2, 2, 200, [(3, 3, 30, 2), (4, 4, 40, 2)]], 
-        #[3, 3, 300, [(5, 5, 50, 3), (6, 6, 60, 3)]]]
+
     def createStateMachine(self):
         logging.info('STATEMACHINE: Creating StateMaching...')
         
@@ -74,44 +70,45 @@ class StateMachine(object):
         
         states.append(State('SLEEP'))
         
+        print(self.configuration)
         for sensorIndex, sensor in enumerate(self.configuration):
             # Add sensor states
-            states.append(State('READ_SENSOR_'+str(sensor[1])))
-            states.append(State('RECEIVE_SENSOR_'+str(sensor[1])))
-            states.append(State('CHECK_VALUE_'+str(sensor[1])))
+            states.append(State('READ_SENSOR_'+str(sensor[0])))
+            states.append(State('RECEIVE_SENSOR_'+str(sensor[0])))
+            states.append(State('CHECK_VALUE_'+str(sensor[0])))
             
             # Add sensor transitions
             if(sensorIndex == 0):
-                transitions.append(['read_sensor', 'SLEEP', 'READ_SENSOR_'+str(sensor[1])])
+                transitions.append(['read_sensor', 'SLEEP', 'READ_SENSOR_'+str(sensor[0])])
 
-            transitions.append(['receive_sensor', 'READ_SENSOR_'+str(sensor[1]), 'RECEIVE_SENSOR_'+str(sensor[1])])
-            transitions.append(['check_sensor', 'RECEIVE_SENSOR_'+str(sensor[1]), 'CHECK_VALUE_'+str(sensor[1])])
+            transitions.append(['receive_sensor', 'READ_SENSOR_'+str(sensor[0]), 'RECEIVE_SENSOR_'+str(sensor[0])])
+            transitions.append(['check_sensor', 'RECEIVE_SENSOR_'+str(sensor[0]), 'CHECK_VALUE_'+str(sensor[0])])
             
             if(sensorIndex == len(self.configuration)-1):
-                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[1]), 'SLEEP'])
+                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[0]), 'SLEEP'])
             else:
-                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[1]), 'READ_SENSOR_'+str(sensor[1]+1)])
+                transitions.append(['value_checked', 'CHECK_VALUE_'+str(sensor[0]), 'READ_SENSOR_'+str(sensor[0]+1)])
         
-            motors = sensor[3]
+            motors = sensor[2]
             for motorIndex, motor in enumerate(motors):
                 # Add motor states
-                states.append(State('START_MOTOR_'+str(motor[1])))
-                states.append(State('RECEIVE_MOTOR_'+str(motor[1])))
+                states.append(State('START_MOTOR_'+str(motor[0])))
+                states.append(State('RECEIVE_MOTOR_'+str(motor[0])))
             
                 # Add motor transistions
                 if(motorIndex == 0):
-                    transitions.append(['start_motor', 'CHECK_VALUE_'+str(sensor[1]), 'START_MOTOR_'+str(motor[1])])
+                    transitions.append(['start_motor', 'CHECK_VALUE_'+str(sensor[0]), 'START_MOTOR_'+str(motor[0])])
  
-                transitions.append(['receive_motor', 'START_MOTOR_'+str(motor[1]), 'RECEIVE_MOTOR_'+str(motor[1])])
+                transitions.append(['receive_motor', 'START_MOTOR_'+str(motor[0]), 'RECEIVE_MOTOR_'+str(motor[0])])
                 
                 if(motorIndex != len(motors)-1):
-                    transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'START_MOTOR_'+str(motor[1]+1)])
+                    transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[0]), 'START_MOTOR_'+str(motor[0]+1)])
                 else:
                     if(sensorIndex == len(self.configuration)-1):
-                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'SLEEP'])
+                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[0]), 'SLEEP'])
                     else:
-                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[1]), 'READ_SENSOR_'+str(sensor[1]+1)])
-            
+                        transitions.append(['process_receive_motor', 'RECEIVE_MOTOR_'+str(motor[0]), 'READ_SENSOR_'+str(sensor[0]+1)])
+
         # Initialize the state machine
         self.machine = Machine(model=self, states=states, auto_transitions=False, initial='SLEEP')
 
