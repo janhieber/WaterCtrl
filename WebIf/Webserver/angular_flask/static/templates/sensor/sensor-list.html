@@ -13,11 +13,11 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="sensor in sensors.objects">
-					<td>{{sensor.channel}}</td>
+					<td>{{sensor.sensor_channel}}</td>
 					<td>{{sensor.frequency}}</td>
 					<td>
-						<button type="button" class="btn btn-primary" ng-click="editSensor(sensor.id)">Edit</button>
-						<button type="button" class="btn btn-primary" ng-click="deleteSensor(sensor.id)">Delete</button>
+						<button type="button" class="btn btn-primary" ng-click="editSensor(sensor.sensor_channel)">Edit</button>
+						<button type="button" class="btn btn-primary" ng-click="deleteSensor(sensor.sensor_channel)">Delete</button>
 					</td>
 				</tr>
 			</tbody>

@@ -25,8 +25,8 @@
 	        <div class="control-group">
 	            <label class="control-label" for="inputMotor">Motor:</label>
 	            <div class="controls">
-	                <select id="inputMotor" ng-model="plant.motor_id">
-				        <option ng-repeat="motor in motors.objects" ng-selected="(plant.motor_id === ($index + 1))" value="{{$index + 1}}">motor: channel {{motor.channel}} - duration {{motor.duration}}</option>
+	                <select id="inputMotor" ng-model="plant.motor_channel">
+				        <option ng-repeat="motor in motors.objects" ng-selected="(plant.motor_channel === ($index + 1))" value="{{$index + 1}}">motor: channel {{motor.motor_channel}} - duration {{motor.duration}}</option>
 				    </select>
 	            </div>
 	        </div>

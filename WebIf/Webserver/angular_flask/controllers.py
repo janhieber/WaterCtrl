@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
-from flask import send_file, make_response, abort
+from flask import send_file, make_response, abort, jsonify
 
 from angular_flask import app
 
@@ -12,7 +12,7 @@ from angular_flask.models import *
 
 for model_name in app.config['API_MODELS']:
     model_class = app.config['API_MODELS'][model_name]
-    api_manager.create_api(model_class, methods=['GET', 'POST', 'PUT', 'DELETE'], results_per_page=1000, max_results_per_page=1000)
+    api_manager.create_api(model_class, methods=['GET', 'POST', 'PUT', 'DELETE'], results_per_page=100, max_results_per_page=100)
 
 session = api_manager.session
 
@@ -30,6 +30,21 @@ def basic_pages(**kwargs):
 from sqlalchemy.sql import exists
 
 crud_url_models = app.config['CRUD_URL_MODELS']
+
+@app.route('/api/sensor_responses/', methods=['GET'])
+def sensor_responses():
+  if request.method == 'GET':
+    results = SensorResponse.query.limit(100).offset(0).all()
+
+    json_results = []
+    for result in results:
+      d = {'sensor_channel': result.sensor_channel,
+           'frequency': result.frequency,
+           'measure_date': result.measure_date}
+      json_results.append(d)
+
+    return jsonify(objects=json_results)
+
 
 
 @app.route('/<model_name>/')
