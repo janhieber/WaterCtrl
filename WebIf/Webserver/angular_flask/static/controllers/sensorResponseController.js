@@ -32,16 +32,14 @@ angular.module('wateringApp')
 			}
 			
 	        $scope.sensorResponseConfig = {
-	            options: {
-	                chart: {
-	                    type: 'line',
-	                    zoomType: 'x'
-	                },
-	                tooltip: {
-	                    style: {
-	                        padding: 10,
-	                        fontWeight: 'bold'
-	                    }
+	            chart: {
+	            	type: 'spline',
+	                zoomType: 'x'
+	            },
+	            tooltip: {
+	            	style: {
+	                	padding: 10,
+	                    fontWeight: 'bold'
 	                }
 	            },
 	            series: [],
@@ -59,11 +57,16 @@ angular.module('wateringApp')
 						month: '%b \'%y',
 						year: '%Y'
 	                },
-					tickInterval: 3600 * 1000,
 					title: {
 						text: 'Date'
 					}
 	            },
+				yAxis: {
+				    title: {
+				    	text: 'Sensor Values (kHz)'
+				    },
+				    min: 0
+				},
 				plotOptions: {
 					spline: {
 				    	marker: {
@@ -81,24 +84,15 @@ angular.module('wateringApp')
                 
                 if(sensorArray[i] != null) {
                     for(var j=0; j < sensorArray[i].length; j++) {
-						var data = [];
-						
                         var sensorResponse = sensorArray[i][j];
                         sensorChannel = sensorResponse.sensor_channel;
 						
-						var frequency = sensorResponse.frequency;
-                        var measureDate = Date.createFromMysql(sensorResponse.measure_date).toLocaleString();
-						
-						data.push(measureDate);
-						data.push(frequency);
-						
-						sensorResponseDataArray.push(data);
+						sensorResponseDataArray.push([Date.parse(sensorResponse.measure_date),sensorResponse.frequency]);
                     }
                 }
 				
                 // add plant data to chart
                 $scope.sensorResponseConfig.series.push({
-					pointInterval: 3600 * 1000,
                     name: sensorChannel,
                     data: sensorResponseDataArray
                 });

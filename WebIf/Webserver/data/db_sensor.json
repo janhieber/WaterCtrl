@@ -1,16 +1,12 @@
 { 
 	"sensor": [
 		{
-			"channel": 1,
+			"sensor_channel": 1,
 			"frequency": 100
 		},
 		{
-			"channel": 2,
+			"sensor_channel": 2,
 			"frequency": 200
-		},
-		{
-			"channel": 3,
-			"frequency": 300
 		}
 	]
 }

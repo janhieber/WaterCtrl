@@ -9,7 +9,7 @@
 	        <div class="control-group">
 	            <label class="control-label" for="inputChannel">Channel:</label>
 	            <div class="controls">
-	                <input type="text" id="inputChannel" disabled="true" ng-model="motor.channel"/>
+	                <input type="text" id="inputChannel" disabled="true" ng-model="motor.motor_channel"/>
 	            </div>
 	        </div>
 	        <div class="control-group">
@@ -21,13 +21,13 @@
 			<div class="control-group">
 	            <label class="control-label" for="inputSensor">Sensor:</label>
 	            <div class="controls">
-	                <input type="text" id="inputSensor" disabled="true" ng-model="motor.sensor_id"/>
+	                <input type="text" id="inputSensor" disabled="true" ng-model="motor.sensor_channel"/>
 	            </div>
 	        </div>
 	        <div class="control-group">
 	            <div class="controls">
 	                <a ng-click="cancel()" class="btn btn-small btn-primary">cancel</a>
-	                <a ng-click="deleteMotor(motor.id)" class="btn btn-small btn-primary">delete motor</a>
+	                <a ng-click="deleteMotor(motor.motor_channel)" class="btn btn-small btn-primary">delete motor</a>
 	            </div>
 	        </div>
 	    </form>

@@ -16,6 +16,7 @@ Angular frontend and a Flask / python backend.
 
 5. create and seed the db (the server must still be running, so open a new terminal window first)
 > python manage.py create_db
+> python manage.py delete_db
 > python manage.py seed_db --seedfile 'data/db_user.json'
 > python manage.py seed_db --seedfile 'data/db_log.json'
 > python manage.py seed_db --seedfile 'data/db_motor.json'

@@ -10,8 +10,8 @@ angular.module('wateringApp')
 .factory('SensorFactory', function ($resource) {
     return $resource('/api/sensor/:id', {}, {
         show: { method: 'GET' },
-        update: { method: 'PUT', params: {id: '@id'} },
-        delete: { method: 'DELETE', params: {id: '@id'} }
+        update: { method: 'PUT', params: {id: '@sensor_channel'} },
+        delete: { method: 'DELETE', params: {id: '@sensor_channel'} }
     })
 })
 .factory('MotorsFactory', function ($resource) {
@@ -23,8 +23,8 @@ angular.module('wateringApp')
 .factory('MotorFactory', function ($resource) {
     return $resource('/api/motor/:id', {}, {
         show: { method: 'GET' },
-        update: { method: 'PUT', params: {id: '@id'} },
-        delete: { method: 'DELETE', params: {id: '@id'} }
+        update: { method: 'PUT', params: {id: '@motor_channel'} },
+        delete: { method: 'DELETE', params: {id: '@motor_channel'} }
     })
 })
 .factory('PlantsFactory', function ($resource) {
@@ -67,15 +67,7 @@ angular.module('wateringApp')
     })
 })
 .factory('SensorResponsesFactory', function ($resource) {
-    return $resource('/api/sensor_response', {}, {
-        query: { method: 'GET' },
-        create: { method: 'POST' }
-    })
-})
-.factory('SensorResponseFactory', function ($resource) {
-    return $resource('/api/sensor_response/:id', {}, {
-        show: { method: 'GET' },
-        update: { method: 'PUT', params: {id: '@id'} },
-        delete: { method: 'DELETE', params: {id: '@id'} }
+    return $resource('/api/sensor_responses', {}, {
+        query: { method: 'GET' }
     })
 });
