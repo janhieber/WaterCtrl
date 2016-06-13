@@ -171,7 +171,7 @@ void StartDefaultTask(void const * argument)
 	buf.d[0] = SPI_ID_MESSAGE;
 	buf.d[1] = MESSAGE_PING;
 
-	uint32_t freq = getSensorFrequency(counter%5);
+	//uint32_t freq = getSensorFrequency(counter%5);
 
 	D("frq: %d",freq);
 
