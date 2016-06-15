@@ -12,7 +12,7 @@ from angular_flask.models import *
 
 for model_name in app.config['API_MODELS']:
     model_class = app.config['API_MODELS'][model_name]
-    api_manager.create_api(model_class, methods=['GET', 'POST', 'PUT', 'DELETE'], results_per_page=100, max_results_per_page=100)
+    api_manager.create_api(model_class, methods=['GET', 'POST', 'PUT', 'DELETE'], results_per_page=200, max_results_per_page=200)
 
 session = api_manager.session
 

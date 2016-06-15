@@ -492,7 +492,7 @@ class app(threading.Thread):
                 # wait for next cycle
                 if nextWateringCycle - time.time() <= 0.0:
                     # set time for next watering cycle
-                    nextWateringCycle = nextWateringCycle + self.wateringCycleTime
+                    nextWateringCycle = time.time() + self.wateringCycleTime
                     
                     logging.info('NEXT CYLCE: %s', nextWateringCycle - time.time())
                     
