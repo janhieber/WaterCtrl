@@ -172,14 +172,13 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	SpiBuffer buf;
-	buf.d[0] = SPI_ID_MESSAGE;
-	buf.d[1] = MESSAGE_PING;
+	//SpiBuffer buf;
+	//buf.d[0] = SPI_ID_MESSAGE;
+	//buf.d[1] = MESSAGE_PING;
 
-	//uint32_t freq = getSensorFrequency((counter%5)+1);
 	//int16_t temp = getDHT22_Temperature(4);
 	//getDHT22_Temperature(4);
-	//D("frq: %d",freq);
+	//D("frq: %d",getSensorFrequency((counter%3)+1));
 
     osDelay(3000);
 	//SpiSend(&buf);
@@ -198,7 +197,7 @@ void StartDefaultTask(void const * argument)
 //	osPoolFree(sensorPool,sens_cmd);
 
 	counter++;
-	D("Default task: %x",counter);
+	D("Default task: %d",counter);
 
   }
   /* USER CODE END StartDefaultTask */

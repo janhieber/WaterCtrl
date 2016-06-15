@@ -28,7 +28,7 @@ uint8_t type;
 extern void DHT22_InterruptHandler(DHT22_HandleTypeDef* handle);
 
 
-#define PERI_PRESCALAR 1
+#define PERI_PRESCALAR 18
 #define TIMER_CLOCK (SystemCoreClock/((uint32_t)PERI_PRESCALAR))
 #define IC_SAMPLE_FILTER 0x04u
 
@@ -79,8 +79,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 					Capture = 0;
 				}
 				/* Frequency computation */
-
-				TIM1Freq = ((uint32_t) TIMER_CLOCK /  Capture)*(uint32_t)IC_SAMPLE_FILTER;
+				TIM1Freq = (TIM1Freq + ((uint32_t) TIMER_CLOCK /  Capture)*(uint32_t)IC_SAMPLE_FILTER)/2;
 				CaptureNumber = 0;
 			}
 
