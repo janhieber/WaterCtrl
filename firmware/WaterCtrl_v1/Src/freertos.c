@@ -41,7 +41,9 @@
 
 #include "spicomm.h"
 #include "motors.h"
+#include "sensor.h"
 #include "moistureMeasure.h"
+#include "dht22.h"
 #include "stuff.h"
 #include "tim.h"
 #include "mxconstants.h"
@@ -101,7 +103,10 @@ void MX_FREERTOS_Init(void) {
     // setup SPI
     initSpi();
     initMoistureMeasure(&htim3);
+    DHT22_Init(&htim3);
     initMotorControl(&htim2);
+    InitSensors();
+
 
 
 
@@ -121,7 +126,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal-1, 1, 64);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 1, 64);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
@@ -136,8 +141,8 @@ void MX_FREERTOS_Init(void) {
 #endif
 
 
-//  osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
-//  AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
+  //osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
+  //AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
   osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
   SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
@@ -171,9 +176,10 @@ void StartDefaultTask(void const * argument)
 	buf.d[0] = SPI_ID_MESSAGE;
 	buf.d[1] = MESSAGE_PING;
 
-	//uint32_t freq = getSensorFrequency(counter%5);
-
-	D("frq: %d",freq);
+	//uint32_t freq = getSensorFrequency((counter%5)+1);
+	//int16_t temp = getDHT22_Temperature(4);
+	//getDHT22_Temperature(4);
+	//D("frq: %d",freq);
 
     osDelay(3000);
 	//SpiSend(&buf);
