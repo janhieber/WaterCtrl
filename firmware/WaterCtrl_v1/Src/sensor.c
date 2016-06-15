@@ -42,7 +42,7 @@ void procSensor(void const * argument) {
 	osEvent event;
 	bool run = true;
 
-	//sensorConfig[2] = 1;
+	//sensorConfig[4] = 1;
 
 	do {
 		event = osMessageGet(sensorQueue,1000);

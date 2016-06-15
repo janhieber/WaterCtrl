@@ -31,6 +31,7 @@
 #include "stdlib.h"
 #include "stdint.h"
 #include "stdbool.h"
+#include "string.h"
 
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_hal_gpio.h"
@@ -170,6 +171,7 @@ int stopSensorCapture() {
 	frequency[activeChannel] = getFrequencyOfChannel();
 	StopTimer(ptrTimer3Ref,TimerChannel);
 	stateRegister = MOISTURE_MEASURE_STATE_INACTIVE;
+	ClearSensorChannel();
 	return 0;
 }
 
