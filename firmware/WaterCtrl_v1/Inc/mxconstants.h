@@ -106,9 +106,14 @@ int sprintf_(char *buffer, const char *format, ...);
 #define sprintf(...) sprintf_(__VA_ARGS__)
 
 // debug messages
+#ifdef DEBUG
 #define D(...)		{printf_("DD %s: ",  __func__); \
 					printf_(__VA_ARGS__); \
 					printf_("\r\n");}
+#else
+#define D(...)
+#endif
+
 // info messages
 #define I(...)		{printf_("II %s: ",  __func__); \
 					printf_(__VA_ARGS__); \
@@ -139,8 +144,10 @@ int sprintf_(char *buffer, const char *format, ...);
 #define SPI_ID_MESSAGE 0x02
 #define SPI_ID_MOTOR_CTRL 0x10
 #define SPI_ID_MOTOR_RESP 0x11
-#define SPI_ID_MOIST_REQ 0x12
-#define SPI_ID_MOIST_VALUE 0x13
+#define SPI_ID_SEN_MEA_REQ 0x12
+#define SPI_ID_SEN_MEA_VALUE 0x13
+#define SPI_ID_SEN_TYP_REQ 0x14
+#define SPI_ID_SEN_TYP_RES 0x15
 
 // error codes
 #define ERROR_HARDFAULT 0x01

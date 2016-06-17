@@ -215,10 +215,10 @@ void procMotor(void const * argument){
 void motTask1s() {
 	//stMotCfg cfg =  {0,0,0,0};
 	//static uint16_t counter;
-	D("state : %s",getStateString());
-	D("motor : %d",g_activeMotor);
-	D("counter : %d",(int)g_activeCounter);
-	D("pulse : %d",getPulse());
+	//D("state : %s",getStateString());
+//	D("motor : %d",g_activeMotor);
+//	D("counter : %d",(int)g_activeCounter);
+//	D("pulse : %d",getPulse());
 
 	//if (g_activeMotor == MOT_ACTIVE_NONE)
 	//{

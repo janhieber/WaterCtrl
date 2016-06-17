@@ -29,7 +29,8 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
 
 do_start () {
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
-   start-stop-daemon --start --background --chdir $DIR --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS
+    #start-stop-daemon --start --background --chdir $DIR --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS 2>&1 > /tmp/webinterface.log
+    start-stop-daemon --start --quiet  --chdir $DIR --chuid $DAEMON_USER  --make-pidfile --pidfile $PIDFILE --background --startas /bin/bash -- -c "exec $DAEMON $DAEMON_OPTS >> /tmp/webinterface.log 2>&1"
     log_end_msg $?
 }
 do_stop () {
