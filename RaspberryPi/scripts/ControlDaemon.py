@@ -494,30 +494,32 @@ class app(threading.Thread):
                     # set time for next watering cycle
                     nextWateringCycle = time.time() + self.wateringCycleTime
                     
-                    logging.info('NEXT CYLCE: %s', nextWateringCycle - time.time())
+                    logging.info('Next watering cycle: %s', nextWateringCycle - time.time())
                     
                     self.createConfigurationFromDb()
                     self.createStateMachine()
                     self.read_sensor()
-
-                # process receive queue
-                if (not self.recvQueue.empty()):
-                    recvbuf = self.recvQueue.get()
-            
-                    if len(recvbuf) == 6:
-                        if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
-                            self.receive_sensor(recvbuf[2], recvbuf[3])
-                        elif recvbuf[0] == self.SPI_RECEIVE_MOTOR_RESPONSE:
-                            self.receive_motor(recvbuf[1])
-                
-                # wait for next cycle
-                nextCycle = nextCycle + self.cycleTime
-                sleeptime = nextCycle - time.time()
-                
-                if sleeptime >= 0.0:
-                    time.sleep(sleeptime)
                     
-                showInactiveLoggingOutput = True
+                    showInactiveLoggingOutput = True
+
+            # process receive queue
+            if (not self.recvQueue.empty()):
+                recvbuf = self.recvQueue.get()
+            
+                if len(recvbuf) == 6:
+                    if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
+                        self.receive_sensor(recvbuf[2], recvbuf[3])
+                    elif recvbuf[0] == self.SPI_RECEIVE_MOTOR_RESPONSE:
+                        self.receive_motor(recvbuf[1])
+                
+            # wait for next cycle
+            nextCycle = nextCycle + self.cycleTime
+            sleeptime = nextCycle - time.time()
+                
+            if sleeptime >= 0.0:
+                time.sleep(sleeptime)
+                    
+                
                 
             # check if we should exit
             if self.exit:

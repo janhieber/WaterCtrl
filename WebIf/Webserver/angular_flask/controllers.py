@@ -31,10 +31,12 @@ from sqlalchemy.sql import exists
 
 crud_url_models = app.config['CRUD_URL_MODELS']
 
-@app.route('/api/sensor_responses/', methods=['GET'])
-def sensor_responses():
+@app.route('/api/sensor_responses/<date_from>/<date_to>', methods=['GET'])
+def sensor_responses(date_from, date_to):
   if request.method == 'GET':
-    results = SensorResponse.query.limit(100).offset(0).all()
+    results = SensorResponse.query.filter(SensorResponse.measure_date <= date_to).filter(SensorResponse.measure_date >= date_from).order_by(SensorResponse.measure_date.desc())
+    #results = SensorResponse.query.filter(SensorResponse.measure_date.between(date_from, date_to))
+    #results = SensorResponse.query.limit(100).offset(0).all()
 
     json_results = []
     for result in results:

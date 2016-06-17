@@ -2,6 +2,36 @@
 	<h1>Sensor Frequencies</h1>
 </div>
 <div class="row">
+	
+	
+	
+    <div class="col-md-6">
+		<pre>Selected dateFrom is: <em>{{dateFrom | date:'yyyy-MM-dd' }}</em></pre>
+		
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateFrom" is-open="opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+    </div>
+    <div class="col-md-6">
+		<pre>Selected dateTo is: <em>{{dateTo | date:'yyyy-MM-dd' }}</em></pre>
+		
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateTo" is-open="opened2" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+    </div>
+	
+	<div class="col-md-12">
+		<button type="button" class="btn btn-primary" ng-click="renderDiagram()">Render Diagram</button>
+	</div>
+	
+	
+	
 	<div class="col-md-12">
 		<highchart id="chart" config="sensorResponseConfig"></highchart>
 	</div>
@@ -16,7 +46,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="sensor_response in sensor_responses | orderBy:'-measure_date'">
+				<tr ng-repeat="sensor_response in sensor_responses">
 					<td>{{sensor_response.sensor_channel}}</td>
 					<td>{{sensor_response.frequency}}</td>
 					<td>{{sensor_response.measure_date}}</td>

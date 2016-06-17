@@ -1,7 +1,7 @@
 'use strict';
 
 // Configure the main application module.
-var loginApp = angular.module('wateringApp', ['ui.router', 'ui.bootstrap', 'ngResource', 'highcharts-ng'])
+var loginApp = angular.module('wateringApp', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngResource', 'highcharts-ng'])
 
 /*Constants regarding user login defined here*/
 .constant('USER_ROLES', {
