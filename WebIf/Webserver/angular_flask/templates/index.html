@@ -28,7 +28,7 @@
 					<li ng-class="getClass('log-list')"><a ui-sref="log-list">Log</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" ng-click="logout()">Log Out</a></li>
+					<!--<li><a href="#" ng-click="logout()">Log Out</a></li>-->
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -63,13 +63,11 @@
 	<script src="/static/js/globalFunctions.js"></script>
 
 	<!--FACTORY -->
-	<script src="/static/services/authInterceptor.js"></script>
 	<script src="/static/services/rest.js"></script>
 	
 
 	<!--CONTROLLERS -->
 	<script src="/static/controllers/parentController.js"></script>
-	<script src="/static/controllers/login.js"></script>
 	<script src="/static/controllers/sensorController.js"></script>
 	<script src="/static/controllers/sensorResponseController.js"></script>
 	<script src="/static/controllers/motorController.js"></script>
@@ -78,8 +76,6 @@
 	<script src="/static/controllers/logController.js"></script>
 
 	<!--SERVICES -->
-	<script src="/static/services/auth.js"></script>
-	<script src="/static/services/session.js"></script>
 
 </body>
 </html>

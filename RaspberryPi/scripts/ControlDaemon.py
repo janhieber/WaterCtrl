@@ -502,9 +502,11 @@ class app(threading.Thread):
                     
                     showInactiveLoggingOutput = True
 
+
             # process receive queue
             if (not self.recvQueue.empty()):
                 recvbuf = self.recvQueue.get()
+                logging.info('Receive message from MessageBroker: %s', recvbuf)
             
                 if len(recvbuf) == 6:
                     if recvbuf[0] == self.SPI_RECEIVE_SENSOR_VALUE:
