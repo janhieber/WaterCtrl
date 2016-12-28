@@ -41,6 +41,8 @@
 #include <moistureMeasure.h>
 #include <sensor.h>
 
+#include <mxconstants.h>
+
 #define SYSNAME "Moisture"
 
 /* Private typedef -----------------------------------------------------------*/

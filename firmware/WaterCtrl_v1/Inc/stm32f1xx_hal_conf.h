@@ -40,8 +40,7 @@
  extern "C" {
 #endif
 
-#include "mxconstants.h" 
-
+#include "main.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
@@ -50,37 +49,37 @@
   * @brief This is the list of modules to be used in the HAL driver 
   */
 #define HAL_MODULE_ENABLED  
-//#define HAL_ADC_MODULE_ENABLED   
-//#define HAL_CAN_MODULE_ENABLED   
-//#define HAL_CEC_MODULE_ENABLED   
-//#define HAL_CORTEX_MODULE_ENABLED   
-//#define HAL_CRC_MODULE_ENABLED   
-//#define HAL_DAC_MODULE_ENABLED   
-//#define HAL_DMA_MODULE_ENABLED   
-//#define HAL_ETH_MODULE_ENABLED   
-//#define HAL_FLASH_MODULE_ENABLED   
+#define HAL_ADC_MODULE_ENABLED
+/*#define HAL_CAN_MODULE_ENABLED   */
+/*#define HAL_CEC_MODULE_ENABLED   */
+/*#define HAL_CORTEX_MODULE_ENABLED   */
+/*#define HAL_CRC_MODULE_ENABLED   */
+/*#define HAL_DAC_MODULE_ENABLED   */
+/*#define HAL_DMA_MODULE_ENABLED   */
+/*#define HAL_ETH_MODULE_ENABLED   */
+/*#define HAL_FLASH_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
-//#define HAL_I2C_MODULE_ENABLED   
-//#define HAL_I2S_MODULE_ENABLED   
-//#define HAL_IRDA_MODULE_ENABLED   
+/*#define HAL_I2C_MODULE_ENABLED   */
+/*#define HAL_I2S_MODULE_ENABLED   */
+/*#define HAL_IRDA_MODULE_ENABLED   */
 #define HAL_IWDG_MODULE_ENABLED
-//#define HAL_NOR_MODULE_ENABLED   
-//#define HAL_NAND_MODULE_ENABLED   
-//#define HAL_PCCARD_MODULE_ENABLED   
-//#define HAL_PCD_MODULE_ENABLED   
-//#define HAL_HCD_MODULE_ENABLED   
-//#define HAL_PWR_MODULE_ENABLED   
-//#define HAL_RCC_MODULE_ENABLED   
-//#define HAL_RTC_MODULE_ENABLED   
-//#define HAL_SD_MODULE_ENABLED   
-//#define HAL_SDRAM_MODULE_ENABLED   
-//#define HAL_SMARTCARD_MODULE_ENABLED   
+/*#define HAL_NOR_MODULE_ENABLED   */
+/*#define HAL_NAND_MODULE_ENABLED   */
+/*#define HAL_PCCARD_MODULE_ENABLED   */
+/*#define HAL_PCD_MODULE_ENABLED   */
+/*#define HAL_HCD_MODULE_ENABLED   */
+/*#define HAL_PWR_MODULE_ENABLED   */
+/*#define HAL_RCC_MODULE_ENABLED   */
+/*#define HAL_RTC_MODULE_ENABLED   */
+/*#define HAL_SD_MODULE_ENABLED   */
+/*#define HAL_SDRAM_MODULE_ENABLED   */
+/*#define HAL_SMARTCARD_MODULE_ENABLED   */
 #define HAL_SPI_MODULE_ENABLED
-//#define HAL_SRAM_MODULE_ENABLED   
+/*#define HAL_SRAM_MODULE_ENABLED   */
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
-//#define HAL_USART_MODULE_ENABLED   
-//#define HAL_WWDG_MODULE_ENABLED   
+/*#define HAL_USART_MODULE_ENABLED   */
+/*#define HAL_WWDG_MODULE_ENABLED   */
 
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
@@ -122,7 +121,7 @@
 
 #if !defined  (LSE_STARTUP_TIMEOUT)
   #define LSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for LSE start up, in ms */
-#endif /* HSE_STARTUP_TIMEOUT */
+#endif /* LSE_STARTUP_TIMEOUT */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
    ===  you can define the HSE value in your toolchain compiler preprocessor. */
@@ -163,8 +162,8 @@
 
 /* Section 2: PHY configuration section */
 
-/* DP83848 PHY Address*/ 
-#define DP83848_PHY_ADDRESS             0x01
+/* DP83848_PHY_ADDRESS Address*/ 
+#define DP83848_PHY_ADDRESS           0x01U
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/ 
 #define PHY_RESET_DELAY                 ((uint32_t)0x000000FF)
 /* PHY Configuration delay */
@@ -194,20 +193,10 @@
 #define PHY_JABBER_DETECTION            ((uint16_t)0x0002)  /*!< Jabber condition detected            */
   
 /* Section 4: Extended PHY Registers */
+#define PHY_SR                          ((uint16_t)0x10U)    /*!< PHY status register Offset                      */
 
-#define PHY_SR                          ((uint16_t)0x10)    /*!< PHY status register Offset                      */
-#define PHY_MICR                        ((uint16_t)0x11)    /*!< MII Interrupt Control Register                  */
-#define PHY_MISR                        ((uint16_t)0x12)    /*!< MII Interrupt Status and Misc. Control Register */
- 
-#define PHY_LINK_STATUS                 ((uint16_t)0x0001)  /*!< PHY Link mask                                   */
-#define PHY_SPEED_STATUS                ((uint16_t)0x0002)  /*!< PHY Speed mask                                  */
-#define PHY_DUPLEX_STATUS               ((uint16_t)0x0004)  /*!< PHY Duplex mask                                 */
-
-#define PHY_MICR_INT_EN                 ((uint16_t)0x0002)  /*!< PHY Enable interrupts                           */
-#define PHY_MICR_INT_OE                 ((uint16_t)0x0001)  /*!< PHY Enable output interrupt events              */
-
-#define PHY_MISR_LINK_INT_EN            ((uint16_t)0x0020)  /*!< Enable Interrupt on change of link status       */
-#define PHY_LINK_INTERRUPT              ((uint16_t)0x2000)  /*!< PHY link status interrupt mask                  */
+#define PHY_SPEED_STATUS                ((uint16_t)0x0002U)  /*!< PHY Speed mask                                  */
+#define PHY_DUPLEX_STATUS               ((uint16_t)0x0004U)  /*!< PHY Duplex mask                                 */
 
 /* Includes ------------------------------------------------------------------*/
 /**

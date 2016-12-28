@@ -18,6 +18,7 @@
 #include <spicomm.h>
 #include <moistureMeasure.h>
 #include <dht22.h>
+#include <mxconstants.h>
 
 #include "sensor.h"
 
@@ -42,7 +43,7 @@ void procSensor(void const * argument) {
 	osEvent event;
 	bool run = true;
 
-	//sensorConfig[4] = 1;
+	sensorConfig[0] = 1;
 
 	do {
 		event = osMessageGet(sensorQueue,1000);
@@ -56,6 +57,7 @@ void procSensor(void const * argument) {
 
 			switch(cmd->cmd) {
 			case SPI_ID_SEN_MEA_REQ: {
+				D("get measuring of channel %d (type: %d)",cmd->sensor,sensorConfig[cmd->sensor-1]);
 				switch(sensorConfig[cmd->sensor-1]){
 				case SENS_MOISTURE:
 					cmd->value1 = getSensorFrequency(cmd->sensor)/(int16_t)1000;

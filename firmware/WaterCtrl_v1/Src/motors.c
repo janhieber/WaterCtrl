@@ -20,6 +20,7 @@
 #include <motors.h>
 #include <broker.h>
 #include "cmsis_os.h"
+#include <mxconstants.h>
 
 #define SYSNAME "Motors"
 

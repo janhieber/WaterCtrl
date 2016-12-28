@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : USART.h
+  * File Name          : ADC.c
   * Description        : This file provides code for the configuration
-  *                      of the USART instances.
+  *                      of the ADC instances.
   ******************************************************************************
   *
   * Copyright (c) 2016 STMicroelectronics International N.V. 
@@ -41,39 +41,105 @@
   *
   ******************************************************************************
   */
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
-#ifdef __cplusplus
- extern "C" {
-#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f1xx_hal.h"
-#include "main.h"
+#include "adc.h"
 
-/* USER CODE BEGIN Includes */
+#include "gpio.h"
 
-/* USER CODE END Includes */
+/* USER CODE BEGIN 0 */
 
-extern UART_HandleTypeDef huart1;
+/* USER CODE END 0 */
 
-/* USER CODE BEGIN Private defines */
+ADC_HandleTypeDef hadc1;
 
-/* USER CODE END Private defines */
+/* ADC1 init function */
+void MX_ADC1_Init(void)
+{
+  ADC_ChannelConfTypeDef sConfig;
 
-extern void Error_Handler(void);
+    /**Common config 
+    */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-void MX_USART1_UART_Init(void);
+    /**Configure Regular Channel 
+    */
+  sConfig.Channel = ADC_CHANNEL_2;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-/* USER CODE BEGIN Prototypes */
-
-/* USER CODE END Prototypes */
-
-#ifdef __cplusplus
 }
-#endif
-#endif /*__ usart_H */
+
+void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(adcHandle->Instance==ADC1)
+  {
+  /* USER CODE BEGIN ADC1_MspInit 0 */
+
+  /* USER CODE END ADC1_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_ADC1_CLK_ENABLE();
+  
+    /**ADC1 GPIO Configuration    
+    PA2     ------> ADC1_IN2 
+    */
+    GPIO_InitStruct.Pin = ANALOG_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    HAL_GPIO_Init(ANALOG_GPIO_Port, &GPIO_InitStruct);
+
+    /* Peripheral interrupt init */
+    HAL_NVIC_SetPriority(ADC1_2_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
+  /* USER CODE BEGIN ADC1_MspInit 1 */
+
+  /* USER CODE END ADC1_MspInit 1 */
+  }
+}
+
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
+{
+
+  if(adcHandle->Instance==ADC1)
+  {
+  /* USER CODE BEGIN ADC1_MspDeInit 0 */
+
+  /* USER CODE END ADC1_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_ADC1_CLK_DISABLE();
+  
+    /**ADC1 GPIO Configuration    
+    PA2     ------> ADC1_IN2 
+    */
+    HAL_GPIO_DeInit(ANALOG_GPIO_Port, ANALOG_Pin);
+
+    /* Peripheral interrupt Deinit*/
+    HAL_NVIC_DisableIRQ(ADC1_2_IRQn);
+
+  }
+  /* USER CODE BEGIN ADC1_MspDeInit 1 */
+
+  /* USER CODE END ADC1_MspDeInit 1 */
+} 
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
 
 /**
   * @}
