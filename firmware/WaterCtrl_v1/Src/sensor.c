@@ -18,7 +18,7 @@
 #include <spicomm.h>
 #include <moistureMeasure.h>
 #include <dht22.h>
-#include <mxconstants.h>
+#include <main.h>
 
 #include "sensor.h"
 
@@ -63,8 +63,8 @@ void procSensor(void const * argument) {
 					cmd->value1 = getSensorFrequency(cmd->sensor)/(int16_t)1000;
 					break;
 				case SENS_DHT22:
-					cmd->value1 = getDHT22_Temperature(cmd->sensor);
-					cmd->value2 = getDHT22_Humidity(cmd->sensor);
+					//cmd->value2 = getDHT22_Temperature(cmd->sensor);
+					cmd->value1 = getDHT22_Humidity(cmd->sensor);
 					break;
 				default:
 					break;
@@ -156,6 +156,7 @@ void SetSensorChannel(int channel){
 void ClearSensorChannel(){
 
 	ClearSensorSelectPin();
+
 
 }
 

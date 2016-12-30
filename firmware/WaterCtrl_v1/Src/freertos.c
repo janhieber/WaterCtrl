@@ -56,7 +56,7 @@
 #include "dht22.h"
 #include "stuff.h"
 #include "tim.h"
-#include "mxconstants.h"
+#include "main.h"
 
 /* USER CODE END Includes */
 
@@ -113,7 +113,7 @@ void MX_FREERTOS_Init(void) {
     // setup SPI
     initSpi();
     initMoistureMeasure(&htim3);
-    DHT22_Init(&htim3);
+    DHT22_Init(&htim2);
     initMotorControl(&htim2);
     InitSensors();
 
@@ -136,7 +136,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 1, 64);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -172,7 +172,7 @@ void MX_FREERTOS_Init(void) {
 /* StartDefaultTask function */
 void StartDefaultTask(void const * argument)
 {
-	PROCRUNNING;
+
   /* USER CODE BEGIN StartDefaultTask */
 	uint32_t counter = 0;
 	// this is a auto generated dummy, so suspend it
@@ -189,17 +189,18 @@ void StartDefaultTask(void const * argument)
 	//getDHT22_Temperature(4);
 	//D("frq: %d",getSensorFrequency((counter%3)+1));
 
-    osDelay(3000);
+    osDelay(6000);
 	//SpiSend(&buf);
 
 	//osDelay(3000);
+#if (0)
 	MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
 	cmd->motor = 1;
 	cmd->time = 2;
-	cmd->speed = 50;
+	cmd->speed = 100;
 	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
 	osPoolFree(motorCtrlPool,cmd);
-
+#endif
 //	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
 //	sens_cmd->sensor = 3;
 //	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);

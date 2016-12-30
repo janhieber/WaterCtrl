@@ -11,7 +11,7 @@
 
 #include <cmsis_os.h>
 
-#include "mxconstants.h"
+#include "main.h"
 #include "dht22.h"
 
 #include "analog.h"

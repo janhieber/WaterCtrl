@@ -20,7 +20,7 @@
 #include <motors.h>
 #include <broker.h>
 #include "cmsis_os.h"
-#include <mxconstants.h>
+#include <main.h>
 
 #define SYSNAME "Motors"
 
@@ -152,7 +152,7 @@ void initMotorControl(TIM_HandleTypeDef * ref) {
 
 	ptrTimer = ref;
 
-	HAL_TIM_Base_Start_IT(ptrTimer);
+	//HAL_TIM_Base_Start_IT(ptrTimer);
 	INITEND;
 	return;
 }
@@ -214,22 +214,24 @@ void procMotor(void const * argument){
 
 
 void motTask1s() {
-	//stMotCfg cfg =  {0,0,0,0};
-	//static uint16_t counter;
-	//D("state : %s",getStateString());
-//	D("motor : %d",g_activeMotor);
-//	D("counter : %d",(int)g_activeCounter);
-//	D("pulse : %d",getPulse());
+#if 0
+	stMotCfg cfg =  {0,0,0,0};
+	static uint16_t counter;
+	D("state : %s",getStateString());
+	D("motor : %d",g_activeMotor);
+	D("counter : %d",(int)g_activeCounter);
+	D("pulse : %d",getPulse());
 
-	//if (g_activeMotor == MOT_ACTIVE_NONE)
-	//{
-	//	cfg.down_time = 5;
-	//	cfg.up_time = 5;
-	//	cfg.high_time = 10;
-	//	cfg.max_level = 100;
-	//	motControlStart((counter % 2)+1,&cfg);
-	//	counter++;
-	//}
+	if (g_activeMotor == MOT_ACTIVE_NONE)
+	{
+		cfg.down_time = 1;
+		cfg.up_time = 1;
+		cfg.high_time = 5;
+		cfg.max_level = 5;
+		motControlStart((counter % 2)+1,&cfg);
+		counter++;
+	}
+#endif
 }
 
 void motTask100ms() {

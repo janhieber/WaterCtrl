@@ -11,7 +11,7 @@
 
 #include <cmsis_os.h>
 
-#include "mxconstants.h"
+#include "main.h"
 #include "dht22.h"
 #include "sensor.h"
 
@@ -59,7 +59,7 @@ void DHT22_SetPinOUT(DHT22_HandleTypeDef* handle) {
 	GPIO_InitStruct.Pin = handle->gpioPin;
 //	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 	HAL_GPIO_Init(handle->gpioPort, &GPIO_InitStruct);
 }
@@ -67,25 +67,21 @@ void DHT22_SetPinOUT(DHT22_HandleTypeDef* handle) {
 void DHT22_SetPinIN(DHT22_HandleTypeDef* handle) {
 	GPIO_InitTypeDef GPIO_InitStruct;
 	GPIO_InitStruct.Pin = handle->gpioPin;
-	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-	//GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	//GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-	//GPIO_InitStruct.Alternate = handle->gpioAlternateFunction;
 	setSensorType(SENS_DHT22);
 	HAL_GPIO_Init(handle->gpioPort, &GPIO_InitStruct);
-	HAL_NVIC_EnableIRQ(handle->timerIRQn);
-	HAL_NVIC_SetPriority(handle->timerIRQn, 0, 0);
 }
 
 DHT22_RESULT DHT22_Init(TIM_HandleTypeDef* handle) {
 
 	INITBEGIN;
-	dht.gpioPin = FREQ_Pin;
-	dht.gpioPort = FREQ_GPIO_Port;
-	dht.timChannel = TIM_CHANNEL_3;
+	dht.gpioPin = DHT22_Pin;
+	dht.gpioPort = DHT22_GPIO_Port;
+	dht.timChannel = TIM_CHANNEL_4;
 	dht.timHandle = handle;
-	//dht.timHandle.Instance = TIM3;
 
 	D("&dht: %p",&dht);
 
@@ -118,7 +114,7 @@ DHT22_RESULT DHT22_InitiateTransfer(DHT22_HandleTypeDef* handle) {
 
 	DHT22_SetPinOUT(handle);
 	HAL_GPIO_WritePin(handle->gpioPort, handle->gpioPin, GPIO_PIN_SET);
-	osDelay(4000);
+	osDelay(2000);
 	HAL_GPIO_WritePin(handle->gpioPort, handle->gpioPin, GPIO_PIN_RESET);
 	osDelay(2);
 	handle->bitPos = -1;
@@ -126,8 +122,9 @@ DHT22_RESULT DHT22_InitiateTransfer(DHT22_HandleTypeDef* handle) {
 		handle->bitsRX[i] = 0;
 	}
 
+	handle->lastVal=0;
+	handle->timHandle->Instance->CR1 = 0;
 	DHT22_SetPinIN(handle);
-
 	handle->state = DHT22_RECEIVING;
 	DHT22_StartIT();
 
@@ -136,31 +133,31 @@ DHT22_RESULT DHT22_InitiateTransfer(DHT22_HandleTypeDef* handle) {
 
 void DHT22_InterruptHandler(DHT22_HandleTypeDef* handle) {
 
-	uint16_t val = HAL_TIM_ReadCapturedValue(handle->timHandle,
+	uint32_t val = HAL_TIM_ReadCapturedValue(handle->timHandle,
 			handle->timChannel);
 
-	uint32_t freq = HAL_RCC_GetPCLK2Freq();
+	uint32_t freq = HAL_RCC_GetPCLK2Freq()/72;
 
-	uint16_t val2;
+	uint32_t val2;
 	if (val > handle->lastVal)
 		val2 = val - handle->lastVal;
 	else
-		val2 = 65535 + val - handle->lastVal;
+		val2 = (20000 + handle->lastVal)-val;
 
 	handle->lastVal = val;
 
-	uint32_t time = 10000000 * val2 / freq;
+	uint32_t time =  ((uint32_t)val2*10000000)/freq;
 
 	if (handle->bitPos < 0) {
 		if (time > 1550 && time < 1650) {
 			handle->bitPos = 0;
 		}
 	} else if (handle->bitPos >= 0 && handle->bitPos < 40) {
-		if (time > 780 && time < 970) {
+		if (time > 700 && time < 1000) {
 			handle->bitsRX[handle->bitPos / 8] &= ~(1
 					<< (7 - handle->bitPos % 8));
 			handle->bitPos++;
-		} else if (time > 1200 && time < 1450) {
+		} else if (time > 1200 && time < 1650) {
 			handle->bitsRX[handle->bitPos / 8] |= 1 << (7 - handle->bitPos % 8);
 			handle->bitPos++;
 		} else {
@@ -213,13 +210,14 @@ DHT22_RESULT DHT22_ReadData(DHT22_HandleTypeDef* handle) {
 
 	DHT22_InitiateTransfer(handle);
 
-	osDelay(1000);
+	osDelay(800);
 
 	D("temp: %d, hum: %d, crc: %d",handle->temp,handle->hum,handle->crcErrorFlag);
 	if(handle->crcErrorFlag==1){
 		return DHT22_CRC_ERROR;
 	}
 	if(handle->state!=DHT22_RECEIVED){
+		DHT22_StopIT();
 		return DHT22_ERROR;
 	}else{
 		handle->state=DHT22_READY;
@@ -233,6 +231,7 @@ int32_t getDHT22_Temperature(uint8_t sensor) {
 	SetSensorChannel(sensor -1);
 	DHT22_ReadData(&dht);
 	ClearSensorChannel();
+
 	return dht.temp;
 }
 
@@ -240,5 +239,6 @@ int32_t getDHT22_Humidity(uint8_t sensor) {
 	SetSensorChannel(sensor -1);
 	DHT22_ReadData(&dht);
 	ClearSensorChannel();
+
 	return dht.hum;
 }

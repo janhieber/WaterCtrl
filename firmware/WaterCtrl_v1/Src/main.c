@@ -65,7 +65,7 @@
 #include <stdbool.h>
 
 // APP INCLUDES
-#include <mxconstants.h>
+#include <main.h>
 #include <stuff.h>
 #include <scheduler.h>
 #include <spicomm.h>
@@ -86,6 +86,7 @@
 void SystemClock_Config(void);
 void Error_Handler(void);
 void MX_FREERTOS_Init(void);
+static void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -119,6 +120,9 @@ int main(void)
   MX_TIM3_Init();
   MX_USART1_UART_Init();
   MX_ADC1_Init();
+
+  /* Initialize interrupts */
+  MX_NVIC_Init();
 
   /* USER CODE BEGIN 2 */
 
@@ -203,6 +207,21 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
 }
 
+/** NVIC Configuration
+*/
+static void MX_NVIC_Init(void)
+{
+  /* ADC1_2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
+  /* TIM2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM2_IRQn);
+  /* TIM3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM3_IRQn, 4, 0);
+  HAL_NVIC_EnableIRQ(TIM3_IRQn);
+}
+
 /* USER CODE BEGIN 4 */
 /**
   * @}
@@ -226,6 +245,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
 /* USER CODE BEGIN Callback 1 */
+  else if (htim->Instance == TIM2) {
+	  custom_TIM_PeriodElapsedCallback(htim);
+  }
 
 /* USER CODE END Callback 1 */
 }

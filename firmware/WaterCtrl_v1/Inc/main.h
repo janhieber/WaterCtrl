@@ -79,6 +79,103 @@
 #define LED_ERR_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
+
+
+/*! array size calculation */
+#define ARRAYSIZE(a) (sizeof(a) / sizeof(*(a)))
+
+
+/*! optimizations */
+#ifdef __GNUC__
+#define likely(x)       __builtin_expect(!!(x), 1)
+#define unlikely(x)     __builtin_expect(!!(x), 0)
+#else
+#define likely(x)       (x)
+#define unlikely(x)     (x)
+#endif
+
+
+
+
+/*! enable/disable watchdog */
+//#define USEWATCHDOG  // enable this in production
+
+
+
+// these are macros to have a unique way of debug output
+/** use at begin of init function */
+#define INITBEGIN		printf_("  :: Init %s system...", SYSNAME)
+/** use at end of init function */
+#define INITEND		printf_(" [DONE]\r\n")
+/** use before endless loop in process */
+#define PROCRUNNING	printf_("  :: %s running\r\n", __func__)
+/** use before endless loop in process */
+#define FUNCRUNNING	printf_("  :: %s caled\r\n", __func__)
+
+
+#define VER_MAJOR (uint8_t)00
+#define VER_MINOR (uint8_t)01
+
+int printf_(const char *format, ...);
+int sprintf_(char *buffer, const char *format, ...);
+
+#define printf(...) printf_(__VA_ARGS__)
+#define sprintf(...) sprintf_(__VA_ARGS__)
+
+// debug messages
+#ifdef DEBUG
+#define D(...)		{printf_("DD %s: ",  __func__); \
+					printf_(__VA_ARGS__); \
+					printf_("\r\n");}
+#else
+#define D(...)
+#endif
+
+// info messages
+#define I(...)		{printf_("II %s: ",  __func__); \
+					printf_(__VA_ARGS__); \
+					printf_("\r\n");}
+// warning messages
+#define W(...)		{printf_("WW %s: ",  __func__); \
+					printf_(__VA_ARGS__); \
+					printf_("\r\n");}
+// error messages
+#define E(...)		{printf_("EE %s: ",  __func__); \
+					printf_(__VA_ARGS__); \
+					printf_("\r\n");}
+
+#define CHECKPOOL(x) if(x == NULL){ E("no memory available in pool"); }
+
+// this is a dummy for the old log functions,
+// we recode them some time later
+#define Log(...)
+#define LogInfo
+#define LogDebug
+#define LogError
+
+
+// protocoll definitions for SPI transfer
+// this is whats in the first byte
+#define SPI_ID_NOP 0x00
+#define SPI_ID_ERROR 0x01
+#define SPI_ID_MESSAGE 0x02
+#define SPI_ID_MOTOR_CTRL 0x10
+#define SPI_ID_MOTOR_RESP 0x11
+#define SPI_ID_SEN_MEA_REQ 0x12
+#define SPI_ID_SEN_MEA_VALUE 0x13
+#define SPI_ID_SEN_TYP_REQ 0x14
+#define SPI_ID_SEN_TYP_RES 0x15
+
+// error codes
+#define ERROR_HARDFAULT 0x01
+#define ERROR_STACKOVERFLOW 0x02
+
+#define MESSAGE_PING 0x01
+#define MESSAGE_PONG 0x02
+
+#define MOTOR_RESP_FINISH 0xab
+#define MOTOR_RESP_ERROR 0xac
+
 /* USER CODE END Private defines */
 
 /**

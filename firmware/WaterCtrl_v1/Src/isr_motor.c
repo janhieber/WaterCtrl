@@ -44,7 +44,7 @@ eActiveState getState() {
 }
 
 void custom_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (TIM2 == htim->Instance) {
+    //if (TIM2 == htim->Instance) {
         switch (isrState) {
         case MOT_STATE_RAMPUP:
             if (newPulseLength < (maxPulseLength - stepPulseUp))
@@ -68,7 +68,7 @@ void custom_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         htim->Lock = HAL_LOCKED;
         htim->Instance->CCR2 = newPulseLength;
         htim->Lock = HAL_UNLOCKED;
-    }
+    //}
 }
 
 /**

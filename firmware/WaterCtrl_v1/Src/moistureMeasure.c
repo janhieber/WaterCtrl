@@ -41,7 +41,7 @@
 #include <moistureMeasure.h>
 #include <sensor.h>
 
-#include <mxconstants.h>
+#include "main.h"
 
 #define SYSNAME "Moisture"
 
@@ -179,6 +179,7 @@ int stopSensorCapture() {
 
 
 void printMoisture() {
+#if 0
 	D( "Measured channel 1: %d Hz",
 			(int)frequency[SEN_CHANNEL0_ACTIVE]);
 	D( "Measured channel 2: %d Hz",
@@ -189,6 +190,7 @@ void printMoisture() {
 			(int)frequency[SEN_CHANNEL3_ACTIVE]);
 	D( "Measured channel 5: %d Hz",
 			(int)frequency[SEN_CHANNEL4_ACTIVE]);
+#endif
 }
 
 int StartTimer(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel) {
@@ -230,7 +232,7 @@ void MoistureTask() {
 		//            activeChannel = MOISTURE_MEASURE_CHANNEL0_ACTIVE;
 		//        startSensorCapture(activeChannel);
 	} else {
-		D( "MOI inactive state");
+		//D( "MOI inactive state");
 	}
 }
 
