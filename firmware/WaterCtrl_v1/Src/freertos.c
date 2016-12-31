@@ -48,10 +48,11 @@
 
 /* USER CODE BEGIN Includes */     
 
-
+#include "adc.h"
 #include "spicomm.h"
 #include "motors.h"
 #include "sensor.h"
+#include "analog.h"
 #include "moistureMeasure.h"
 #include "dht22.h"
 #include "stuff.h"
@@ -116,9 +117,7 @@ void MX_FREERTOS_Init(void) {
     DHT22_Init(&htim2);
     initMotorControl(&htim2);
     InitSensors();
-
-
-
+    initAnalogMeasurement(&hadc1);
 
   /* USER CODE END Init */
 

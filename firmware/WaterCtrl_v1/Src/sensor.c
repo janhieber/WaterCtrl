@@ -44,6 +44,7 @@ void procSensor(void const * argument) {
 	bool run = true;
 
 	sensorConfig[0] = 1;
+	sensorConfig[1] = 2;
 
 	do {
 		event = osMessageGet(sensorQueue,1000);
@@ -66,6 +67,8 @@ void procSensor(void const * argument) {
 					//cmd->value2 = getDHT22_Temperature(cmd->sensor);
 					cmd->value1 = getDHT22_Humidity(cmd->sensor);
 					break;
+				case SENS_ANALOG:
+					cmd->value1 = getAnalogValue(cmd->sensor);
 				default:
 					break;
 				}

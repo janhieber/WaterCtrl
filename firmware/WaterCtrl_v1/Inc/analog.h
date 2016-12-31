@@ -10,6 +10,8 @@
 
 #include "stm32f1xx_hal.h"
 
+void initAnalogMeasurement(ADC_HandleTypeDef *adc);
+
 int16_t getAnalogValue(uint8_t sensor);
 
 
