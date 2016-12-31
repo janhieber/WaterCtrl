@@ -227,7 +227,7 @@ void motTask1s() {
 		cfg.down_time = 1;
 		cfg.up_time = 1;
 		cfg.high_time = 5;
-		cfg.max_level = 5;
+		cfg.max_level = 100;
 		motControlStart((counter % 2)+1,&cfg);
 		counter++;
 	}
@@ -247,6 +247,7 @@ void motTask100ms() {
 			break;
 		case MOT_STATE_RAMPUP:
 			setState(MOT_STATE_RAMPUP);
+			HAL_TIM_Base_Start_IT(ptrTimer);
 			HAL_TIM_PWM_Start_IT(ptrTimer,TIM_CHANNEL_2);
 			g_activeState = MOT_STATE_WAIT_UP;
 			break;
@@ -269,6 +270,7 @@ void motTask100ms() {
 			if (MOT_STATE_IDLE == getState()) {
 				g_activeState = MOT_STATE_DONE;
 				HAL_TIM_PWM_Stop_IT(ptrTimer,TIM_CHANNEL_2);
+				HAL_TIM_Base_Stop_IT(ptrTimer);
 			}
 			break;
 		case MOT_STATE_DONE:

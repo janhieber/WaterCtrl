@@ -66,6 +66,7 @@
 
 // APP INCLUDES
 #include <main.h>
+#include <dht22.h>
 #include <stuff.h>
 #include <scheduler.h>
 #include <spicomm.h>
@@ -87,6 +88,10 @@ void SystemClock_Config(void);
 void Error_Handler(void);
 void MX_FREERTOS_Init(void);
 static void MX_NVIC_Init(void);
+
+extern void motor_TIM2_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+extern void DHT22_InterruptHandler(TIM_HandleTypeDef* handle);
+extern void moisture_TIM3_IC_CaptureCallback(TIM_HandleTypeDef *htim);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -223,6 +228,21 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/**
+ * @brief  This function handles TIM1 Capture Compare interrupt request.
+ */
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+	if (TIM3 == htim->Instance)  {
+		moisture_TIM3_IC_CaptureCallback(htim);
+	}
+	else if (TIM2 == htim->Instance)
+	{
+		DHT22_InterruptHandler(htim);
+	}
+}
+
 /**
   * @}
   */
@@ -246,7 +266,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   }
 /* USER CODE BEGIN Callback 1 */
   else if (htim->Instance == TIM2) {
-	  custom_TIM_PeriodElapsedCallback(htim);
+	  motor_TIM2_PeriodElapsedCallback(htim);
+  } else {
+	  D("error");
   }
 
 /* USER CODE END Callback 1 */

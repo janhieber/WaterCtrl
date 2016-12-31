@@ -159,8 +159,6 @@ int startSensorCapture(int channel) {
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
 
-	setSensorType(SENS_MOISTURE);
-
 	StartTimer(ptrTimer3Ref,TimerChannel);
 
 	stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
