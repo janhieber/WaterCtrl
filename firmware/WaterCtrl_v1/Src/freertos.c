@@ -54,6 +54,7 @@
 #include "sensor.h"
 #include "analog.h"
 #include "moistureMeasure.h"
+#include "relais.h"
 #include "dht22.h"
 #include "stuff.h"
 #include "tim.h"
@@ -118,6 +119,7 @@ void MX_FREERTOS_Init(void) {
     initMotorControl(&htim2);
     InitSensors();
     initAnalogMeasurement(&hadc1);
+    InitRelais();
 
   /* USER CODE END Init */
 
@@ -176,8 +178,13 @@ void StartDefaultTask(void const * argument)
 	uint32_t counter = 0;
 	// this is a auto generated dummy, so suspend it
 	//osThreadSuspend(NULL);
-
   /* Infinite loop */
+	ClearRelais(4);
+	ClearRelais(5);
+
+	osDelay(10000);
+	SetRelais(5);
+	SetRelais(4);
   for(;;)
   {
 	//SpiBuffer buf;

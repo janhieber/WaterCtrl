@@ -84,6 +84,9 @@
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
+
+/* USER CODE BEGIN PFP */
+/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void Error_Handler(void);
 void MX_FREERTOS_Init(void);
@@ -92,10 +95,6 @@ static void MX_NVIC_Init(void);
 extern void motor_TIM2_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 extern void DHT22_InterruptHandler(TIM_HandleTypeDef* handle);
 extern void moisture_TIM3_IC_CaptureCallback(TIM_HandleTypeDef *htim);
-
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */

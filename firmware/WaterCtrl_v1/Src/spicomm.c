@@ -25,6 +25,7 @@
 #include "cmsis_os.h"
 #include "motors.h"
 #include "sensor.h"
+#include "relais.h"
 
 #define SYSNAME "SpiBroker"
 
@@ -103,6 +104,28 @@ void procSpiBroker(void const * argument){
 				cmd->cmd = recvMsg->d[0];
 				cmd->sensor = recvMsg->d[1];
 				osMessagePut(sensorQueue,(uint32_t)cmd,0);
+				break;
+			}
+			case SPI_ID_RELAIS_GET:
+			{
+				SpiBuffer resp = {{SPI_ID_RELAIS_GET_RES,0,0,0,0,0}};
+				resp.d[1] = recvMsg->d[1];
+				resp.d[2] = IsRelaisSet(recvMsg->d[1]);
+				SpiSend(&resp);
+				D("Relais Get, chan: %d, state: %d",resp.d[1],resp.d[2]);
+				break;
+			}
+			case SPI_ID_RELAIS_SET:
+			{
+				SpiBuffer resp = {{SPI_ID_RELAIS_SET_RES,0,0,0,0,0}};
+				resp.d[1] = recvMsg->d[1];
+				if (0 == recv->d[2])
+					resp.d[2] = ClearRelais(recvMsg->d[1]);
+				else
+					resp.d[2] = SetRelais(recvMsg->d[1]);
+
+				D("Relais Set, chan: %d, success: %d",resp.d[1],resp.d[2]);
+				SpiSend(&resp);
 				break;
 			}
 			case SPI_ID_NOP:

@@ -175,6 +175,10 @@ int sprintf_(char *buffer, const char *format, ...);
 #define SPI_ID_SEN_MEA_VALUE 0x13
 #define SPI_ID_SEN_TYP_REQ 0x14
 #define SPI_ID_SEN_TYP_RES 0x15
+#define SPI_ID_RELAIS_SET 0x16
+#define SPI_ID_RELAIS_SET_RES 0x17
+#define SPI_ID_RELAIS_GET 0x18
+#define SPI_ID_RELAIS_GET_RES 0x19
 
 // error codes
 #define ERROR_HARDFAULT 0x01
