@@ -156,7 +156,6 @@ int startSensorCapture(int channel) {
 
 	GPIO_InitStruct.Pin = FREQ_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
 
 	StartTimer(ptrTimer3Ref,TimerChannel);

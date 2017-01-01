@@ -27,8 +27,37 @@ void initAnalogMeasurement(ADC_HandleTypeDef *adc)
 		E("NULL pointer given");
 }
 
-int16_t getAnalogValue(uint8_t sensor){
+int16_t getAnalogValue(uint8_t sensor, uint8_t type){
 	int16_t value = 0;
+
+	ADC_ChannelConfTypeDef sConfig;
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	if (1 == type)
+	{
+		sConfig.Channel = ADC_CHANNEL_8;
+
+		GPIO_InitStruct.Pin = FREQ_Pin;
+	}
+	else
+	{
+		sConfig.Channel = ADC_CHANNEL_2;
+		GPIO_InitStruct.Pin = FREQ_Pin;
+
+	}
+
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+	HAL_GPIO_Init(ANALOG_GPIO_Port, &GPIO_InitStruct);
+
+	sConfig.Rank = 1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+
+	if (HAL_ADC_ConfigChannel(_adc, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
 
 	/* set sensor channel */
 	SetSensorChannel(sensor-1);

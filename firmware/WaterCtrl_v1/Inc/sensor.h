@@ -11,7 +11,8 @@
 typedef enum _eSensorType {
 	SENS_MOISTURE,
 	SENS_DHT22,
-	SENS_ANALOG
+	SENS_ANALOG,
+	SENS_ANALOG1
 }eSensorType;
 
 #define SEN_CHANNEL0_ACTIVE 0

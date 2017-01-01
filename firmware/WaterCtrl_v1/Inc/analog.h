@@ -12,7 +12,7 @@
 
 void initAnalogMeasurement(ADC_HandleTypeDef *adc);
 
-int16_t getAnalogValue(uint8_t sensor);
+int16_t getAnalogValue(uint8_t sensor, uint8_t type);
 
 
 #endif /* ANALOG_H_ */
