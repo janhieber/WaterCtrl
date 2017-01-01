@@ -5,7 +5,7 @@
   *                      of all used GPIO pins.
   ******************************************************************************
   *
-  * Copyright (c) 2016 STMicroelectronics International N.V. 
+  * Copyright (c) 2017 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -83,7 +83,8 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEN_A0_Pin|SEN_A1_Pin|SEN_A2_Pin|SEN_ENABLE_Pin 
-                          |LED_ERR_Pin, GPIO_PIN_RESET);
+                          |RELAIS_0_Pin|RELAIS_1_Pin|RELAIS_2_Pin|RELAIS_3_Pin 
+                          |RELAIS_4_Pin|LED_ERR_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = RPI_NRST_Pin;
@@ -111,19 +112,19 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PBPin PBPin PBPin PBPin 
-                           PBPin */
+                           PBPin PBPin PBPin PBPin 
+                           PBPin PBPin */
   GPIO_InitStruct.Pin = SEN_A0_Pin|SEN_A1_Pin|SEN_A2_Pin|SEN_ENABLE_Pin 
-                          |LED_ERR_Pin;
+                          |RELAIS_0_Pin|RELAIS_1_Pin|RELAIS_2_Pin|RELAIS_3_Pin 
+                          |RELAIS_4_Pin|LED_ERR_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB2 PB12 PB13 PB14 
-                           PB3 PB4 PB5 PB6 
-                           PB7 PB8 */
+                           PB8 */
   GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14 
-                          |GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6 
-                          |GPIO_PIN_7|GPIO_PIN_8;
+                          |GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 

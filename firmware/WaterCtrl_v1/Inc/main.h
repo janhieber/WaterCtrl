@@ -4,7 +4,7 @@
   * Description        : This file contains the common defines of the application
   ******************************************************************************
   *
-  * Copyright (c) 2016 STMicroelectronics International N.V. 
+  * Copyright (c) 2017 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -75,6 +75,16 @@
 #define SEN_A2_GPIO_Port GPIOB
 #define SEN_ENABLE_Pin GPIO_PIN_15
 #define SEN_ENABLE_GPIO_Port GPIOB
+#define RELAIS_0_Pin GPIO_PIN_3
+#define RELAIS_0_GPIO_Port GPIOB
+#define RELAIS_1_Pin GPIO_PIN_4
+#define RELAIS_1_GPIO_Port GPIOB
+#define RELAIS_2_Pin GPIO_PIN_5
+#define RELAIS_2_GPIO_Port GPIOB
+#define RELAIS_3_Pin GPIO_PIN_6
+#define RELAIS_3_GPIO_Port GPIOB
+#define RELAIS_4_Pin GPIO_PIN_7
+#define RELAIS_4_GPIO_Port GPIOB
 #define LED_ERR_Pin GPIO_PIN_9
 #define LED_ERR_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
