@@ -12,7 +12,6 @@ import MessageBroker
 import WebService
 
 from flask import Flask, request
-from flask_restplus import Api, Resource
 
 """ global vars """
 thread1 = None
@@ -54,7 +53,7 @@ def setup():
     thread1.setName('ControlDaemon')
     thread2 = MessageBroker.app(sendQueue, recvQueue)
     thread2.setName('MessageBroker')
-    thread3 = WebService.app(server)
+    thread3 = WebService.app(server,sendQueue=sendQueue)
     thread3.setName('WebService')
 
     thread1.start()
