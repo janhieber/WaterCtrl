@@ -51,29 +51,29 @@ First, we need to check wether our stick is recognised or not. Type in `lsusb`. 
 
 To scan for WiFi networks, use the command `sudo iwlist wlan0 scan`.
 
-  - `ESSID:"testing"`. This is the name of the WiFi network. 
+  - `ESSID:"testing"`. This is the name of the WiFi network.
   - `IE: IEEE 802.11i/WPA2 Version 1`. This is the authentication used for the WiFi network.
 
 Then open the network config file:
 
     sudo nano /etc/network/interfaces
-    
+
 We want to use a static ip. This is better for our webinterface which we will use later.
 
-	auto lo 
-	iface lo inet loopback 
+	auto lo
+	iface lo inet loopback
 	iface eth0 inet dhcp
 
-	auto wlan0 
-	allow-hotplug wlan0 
+	auto wlan0
+	allow-hotplug wlan0
 	iface wlan0 inet static
 	address 192.168.0.230
 	netmask 255.255.255.0
 	gateway 192.168.0.1
 	dns-nameservers 192.168.0.1
-	wpa-ap-scan 1 
-	wpa-scan-ssid 1 
-	wpa-ssid "{WLANSSID}" 
+	wpa-ap-scan 1
+	wpa-scan-ssid 1
+	wpa-ssid "{WLANSSID}"
 	wpa-psk "{WLANPASSWORD}"
 
 You can verify if it has successfully connected using `ifconfig wlan0`. Perhaps you have to reboot your system `sudo reboot`.
@@ -82,9 +82,9 @@ You can verify if it has successfully connected using `ifconfig wlan0`. Perhaps 
 ## Install GIT
 To clone our repository, install GIT:
 ```shell
-sudo apt-get install git 
+sudo apt-get install git
 ```
-	
+
 Clone the repository:
 ```shell
 cd ~
@@ -158,10 +158,9 @@ Restart PostgreSQL
 sudo service postgresql restart
 ```
 
-
-
-
 ### Create a database
+
+#### MYSQL (deprecated)
 
 	mysql -u root -p
 	CREATE DATABASE waterctrl;
@@ -169,23 +168,32 @@ sudo service postgresql restart
 	GRANT ALL ON waterctrl.* TO 'waterctrl_user'@'localhost';
 	FLUSH PRIVILEGES;
 
-## Install dependencies for webinterface
+##### PSQL
 
-TODO: change to PostgreSQL
+
+```
+alarm# sudo su postgres
+postgres$ ALTER ROLE alarm WITH LOGIN;
+postgres$ CREATE ROLE waterctrl_user WITH PASSWORD 'Wfmd22nGixsP';
+postgres$ ALTER ROLE waterctrl_user WITH LOGIN;
+postgres$ GRANT ALL PRIVILEGES ON DATABASE waterctrl to waterctrl_user;
+```
+
+## Install dependencies for webinterface
 
 We will need PIP for our webinterface dependencies:
 
 	sudo apt-get install python-pip python-dev
-	
+
 Then go to the webinterace folder
-	
+
 	cd /home/pi/WaterCtrl/WebIf/Webserver
-	
+
 Install the dependencies:
 
 	sudo pip install -r requirements.txt
-	
-	
+
+
 ## Run the webserver as a daemon
 
 Save the following script in a file called `/etc/init.d/webinterface`
@@ -252,7 +260,7 @@ case "$1" in
         ;;
 
 esac
-exit 0	
+exit 0
 ```
 
 Make the script executable `chmod +x /etc/init.d/webinterface`.  
@@ -288,8 +296,7 @@ python manage.py seed_db --seedfile 'data/db_sensor.json'
 python manage.py seed_db --seedfile 'data/db_plant.json'
 python manage.py seed_db --seedfile 'data/db_watering.json'
 ```
-	
+
 ## Open browser
 
 Finally your webinterface should be up and running on port 80. Open your browser and test it!
-
