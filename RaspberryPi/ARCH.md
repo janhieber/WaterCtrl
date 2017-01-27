@@ -134,3 +134,10 @@ alarm# systemctl enable webinterface.service
 alarm# systemctl start webinterface.service
 alarm# systemctl enable waterctrl.service
 alarm# systemctl start waterctrl.service
+```
+
+## Clean SD card up
+pacman -Qdt
+sudo pacman -Sc
+sudo pacman-optimize
+sync
