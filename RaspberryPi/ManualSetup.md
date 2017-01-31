@@ -164,16 +164,15 @@ sudo service postgresql restart
 
 	mysql -u root -p
 	CREATE DATABASE waterctrl;
-	CREATE USER 'waterctrl_user'@'localhost' IDENTIFIED BY 'W@t3rC!rl';
+	CREATE USER 'waterctrl_user'@'localhost' IDENTIFIED BY 'Wfmd22nGixsP';
 	GRANT ALL ON waterctrl.* TO 'waterctrl_user'@'localhost';
 	FLUSH PRIVILEGES;
 
 ##### PSQL
 
-
 ```
 alarm# sudo su postgres
-postgres$ ALTER ROLE alarm WITH LOGIN;
+postgres$ ALTER ROLE pi WITH LOGIN;
 postgres$ CREATE ROLE waterctrl_user WITH PASSWORD 'Wfmd22nGixsP';
 postgres$ ALTER ROLE waterctrl_user WITH LOGIN;
 postgres$ GRANT ALL PRIVILEGES ON DATABASE waterctrl to waterctrl_user;

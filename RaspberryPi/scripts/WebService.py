@@ -13,7 +13,7 @@ control the mainboards functions on STM32 over SPI.
 
 """ global vars """
 class RelaisView(MethodView):
-    methods = ["GET","PUT"]
+    methods = ["GET","PUT","DELETE"]
 
     def __init__(self,app):
         self._app = app
@@ -23,8 +23,14 @@ class RelaisView(MethodView):
         self._app.setRelais(id)
         return str('hello world %d' % id)
 
+    def delete(self,id):
+        logging.info("del function, id= %d",id)
+        self._app.clearRelais(id)
+        return str('cleared realis %d' % id)
+
 class app(threading.Thread):
-    SPI_SET_RELAIS = [0x17, 0x01, 0x00, 0x00, 0x00, 0x00]
+    SPI_SET_RELAIS = [0x17, 0x00, 0x01, 0x00, 0x00, 0x00]
+    SPI_CLEAR_RELAIS = [0x17, 0x00, 0x00, 0x00, 0x00, 0x00]
 
 
     def __init__(self,server,sendQueue):
@@ -46,3 +52,8 @@ class app(threading.Thread):
         self.SPI_SET_RELAIS[1] = id
         logging.debug('setRelais #%d' % id)
         self._sendQueue.put(self.SPI_SET_RELAIS)
+
+    def clearRelais(self,id):
+        self.SPI_CLEAR_RELAIS[1] = id
+        logging.debug('clearRelais #%d' % id)
+        self._sendQueue.put(self.SPI_CLEAR_RELAIS)
