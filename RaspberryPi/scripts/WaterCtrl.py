@@ -105,7 +105,7 @@ if __name__ == '__main__':
     setup()
     logging.info('running main')
     main()
-    server.run(host="0.0.0.0",port=5372,debug=True)
+    server.run(host="0.0.0.0",port=5372,debug=False)
     # wait for threads to finish
     thread1.join()
     thread2.join()
