@@ -1,0 +1,11 @@
+[Unit]
+Description=WaterCtrl Webserver
+After=network.target
+
+[Service]
+WorkingDirectory=/home/alarm/WaterCtrl/WebIf/Webserver/
+Type=idle
+ExecStart=/usr/bin/python runserver.py
+
+[Install]
+WantedBy=network.target

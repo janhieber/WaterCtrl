@@ -1,0 +1,11 @@
+[Unit]
+Description=WaterCtrl Daemon and REST
+After=webinterface.service
+
+[Service]
+WorkingDirectory=/home/alarm//WaterCtrl/RaspberryPi/scripts/
+Type=idle
+ExecStart=/usr/bin/python WaterCtrl.py
+
+[Install]
+WantedBy=webinterface.service
