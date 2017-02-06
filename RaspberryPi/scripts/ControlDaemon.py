@@ -511,7 +511,8 @@ class app(threading.Thread):
 
             # process receive queue
             if (not self.recvQueue.empty()):
-                recvbuf = self.recvQueue.get()
+                #recvbuf = self.recvQueue.get()
+                recvbuf = self.recvQueue.get(block=False)
                 logging.info('Receive message from MessageBroker: %s', recvbuf)
 
                 if len(recvbuf) == 6:

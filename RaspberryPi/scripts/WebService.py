@@ -29,8 +29,8 @@ class RelaisView(MethodView):
         return str('cleared realis %d' % id)
 
 class app(threading.Thread):
-    SPI_SET_RELAIS = [0x17, 0x00, 0x01, 0x00, 0x00, 0x00]
-    SPI_CLEAR_RELAIS = [0x17, 0x00, 0x00, 0x00, 0x00, 0x00]
+    SPI_SET_RELAIS = [0x16, 0x00, 0x01, 0x00, 0x00, 0x00]
+    SPI_CLEAR_RELAIS = [0x16, 0x00, 0x00, 0x00, 0x00, 0x00]
 
 
     def __init__(self,server,sendQueue,recvQueue):
@@ -70,14 +70,17 @@ class app(threading.Thread):
         return ('clearRelais %d : %s ' % (id,self.waitForResponse()))
 
     def waitForResponse(self):
+        retry = 5
         while(True):
             try:
-                buffer = self._recvQueue.get(block=True, timeout=0.1)
+                buffer = self._recvQueue.get(block=True, timeout=0.9)
                 break
             except queue.Empty:
                 logging.warn('Queue Empty')
-                time.sleep(0.2)
-                if self.exit:
+                retry = retry -1
+                time.sleep(0.1)
+                if self.exit or retry == 0:
+                    buffer = []
                     break
                 pass
             else:
