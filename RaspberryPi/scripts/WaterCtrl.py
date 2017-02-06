@@ -53,7 +53,7 @@ def setup():
     thread1.setName('ControlDaemon')
     thread2 = MessageBroker.app(sendQueue, recvQueue)
     thread2.setName('MessageBroker')
-    thread3 = WebService.app(server,sendQueue=sendQueue)
+    thread3 = WebService.app(server,sendQueue=sendQueue,recvQueue=recvQueue)
     thread3.setName('WebService')
 
     thread1.start()
@@ -77,8 +77,10 @@ def gracefulExit():
     # signal threads to exit
     global thread1
     global thread2
+    global thread3
     thread1.exit = True
     thread2.exit = True
+    thread3.exit = True
 
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:

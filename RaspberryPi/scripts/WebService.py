@@ -20,8 +20,8 @@ class RelaisView(MethodView):
 
     def get(self,id):
         logging.info(id)
-        self._app.setRelais(id)
-        return str('hello world %d' % id)
+        buffer = self._app.setRelais(id)
+        return str('return from #%d: %s' % (id, buffer) )
 
     def delete(self,id):
         logging.info("del function, id= %d",id)
@@ -33,10 +33,11 @@ class app(threading.Thread):
     SPI_CLEAR_RELAIS = [0x17, 0x00, 0x00, 0x00, 0x00, 0x00]
 
 
-    def __init__(self,server,sendQueue):
+    def __init__(self,server,sendQueue,recvQueue):
         threading.Thread.__init__(self)
         self.exit = False
         self._sendQueue = sendQueue
+        self._recvQueue = recvQueue
         self._relais = RelaisView(self)
         server.add_url_rule('/relais/<int:id>',view_func=self._relais.as_view('relais',self))
 
@@ -46,14 +47,39 @@ class app(threading.Thread):
         while True:
             time.sleep(100)
 
+            if self.exit:
+                break
+
         logging.error("WebService run left")
+        return 0
 
     def setRelais(self,id):
         self.SPI_SET_RELAIS[1] = id
         logging.debug('setRelais #%d' % id)
         self._sendQueue.put(self.SPI_SET_RELAIS)
 
+        buffer = self.waitForResponse()
+
+        logging.debug('setRelais - buffer %s' %buffer)
+        return buffer
+
     def clearRelais(self,id):
         self.SPI_CLEAR_RELAIS[1] = id
         logging.debug('clearRelais #%d' % id)
         self._sendQueue.put(self.SPI_CLEAR_RELAIS)
+        return ('clearRelais %d : %s ' % (id,self.waitForResponse()))
+
+    def waitForResponse(self):
+        while(True):
+            try:
+                buffer = self._recvQueue.get(block=True, timeout=0.1)
+                break
+            except queue.Empty:
+                logging.warn('Queue Empty')
+                time.sleep(0.2)
+                if self.exit:
+                    break
+                pass
+            else:
+                raise
+        return buffer

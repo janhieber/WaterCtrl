@@ -28,6 +28,7 @@ class app(threading.Thread):
         self.exit = False
         self.config = configparser.RawConfigParser()
         self.config.read('WaterCtrl.conf')
+        self.isSpiOpen = False
 
     def setup(self):
         # check permissions
@@ -35,31 +36,40 @@ class app(threading.Thread):
             logging.critical(
                 'need to be root for SPi access')
             exit(1)
-        
+
         # setup SPI
         self.SPI = spidev.SpiDev()
-        self.SPI.open(0, 0)
-        self.SPI.max_speed_hz = self.config.getint('SPI', 'baudrate')
-        
+        try:
+            self.SPI.open(0, 0)
+            self.isSpiOpen = True
+        except Exception as e:
+            logging.error('Failed to open SPI %s',self.SPI)
+            logging.error('get_history.histfetch error: %s %s' % (str(type(e)),str(e)))
+        else:
+            self.SPI.max_speed_hz = self.config.getint('SPI', 'baudrate')
+
         # query config values
         self.cycleTime = self.config.getfloat('general', 'cycleTime')
         self.xfer_size = self.config.getint('SPI', 'xfer_size')
-            
+
     def run(self):
         logging.info('Starting')
         self.setup()
         nextCycle = time.time()
-        
+
         while True:
             # create sendbuffer
             if not self.sendQueue.empty():
                 sendbuf = self.sendQueue.get()
             else:
                 sendbuf = self.SPI_EMPTY
-                
+
             # xfer data over SPI
-            recvbuf = self.SPI.xfer2(sendbuf)
-            
+            if self.isSpiOpen:
+                recvbuf = self.SPI.xfer2(sendbuf)
+            else:
+                recvbuf = sendbuf
+
             # 6 bytes should be received
             if len(recvbuf) == 6:
                 # check for error
@@ -70,21 +80,21 @@ class app(threading.Thread):
                     # 0x01 and 0x02 are messages for messagebroker, so no forwarding
                     if recvbuf[0] == 1 or recvbuf[0] == 2:
                         logging.info("Received message: %s", recvbuf)
-                    else: 
+                    else:
                         logging.info("Received message: %s", recvbuf)
                         self.recvQueue.put(recvbuf)
 
-            
+
             # check if we should exit
             if self.exit:
                 break
-            
+
             # wait for next cycle, every second
             nextCycle = nextCycle + self.cycleTime
             sleeptime = nextCycle - time.time()
             if sleeptime >= 0.0:
                 time.sleep(nextCycle - time.time())
-        
+
         # manage exit
         self.exit_()
         logging.info('Exiting')
