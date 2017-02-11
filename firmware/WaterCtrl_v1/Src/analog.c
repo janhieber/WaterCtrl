@@ -61,7 +61,7 @@ int16_t getAnalogValue(uint8_t sensor, uint8_t type){
 
 	/* set sensor channel */
 	SetSensorChannel(sensor-1);
-	osDelay(200);
+	osDelay(500);
 	/* start adc */
 	HAL_ADC_Start(_adc);
 	/* read value after delay */
@@ -73,7 +73,7 @@ int16_t getAnalogValue(uint8_t sensor, uint8_t type){
 	}
 	else
 	{
-		value = 1000 -( (HAL_ADC_GetValue(_adc)*1000)/4096);
+		value = ( (HAL_ADC_GetValue(_adc)*3300)/4095);
 	}
 	/* stop adc */
 	HAL_ADC_Stop(_adc);

@@ -179,12 +179,7 @@ void StartDefaultTask(void const * argument)
 	// this is a auto generated dummy, so suspend it
 	//osThreadSuspend(NULL);
   /* Infinite loop */
-	ClearRelais(4);
-	ClearRelais(5);
 
-	osDelay(10000);
-	SetRelais(5);
-	SetRelais(4);
   for(;;)
   {
 	//SpiBuffer buf;
@@ -195,7 +190,7 @@ void StartDefaultTask(void const * argument)
 	//getDHT22_Temperature(4);
 	//D("frq: %d",getSensorFrequency((counter%3)+1));
 
-    osDelay(6000);
+    osDelay(1000);
 	//SpiSend(&buf);
 
 	//osDelay(3000);
@@ -212,8 +207,9 @@ void StartDefaultTask(void const * argument)
 //	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
 //	osPoolFree(sensorPool,sens_cmd);
 
+	HAL_GPIO_TogglePin(LED_ERR_GPIO_Port,LED_ERR_Pin);
 	counter++;
-	D("Default task: %d",counter);
+//	D("Default task: %d",counter);
 
   }
   /* USER CODE END StartDefaultTask */

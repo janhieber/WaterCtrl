@@ -81,6 +81,8 @@ void procSpiBroker(void const * argument){
 		// here we check for incoming messages from SPI
 		evt = osMessageGet(spiRecvQueue, osWaitForever);
 
+    	HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+
 		// we got one
 		if (evt.status == osEventMessage) {
 			// here we decide what to do
@@ -119,12 +121,19 @@ void procSpiBroker(void const * argument){
 			{
 				SpiBuffer resp = {{SPI_ID_RELAIS_SET_RES,0,0,0,0,0}};
 				resp.d[1] = recvMsg->d[1];
-				if (0 == recv->d[2])
-					resp.d[2] = ClearRelais(recvMsg->d[1]);
+				resp.d[2] = recvMsg->d[2];
+				I("Relais comand: %d",resp.d[2]);
+				if (0 == resp.d[2])
+				{
+					resp.d[3] = ClearRelais(recvMsg->d[1]);
+					I("Relais Clear, chan: %d, success: %d",resp.d[1],resp.d[3]);
+				}
 				else
-					resp.d[2] = SetRelais(recvMsg->d[1]);
+				{
+					resp.d[3] = SetRelais(recvMsg->d[1]);
+					I("Relais Set, chan: %d, success: %d",resp.d[1],resp.d[3]);
+				}
 
-				D("Relais Set, chan: %d, success: %d",resp.d[1],resp.d[2]);
 				SpiSend(&resp);
 				break;
 			}

@@ -51,13 +51,30 @@ extern uint16_t getPulse();
 //static void motBrokerMessage(char *buf, uint8_t length);
 const char * getStateString();
 
+bool motControlStop()
+{
+	bool retval = false;
+	if ((g_activeMotor < MOT_ACTIVE_0) || (g_activeMotor > MOT_ACTIVE_4)) {
+		E( "wrong motor selected!");
+	} else {
+		if ( (MOT_STATE_IDLE != getState())\
+				||(MOT_STATE_RAMPDOWN < getState()))
+		{
+			setState(MOT_STATE_RAMPDOWN);
+			retval = true;
+		}
+		else
+			E("motor not running or idle");
+	}
+	return retval;
+}
 
 int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
-	int retval = -1;
+	int retval = 0;
 	if ((motor < MOT_ACTIVE_0) || (motor > MOT_ACTIVE_4)) {
 		E( "wrong motor selected!");
 	} else {
-		if (g_activeMotor != motor) {
+		if (g_activeMotor != MOT_ACTIVE_NONE) {
 			g_activeCounter = cfg->high_time*10;
 			g_maxPulse = cfg->max_level;
 
@@ -101,7 +118,7 @@ int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
 				E("bad timing parameter");
 			}
 		} else {
-			E( "motor already active.");
+			E( "motor %d already active.",g_activeMotor);
 		}
 	}
 	return retval;
@@ -185,7 +202,10 @@ void procMotor(void const * argument){
 			cfg.max_level = cmd->speed;
 			cfg.high_time = cmd->time;
 
-			motControlStart(cmd->motor,&cfg);
+			if (0 != cmd->motor)
+				motControlStart(cmd->motor,&cfg);
+			else
+
 			I("motor finish");
 			SpiBuffer buf;
 			buf.d[0] = SPI_ID_MOTOR_RESP;

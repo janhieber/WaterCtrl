@@ -56,7 +56,7 @@ bool ClearRelais(eRelaisChannel channel)
 	if( (0 < channel) && (NUMBER_OF_PINS >= channel))
 	{
 		chan = channel -1;
-		if (GPIO_PIN_RESET != HAL_GPIO_ReadPin(_portList[chan],_pinList[chan]))
+		//if (GPIO_PIN_RESET != HAL_GPIO_ReadPin(_portList[chan],_pinList[chan]))
 			HAL_GPIO_WritePin(_portList[chan],_pinList[chan],GPIO_PIN_RESET);
 	}
 	else
