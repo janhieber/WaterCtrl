@@ -9,10 +9,11 @@
 #define SENSOR_H_
 
 typedef enum _eSensorType {
-	SENS_MOISTURE,
-	SENS_DHT22,
-	SENS_ANALOG,
-	SENS_ANALOG1
+	SENS_MOISTURE, // Frequency Input to PB0
+	SENS_DHT22,    // DHT22 connected to PA3
+	SENS_DHT22_TEMP, // DHT22 Temperature PA3
+	SENS_ANALOG_PA2,   // ANALOG_Input PA2
+	SENS_ANALOG_PA3   // ANALOG Input PA3
 }eSensorType;
 
 #define SEN_CHANNEL0_ACTIVE 0

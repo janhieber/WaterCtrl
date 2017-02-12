@@ -16,8 +16,6 @@
 
 #include "main.h"
 
-#define SYSNAME "Relais"
-
 typedef enum _relaisChannels {
 	RELAIS_CHAN_0=0,
 	RELAIS_CHAN_1,
