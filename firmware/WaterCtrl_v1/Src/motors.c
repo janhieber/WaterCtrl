@@ -51,7 +51,7 @@ extern uint16_t getPulse();
 //static void motBrokerMessage(char *buf, uint8_t length);
 const char * getStateString();
 
-bool motControlStop()
+int motControlStop()
 {
 	bool retval = false;
 	if ((g_activeMotor < MOT_ACTIVE_0) || (g_activeMotor > MOT_ACTIVE_4)) {
@@ -74,7 +74,7 @@ int motControlStart(eActiveMotor motor, stMotCfg *cfg) {
 	if ((motor < MOT_ACTIVE_0) || (motor > MOT_ACTIVE_4)) {
 		E( "wrong motor selected!");
 	} else {
-		if (g_activeMotor != MOT_ACTIVE_NONE) {
+		if (g_activeMotor == MOT_ACTIVE_NONE) {
 			g_activeCounter = cfg->high_time*10;
 			g_maxPulse = cfg->max_level;
 
@@ -205,6 +205,7 @@ void procMotor(void const * argument){
 			if (0 != cmd->motor)
 				motControlStart(cmd->motor,&cfg);
 			else
+				motControlStop();
 
 			I("motor finish");
 			SpiBuffer buf;
@@ -234,14 +235,15 @@ void procMotor(void const * argument){
 
 
 void motTask1s() {
-#if 0
-	stMotCfg cfg =  {0,0,0,0};
-	static uint16_t counter;
+#if 1
 	D("state : %s",getStateString());
 	D("motor : %d",g_activeMotor);
 	D("counter : %d",(int)g_activeCounter);
 	D("pulse : %d",getPulse());
-
+#endif
+#if 0
+	stMotCfg cfg =  {0,0,0,0};
+	static uint16_t counter;
 	if (g_activeMotor == MOT_ACTIVE_NONE)
 	{
 		cfg.down_time = 1;
@@ -298,6 +300,7 @@ void motTask100ms() {
 			g_activeState = MOT_STATE_IDLE;
 			HAL_GPIO_WritePin(MOT_PWM_PORT_A2,MOT_PWM_PIN_A2,GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(MOT_PWM_PORT_A1,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_RESET);
+
 			break;
 		default:
 			break;

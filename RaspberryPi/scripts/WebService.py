@@ -40,9 +40,12 @@ class MotorsView(MethodView):
         logging.debug('query: %s'%request.query_string)
         time = request.args.get('time')
         speed = request.args.get('speed')
-
-        logging.debug('start motor time=%s, speed=%s'%(time,speed))
-        buffer = self._app.startMotor(id,int(time),int(speed))
+        if (time != None) and (speed != None):
+            logging.debug('start motor time=%s, speed=%s'%(time,speed))
+            buffer = self._app.startMotor(id,int(time),int(speed))
+        else:
+            logging.error('bad query');
+            return str('bad query'),404
         return str('return from get id=%d: %s' % (id, buffer) )
 
     def delete(self,id):

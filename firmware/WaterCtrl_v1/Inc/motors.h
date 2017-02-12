@@ -74,6 +74,8 @@ void motTask1s();
 
 int motControlStart(eActiveMotor motor, stMotCfg * cfg);
 
+int motControlStop();
+
 void procMotor(void const * argument);
 
 #endif // MOTORS_H
