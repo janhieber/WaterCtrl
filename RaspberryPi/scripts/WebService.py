@@ -53,10 +53,40 @@ class MotorsView(MethodView):
         self._app.stopMotor()
         return str('stopped motor %d' % id)
 
+class SensorsView(MethodView):
+    methods = ["GET","PUT","DELETE"]
+
+    def __init__(self,app):
+        self._app = app
+
+    def get(self,id):
+        logging.info(id)
+        logging.debug('get sensor: %d'%id)
+
+        buffer = self._app.getSensor(id)
+        return str('return from get id=%d: %s' % (id, buffer) )
+
+    def put(self,id):
+        type = request.args.get('type')
+        if (type != None):
+            logging.info('set type: %s on id: %d'%(type,id))
+            self._app.setSensorType(id, int(type))
+        else:
+            logging.error('bad query')
+            return str('bad query'),404
+        return str('ok'),200
+
+    def delete(self,id):
+        logging.info("del function, id= %d",id)
+        self._app.stopMotor()
+        return str('stopped motor %d' % id)
+
 class app(threading.Thread):
     SPI_SET_RELAIS = [0x16, 0x00, 0x01, 0x00, 0x00, 0x00]
     SPI_CLEAR_RELAIS = [0x16, 0x00, 0x00, 0x00, 0x00, 0x00]
     SPI_START_MOTOR = [0x10, 0x00, 0x00, 0x00, 0x00, 0x00]
+    SPI_SET_SENS_TYPE = [20, 0, 0, 0, 0, 0]
+    SPI_GET_SENS = [18, 0, 0, 0, 0, 0]
 
 
     def __init__(self,server,sendQueue,recvQueue):
@@ -66,8 +96,10 @@ class app(threading.Thread):
         self._recvQueue = recvQueue
         self._relais = RelaisView(self)
         self._motor = MotorsView(self)
+        self._sensor = SensorsView(self)
         server.add_url_rule('/relais/<int:id>',view_func=self._relais.as_view('relais',self))
         server.add_url_rule('/motor/<int:id>',view_func=self._motor.as_view('motor',self))
+        server.add_url_rule('/sensor/<int:id>',view_func=self._sensor.as_view('sensor',self))
 
     def run(self):
         logging.info("starting the web server on port 5372")
@@ -112,6 +144,18 @@ class app(threading.Thread):
         logging.debug('StopMotor')
         self._sendQueue.put(self.SPI_START_MOTOR)
         return ('StopMotor: %s ' % self.waitForResponse())
+
+    def getSensor(self,id):
+        self.SPI_GET_SENS[1] = id
+        logging.debug('getSensor')
+        self._sendQueue.put(self.SPI_GET_SENS)
+        return ('ret getSensor: %s ' % self.waitForResponse())
+
+    def setSensorType(self,id,type):
+        self.SPI_SET_SENS_TYPE[1] = id
+        self.SPI_SET_SENS_TYPE[2] = type
+        self._sendQueue.put(self.SPI_SET_SENS_TYPE, block=True, timeout=None)
+        return ('ret setSensorType: %s ' % self.waitForResponse())
 
     def waitForResponse(self):
         retry = 5
