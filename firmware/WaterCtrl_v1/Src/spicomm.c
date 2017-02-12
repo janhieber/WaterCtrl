@@ -47,8 +47,8 @@ osPoolDef(_spiRecvPool, SPI_RECVQUEUE_SIZE*2, SpiBuffer);
 
 
 // here we store the buffers for the current transfer
-volatile SpiBuffer* send = NULL;
-volatile SpiBuffer* recv = NULL;
+SpiBuffer* send = NULL;
+SpiBuffer* recv = NULL;
 
 void initSpi(void) {
 	INITBEGIN;
@@ -182,7 +182,7 @@ bool SpiSend(SpiBuffer* data){
 		//drop last message
 		//osPoolFree(spiSendPool,buf);
 		osMessageGet(spiSendQueue,0);
-		E("Failed put to queue: 0x%08x",buf);
+		E("Failed put to queue: %p",(void*)buf);
 	}
 	osPoolFree(spiSendPool,buf);
 	return true;

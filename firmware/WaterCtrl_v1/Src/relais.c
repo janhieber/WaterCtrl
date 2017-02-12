@@ -6,7 +6,7 @@
  */
 
 #include "relais.h"
-
+#define SYSNAME "Relais"
 #define NUMBER_OF_PINS 5
 const uint16_t _pinList[NUMBER_OF_PINS] = {
 		RELAIS_0_Pin,
