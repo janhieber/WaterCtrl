@@ -167,7 +167,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     */
     GPIO_InitStruct.Pin = DHT22_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
     HAL_GPIO_Init(DHT22_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM2_MspInit 1 */
@@ -193,7 +193,7 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef* tim_icHandle)
     */
     GPIO_InitStruct.Pin = FREQ_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
     HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM3_MspInit 1 */

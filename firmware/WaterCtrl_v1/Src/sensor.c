@@ -18,7 +18,9 @@
 #include <spicomm.h>
 #include <moistureMeasure.h>
 #include <dht22.h>
+#include <analog.h>
 #include <main.h>
+
 
 #include "sensor.h"
 
@@ -44,8 +46,10 @@ void procSensor(void const * argument) {
 	bool run = true;
 
 	sensorConfig[0] = SENS_DHT22;
-	sensorConfig[1] = SENS_ANALOG;
-	sensorConfig[2] = SENS_ANALOG;
+	sensorConfig[1] = SENS_ANALOG_PA2;
+	sensorConfig[2] = SENS_ANALOG_PA2;
+	sensorConfig[3] = SENS_MOISTURE;
+	sensorConfig[4] = SENS_MOISTURE;
 
 	do {
 		event = osMessageGet(sensorQueue,1000);
@@ -65,15 +69,18 @@ void procSensor(void const * argument) {
 					cmd->value1 = getSensorFrequency(cmd->sensor)/(int16_t)1000;
 					break;
 				case SENS_DHT22:
-					//cmd->value2 = getDHT22_Temperature(cmd->sensor);
 					cmd->value1 = getDHT22_Humidity(cmd->sensor);
 					break;
-				case SENS_ANALOG:
+				case SENS_DHT22_TEMP:
+					cmd->value1 = getDHT22_Temperature(cmd->sensor);
+					break;
+				case SENS_ANALOG_PA3:
+					cmd->value1 = getAnalogValue(cmd->sensor,1);
+					//cmd->value1 = getAnalogValue(cmd->sensor,1);
+					break;
+				case SENS_ANALOG_PA2:
 					cmd->value1 = getAnalogValue(cmd->sensor,0);
 					break;
-				case SENS_ANALOG1:
-					cmd->value1 = getAnalogValue(cmd->sensor,1);
-				break;
 				default:
 					break;
 				}

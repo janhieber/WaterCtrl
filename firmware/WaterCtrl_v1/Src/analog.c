@@ -35,24 +35,29 @@ int16_t getAnalogValue(uint8_t sensor, uint8_t type){
 
 	if (1 == type)
 	{
-		sConfig.Channel = ADC_CHANNEL_8;
-
-		GPIO_InitStruct.Pin = FREQ_Pin;
+		sConfig.Channel = ADC_CHANNEL_3;
+		GPIO_InitStruct.Pin = DHT22_Pin;
 	}
 	else
 	{
 		sConfig.Channel = ADC_CHANNEL_2;
-		GPIO_InitStruct.Pin = FREQ_Pin;
-
+		GPIO_InitStruct.Pin = ANALOG_Pin;
 	}
 
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-	HAL_GPIO_Init(ANALOG_GPIO_Port, &GPIO_InitStruct);
+
+	if (1 == type )
+	{
+		HAL_GPIO_Init(DHT22_GPIO_Port, &GPIO_InitStruct);
+	}
+	else
+	{
+		HAL_GPIO_Init(ANALOG_GPIO_Port, &GPIO_InitStruct);
+	}
 
 	sConfig.Rank = 1;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
 
 	if (HAL_ADC_ConfigChannel(_adc, &sConfig) != HAL_OK)
 	{
@@ -65,7 +70,7 @@ int16_t getAnalogValue(uint8_t sensor, uint8_t type){
 	/* start adc */
 	HAL_ADC_Start(_adc);
 	/* read value after delay */
-	if (HAL_ADC_PollForConversion(_adc,200) != HAL_OK)
+	if (HAL_ADC_PollForConversion(_adc,500) != HAL_OK)
 	{
 		uint adcState = HAL_ADC_GetState(_adc);
 		uint adcError = HAL_ADC_GetError(_adc);
@@ -73,13 +78,15 @@ int16_t getAnalogValue(uint8_t sensor, uint8_t type){
 	}
 	else
 	{
-		value = ( (HAL_ADC_GetValue(_adc)*3300)/4095);
+		value = ( (HAL_ADC_GetValue(_adc)*(uint32_t)3300)/(uint32_t)4095)*(uint32_t)1000/(uint32_t)3300;
+		//value = HAL_ADC_GetValue(_adc);
 	}
 	/* stop adc */
 	HAL_ADC_Stop(_adc);
 
 	/* clear sensor channel */
 	ClearSensorChannel();
+	osDelay(500);
 
 	return value;
 }

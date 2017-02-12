@@ -97,7 +97,7 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
 	buf.d[1] = ERROR_STACKOVERFLOW;
 	SpiSend(&buf);
 
-   /* Run time stack overflow checking is performed if
+	/* Run time stack overflow checking is performed if
    configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
    called if a stack overflow is detected. */
 }
@@ -112,27 +112,27 @@ void MX_FREERTOS_Init(void) {
 	printf_("System clock: %dMHz\r\n", (uint8_t)(SystemCoreClock / 1000000));
 	printf_(":: Booting system ...\r\n");
 
-    // setup SPI
-    initSpi();
-    initMoistureMeasure(&htim3);
-    DHT22_Init(&htim2);
-    initMotorControl(&htim2);
-    InitSensors();
-    initAnalogMeasurement(&hadc1);
-    InitRelais();
+	// setup SPI
+	initSpi();
+	initMoistureMeasure(&htim3);
+	DHT22_Init(&htim2);
+	initMotorControl(&htim2);
+	InitSensors();
+	initAnalogMeasurement(&hadc1);
+	InitRelais();
 
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
+	/* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+	/* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
+	/* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the thread(s) */
@@ -142,30 +142,30 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
 
-  osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
-  SensorHandle = osThreadCreate(osThread(Sensor), NULL);
+	osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
+	SensorHandle = osThreadCreate(osThread(Sensor), NULL);
 
 #ifdef USEWATCHDOG
-  osThreadDef(Watchdog, procWatchdog, osPriorityAboveNormal, 0, 64);
-  WatchdogHandle = osThreadCreate(osThread(Watchdog), NULL);
+	osThreadDef(Watchdog, procWatchdog, osPriorityAboveNormal, 0, 64);
+	WatchdogHandle = osThreadCreate(osThread(Watchdog), NULL);
 #endif
 
 
-  //osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
-  //AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
+	//osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
+	//AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
-  osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
-  SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
+	osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
+	SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
-  osThreadDef(Motor, procMotor, osPriorityHigh, 1, 64);
-  MotorHandle = osThreadCreate(osThread(Motor), NULL);
+	osThreadDef(Motor, procMotor, osPriorityHigh, 1, 64);
+	MotorHandle = osThreadCreate(osThread(Motor), NULL);
 
 
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
 
-  printf_(":: Starting threads ...\r\n");
+	printf_(":: Starting threads ...\r\n");
 
   /* USER CODE END RTOS_QUEUES */
 }
@@ -178,45 +178,52 @@ void StartDefaultTask(void const * argument)
 	uint32_t counter = 0;
 	// this is a auto generated dummy, so suspend it
 	//osThreadSuspend(NULL);
-  /* Infinite loop */
+	/* Infinite loop */
 
-  for(;;)
-  {
-	//SpiBuffer buf;
-	//buf.d[0] = SPI_ID_MESSAGE;
-	//buf.d[1] = MESSAGE_PING;
+	for(;;)
+	{
+		//SpiBuffer buf;
+		//buf.d[0] = SPI_ID_MESSAGE;
+		//buf.d[1] = MESSAGE_PING;
+#if 0
+		int16_t temp = getDHT22_Temperature(1);
+		D("frq: %d",temp);
 
-	//int16_t temp = getDHT22_Temperature(4);
-	//getDHT22_Temperature(4);
-	//D("frq: %d",getSensorFrequency((counter%3)+1));
-
-    osDelay(1000);
-	//SpiSend(&buf);
-
-	//osDelay(3000);
-#if (0)
-	MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
-	cmd->motor = 1;
-	cmd->time = 2;
-	cmd->speed = 100;
-	osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
-	osPoolFree(motorCtrlPool,cmd);
+		int16_t value = getAnalogValue(2,0);
+		//D("Analaog 1: %d",value);
+		//value = getAnalogValue(2,0);
+		D("Analaog 2: %d",value);
+		value = getAnalogValue(3,0);
+		D("Analaog 3: %d",value);
+//		value = getAnalogValue(4,0);
+//		D("Analaog 4: %d",value);
+		value = getSensorFrequency(4)/(uint16_t)1000;
+		D("FRequenz: %d khz",value);
 #endif
-//	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
-//	sens_cmd->sensor = 3;
-//	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
-//	osPoolFree(sensorPool,sens_cmd);
+		osDelay(1000);
+#if (0)
+		MotorCmd* cmd = (MotorCmd*)osPoolAlloc(motorCtrlPool);
+		cmd->motor = 1;
+		cmd->time = 2;
+		cmd->speed = 100;
+		osMessagePut(motorCtrlQueue, (uint32_t)cmd, 0);
+		osPoolFree(motorCtrlPool,cmd);
+#endif
+		//	stSensorCmd *sens_cmd = (stSensorCmd*)osPoolAlloc(sensorPool);
+		//	sens_cmd->sensor = 3;
+		//	osMessagePut(sensorQueue,(uint32_t)sens_cmd,0);
+		//	osPoolFree(sensorPool,sens_cmd);
 
-	HAL_GPIO_TogglePin(LED_ERR_GPIO_Port,LED_ERR_Pin);
-	counter++;
-//	D("Default task: %d",counter);
+		HAL_GPIO_TogglePin(LED_ERR_GPIO_Port,LED_ERR_Pin);
+		counter++;
+		//	D("Default task: %d",counter);
 
-  }
+	}
   /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Application */
-     
+
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -4,7 +4,7 @@
   * Description        : Main program body
   ******************************************************************************
   *
-  * Copyright (c) 2016 STMicroelectronics International N.V. 
+  * Copyright (c) 2017 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -84,6 +84,10 @@
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+void Error_Handler(void);
+void MX_FREERTOS_Init(void);
+static void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -221,10 +225,10 @@ static void MX_NVIC_Init(void)
   HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
   /* TIM2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(TIM2_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(TIM2_IRQn);
   /* TIM3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM3_IRQn, 4, 0);
+  HAL_NVIC_SetPriority(TIM3_IRQn, 6, 0);
   HAL_NVIC_EnableIRQ(TIM3_IRQn);
 }
 

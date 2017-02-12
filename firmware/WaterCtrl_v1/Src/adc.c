@@ -56,13 +56,13 @@ ADC_HandleTypeDef hadc1;
 /* ADC1 init function */
 void MX_ADC1_Init(void)
 {
-  ADC_ChannelConfTypeDef sConfig;
+  ADC_InjectionConfTypeDef sConfigInjected;
 
     /**Common config 
     */
   hadc1.Instance = ADC1;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -72,12 +72,17 @@ void MX_ADC1_Init(void)
     Error_Handler();
   }
 
-    /**Configure Regular Channel 
+    /**Configure Injected Channel 
     */
-  sConfig.Channel = ADC_CHANNEL_2;
-  sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  sConfigInjected.InjectedChannel = ADC_CHANNEL_2;
+  sConfigInjected.InjectedRank = 1;
+  sConfigInjected.InjectedNbrOfConversion = 1;
+  sConfigInjected.InjectedSamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfigInjected.ExternalTrigInjecConv = ADC_INJECTED_SOFTWARE_START;
+  sConfigInjected.AutoInjectedConv = ENABLE;
+  sConfigInjected.InjectedDiscontinuousConvMode = DISABLE;
+  sConfigInjected.InjectedOffset = 0;
+  if (HAL_ADCEx_InjectedConfigChannel(&hadc1, &sConfigInjected) != HAL_OK)
   {
     Error_Handler();
   }

@@ -83,8 +83,11 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEN_A0_Pin|SEN_A1_Pin|SEN_A2_Pin|SEN_ENABLE_Pin 
-                          |RELAIS_0_Pin|RELAIS_1_Pin|RELAIS_2_Pin|RELAIS_3_Pin 
-                          |RELAIS_4_Pin|LED_ERR_Pin, GPIO_PIN_RESET);
+                          |LED_ERR_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, RELAIS_0_Pin|RELAIS_1_Pin|RELAIS_2_Pin|RELAIS_3_Pin 
+                          |RELAIS_4_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = RPI_NRST_Pin;
