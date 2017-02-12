@@ -60,8 +60,13 @@ int motControlStop()
 		if ( (MOT_STATE_IDLE != getState())\
 				||(MOT_STATE_RAMPDOWN < getState()))
 		{
-			setState(MOT_STATE_RAMPDOWN);
-			retval = true;
+			HAL_TIM_PWM_Stop_IT(ptrTimer,TIM_CHANNEL_2);
+			HAL_TIM_Base_Stop_IT(ptrTimer);
+			g_activeMotor = MOT_ACTIVE_NONE;
+			g_activeState = MOT_STATE_IDLE;
+			HAL_GPIO_WritePin(MOT_PWM_PORT_A2,MOT_PWM_PIN_A2,GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(MOT_PWM_PORT_A1,MOT_PWM_PIN_A0|MOT_PWM_PIN_A1,GPIO_PIN_RESET);
+			I("motor stopped");
 		}
 		else
 			E("motor not running or idle");
