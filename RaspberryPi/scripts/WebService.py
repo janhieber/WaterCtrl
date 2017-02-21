@@ -153,7 +153,7 @@ class app(threading.Thread):
 
     def setSensorType(self,id,type):
         self.SPI_SET_SENS_TYPE[1] = id
-        self.SPI_SET_SENS_TYPE[2] = type
+        self.SPI_SET_SENS_TYPE[3] = type
         self._sendQueue.put(self.SPI_SET_SENS_TYPE, block=True, timeout=None)
         return ('ret setSensorType: %s ' % self.waitForResponse())
 
@@ -161,7 +161,7 @@ class app(threading.Thread):
         retry = 5
         while(True):
             try:
-                buffer = self._recvQueue.get(block=True, timeout=0.9)
+                buffer = self._recvQueue.get(block=True, timeout=30)
                 break
             except queue.Empty:
                 logging.warn('Queue Empty')

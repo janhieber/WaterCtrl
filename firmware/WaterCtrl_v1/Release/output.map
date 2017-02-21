@@ -5028,8 +5028,6 @@ Discarded input sections
  .text          0x00000000        0x0 Src/moistureMeasure.o
  .text.printMoisture
                 0x00000000        0x4 Src/moistureMeasure.o
- .text.moiSetChannel
-                0x00000000       0x14 Src/moistureMeasure.o
  .debug_macro   0x00000000      0x880 Src/moistureMeasure.o
  .debug_macro   0x00000000       0x22 Src/moistureMeasure.o
  .debug_macro   0x00000000       0x4c Src/moistureMeasure.o
@@ -5657,9 +5655,11 @@ Discarded input sections
  .data          0x00000000        0x0 Src/sensor.o
  .bss           0x00000000        0x0 Src/sensor.o
  .text.SetSensorSelectPin
-                0x00000000       0x10 Src/sensor.o
+                0x00000000       0x18 Src/sensor.o
  .text.ClearSensorSelectPin
                 0x00000000        0x4 Src/sensor.o
+ .text.setSensorType
+                0x00000000       0x24 Src/sensor.o
  .debug_macro   0x00000000      0x880 Src/sensor.o
  .debug_macro   0x00000000       0x22 Src/sensor.o
  .debug_macro   0x00000000       0x4c Src/sensor.o
@@ -7208,7 +7208,7 @@ LOAD /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
                 0x08000000                g_pfnVectors
                 0x0800010c                . = ALIGN (0x4)
 
-.text           0x0800010c     0x6348
+.text           0x0800010c     0x63bc
                 0x0800010c                . = ALIGN (0x4)
  *(.text)
  .text          0x0800010c       0x5c /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
@@ -7738,333 +7738,336 @@ LOAD /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
  .text.StopTimer
                 0x08004f10       0x3c Src/moistureMeasure.o
                 0x08004f10                StopTimer
- .text.stopSensorCapture
-                0x08004f4c       0x38 Src/moistureMeasure.o
-                0x08004f4c                stopSensorCapture
  .text.startSensorCapture
-                0x08004f84       0x58 Src/moistureMeasure.o
-                0x08004f84                startSensorCapture
+                0x08004f4c       0x7c Src/moistureMeasure.o
+                0x08004f4c                startSensorCapture
+ .text.stopSensorCapture
+                0x08004fc8       0x38 Src/moistureMeasure.o
+                0x08004fc8                stopSensorCapture
  .text.getSensorFrequency
-                0x08004fdc       0x2c Src/moistureMeasure.o
-                0x08004fdc                getSensorFrequency
+                0x08005000       0x28 Src/moistureMeasure.o
+                0x08005000                getSensorFrequency
  .text.MoistureTask
-                0x08005008       0x14 Src/moistureMeasure.o
-                0x08005008                MoistureTask
+                0x08005028        0x4 Src/moistureMeasure.o
+                0x08005028                MoistureTask
  .text.motTask100ms.part.2
-                0x0800501c       0xcc Src/motors.o
+                0x0800502c       0xcc Src/motors.o
  .text.motControlStop
-                0x080050e8       0xbc Src/motors.o
-                0x080050e8                motControlStop
+                0x080050f8       0xbc Src/motors.o
+                0x080050f8                motControlStop
  .text.motControlStart
-                0x080051a4      0x148 Src/motors.o
-                0x080051a4                motControlStart
+                0x080051b4      0x148 Src/motors.o
+                0x080051b4                motControlStart
  .text.initMotorControl
-                0x080052ec       0x5c Src/motors.o
-                0x080052ec                initMotorControl
+                0x080052fc       0x5c Src/motors.o
+                0x080052fc                initMotorControl
  .text.procMotor
-                0x08005348       0xec Src/motors.o
-                0x08005348                procMotor
+                0x08005358       0xec Src/motors.o
+                0x08005358                procMotor
  .text.long_itoa
-                0x08005434       0xd4 Src/printf.o
-                0x08005434                long_itoa
+                0x08005444       0xd4 Src/printf.o
+                0x08005444                long_itoa
  .text.vfprintf_
-                0x08005508      0x11c Src/printf.o
- .text.printf_  0x08005624       0x28 Src/printf.o
-                0x08005624                printf_
+                0x08005518      0x11c Src/printf.o
+ .text.printf_  0x08005634       0x28 Src/printf.o
+                0x08005634                printf_
  .text.InitRelais
-                0x0800564c       0x20 Src/relais.o
-                0x0800564c                InitRelais
+                0x0800565c       0x20 Src/relais.o
+                0x0800565c                InitRelais
  .text.SetRelais
-                0x0800566c       0x40 Src/relais.o
-                0x0800566c                SetRelais
+                0x0800567c       0x40 Src/relais.o
+                0x0800567c                SetRelais
  .text.ClearRelais
-                0x080056ac       0x30 Src/relais.o
-                0x080056ac                ClearRelais
+                0x080056bc       0x30 Src/relais.o
+                0x080056bc                ClearRelais
  .text.IsRelaisSet
-                0x080056dc       0x30 Src/relais.o
-                0x080056dc                IsRelaisSet
- .text.procSensor
-                0x0800570c      0x128 Src/sensor.o
-                0x0800570c                procSensor
+                0x080056ec       0x30 Src/relais.o
+                0x080056ec                IsRelaisSet
  .text.SetSensorChannel
-                0x08005834       0xec Src/sensor.o
-                0x08005834                SetSensorChannel
+                0x0800571c       0xd4 Src/sensor.o
+                0x0800571c                SetSensorChannel
  .text.ClearSensorChannel
-                0x08005920       0x10 Src/sensor.o
-                0x08005920                ClearSensorChannel
+                0x080057f0       0x10 Src/sensor.o
+                0x080057f0                ClearSensorChannel
+ .text.getSensor
+                0x08005800       0x7c Src/sensor.o
+                0x08005800                getSensor
+ .text.procSensor
+                0x0800587c       0xf4 Src/sensor.o
+                0x0800587c                procSensor
  .text.InitSensors
-                0x08005930       0x54 Src/sensor.o
-                0x08005930                InitSensors
+                0x08005970       0x54 Src/sensor.o
+                0x08005970                InitSensors
  .text.MX_SPI1_Init
-                0x08005984       0x44 Src/spi.o
-                0x08005984                MX_SPI1_Init
+                0x080059c4       0x44 Src/spi.o
+                0x080059c4                MX_SPI1_Init
  .text.HAL_SPI_MspInit
-                0x080059c8       0x68 Src/spi.o
-                0x080059c8                HAL_SPI_MspInit
+                0x08005a08       0x68 Src/spi.o
+                0x08005a08                HAL_SPI_MspInit
  .text.HAL_SPI_MspDeInit
-                0x08005a30       0x34 Src/spi.o
-                0x08005a30                HAL_SPI_MspDeInit
- .text.initSpi  0x08005a64       0x58 Src/spicomm.o
-                0x08005a64                initSpi
- .text.SpiSend  0x08005abc       0x68 Src/spicomm.o
-                0x08005abc                SpiSend
+                0x08005a70       0x34 Src/spi.o
+                0x08005a70                HAL_SPI_MspDeInit
+ .text.initSpi  0x08005aa4       0x58 Src/spicomm.o
+                0x08005aa4                initSpi
+ .text.SpiSend  0x08005afc       0x68 Src/spicomm.o
+                0x08005afc                SpiSend
  .text.procSpiBroker
-                0x08005b24      0x25c Src/spicomm.o
-                0x08005b24                procSpiBroker
+                0x08005b64      0x290 Src/spicomm.o
+                0x08005b64                procSpiBroker
  .text.HAL_SPI_ErrorCallback
-                0x08005d80       0xc4 Src/spicomm.o
-                0x08005d80                HAL_SPI_ErrorCallback
+                0x08005df4       0xc4 Src/spicomm.o
+                0x08005df4                HAL_SPI_ErrorCallback
  .text.HAL_SPI_RxCpltCallback
-                0x08005e44       0x88 Src/spicomm.o
-                0x08005e44                HAL_SPI_RxCpltCallback
+                0x08005eb8       0x88 Src/spicomm.o
+                0x08005eb8                HAL_SPI_RxCpltCallback
  .text.HAL_SPI_TxCpltCallback
-                0x08005ecc       0x4c Src/spicomm.o
-                0x08005ecc                HAL_SPI_TxCpltCallback
+                0x08005f40       0x4c Src/spicomm.o
+                0x08005f40                HAL_SPI_TxCpltCallback
  .text.HAL_SPI_TxRxCpltCallback
-                0x08005f18       0x20 Src/spicomm.o
-                0x08005f18                HAL_SPI_TxRxCpltCallback
+                0x08005f8c       0x20 Src/spicomm.o
+                0x08005f8c                HAL_SPI_TxRxCpltCallback
  .text.Reset_Handler
-                0x08005f38       0x44 Src/startup_stm32f103xb.o
-                0x08005f38                Reset_Handler
+                0x08005fac       0x44 Src/startup_stm32f103xb.o
+                0x08005fac                Reset_Handler
  .text.Default_Handler
-                0x08005f7c        0x2 Src/startup_stm32f103xb.o
-                0x08005f7c                RTC_Alarm_IRQHandler
-                0x08005f7c                EXTI2_IRQHandler
-                0x08005f7c                TIM1_CC_IRQHandler
-                0x08005f7c                PVD_IRQHandler
-                0x08005f7c                EXTI3_IRQHandler
-                0x08005f7c                EXTI0_IRQHandler
-                0x08005f7c                I2C2_EV_IRQHandler
-                0x08005f7c                TAMPER_IRQHandler
-                0x08005f7c                DMA1_Channel4_IRQHandler
-                0x08005f7c                USART3_IRQHandler
-                0x08005f7c                RTC_IRQHandler
-                0x08005f7c                DMA1_Channel7_IRQHandler
-                0x08005f7c                CAN1_RX1_IRQHandler
-                0x08005f7c                TIM4_IRQHandler
-                0x08005f7c                I2C1_EV_IRQHandler
-                0x08005f7c                DMA1_Channel6_IRQHandler
-                0x08005f7c                RCC_IRQHandler
-                0x08005f7c                TIM1_TRG_COM_IRQHandler
-                0x08005f7c                DMA1_Channel1_IRQHandler
-                0x08005f7c                Default_Handler
-                0x08005f7c                EXTI15_10_IRQHandler
-                0x08005f7c                EXTI9_5_IRQHandler
-                0x08005f7c                SPI2_IRQHandler
-                0x08005f7c                DMA1_Channel5_IRQHandler
-                0x08005f7c                EXTI4_IRQHandler
-                0x08005f7c                USB_LP_CAN1_RX0_IRQHandler
-                0x08005f7c                USB_HP_CAN1_TX_IRQHandler
-                0x08005f7c                DMA1_Channel3_IRQHandler
-                0x08005f7c                WWDG_IRQHandler
-                0x08005f7c                TIM1_BRK_IRQHandler
-                0x08005f7c                EXTI1_IRQHandler
-                0x08005f7c                USART2_IRQHandler
-                0x08005f7c                I2C2_ER_IRQHandler
-                0x08005f7c                DMA1_Channel2_IRQHandler
-                0x08005f7c                CAN1_SCE_IRQHandler
-                0x08005f7c                FLASH_IRQHandler
-                0x08005f7c                I2C1_ER_IRQHandler
-                0x08005f7c                USBWakeUp_IRQHandler
- *fill*         0x08005f7e        0x2 
+                0x08005ff0        0x2 Src/startup_stm32f103xb.o
+                0x08005ff0                RTC_Alarm_IRQHandler
+                0x08005ff0                EXTI2_IRQHandler
+                0x08005ff0                TIM1_CC_IRQHandler
+                0x08005ff0                PVD_IRQHandler
+                0x08005ff0                EXTI3_IRQHandler
+                0x08005ff0                EXTI0_IRQHandler
+                0x08005ff0                I2C2_EV_IRQHandler
+                0x08005ff0                TAMPER_IRQHandler
+                0x08005ff0                DMA1_Channel4_IRQHandler
+                0x08005ff0                USART3_IRQHandler
+                0x08005ff0                RTC_IRQHandler
+                0x08005ff0                DMA1_Channel7_IRQHandler
+                0x08005ff0                CAN1_RX1_IRQHandler
+                0x08005ff0                TIM4_IRQHandler
+                0x08005ff0                I2C1_EV_IRQHandler
+                0x08005ff0                DMA1_Channel6_IRQHandler
+                0x08005ff0                RCC_IRQHandler
+                0x08005ff0                TIM1_TRG_COM_IRQHandler
+                0x08005ff0                DMA1_Channel1_IRQHandler
+                0x08005ff0                Default_Handler
+                0x08005ff0                EXTI15_10_IRQHandler
+                0x08005ff0                EXTI9_5_IRQHandler
+                0x08005ff0                SPI2_IRQHandler
+                0x08005ff0                DMA1_Channel5_IRQHandler
+                0x08005ff0                EXTI4_IRQHandler
+                0x08005ff0                USB_LP_CAN1_RX0_IRQHandler
+                0x08005ff0                USB_HP_CAN1_TX_IRQHandler
+                0x08005ff0                DMA1_Channel3_IRQHandler
+                0x08005ff0                WWDG_IRQHandler
+                0x08005ff0                TIM1_BRK_IRQHandler
+                0x08005ff0                EXTI1_IRQHandler
+                0x08005ff0                USART2_IRQHandler
+                0x08005ff0                I2C2_ER_IRQHandler
+                0x08005ff0                DMA1_Channel2_IRQHandler
+                0x08005ff0                CAN1_SCE_IRQHandler
+                0x08005ff0                FLASH_IRQHandler
+                0x08005ff0                I2C1_ER_IRQHandler
+                0x08005ff0                USBWakeUp_IRQHandler
+ *fill*         0x08005ff2        0x2 
  .text.HAL_MspInit
-                0x08005f80       0x90 Src/stm32f1xx_hal_msp.o
-                0x08005f80                HAL_MspInit
+                0x08005ff4       0x90 Src/stm32f1xx_hal_msp.o
+                0x08005ff4                HAL_MspInit
  .text.HAL_InitTick
-                0x08006010       0x7c Src/stm32f1xx_hal_timebase_TIM.o
-                0x08006010                HAL_InitTick
+                0x08006084       0x7c Src/stm32f1xx_hal_timebase_TIM.o
+                0x08006084                HAL_InitTick
  .text.NMI_Handler
-                0x0800608c        0x4 Src/stm32f1xx_it.o
-                0x0800608c                NMI_Handler
+                0x08006100        0x4 Src/stm32f1xx_it.o
+                0x08006100                NMI_Handler
  .text.HardFault_Handler
-                0x08006090       0x3c Src/stm32f1xx_it.o
-                0x08006090                HardFault_Handler
+                0x08006104       0x3c Src/stm32f1xx_it.o
+                0x08006104                HardFault_Handler
  .text.MemManage_Handler
-                0x080060cc        0x4 Src/stm32f1xx_it.o
-                0x080060cc                MemManage_Handler
+                0x08006140        0x4 Src/stm32f1xx_it.o
+                0x08006140                MemManage_Handler
  .text.BusFault_Handler
-                0x080060d0        0x4 Src/stm32f1xx_it.o
-                0x080060d0                BusFault_Handler
+                0x08006144        0x4 Src/stm32f1xx_it.o
+                0x08006144                BusFault_Handler
  .text.UsageFault_Handler
-                0x080060d4        0x4 Src/stm32f1xx_it.o
-                0x080060d4                UsageFault_Handler
+                0x08006148        0x4 Src/stm32f1xx_it.o
+                0x08006148                UsageFault_Handler
  .text.DebugMon_Handler
-                0x080060d8        0x4 Src/stm32f1xx_it.o
-                0x080060d8                DebugMon_Handler
+                0x0800614c        0x4 Src/stm32f1xx_it.o
+                0x0800614c                DebugMon_Handler
  .text.SysTick_Handler
-                0x080060dc        0x4 Src/stm32f1xx_it.o
-                0x080060dc                SysTick_Handler
+                0x08006150        0x4 Src/stm32f1xx_it.o
+                0x08006150                SysTick_Handler
  .text.ADC1_2_IRQHandler
-                0x080060e0        0xc Src/stm32f1xx_it.o
-                0x080060e0                ADC1_2_IRQHandler
+                0x08006154        0xc Src/stm32f1xx_it.o
+                0x08006154                ADC1_2_IRQHandler
  .text.TIM1_UP_IRQHandler
-                0x080060ec        0xc Src/stm32f1xx_it.o
-                0x080060ec                TIM1_UP_IRQHandler
+                0x08006160        0xc Src/stm32f1xx_it.o
+                0x08006160                TIM1_UP_IRQHandler
  .text.TIM2_IRQHandler
-                0x080060f8        0xc Src/stm32f1xx_it.o
-                0x080060f8                TIM2_IRQHandler
+                0x0800616c        0xc Src/stm32f1xx_it.o
+                0x0800616c                TIM2_IRQHandler
  .text.TIM3_IRQHandler
-                0x08006104        0xc Src/stm32f1xx_it.o
-                0x08006104                TIM3_IRQHandler
+                0x08006178        0xc Src/stm32f1xx_it.o
+                0x08006178                TIM3_IRQHandler
  .text.SPI1_IRQHandler
-                0x08006110        0xc Src/stm32f1xx_it.o
-                0x08006110                SPI1_IRQHandler
+                0x08006184        0xc Src/stm32f1xx_it.o
+                0x08006184                SPI1_IRQHandler
  .text.USART1_IRQHandler
-                0x0800611c        0xc Src/stm32f1xx_it.o
-                0x0800611c                USART1_IRQHandler
- .text.putc_    0x08006128       0x20 Src/stuff.o
-                0x08006128                putc_
+                0x08006190        0xc Src/stm32f1xx_it.o
+                0x08006190                USART1_IRQHandler
+ .text.putc_    0x0800619c       0x20 Src/stuff.o
+                0x0800619c                putc_
  .text.SystemInit
-                0x08006148       0x50 Src/system_stm32f1xx.o
-                0x08006148                SystemInit
+                0x080061bc       0x50 Src/system_stm32f1xx.o
+                0x080061bc                SystemInit
  .text.HAL_TIM_MspPostInit.part.0
-                0x08006198       0x20 Src/tim.o
+                0x0800620c       0x20 Src/tim.o
  .text.MX_TIM2_Init
-                0x080061b8       0xd8 Src/tim.o
-                0x080061b8                MX_TIM2_Init
+                0x0800622c       0xd8 Src/tim.o
+                0x0800622c                MX_TIM2_Init
  .text.MX_TIM3_Init
-                0x08006290       0x6c Src/tim.o
-                0x08006290                MX_TIM3_Init
+                0x08006304       0x6c Src/tim.o
+                0x08006304                MX_TIM3_Init
  .text.HAL_TIM_Base_MspInit
-                0x080062fc       0x40 Src/tim.o
-                0x080062fc                HAL_TIM_Base_MspInit
+                0x08006370       0x40 Src/tim.o
+                0x08006370                HAL_TIM_Base_MspInit
  .text.HAL_TIM_IC_MspInit
-                0x0800633c       0x44 Src/tim.o
-                0x0800633c                HAL_TIM_IC_MspInit
+                0x080063b0       0x44 Src/tim.o
+                0x080063b0                HAL_TIM_IC_MspInit
  .text.MX_USART1_UART_Init
-                0x08006380       0x38 Src/usart.o
-                0x08006380                MX_USART1_UART_Init
+                0x080063f4       0x38 Src/usart.o
+                0x080063f4                MX_USART1_UART_Init
  .text.HAL_UART_MspInit
-                0x080063b8       0x6c Src/usart.o
-                0x080063b8                HAL_UART_MspInit
- .text.memcpy   0x08006424       0x16 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc_nano.a(lib_a-memcpy-stub.o)
-                0x08006424                memcpy
+                0x0800642c       0x6c Src/usart.o
+                0x0800642c                HAL_UART_MspInit
+ .text.memcpy   0x08006498       0x16 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc_nano.a(lib_a-memcpy-stub.o)
+                0x08006498                memcpy
  *(.glue_7)
- .glue_7        0x0800643a        0x0 linker stubs
+ .glue_7        0x080064ae        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0800643a        0x0 linker stubs
+ .glue_7t       0x080064ae        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x0800643a        0x2 
- .eh_frame      0x0800643c        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+ *fill*         0x080064ae        0x2 
+ .eh_frame      0x080064b0        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
  *(.init)
- .init          0x0800643c        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
-                0x0800643c                _init
- .init          0x08006440        0x8 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
+ .init          0x080064b0        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
+                0x080064b0                _init
+ .init          0x080064b4        0x8 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
  *(.fini)
- .fini          0x08006448        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
-                0x08006448                _fini
- .fini          0x0800644c        0x8 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
-                0x08006454                . = ALIGN (0x4)
-                0x08006454                _etext = .
+ .fini          0x080064bc        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
+                0x080064bc                _fini
+ .fini          0x080064c0        0x8 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
+                0x080064c8                . = ALIGN (0x4)
+                0x080064c8                _etext = .
 
-.vfp11_veneer   0x08006454        0x0
- .vfp11_veneer  0x08006454        0x0 linker stubs
+.vfp11_veneer   0x080064c8        0x0
+ .vfp11_veneer  0x080064c8        0x0 linker stubs
 
-.v4_bx          0x08006454        0x0
- .v4_bx         0x08006454        0x0 linker stubs
+.v4_bx          0x080064c8        0x0
+ .v4_bx         0x080064c8        0x0 linker stubs
 
-.iplt           0x08006454        0x0
- .iplt          0x08006454        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+.iplt           0x080064c8        0x0
+ .iplt          0x080064c8        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
 
-.rodata         0x08006454      0x5f0
-                0x08006454                . = ALIGN (0x4)
+.rodata         0x080064c8      0x5f0
+                0x080064c8                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x08006454       0x12 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
- *fill*         0x08006466        0x2 
- .rodata        0x08006468       0x12 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o
- *fill*         0x0800647a        0x2 
- .rodata        0x0800647c       0x27 Src/analog.o
- *fill*         0x080064a3        0x1 
- .rodata        0x080064a4       0x70 Src/freertos.o
- .rodata        0x08006514       0x16 Src/moistureMeasure.o
- *fill*         0x0800652a        0x2 
- .rodata        0x0800652c       0x3e Src/motors.o
-                0x0800654c                os_messageQ_def_motorCtrlQueue
-                0x08006554                os_pool_def_motorCtrlPool
- *fill*         0x0800656a        0x2 
- .rodata        0x0800656c        0xa Src/relais.o
-                0x0800656c                _pinList
- *fill*         0x08006576        0x2 
- .rodata        0x08006578       0x20 Src/sensor.o
-                0x08006584                os_messageQ_def__sensorQueue
-                0x0800658c                os_pool_def__sensorPool
- .rodata        0x08006598       0x7f Src/spicomm.o
-                0x08006598                os_messageQ_def__spiSendQueue
-                0x080065a0                os_messageQ_def__spiRecvQueue
-                0x080065a8                os_pool_def__spiSendPool
-                0x080065b4                os_pool_def__spiRecvPool
- *fill*         0x08006617        0x1 
- .rodata        0x08006618       0x12 Src/stm32f1xx_it.o
- *fill*         0x0800662a        0x2 
- .rodata        0x0800662c       0x18 Src/system_stm32f1xx.o
-                0x0800662c                AHBPrescTable
-                0x0800663c                APBPrescTable
+ .rodata        0x080064c8       0x12 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
+ *fill*         0x080064da        0x2 
+ .rodata        0x080064dc       0x12 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o
+ *fill*         0x080064ee        0x2 
+ .rodata        0x080064f0       0x27 Src/analog.o
+ *fill*         0x08006517        0x1 
+ .rodata        0x08006518       0x70 Src/freertos.o
+ .rodata        0x08006588       0x16 Src/moistureMeasure.o
+ *fill*         0x0800659e        0x2 
+ .rodata        0x080065a0       0x3e Src/motors.o
+                0x080065c0                os_messageQ_def_motorCtrlQueue
+                0x080065c8                os_pool_def_motorCtrlPool
+ *fill*         0x080065de        0x2 
+ .rodata        0x080065e0        0xa Src/relais.o
+                0x080065e0                _pinList
+ *fill*         0x080065ea        0x2 
+ .rodata        0x080065ec       0x20 Src/sensor.o
+                0x080065f8                os_messageQ_def__sensorQueue
+                0x08006600                os_pool_def__sensorPool
+ .rodata        0x0800660c       0x7f Src/spicomm.o
+                0x0800660c                os_messageQ_def__spiSendQueue
+                0x08006614                os_messageQ_def__spiRecvQueue
+                0x0800661c                os_pool_def__spiSendPool
+                0x08006628                os_pool_def__spiRecvPool
+ *fill*         0x0800668b        0x1 
+ .rodata        0x0800668c       0x12 Src/stm32f1xx_it.o
+ *fill*         0x0800669e        0x2 
+ .rodata        0x080066a0       0x18 Src/system_stm32f1xx.o
+                0x080066a0                AHBPrescTable
+                0x080066b0                APBPrescTable
  *(.rodata*)
  .rodata.str1.4
-                0x08006644        0x5 Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- *fill*         0x08006649        0x3 
+                0x080066b8        0x5 Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ *fill*         0x080066bd        0x3 
  .rodata.str1.4
-                0x0800664c       0x4c Src/analog.o
+                0x080066c0       0x4c Src/analog.o
  .rodata.str1.4
-                0x08006698       0x2a Src/dht22.o
- *fill*         0x080066c2        0x2 
+                0x0800670c       0x2a Src/dht22.o
+ *fill*         0x08006736        0x2 
  .rodata.str1.4
-                0x080066c4       0xb4 Src/freertos.o
+                0x08006738       0xb4 Src/freertos.o
                                  0xc0 (size before relaxing)
  .rodata.str1.4
-                0x08006778       0x49 Src/moistureMeasure.o
+                0x080067ec       0x49 Src/moistureMeasure.o
                                  0x79 (size before relaxing)
- *fill*         0x080067c1        0x3 
+ *fill*         0x08006835        0x3 
  .rodata.str1.4
-                0x080067c4      0x13c Src/motors.o
+                0x08006838      0x13c Src/motors.o
                                 0x174 (size before relaxing)
  .rodata.str1.4
-                0x08006900        0x7 Src/relais.o
+                0x08006974        0x7 Src/relais.o
                                  0x2a (size before relaxing)
- *fill*         0x08006907        0x1 
+ *fill*         0x0800697b        0x1 
  .rodata.str1.4
-                0x08006908       0x1c Src/sensor.o
+                0x0800697c       0x1c Src/sensor.o
                                  0x5e (size before relaxing)
  .rodata.str1.4
-                0x08006924      0x114 Src/spicomm.o
+                0x08006998      0x114 Src/spicomm.o
                                 0x16c (size before relaxing)
  .rodata.str1.4
-                0x08006a38        0xc Src/stm32f1xx_it.o
+                0x08006aac        0xc Src/stm32f1xx_it.o
                                  0x17 (size before relaxing)
-                0x08006a44                . = ALIGN (0x4)
+                0x08006ab8                . = ALIGN (0x4)
 
-.rel.dyn        0x08006a44        0x0
- .rel.iplt      0x08006a44        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+.rel.dyn        0x08006ab8        0x0
+ .rel.iplt      0x08006ab8        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x08006a44        0x0
-                0x08006a44                __exidx_start = .
+.ARM            0x08006ab8        0x0
+                0x08006ab8                __exidx_start = .
  *(.ARM.exidx*)
-                0x08006a44                __exidx_end = .
+                0x08006ab8                __exidx_end = .
 
-.preinit_array  0x08006a44        0x0
-                0x08006a44                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x08006ab8        0x0
+                0x08006ab8                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x08006a44                PROVIDE (__preinit_array_end, .)
+                0x08006ab8                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x08006a44        0x4
-                0x08006a44                PROVIDE (__init_array_start, .)
+.init_array     0x08006ab8        0x4
+                0x08006ab8                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array*)
- .init_array    0x08006a44        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
-                0x08006a48                PROVIDE (__init_array_end, .)
+ .init_array    0x08006ab8        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+                0x08006abc                PROVIDE (__init_array_end, .)
 
-.fini_array     0x08006a48        0x4
+.fini_array     0x08006abc        0x4
                 [!provide]                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x08006a48        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+ .fini_array    0x08006abc        0x4 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
                 [!provide]                PROVIDE (__fini_array_end, .)
-                0x08006a4c                _sidata = LOADADDR (.data)
+                0x08006ac0                _sidata = LOADADDR (.data)
 
-.data           0x20000000       0x2c load address 0x08006a4c
+.data           0x20000000       0x2c load address 0x08006ac0
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _sdata = .
  *(.data)
@@ -8081,14 +8084,14 @@ LOAD /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
                 0x2000002c                . = ALIGN (0x4)
                 0x2000002c                _edata = .
 
-.jcr            0x2000002c        0x0 load address 0x08006a78
+.jcr            0x2000002c        0x0 load address 0x08006aec
  .jcr           0x2000002c        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
 
-.igot.plt       0x2000002c        0x0 load address 0x08006a78
+.igot.plt       0x2000002c        0x0 load address 0x08006aec
  .igot.plt      0x2000002c        0x0 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
                 0x2000002c                . = ALIGN (0x4)
 
-.bss            0x2000002c     0x23d8 load address 0x08006a78
+.bss            0x2000002c     0x23d8 load address 0x08006aec
                 0x2000002c                _sbss = .
                 0x2000002c                __bss_start__ = _sbss
  *(.bss)
@@ -8161,7 +8164,7 @@ LOAD /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
                 0x20002404                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20002404     0x2404 load address 0x08006a78
+                0x20002404     0x2404 load address 0x08006aec
                 0x20002408                . = ALIGN (0x8)
  *fill*         0x20002404        0x4 
                 [!provide]                PROVIDE (end, .)
@@ -8276,7 +8279,7 @@ LOAD /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
                 0x000008f6       0x1d /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
 OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x1e7db
+.debug_info     0x00000000    0x1e99d
  .debug_info    0x00000000      0x686 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_info    0x00000686      0xf9c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_info    0x00001622      0xc4b Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8305,23 +8308,23 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_info    0x000149f3      0x668 Src/isr_motor.o
  .debug_info    0x0001505b      0x27b Src/iwdg.o
  .debug_info    0x000152d6      0xbe7 Src/main.o
- .debug_info    0x00015ebd      0xa87 Src/moistureMeasure.o
- .debug_info    0x00016944     0x124a Src/motors.o
- .debug_info    0x00017b8e      0x2ca Src/printf.o
- .debug_info    0x00017e58      0x3dc Src/relais.o
- .debug_info    0x00018234      0x870 Src/sensor.o
- .debug_info    0x00018aa4      0x954 Src/spi.o
- .debug_info    0x000193f8     0x13d2 Src/spicomm.o
- .debug_info    0x0001a7ca       0x79 Src/startup_stm32f103xb.o
- .debug_info    0x0001a843      0x436 Src/stm32f1xx_hal_msp.o
- .debug_info    0x0001ac79      0x8c7 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_info    0x0001b540      0xd96 Src/stm32f1xx_it.o
- .debug_info    0x0001c2d6      0xa91 Src/stuff.o
- .debug_info    0x0001cd67      0x3eb Src/system_stm32f1xx.o
- .debug_info    0x0001d152      0xd9e Src/tim.o
- .debug_info    0x0001def0      0x8eb Src/usart.o
+ .debug_info    0x00015ebd      0xa58 Src/moistureMeasure.o
+ .debug_info    0x00016915     0x124a Src/motors.o
+ .debug_info    0x00017b5f      0x2ca Src/printf.o
+ .debug_info    0x00017e29      0x3dc Src/relais.o
+ .debug_info    0x00018205      0xa1b Src/sensor.o
+ .debug_info    0x00018c20      0x954 Src/spi.o
+ .debug_info    0x00019574     0x1418 Src/spicomm.o
+ .debug_info    0x0001a98c       0x79 Src/startup_stm32f103xb.o
+ .debug_info    0x0001aa05      0x436 Src/stm32f1xx_hal_msp.o
+ .debug_info    0x0001ae3b      0x8c7 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_info    0x0001b702      0xd96 Src/stm32f1xx_it.o
+ .debug_info    0x0001c498      0xa91 Src/stuff.o
+ .debug_info    0x0001cf29      0x3eb Src/system_stm32f1xx.o
+ .debug_info    0x0001d314      0xd9e Src/tim.o
+ .debug_info    0x0001e0b2      0x8eb Src/usart.o
 
-.debug_abbrev   0x00000000     0x5bdd
+.debug_abbrev   0x00000000     0x5c3f
  .debug_abbrev  0x00000000      0x22f Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_abbrev  0x0000022f      0x2cb Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_abbrev  0x000004fa      0x28f Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8350,23 +8353,23 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_abbrev  0x00003984      0x180 Src/isr_motor.o
  .debug_abbrev  0x00003b04      0x11b Src/iwdg.o
  .debug_abbrev  0x00003c1f      0x23a Src/main.o
- .debug_abbrev  0x00003e59      0x29b Src/moistureMeasure.o
- .debug_abbrev  0x000040f4      0x39c Src/motors.o
- .debug_abbrev  0x00004490      0x171 Src/printf.o
- .debug_abbrev  0x00004601      0x19a Src/relais.o
- .debug_abbrev  0x0000479b      0x2ab Src/sensor.o
- .debug_abbrev  0x00004a46      0x1b9 Src/spi.o
- .debug_abbrev  0x00004bff      0x339 Src/spicomm.o
- .debug_abbrev  0x00004f38       0x12 Src/startup_stm32f103xb.o
- .debug_abbrev  0x00004f4a      0x124 Src/stm32f1xx_hal_msp.o
- .debug_abbrev  0x0000506e      0x1d2 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_abbrev  0x00005240      0x218 Src/stm32f1xx_it.o
- .debug_abbrev  0x00005458      0x24b Src/stuff.o
- .debug_abbrev  0x000056a3      0x125 Src/system_stm32f1xx.o
- .debug_abbrev  0x000057c8      0x25c Src/tim.o
- .debug_abbrev  0x00005a24      0x1b9 Src/usart.o
+ .debug_abbrev  0x00003e59      0x244 Src/moistureMeasure.o
+ .debug_abbrev  0x0000409d      0x39c Src/motors.o
+ .debug_abbrev  0x00004439      0x171 Src/printf.o
+ .debug_abbrev  0x000045aa      0x19a Src/relais.o
+ .debug_abbrev  0x00004744      0x364 Src/sensor.o
+ .debug_abbrev  0x00004aa8      0x1b9 Src/spi.o
+ .debug_abbrev  0x00004c61      0x339 Src/spicomm.o
+ .debug_abbrev  0x00004f9a       0x12 Src/startup_stm32f103xb.o
+ .debug_abbrev  0x00004fac      0x124 Src/stm32f1xx_hal_msp.o
+ .debug_abbrev  0x000050d0      0x1d2 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_abbrev  0x000052a2      0x218 Src/stm32f1xx_it.o
+ .debug_abbrev  0x000054ba      0x24b Src/stuff.o
+ .debug_abbrev  0x00005705      0x125 Src/system_stm32f1xx.o
+ .debug_abbrev  0x0000582a      0x25c Src/tim.o
+ .debug_abbrev  0x00005a86      0x1b9 Src/usart.o
 
-.debug_loc      0x00000000    0x105d6
+.debug_loc      0x00000000    0x1086b
  .debug_loc     0x00000000       0x81 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_loc     0x00000081      0xb26 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_loc     0x00000ba7      0x8bf Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8393,18 +8396,18 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_loc     0x0000f153       0x3a Src/isr_moisture.o
  .debug_loc     0x0000f18d       0x21 Src/isr_motor.o
  .debug_loc     0x0000f1ae       0x74 Src/main.o
- .debug_loc     0x0000f222      0x234 Src/moistureMeasure.o
- .debug_loc     0x0000f456      0x3a7 Src/motors.o
- .debug_loc     0x0000f7fd      0x598 Src/printf.o
- .debug_loc     0x0000fd95      0x1bc Src/relais.o
- .debug_loc     0x0000ff51       0xc7 Src/sensor.o
- .debug_loc     0x00010018       0x42 Src/spi.o
- .debug_loc     0x0001005a      0x234 Src/spicomm.o
- .debug_loc     0x0001028e       0x7a Src/stm32f1xx_hal_timebase_TIM.o
- .debug_loc     0x00010308       0xf2 Src/stuff.o
- .debug_loc     0x000103fa       0xcd Src/system_stm32f1xx.o
- .debug_loc     0x000104c7       0xcd Src/tim.o
- .debug_loc     0x00010594       0x42 Src/usart.o
+ .debug_loc     0x0000f222      0x21f Src/moistureMeasure.o
+ .debug_loc     0x0000f441      0x3a7 Src/motors.o
+ .debug_loc     0x0000f7e8      0x598 Src/printf.o
+ .debug_loc     0x0000fd80      0x1bc Src/relais.o
+ .debug_loc     0x0000ff3c      0x353 Src/sensor.o
+ .debug_loc     0x0001028f       0x42 Src/spi.o
+ .debug_loc     0x000102d1      0x252 Src/spicomm.o
+ .debug_loc     0x00010523       0x7a Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_loc     0x0001059d       0xf2 Src/stuff.o
+ .debug_loc     0x0001068f       0xcd Src/system_stm32f1xx.o
+ .debug_loc     0x0001075c       0xcd Src/tim.o
+ .debug_loc     0x00010829       0x42 Src/usart.o
 
 .debug_aranges  0x00000000     0x13c0
  .debug_aranges
@@ -8464,15 +8467,15 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_aranges
                 0x00000fb0       0x40 Src/main.o
  .debug_aranges
-                0x00000ff0       0x60 Src/moistureMeasure.o
+                0x00000ff0       0x50 Src/moistureMeasure.o
  .debug_aranges
-                0x00001050       0x58 Src/motors.o
+                0x00001040       0x58 Src/motors.o
  .debug_aranges
-                0x000010a8       0x40 Src/printf.o
+                0x00001098       0x40 Src/printf.o
  .debug_aranges
-                0x000010e8       0x40 Src/relais.o
+                0x000010d8       0x40 Src/relais.o
  .debug_aranges
-                0x00001128       0x40 Src/sensor.o
+                0x00001118       0x50 Src/sensor.o
  .debug_aranges
                 0x00001168       0x30 Src/spi.o
  .debug_aranges
@@ -8494,7 +8497,7 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_aranges
                 0x00001390       0x30 Src/usart.o
 
-.debug_ranges   0x00000000     0x1e90
+.debug_ranges   0x00000000     0x1f10
  .debug_ranges  0x00000000       0xb0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_ranges  0x000000b0       0xd0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_ranges  0x00000180       0xa0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8523,23 +8526,23 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_ranges  0x00001978       0x40 Src/isr_motor.o
  .debug_ranges  0x000019b8       0x10 Src/iwdg.o
  .debug_ranges  0x000019c8       0x30 Src/main.o
- .debug_ranges  0x000019f8       0x50 Src/moistureMeasure.o
- .debug_ranges  0x00001a48       0x78 Src/motors.o
- .debug_ranges  0x00001ac0       0x30 Src/printf.o
- .debug_ranges  0x00001af0       0x30 Src/relais.o
- .debug_ranges  0x00001b20       0x78 Src/sensor.o
- .debug_ranges  0x00001b98       0x50 Src/spi.o
- .debug_ranges  0x00001be8       0x58 Src/spicomm.o
- .debug_ranges  0x00001c40       0x20 Src/startup_stm32f103xb.o
- .debug_ranges  0x00001c60       0x38 Src/stm32f1xx_hal_msp.o
- .debug_ranges  0x00001c98       0x48 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_ranges  0x00001ce0       0x68 Src/stm32f1xx_it.o
- .debug_ranges  0x00001d48       0x28 Src/stuff.o
- .debug_ranges  0x00001d70       0x18 Src/system_stm32f1xx.o
- .debug_ranges  0x00001d88       0xc0 Src/tim.o
- .debug_ranges  0x00001e48       0x48 Src/usart.o
+ .debug_ranges  0x000019f8       0x40 Src/moistureMeasure.o
+ .debug_ranges  0x00001a38       0x78 Src/motors.o
+ .debug_ranges  0x00001ab0       0x30 Src/printf.o
+ .debug_ranges  0x00001ae0       0x30 Src/relais.o
+ .debug_ranges  0x00001b10       0xc0 Src/sensor.o
+ .debug_ranges  0x00001bd0       0x50 Src/spi.o
+ .debug_ranges  0x00001c20       0xa0 Src/spicomm.o
+ .debug_ranges  0x00001cc0       0x20 Src/startup_stm32f103xb.o
+ .debug_ranges  0x00001ce0       0x38 Src/stm32f1xx_hal_msp.o
+ .debug_ranges  0x00001d18       0x48 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_ranges  0x00001d60       0x68 Src/stm32f1xx_it.o
+ .debug_ranges  0x00001dc8       0x28 Src/stuff.o
+ .debug_ranges  0x00001df0       0x18 Src/system_stm32f1xx.o
+ .debug_ranges  0x00001e08       0xc0 Src/tim.o
+ .debug_ranges  0x00001ec8       0x48 Src/usart.o
 
-.debug_macro    0x00000000    0x20ab7
+.debug_macro    0x00000000    0x20aad
  .debug_macro   0x00000000      0x320 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_macro   0x00000320      0x880 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_macro   0x00000ba0      0x1ea Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
@@ -8652,29 +8655,29 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_macro   0x0001c467      0x497 Src/freertos.o
  .debug_macro   0x0001c8fe       0x3a Src/freertos.o
  .debug_macro   0x0001c938      0x306 Src/gpio.o
- .debug_macro   0x0001cc3e      0x322 Src/isr_moisture.o
- .debug_macro   0x0001cf60      0x3cc Src/isr_motor.o
- .debug_macro   0x0001d32c       0xd2 Src/isr_motor.o
- .debug_macro   0x0001d3fe      0x306 Src/iwdg.o
- .debug_macro   0x0001d704      0x482 Src/main.o
- .debug_macro   0x0001db86       0x4c Src/main.o
- .debug_macro   0x0001dbd2      0x43a Src/moistureMeasure.o
- .debug_macro   0x0001e00c      0x419 Src/motors.o
- .debug_macro   0x0001e425       0x1a Src/printf.o
- .debug_macro   0x0001e43f       0x58 Src/printf.o
- .debug_macro   0x0001e497      0x34d Src/relais.o
- .debug_macro   0x0001e7e4      0x445 Src/sensor.o
- .debug_macro   0x0001ec29      0x310 Src/spi.o
- .debug_macro   0x0001ef39      0x48c Src/spicomm.o
- .debug_macro   0x0001f3c5      0x2fc Src/stm32f1xx_hal_msp.o
- .debug_macro   0x0001f6c1      0x2fc Src/stm32f1xx_hal_timebase_TIM.o
- .debug_macro   0x0001f9bd      0x3fa Src/stm32f1xx_it.o
- .debug_macro   0x0001fdb7      0x3de Src/stuff.o
- .debug_macro   0x00020195      0x302 Src/system_stm32f1xx.o
- .debug_macro   0x00020497      0x310 Src/tim.o
- .debug_macro   0x000207a7      0x310 Src/usart.o
+ .debug_macro   0x0001cc3e      0x318 Src/isr_moisture.o
+ .debug_macro   0x0001cf56      0x3cc Src/isr_motor.o
+ .debug_macro   0x0001d322       0xd2 Src/isr_motor.o
+ .debug_macro   0x0001d3f4      0x306 Src/iwdg.o
+ .debug_macro   0x0001d6fa      0x482 Src/main.o
+ .debug_macro   0x0001db7c       0x4c Src/main.o
+ .debug_macro   0x0001dbc8      0x43a Src/moistureMeasure.o
+ .debug_macro   0x0001e002      0x419 Src/motors.o
+ .debug_macro   0x0001e41b       0x1a Src/printf.o
+ .debug_macro   0x0001e435       0x58 Src/printf.o
+ .debug_macro   0x0001e48d      0x34d Src/relais.o
+ .debug_macro   0x0001e7da      0x445 Src/sensor.o
+ .debug_macro   0x0001ec1f      0x310 Src/spi.o
+ .debug_macro   0x0001ef2f      0x48c Src/spicomm.o
+ .debug_macro   0x0001f3bb      0x2fc Src/stm32f1xx_hal_msp.o
+ .debug_macro   0x0001f6b7      0x2fc Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_macro   0x0001f9b3      0x3fa Src/stm32f1xx_it.o
+ .debug_macro   0x0001fdad      0x3de Src/stuff.o
+ .debug_macro   0x0002018b      0x302 Src/system_stm32f1xx.o
+ .debug_macro   0x0002048d      0x310 Src/tim.o
+ .debug_macro   0x0002079d      0x310 Src/usart.o
 
-.debug_line     0x00000000    0x1ccd0
+.debug_line     0x00000000    0x1cd24
  .debug_line    0x00000000      0x9c0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_line    0x000009c0      0xf14 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_line    0x000018d4      0xd7a Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8699,27 +8702,27 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_line    0x0001007d      0xba3 Src/dht22.o
  .debug_line    0x00010c20      0xb84 Src/freertos.o
  .debug_line    0x000117a4      0x893 Src/gpio.o
- .debug_line    0x00012037      0x8bc Src/isr_moisture.o
- .debug_line    0x000128f3      0xacc Src/isr_motor.o
- .debug_line    0x000133bf      0x84f Src/iwdg.o
- .debug_line    0x00013c0e      0xb91 Src/main.o
- .debug_line    0x0001479f      0xb81 Src/moistureMeasure.o
- .debug_line    0x00015320      0xbd0 Src/motors.o
- .debug_line    0x00015ef0      0x219 Src/printf.o
- .debug_line    0x00016109      0x8f0 Src/relais.o
- .debug_line    0x000169f9      0xb98 Src/sensor.o
- .debug_line    0x00017591      0x8c5 Src/spi.o
- .debug_line    0x00017e56      0xbfe Src/spicomm.o
- .debug_line    0x00018a54       0x78 Src/startup_stm32f103xb.o
- .debug_line    0x00018acc      0x85b Src/stm32f1xx_hal_msp.o
- .debug_line    0x00019327      0x8a2 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_line    0x00019bc9      0xb4c Src/stm32f1xx_it.o
- .debug_line    0x0001a715      0xada Src/stuff.o
- .debug_line    0x0001b1ef      0x899 Src/system_stm32f1xx.o
- .debug_line    0x0001ba88      0x98c Src/tim.o
- .debug_line    0x0001c414      0x8bc Src/usart.o
+ .debug_line    0x00012037      0x8b1 Src/isr_moisture.o
+ .debug_line    0x000128e8      0xacc Src/isr_motor.o
+ .debug_line    0x000133b4      0x84f Src/iwdg.o
+ .debug_line    0x00013c03      0xb91 Src/main.o
+ .debug_line    0x00014794      0xb5e Src/moistureMeasure.o
+ .debug_line    0x000152f2      0xbd0 Src/motors.o
+ .debug_line    0x00015ec2      0x219 Src/printf.o
+ .debug_line    0x000160db      0x8f0 Src/relais.o
+ .debug_line    0x000169cb      0xc0a Src/sensor.o
+ .debug_line    0x000175d5      0x8c5 Src/spi.o
+ .debug_line    0x00017e9a      0xc0e Src/spicomm.o
+ .debug_line    0x00018aa8       0x78 Src/startup_stm32f103xb.o
+ .debug_line    0x00018b20      0x85b Src/stm32f1xx_hal_msp.o
+ .debug_line    0x0001937b      0x8a2 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_line    0x00019c1d      0xb4c Src/stm32f1xx_it.o
+ .debug_line    0x0001a769      0xada Src/stuff.o
+ .debug_line    0x0001b243      0x899 Src/system_stm32f1xx.o
+ .debug_line    0x0001badc      0x98c Src/tim.o
+ .debug_line    0x0001c468      0x8bc Src/usart.o
 
-.debug_str      0x00000000    0x9d585
+.debug_str      0x00000000    0x9d5e1
  .debug_str     0x00000000    0x90e82 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
                               0x91324 (size before relaxing)
  .debug_str     0x00090e82      0x623 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
@@ -8769,40 +8772,40 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_str     0x0009c5de       0x1b Src/gpio.o
                               0x90d05 (size before relaxing)
  .debug_str     0x0009c5f9      0x105 Src/isr_moisture.o
-                              0x910d3 (size before relaxing)
+                              0x910c5 (size before relaxing)
  .debug_str     0x0009c6fe      0x17b Src/isr_motor.o
                               0x968d7 (size before relaxing)
  .debug_str     0x0009c879       0x25 Src/iwdg.o
                               0x90d84 (size before relaxing)
  .debug_str     0x0009c89e      0x22e Src/main.o
                               0x970b2 (size before relaxing)
- .debug_str     0x0009cacc      0x195 Src/moistureMeasure.o
-                              0x96b28 (size before relaxing)
- .debug_str     0x0009cc61      0x1b3 Src/motors.o
+ .debug_str     0x0009cacc      0x1d9 Src/moistureMeasure.o
+                              0x96b79 (size before relaxing)
+ .debug_str     0x0009cca5      0x1b3 Src/motors.o
                               0x96e51 (size before relaxing)
- .debug_str     0x0009ce14      0x148 Src/printf.o
+ .debug_str     0x0009ce58      0x148 Src/printf.o
                                0x26af (size before relaxing)
- .debug_str     0x0009cf5c       0xde Src/relais.o
+ .debug_str     0x0009cfa0       0xde Src/relais.o
                               0x90ebf (size before relaxing)
- .debug_str     0x0009d03a      0x114 Src/sensor.o
-                              0x96991 (size before relaxing)
- .debug_str     0x0009d14e       0x2f Src/spi.o
+ .debug_str     0x0009d07e      0x12c Src/sensor.o
+                              0x96a16 (size before relaxing)
+ .debug_str     0x0009d1aa       0x2f Src/spi.o
                               0x91407 (size before relaxing)
- .debug_str     0x0009d17d      0x124 Src/spicomm.o
+ .debug_str     0x0009d1d9      0x124 Src/spicomm.o
                               0x96ed6 (size before relaxing)
- .debug_str     0x0009d2a1       0x27 Src/stm32f1xx_hal_msp.o
+ .debug_str     0x0009d2fd       0x27 Src/stm32f1xx_hal_msp.o
                               0x90fa4 (size before relaxing)
- .debug_str     0x0009d2c8       0x61 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_str     0x0009d324       0x61 Src/stm32f1xx_hal_timebase_TIM.o
                               0x91459 (size before relaxing)
- .debug_str     0x0009d329       0xda Src/stm32f1xx_it.o
+ .debug_str     0x0009d385       0xda Src/stm32f1xx_it.o
                               0x96c9e (size before relaxing)
- .debug_str     0x0009d403       0x3e Src/stuff.o
+ .debug_str     0x0009d45f       0x3e Src/stuff.o
                               0x968ac (size before relaxing)
- .debug_str     0x0009d441       0x61 Src/system_stm32f1xx.o
+ .debug_str     0x0009d49d       0x61 Src/system_stm32f1xx.o
                               0x90d44 (size before relaxing)
- .debug_str     0x0009d4a2       0xa5 Src/tim.o
+ .debug_str     0x0009d4fe       0xa5 Src/tim.o
                               0x91639 (size before relaxing)
- .debug_str     0x0009d547       0x3e Src/usart.o
+ .debug_str     0x0009d5a3       0x3e Src/usart.o
                               0x913e1 (size before relaxing)
 
 .comment        0x00000000       0x6e
@@ -8850,7 +8853,7 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .comment       0x0000006e       0x6f Src/tim.o
  .comment       0x0000006e       0x6f Src/usart.o
 
-.debug_frame    0x00000000     0x3cc4
+.debug_frame    0x00000000     0x3ce4
  .debug_frame   0x00000000      0x168 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_frame   0x00000168      0x2ec Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_frame   0x00000454      0x1b0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8879,18 +8882,18 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_frame   0x00003238       0x94 Src/isr_motor.o
  .debug_frame   0x000032cc       0x2c Src/iwdg.o
  .debug_frame   0x000032f8       0x7c Src/main.o
- .debug_frame   0x00003374       0xf0 Src/moistureMeasure.o
- .debug_frame   0x00003464       0xf0 Src/motors.o
- .debug_frame   0x00003554       0xd4 Src/printf.o
- .debug_frame   0x00003628       0x8c Src/relais.o
- .debug_frame   0x000036b4       0xa8 Src/sensor.o
- .debug_frame   0x0000375c       0x70 Src/spi.o
- .debug_frame   0x000037cc      0x138 Src/spicomm.o
- .debug_frame   0x00003904       0x2c Src/stm32f1xx_hal_msp.o
- .debug_frame   0x00003930       0x58 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_frame   0x00003988       0xe8 Src/stm32f1xx_it.o
- .debug_frame   0x00003a70       0x7c Src/stuff.o
- .debug_frame   0x00003aec       0x3c Src/system_stm32f1xx.o
- .debug_frame   0x00003b28      0x104 Src/tim.o
- .debug_frame   0x00003c2c       0x70 Src/usart.o
- .debug_frame   0x00003c9c       0x28 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00003374       0xe4 Src/moistureMeasure.o
+ .debug_frame   0x00003458       0xf0 Src/motors.o
+ .debug_frame   0x00003548       0xd4 Src/printf.o
+ .debug_frame   0x0000361c       0x8c Src/relais.o
+ .debug_frame   0x000036a8       0xd4 Src/sensor.o
+ .debug_frame   0x0000377c       0x70 Src/spi.o
+ .debug_frame   0x000037ec      0x138 Src/spicomm.o
+ .debug_frame   0x00003924       0x2c Src/stm32f1xx_hal_msp.o
+ .debug_frame   0x00003950       0x58 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_frame   0x000039a8       0xe8 Src/stm32f1xx_it.o
+ .debug_frame   0x00003a90       0x7c Src/stuff.o
+ .debug_frame   0x00003b0c       0x3c Src/system_stm32f1xx.o
+ .debug_frame   0x00003b48      0x104 Src/tim.o
+ .debug_frame   0x00003c4c       0x70 Src/usart.o
+ .debug_frame   0x00003cbc       0x28 /home/micha/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.11.0.201610101240/tools/gcc-arm-none-eabi-5_4-2016q2/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc_nano.a(lib_a-memcpy-stub.o)

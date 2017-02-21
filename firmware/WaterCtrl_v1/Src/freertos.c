@@ -142,7 +142,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
 
-	osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 64);
+	osThreadDef(Sensor, procSensor, osPriorityNormal, 1, 128);
 	SensorHandle = osThreadCreate(osThread(Sensor), NULL);
 
 #ifdef USEWATCHDOG
@@ -154,10 +154,10 @@ void MX_FREERTOS_Init(void) {
 	//osThreadDef(AliveTicker, procAliveTicker, osPriorityAboveNormal, 0, 64);
 	//AliveTickerHandle = osThreadCreate(osThread(AliveTicker), NULL);
 
-	osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 64);
+	osThreadDef(SpiBroker, procSpiBroker, osPriorityLow, 1, 128);
 	SpiBrokerHandle = osThreadCreate(osThread(SpiBroker), NULL);
 
-	osThreadDef(Motor, procMotor, osPriorityHigh, 1, 64);
+	osThreadDef(Motor, procMotor, osPriorityHigh, 1, 128);
 	MotorHandle = osThreadCreate(osThread(Motor), NULL);
 
 
