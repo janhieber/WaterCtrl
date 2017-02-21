@@ -16,6 +16,14 @@ typedef enum _eSensorType {
 	SENS_ANALOG_PA3   // ANALOG Input PA3
 }eSensorType;
 
+typedef enum _eSensorError {
+	SENS_ERR_NO,
+	SENS_ERR_BAD_PARAM,
+	SENS_ERR_HAL,
+	SENS_ERR_BAD_CHAN,
+	SENS_ERR_BAD_RETURN
+} eSensorError;
+
 #define SEN_CHANNEL0_ACTIVE 0
 #define SEN_CHANNEL1_ACTIVE 1
 #define SEN_CHANNEL2_ACTIVE 2
@@ -42,16 +50,11 @@ typedef struct SensorCmd {
   * @param  channel Channel to use
   * @retval return value
   */
-void SetSensorChannel(int channel);
+eSensorError SetSensorChannel(int channel);
 void ClearSensorChannel();
 
 void InitSensors();
 
 void DeinitSensors();
-
-/*
- * isr functions
- */
-extern void setSensorType(uint8_t);
 
 #endif /* SENSOR_H_ */

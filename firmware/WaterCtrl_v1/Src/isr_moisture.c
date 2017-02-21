@@ -11,7 +11,6 @@
 #include "stm32f1xx_hal.h"
 
 #include "moistureMeasure.h"
-#include "dht22.h"
 
 uint32_t getFrequencyOfChannel();
 void resetFrequencyOfChannel();

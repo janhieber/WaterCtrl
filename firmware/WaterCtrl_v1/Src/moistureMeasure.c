@@ -103,7 +103,7 @@ int StopTimer(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel);
  * @param  channel Channel to use
  * @retval return value
  */
-int startSensorCapture(int channel);
+eSensorError startSensorCapture(int channel);
 
 /**
  * @brief  Stop timer and set state to inactive.
@@ -111,23 +111,17 @@ int startSensorCapture(int channel);
  */
 int stopSensorCapture();
 
-void moiSetChannel(int);
-
 /* Global data */
 TIM_HandleTypeDef * ptrTimer3Ref;
 uint32_t TimerChannel = TIM_CHANNEL_3;
 
 uint32_t getSensorFrequency(int sensor)
 {
-	uint32_t channel = 0;
-	channel = sensor - 1 ;
-	if ((SEN_CHANNEL0_ACTIVE <= channel) \
-			&&(MOISTURE_MEASURE_CHANNEL_MAX >= channel)) {
-		startSensorCapture(channel);
-		//while(stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
-			osDelay(1000);
-		//}
-			stopSensorCapture();
+	uint32_t channel = sensor - 1 ;
+	if (SENS_ERR_NO == startSensorCapture(channel))
+	{
+		osDelay(1000);
+		stopSensorCapture();
 		return frequency[channel];
 	} else
 		return 0;
@@ -145,24 +139,34 @@ int initMoistureMeasure(TIM_HandleTypeDef * ptr) {
 	return 0;
 }
 
-int startSensorCapture(int channel) {
+eSensorError startSensorCapture(int channel) {
+	eSensorError ret = SENS_ERR_NO;
+
 	GPIO_InitTypeDef GPIO_InitStruct;
 
 	StopTimer(ptrTimer3Ref,TimerChannel);
 
-	activeChannel = channel;
-	// select input
-	moiSetChannel(activeChannel);
+	resetFrequencyOfChannel();
 
-	GPIO_InitStruct.Pin = FREQ_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
+	if (SENS_ERR_NO == (ret = SetSensorChannel(channel)))
+	{
+		activeChannel = channel;
 
-	StartTimer(ptrTimer3Ref,TimerChannel);
+		GPIO_InitStruct.Pin = FREQ_Pin;
+		GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+		HAL_GPIO_Init(FREQ_GPIO_Port, &GPIO_InitStruct);
 
-	stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
-
-	return channel;
+		if (HAL_OK == StartTimer(ptrTimer3Ref,TimerChannel))
+		{
+			stateRegister |= MOISTURE_MEASURE_STATE_ACTIVE;
+		}
+		else
+		{
+			ClearSensorChannel();
+			ret = SENS_ERR_HAL;
+		}
+	}
+	return ret;
 }
 
 int stopSensorCapture() {
@@ -211,18 +215,11 @@ int StopTimer(TIM_HandleTypeDef * ptrTimerRef,uint32_t channel) {
 	return retval;
 }
 
-
-void moiSetChannel(int channel)
-{
-	resetFrequencyOfChannel();
-	SetSensorChannel(channel);
-}
-
 void MoistureTask() {
 
 	if (stateRegister == MOISTURE_MEASURE_STATE_ACTIVE) {
 		// stop measurement after 1 s
-		stopSensorCapture();
+		//stopSensorCapture();
 		//        frequency[activeChannel] = getFrequencyOfChannel();
 		//        activeChannel++;
 		//        if (activeChannel > MOISTURE_MEASURE_CHANNEL_MAX)

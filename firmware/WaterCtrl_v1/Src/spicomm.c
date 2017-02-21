@@ -100,6 +100,14 @@ void procSpiBroker(void const * argument){
 				break;
 			}
 			case SPI_ID_SEN_TYP_REQ:
+				D("sensor type received");
+				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
+				cmd->value1 = recvMsg->d[3]<<8;
+				cmd->value1 += recvMsg->d[4];
+				cmd->cmd = recvMsg->d[0];
+				cmd->sensor = recvMsg->d[1];
+				osMessagePut(sensorQueue,(uint32_t)cmd,0);
+				break;
 			case SPI_ID_SEN_MEA_REQ:  {
 				D("moisture request received");
 				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
