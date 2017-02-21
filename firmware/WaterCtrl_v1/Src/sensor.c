@@ -183,7 +183,7 @@ eSensorError getSensor(stSensorCmd* cmd)
 	int channel = cmd->sensor-1;
 	if ( (SEN_CHANNEL0_ACTIVE <= channel) && (SEN_CHANNEL4_ACTIVE >= channel))
 	{
-		D("get measuring of channel %d (type: %d)",cmd->sensor,sensorConfig[channel]);
+		D("get measuring of channel %d (type: %d)",channel,sensorConfig[channel]);
 		switch(sensorConfig[channel]){
 		case SENS_MOISTURE:
 			cmd->value1 = getSensorFrequency(cmd->sensor)/(int16_t)1000;
@@ -226,11 +226,12 @@ eSensorError getSensor(stSensorCmd* cmd)
 
 eSensorError setSensorType(stSensorCmd* cmd)
 {
+	D("set type %d on sensor %d",cmd->value1,cmd->sensor);
 	eSensorError ret = SENS_ERR_NO;
-	int channel = cmd->value1 -1;
+	int channel = cmd->sensor -1;
 	if ((SEN_CHANNEL0_ACTIVE <= channel) && (SEN_CHANNEL4_ACTIVE >= channel))
 	{
-		if ((SENS_MOISTURE<=cmd->value1) && (SENS_ANALOG_PA3 >= cmd->value1))
+		if ((SENS_MOISTURE <= cmd->value1) && (SENS_ANALOG_PA3 >= cmd->value1))
 			sensorConfig[channel] = cmd->value1;
 		else
 			ret = SENS_ERR_BAD_PARAM;
