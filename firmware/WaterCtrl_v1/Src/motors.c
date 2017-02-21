@@ -241,10 +241,12 @@ void procMotor(void const * argument){
 
 void motTask1s() {
 #if 1
+	if (g_activeState != MOT_STATE_IDLE){
 	D("state : %s",getStateString());
 	D("motor : %d",g_activeMotor);
 	D("counter : %d",(int)g_activeCounter);
 	D("pulse : %d",getPulse());
+	}
 #endif
 #if 0
 	stMotCfg cfg =  {0,0,0,0};

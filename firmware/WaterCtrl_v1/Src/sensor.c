@@ -230,7 +230,7 @@ eSensorError setSensorType(stSensorCmd* cmd)
 	int channel = cmd->value1 -1;
 	if ((SEN_CHANNEL0_ACTIVE <= channel) && (SEN_CHANNEL4_ACTIVE >= channel))
 	{
-		if ((SENS_MOISTURE<=cmd->value1)&&(SENS_ANALOG_PA3 >= cmd->value1))
+		if ((SENS_MOISTURE<=cmd->value1) && (SENS_ANALOG_PA3 >= cmd->value1))
 			sensorConfig[channel] = cmd->value1;
 		else
 			ret = SENS_ERR_BAD_PARAM;

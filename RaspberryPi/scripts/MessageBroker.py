@@ -77,12 +77,8 @@ class app(threading.Thread):
                     logging.error('SPI: received identical data, this may be a SPI error: %s',recvbuf)
                 # only process messages not like SPI_EMPTY
                 elif recvbuf != self.SPI_EMPTY:
-                    # 0x01 and 0x02 are messages for messagebroker, so no forwarding
-                    if recvbuf[0] == 1 or recvbuf[0] == 2:
-                        logging.info("Received message: %s", recvbuf)
-                    else:
-                        logging.info("Received message: %s", recvbuf)
-                        self.recvQueue.put(recvbuf)
+                    logging.info("Received message: %s", recvbuf)
+                    self.recvQueue.put(recvbuf)
 
 
             # check if we should exit

@@ -102,8 +102,8 @@ void procSpiBroker(void const * argument){
 			case SPI_ID_SEN_TYP_REQ:
 				D("sensor type received");
 				stSensorCmd *cmd=(stSensorCmd*)osPoolAlloc(sensorPool);
-				cmd->value1 = recvMsg->d[3]<<8;
-				cmd->value1 += recvMsg->d[4];
+				cmd->value1 = (int16_t)recvMsg->d[2]<<8;
+				cmd->value1 += (int16_t)recvMsg->d[3];
 				cmd->cmd = recvMsg->d[0];
 				cmd->sensor = recvMsg->d[1];
 				osMessagePut(sensorQueue,(uint32_t)cmd,0);
