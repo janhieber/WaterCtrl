@@ -5659,7 +5659,7 @@ Discarded input sections
  .text.ClearSensorSelectPin
                 0x00000000        0x4 Src/sensor.o
  .text.setSensorType
-                0x00000000       0x24 Src/sensor.o
+                0x00000000       0x28 Src/sensor.o
  .debug_macro   0x00000000      0x880 Src/sensor.o
  .debug_macro   0x00000000       0x22 Src/sensor.o
  .debug_macro   0x00000000       0x4c Src/sensor.o
@@ -8369,7 +8369,7 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_abbrev  0x0000582a      0x25c Src/tim.o
  .debug_abbrev  0x00005a86      0x1b9 Src/usart.o
 
-.debug_loc      0x00000000    0x1086b
+.debug_loc      0x00000000    0x10867
  .debug_loc     0x00000000       0x81 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_loc     0x00000081      0xb26 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_loc     0x00000ba7      0x8bf Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8400,14 +8400,14 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_loc     0x0000f441      0x3a7 Src/motors.o
  .debug_loc     0x0000f7e8      0x598 Src/printf.o
  .debug_loc     0x0000fd80      0x1bc Src/relais.o
- .debug_loc     0x0000ff3c      0x353 Src/sensor.o
- .debug_loc     0x0001028f       0x42 Src/spi.o
- .debug_loc     0x000102d1      0x252 Src/spicomm.o
- .debug_loc     0x00010523       0x7a Src/stm32f1xx_hal_timebase_TIM.o
- .debug_loc     0x0001059d       0xf2 Src/stuff.o
- .debug_loc     0x0001068f       0xcd Src/system_stm32f1xx.o
- .debug_loc     0x0001075c       0xcd Src/tim.o
- .debug_loc     0x00010829       0x42 Src/usart.o
+ .debug_loc     0x0000ff3c      0x34f Src/sensor.o
+ .debug_loc     0x0001028b       0x42 Src/spi.o
+ .debug_loc     0x000102cd      0x252 Src/spicomm.o
+ .debug_loc     0x0001051f       0x7a Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_loc     0x00010599       0xf2 Src/stuff.o
+ .debug_loc     0x0001068b       0xcd Src/system_stm32f1xx.o
+ .debug_loc     0x00010758       0xcd Src/tim.o
+ .debug_loc     0x00010825       0x42 Src/usart.o
 
 .debug_aranges  0x00000000     0x13c0
  .debug_aranges
@@ -8497,7 +8497,7 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_aranges
                 0x00001390       0x30 Src/usart.o
 
-.debug_ranges   0x00000000     0x1f10
+.debug_ranges   0x00000000     0x1f08
  .debug_ranges  0x00000000       0xb0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_ranges  0x000000b0       0xd0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_ranges  0x00000180       0xa0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8530,17 +8530,17 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_ranges  0x00001a38       0x78 Src/motors.o
  .debug_ranges  0x00001ab0       0x30 Src/printf.o
  .debug_ranges  0x00001ae0       0x30 Src/relais.o
- .debug_ranges  0x00001b10       0xc0 Src/sensor.o
- .debug_ranges  0x00001bd0       0x50 Src/spi.o
- .debug_ranges  0x00001c20       0xa0 Src/spicomm.o
- .debug_ranges  0x00001cc0       0x20 Src/startup_stm32f103xb.o
- .debug_ranges  0x00001ce0       0x38 Src/stm32f1xx_hal_msp.o
- .debug_ranges  0x00001d18       0x48 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_ranges  0x00001d60       0x68 Src/stm32f1xx_it.o
- .debug_ranges  0x00001dc8       0x28 Src/stuff.o
- .debug_ranges  0x00001df0       0x18 Src/system_stm32f1xx.o
- .debug_ranges  0x00001e08       0xc0 Src/tim.o
- .debug_ranges  0x00001ec8       0x48 Src/usart.o
+ .debug_ranges  0x00001b10       0xb8 Src/sensor.o
+ .debug_ranges  0x00001bc8       0x50 Src/spi.o
+ .debug_ranges  0x00001c18       0xa0 Src/spicomm.o
+ .debug_ranges  0x00001cb8       0x20 Src/startup_stm32f103xb.o
+ .debug_ranges  0x00001cd8       0x38 Src/stm32f1xx_hal_msp.o
+ .debug_ranges  0x00001d10       0x48 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_ranges  0x00001d58       0x68 Src/stm32f1xx_it.o
+ .debug_ranges  0x00001dc0       0x28 Src/stuff.o
+ .debug_ranges  0x00001de8       0x18 Src/system_stm32f1xx.o
+ .debug_ranges  0x00001e00       0xc0 Src/tim.o
+ .debug_ranges  0x00001ec0       0x48 Src/usart.o
 
 .debug_macro    0x00000000    0x20aad
  .debug_macro   0x00000000      0x320 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
@@ -8677,7 +8677,7 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_macro   0x0002048d      0x310 Src/tim.o
  .debug_macro   0x0002079d      0x310 Src/usart.o
 
-.debug_line     0x00000000    0x1cd24
+.debug_line     0x00000000    0x1cd20
  .debug_line    0x00000000      0x9c0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
  .debug_line    0x000009c0      0xf14 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
  .debug_line    0x000018d4      0xd7a Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
@@ -8710,17 +8710,17 @@ OUTPUT(WaterCtrl_v1.elf elf32-littlearm)
  .debug_line    0x000152f2      0xbd0 Src/motors.o
  .debug_line    0x00015ec2      0x219 Src/printf.o
  .debug_line    0x000160db      0x8f0 Src/relais.o
- .debug_line    0x000169cb      0xc0a Src/sensor.o
- .debug_line    0x000175d5      0x8c5 Src/spi.o
- .debug_line    0x00017e9a      0xc0e Src/spicomm.o
- .debug_line    0x00018aa8       0x78 Src/startup_stm32f103xb.o
- .debug_line    0x00018b20      0x85b Src/stm32f1xx_hal_msp.o
- .debug_line    0x0001937b      0x8a2 Src/stm32f1xx_hal_timebase_TIM.o
- .debug_line    0x00019c1d      0xb4c Src/stm32f1xx_it.o
- .debug_line    0x0001a769      0xada Src/stuff.o
- .debug_line    0x0001b243      0x899 Src/system_stm32f1xx.o
- .debug_line    0x0001badc      0x98c Src/tim.o
- .debug_line    0x0001c468      0x8bc Src/usart.o
+ .debug_line    0x000169cb      0xc06 Src/sensor.o
+ .debug_line    0x000175d1      0x8c5 Src/spi.o
+ .debug_line    0x00017e96      0xc0e Src/spicomm.o
+ .debug_line    0x00018aa4       0x78 Src/startup_stm32f103xb.o
+ .debug_line    0x00018b1c      0x85b Src/stm32f1xx_hal_msp.o
+ .debug_line    0x00019377      0x8a2 Src/stm32f1xx_hal_timebase_TIM.o
+ .debug_line    0x00019c19      0xb4c Src/stm32f1xx_it.o
+ .debug_line    0x0001a765      0xada Src/stuff.o
+ .debug_line    0x0001b23f      0x899 Src/system_stm32f1xx.o
+ .debug_line    0x0001bad8      0x98c Src/tim.o
+ .debug_line    0x0001c464      0x8bc Src/usart.o
 
 .debug_str      0x00000000    0x9d5e1
  .debug_str     0x00000000    0x90e82 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
