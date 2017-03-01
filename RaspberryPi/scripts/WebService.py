@@ -6,6 +6,7 @@ import time
 
 from flask.views import MethodView
 from flask import request
+from flask_restplus import Api, Resource, fields, reqparse
 
 """
 This is the web service class that runs a REST. The REST can be used to direct
@@ -13,6 +14,9 @@ control the mainboards functions on STM32 over SPI.
 """
 
 """ global vars """
+gApi = Api(version='0.1',description='REST to SPI interface')
+gServerApplicaton = WebService.app()
+
 class RelaisView(MethodView):
     methods = ["GET","PUT","DELETE"]
 
@@ -53,33 +57,55 @@ class MotorsView(MethodView):
         self._app.stopMotor()
         return str('stopped motor %d' % id)
 
-class SensorsView(MethodView):
-    methods = ["GET","PUT","DELETE"]
 
-    def __init__(self,app):
-        self._app = app
+@gApi.doc(response={'404':'bad channel number'})
+class SensorsView(Resource):
+    global gApi
+    global gServegServerApplicaton.getSensor(id)
+    """
+    Sensor class.
+
+    ** GET ** to read the sensor state
+    ** DELETE **
+    """
+    #methods = ["GET","PUT"]
+    def __init__(self,api=None,*args,**kwargs):
+        super().__init__(api,args,kwargs)
+        logging.info('init got args: %s , kwargs: %s '%(args,kwargs))
+        self._app = kwargs['app']
+        logging.info('sensor resource created')
 
     def get(self,id):
-        logging.info(id)
+        """
+        Read a sensor.
+        ** GET ** to read the sensors value.
+        :param int id: number of channel
+        returns: str
+        """
         logging.debug('get sensor: %d'%id)
-
-        buffer = self._app.getSensor(id)
+        #buffer = self._app.getSensor(id)
+        gServerApplicaton.getSensor(id)
         return str('return from get id=%d: %s' % (id, buffer) )
 
-    def put(self,id):
-        type = request.args.get('type')
+    def put(self,id,type=None):
+        """
+        Change a sensor type.
+
+        ** PUT ** to change the sensors type. Give type in url or as query_string.
+
+        :param int id: number of channel
+        :param int type: enum value {moisture,dht22_hum,dht22_temp,analog_pa2,analog_pa3}
+        :returns: str
+        """
         if (type != None):
             logging.info('set type: %s on id: %d'%(type,id))
             self._app.setSensorType(id, int(type))
         else:
-            logging.error('bad query')
-            return str('bad query'),404
+            type = request.args.get('type')
+            if (type == None):
+                logging.error('bad query')
+                return str('bad query'),404
         return str('ok'),200
-
-    def delete(self,id):
-        logging.info("del function, id= %d",id)
-        self._app.stopMotor()
-        return str('stopped motor %d' % id)
 
 class app(threading.Thread):
     SPI_SET_RELAIS = [0x16, 0x00, 0x01, 0x00, 0x00, 0x00]
@@ -88,18 +114,23 @@ class app(threading.Thread):
     SPI_SET_SENS_TYPE = [20, 0, 0, 0, 0, 0]
     SPI_GET_SENS = [18, 0, 0, 0, 0, 0]
 
-
     def __init__(self,server,sendQueue,recvQueue):
+        global gApi
         threading.Thread.__init__(self)
         self.exit = False
         self._sendQueue = sendQueue
         self._recvQueue = recvQueue
         self._relais = RelaisView(self)
         self._motor = MotorsView(self)
-        self._sensor = SensorsView(self)
-        server.add_url_rule('/relais/<int:id>',view_func=self._relais.as_view('relais',self))
-        server.add_url_rule('/motor/<int:id>',view_func=self._motor.as_view('motor',self))
-        server.add_url_rule('/sensor/<int:id>',view_func=self._sensor.as_view('sensor',self))
+        #self._sensor = SensorsView(self)
+        self._api = gApi
+        self._api.add_resource(SensorsView,'/sensor/<int:id>',resource_class_kwargs={'app':self,},methods=['GET'])
+        self._api.add_resource(SensorsView,'/sensor/<int:id>/<int:type>',resource_class_kwargs={'app':self,},methods=['PUT'])
+
+        self._api.init_app(server)
+        #server.add_url_rule('/relais/<int:id>',view_func=self._relais.as_view('relais',self))
+        #server.add_url_rule('/motor/<int:id>',view_func=self._motor.as_view('motor',self))
+        #server.add_url_rule('/sensor/<int:id>',view_func=self._sensor.as_view('sensor',self))
 
     def run(self):
         logging.info("starting the web server on port 5372")
@@ -158,18 +189,19 @@ class app(threading.Thread):
         return ('ret setSensorType: %s ' % self.waitForResponse())
 
     def waitForResponse(self):
-        retry = 5
+        retry = 1
         while(True):
             try:
-                buffer = self._recvQueue.get(block=True, timeout=30)
+                buffer = self._recvQueue.get(block=True, timeout=1)
                 break
             except queue.Empty:
-                logging.warn('Queue Empty')
-                retry = retry -1
+                logging.warn('Queue Empty, retry = %d' % retry)
                 time.sleep(0.1)
                 if self.exit or retry == 0:
                     buffer = []
                     break
+                else:
+                    retry = retry -1
                 pass
             else:
                 raise

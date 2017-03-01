@@ -1,0 +1,16 @@
+{
+	"relais": [
+		{
+			"channel": 1,
+			"on_time": "07:00:00+00",
+      "off_time" : "21:00:00+00",
+      "name" : "Heizdecke"
+		},
+		{
+			"channel": 2,
+			"on_time": "08:00:00+00",
+      "off_time": "20:00:00+00",
+      "name": "LED"
+		}
+	]
+}
