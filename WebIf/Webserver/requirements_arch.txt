@@ -11,6 +11,7 @@ mimerender==0.5.4
 python-dateutil==2.1
 python-mimeparse==0.1.4
 requests==1.2.3
-psycopg2==2.6.1
 transitions==0.4.3
 spidev==3.2
+psycopg2==2.7.3.2
+flask-restplus==0.10.0

@@ -14,14 +14,27 @@ control the mainboards functions on STM32 over SPI.
 """
 
 """ global vars """
-gApi = Api(version='0.1',description='REST to SPI interface')
-gServerApplicaton = WebService.app()
+gApi = Api(version='0.1',title='REST 2 SPI',description='REST to SPI interface')
+#gServerApplicaton = self._app
 
-class RelaisView(MethodView):
-    methods = ["GET","PUT","DELETE"]
+class WebServiceResource(Resource):
 
-    def __init__(self,app):
-        self._app = app
+        def __init__(self,api=None,*args,**kwargs):
+            super().__init__(api,args,kwargs)
+            logging.info('init got args: %s , kwargs: %s '%(args,kwargs))
+            self._app = kwargs['app']
+            logging.info('resource created')
+
+
+@gApi.doc(repsonse={'404':'bad channel number'})
+class RelaisView(WebServiceResource):
+    #methods = ["GET","PUT","DELETE"]
+    """
+    Relais class.
+
+    ** GET ** to set the relais
+    ** DELETE ** to clear the relais
+    """
 
     def get(self,id):
         logging.info(id)
@@ -33,11 +46,15 @@ class RelaisView(MethodView):
         self._app.clearRelais(id)
         return str('cleared realis %d' % id)
 
-class MotorsView(MethodView):
-    methods = ["GET","PUT","DELETE"]
+@gApi.doc(repsonse={'404':'bad channel number'})
+class MotorsView(WebServiceResource):
+    #methods = ["GET","PUT","DELETE"]
+    """
+    Sensor class.
 
-    def __init__(self,app):
-        self._app = app
+    ** GET ** to start the motor state
+    ** DELETE ** to stop the motor
+    """
 
     def get(self,id):
         logging.info(id)
@@ -60,20 +77,18 @@ class MotorsView(MethodView):
 
 @gApi.doc(response={'404':'bad channel number'})
 class SensorsView(Resource):
-    global gApi
-    global gServegServerApplicaton.getSensor(id)
     """
     Sensor class.
 
     ** GET ** to read the sensor state
-    ** DELETE **
+    ** PUT ** change the sensor type
     """
     #methods = ["GET","PUT"]
-    def __init__(self,api=None,*args,**kwargs):
-        super().__init__(api,args,kwargs)
-        logging.info('init got args: %s , kwargs: %s '%(args,kwargs))
-        self._app = kwargs['app']
-        logging.info('sensor resource created')
+#    def __init__(self,api=None,*args,**kwargs):#
+#        super().__init__(api,args,kwargs)
+#        logging.info('init got args: %s , kwargs: %s '%(args,kwargs))
+#        self._app = kwargs['app']
+#        logging.info('sensor resource created')
 
     def get(self,id):
         """
@@ -83,8 +98,8 @@ class SensorsView(Resource):
         returns: str
         """
         logging.debug('get sensor: %d'%id)
-        #buffer = self._app.getSensor(id)
-        gServerApplicaton.getSensor(id)
+        buffer = self._app.getSensor(id)
+        #ServerApplicaton.getSensor(id)
         return str('return from get id=%d: %s' % (id, buffer) )
 
     def put(self,id,type=None):
@@ -120,17 +135,13 @@ class app(threading.Thread):
         self.exit = False
         self._sendQueue = sendQueue
         self._recvQueue = recvQueue
-        self._relais = RelaisView(self)
-        self._motor = MotorsView(self)
-        #self._sensor = SensorsView(self)
+
         self._api = gApi
         self._api.add_resource(SensorsView,'/sensor/<int:id>',resource_class_kwargs={'app':self,},methods=['GET'])
         self._api.add_resource(SensorsView,'/sensor/<int:id>/<int:type>',resource_class_kwargs={'app':self,},methods=['PUT'])
-
+        self._api.add_resource(RelaisView,'/relais/<int:id>',resource_class_kwargs={'app':self,},methods=['GET','DELETE'])
+        self._api.add_resource(MotorsView,'/motor/<int:id>',resource_class_kwargs={'app':self,},methods=['GET','DELETE'])
         self._api.init_app(server)
-        #server.add_url_rule('/relais/<int:id>',view_func=self._relais.as_view('relais',self))
-        #server.add_url_rule('/motor/<int:id>',view_func=self._motor.as_view('motor',self))
-        #server.add_url_rule('/sensor/<int:id>',view_func=self._sensor.as_view('sensor',self))
 
     def run(self):
         logging.info("starting the web server on port 5372")
