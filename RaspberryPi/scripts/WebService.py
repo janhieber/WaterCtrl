@@ -19,11 +19,11 @@ gApi = Api(version='0.1',title='REST 2 SPI',description='REST to SPI interface')
 
 class WebServiceResource(Resource):
 
-        def __init__(self,api=None,*args,**kwargs):
-            super().__init__(api,args,kwargs)
-            logging.info('init got args: %s , kwargs: %s '%(args,kwargs))
-            self._app = kwargs['app']
-            logging.info('resource created')
+    def __init__(self,api=None,*args,**kwargs):
+        super().__init__(api,args,kwargs)
+        logging.info('init got args: %s , kwargs: %s '%(args,kwargs))
+        self._app = kwargs['app']
+        logging.info('resource created')
 
 
 @gApi.doc(repsonse={'404':'bad channel number'})
