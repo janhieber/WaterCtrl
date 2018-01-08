@@ -22,7 +22,7 @@ from flask import Flask, request
 
 """ global vars """
 config = None
-_hwSensors = []
+hwSensors = []
 
 server = Flask(__name__)
 
@@ -30,7 +30,7 @@ server = Flask(__name__)
     Setup everything
 """
 def setup():
-    global _hwSensors
+    global hwSensors
     # read config
     print ('setup() entered')
     os.path.dirname(os.path.abspath(__file__))
@@ -47,17 +47,20 @@ def setup():
 
     # setup connected sensors
     if config.has_section("BME280"):
-        _hwSensors.append(SensorI2CBME280.Sensori2CBME280(
+        hwSensors.append(SensorI2CBME280.Sensori2CBME280(
             adress = int(config.get('BME280','adress',raw=True),16),
-            bus = config.getint('BME280', 'port'))
-        )
+            bus = config.getint('BME280', 'port')) )
+        logging.info('BME280 created')
 
-    apiSensor = APISensor.APISensor(server,_hwSensors)
+    apiSensor = APISensor.APISensor(server,hwSensors)
 
     # setup signal traps
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGUSR1, signal_handler)
     signal.signal(signal.SIGUSR2, signal_handler)
+
+    for sensor in hwSensors:
+        sensor.start()
     logging.critical('everything set up')
 
 """
@@ -66,24 +69,20 @@ def setup():
 @server.before_first_request
 def main():
     logging.info('main function')
-    for sensor in _hwSensors:
-        sensor.start()
+
 
 """
     Exit handler.
     Tries to shutdown the app graceful.
 """
 def gracefulExit():
+    global hwSensors
+    global server
     logging.critical('exit graceful')
-    for sensor in _hwSensors:
-        sensor.join()
-        sensor.exit = True
+    for sensor in hwSensors:
+        sensor.exit()
 
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()
-
+    server.shutdown()
 
 """
     Signal handler.
@@ -106,4 +105,7 @@ if __name__ == '__main__':
     logging.debug('running main')
     server.run(host="0.0.0.0",port=5373,debug=True,)
     logging.info('exit')
+    for sensor in hwSensors:
+        sensor.join(timeout=1000)
+    logging.warning('leave program')
     exit(0)
